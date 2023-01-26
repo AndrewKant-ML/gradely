@@ -1,0 +1,23 @@
+.header {
+    -fx-background-color: #2d7c5f;
+}
+
+.app-name {
+    -fx-text-fill: white;
+    -fx-font-family: Cantarell;
+    -fx-font-size: 24px;
+}
+
+.account-button {
+    -fx-max-height: 24px;
+    -fx-max-width: 24px;
+    -fx-min-height: 24px;
+    -fx-min-width: 24px;
+    -fx-background-color: transparent;
+    -fx-border-color: white;
+}
+
+.account-button:hover {
+    -fx-background-color: white;
+    -fx-cursor: hand;
+}

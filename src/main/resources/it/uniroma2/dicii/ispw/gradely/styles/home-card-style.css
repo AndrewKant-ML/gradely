@@ -1,0 +1,30 @@
+.card {
+    -fx-border-radius: 5px;
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+}
+
+.card-text {
+    -fx-font-family: Cantarell;
+}
+
+.card-title {
+    -fx-font-size: 15;
+}
+
+.card-description {
+    -fx-font-size: 10;
+    -fx-wrap-text: true;
+}
+
+.card-button {
+    -fx-background-color: #2d7c5f;
+    -fx-max-height: 30px;
+    -fx-max-width: 30px;
+    -fx-min-height: 30px;
+    -fx-min-width: 30px;
+}
+
+.card-button:hover {
+    -fx-cursor: hand;
+}
