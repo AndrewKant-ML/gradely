@@ -17,6 +17,13 @@ public class SubjectCourse extends AbstractSubjectCourse{
     private List <Exam> exams;
     private List <SubjectCourseEnrollment> enrollments;
 
+    public SubjectCourse(SubjectCourseCodeEnum code, String name, Year academicYear, Integer cfu) {
+        this.name = name;
+        this.academicYear = academicYear;
+        this.cfu = cfu;
+        this.setCode(code);
+    }
+
     public SubjectCourse(SubjectCourseCodeEnum code, String name, Year academicYear, Integer cfu, List<AbstractSubjectCourse> prerequisites, List<DegreeCourse> degreeCourses, List<CourseAssignment> courseAssignments) {
         this.name = name;
         this.academicYear = academicYear;

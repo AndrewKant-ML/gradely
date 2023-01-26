@@ -9,6 +9,8 @@ import java.util.List;
 public class Professor extends AbstractRole {
     private String ID;
     private LocalDate registrationDate;
+
+
     private DipartimentoEnum dipartimento;
     private List<CourseAssignment> courseAssignments;
     private DegreeCourse coordinatedCourses;

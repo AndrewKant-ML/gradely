@@ -1,11 +1,9 @@
 package it.uniroma2.dicii.ispw.gradely.session_manager;
 
-import it.uniroma2.dicii.ispw.gradely.model.PendingEvent;
 import it.uniroma2.dicii.ispw.gradely.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class SessionManager {
     private static SessionManager instance;
@@ -14,10 +12,10 @@ public class SessionManager {
         activeSessions = new ArrayList<Session>();
     }
     public static SessionManager getInstance(){
-        if (instance!=null){
-            return instance;
+        if (instance == null) {
+            instance = new SessionManager();
         }
-        else return new SessionManager();
+        return instance;
     }
     public Session getSession(User user){
         List<Session> list = new ArrayList<Session>();
@@ -39,9 +37,14 @@ public class SessionManager {
         return null;
     }
 
-    public Token getNewSession(User user){
-        Session s = new Session(user);
-        activeSessions.add(s);
+    public Token getLazySessionToken(User user){
+        Session s = getSession(user);
+        if (s == null) {
+            s = new Session(user);
+            activeSessions.add(s);
+        }
         return s.getToken();
     }
+
+
 }
