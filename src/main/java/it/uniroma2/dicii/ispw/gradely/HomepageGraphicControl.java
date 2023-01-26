@@ -8,7 +8,7 @@ import javafx.stage.Window;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class HomepageGraphicControl extends AbstractGraphicControl implements Initializable {
+public class HomepageGraphicControl implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -16,26 +16,26 @@ public class HomepageGraphicControl extends AbstractGraphicControl implements In
     }
 
     public void openTaxesPage() {
-        parentControl.switchTo("taxes-view");
+        PageNavigationController.navigateTo("taxes-view");
     }
 
     public void openCoursesPage() {
-        parentControl.switchTo("course-view");
+        PageNavigationController.navigateTo("courses-view");
     }
 
     public void openExamsPage() {
-        parentControl.switchTo("exams-view");
+        PageNavigationController.navigateTo("exams-view");
     }
 
     public void openCareerPage() {
-        parentControl.switchTo("career-view");
+        PageNavigationController.navigateTo("degree-course-enrollment-view");
     }
 
     public void openServicesPage() {
-        parentControl.switchTo("services-view");
+        PageNavigationController.navigateTo("services-view");
     }
 
     public void openPersonalDataPage() {
-        parentControl.switchTo("data-view");
+        PageNavigationController.navigateTo("data-view");
     }
 }

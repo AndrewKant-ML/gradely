@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="it.uniroma2.dicii.ispw.gradely.enroll_to_degree_course.EnrollToDegreeCourseGraphicControl"
-            prefHeight="400.0" prefWidth="600.0">
+            fx:controller="it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.EnrollToDegreeCourseGraphicControl"
+            prefWidth="650" prefHeight="430" stylesheets="@styles/list-styles.css, @styles/default.css"
+            styleClass="background">
 
-    <ListView fx:id="degreeCoursesList"/>
+    <ListView fx:id="degreeCoursesList" styleClass="degree-courses-list" AnchorPane.topAnchor="23" AnchorPane.leftAnchor="35" AnchorPane.rightAnchor="35">
+    </ListView>
 
 </AnchorPane>

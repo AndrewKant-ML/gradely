@@ -3,16 +3,17 @@ package it.uniroma2.dicii.ispw.gradely;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class MainApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("base-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 720, 512);
+        Scene scene = new Scene(loadBasePane(), 720, 512);
         stage.setTitle("Gradely");
         stage.setScene(scene);
         stage.setResizable(false);
@@ -23,7 +24,18 @@ public class MainApplication extends Application {
         launch();
     }
 
-    public static void loadFxml(String viewName) {
-        FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource(viewName));
+    private Pane loadBasePane() {
+        FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(MainApplication.class.getResource("base-view.fxml")));
+
+        try {
+            Pane basePane = loader.load();
+
+            PageNavigationController.setBaseGraphicController(loader.getController());
+            PageNavigationController.navigateTo("homepage");
+
+            return basePane;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -12,4 +12,5 @@ public class MainGraphicControl {
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
+
 }
