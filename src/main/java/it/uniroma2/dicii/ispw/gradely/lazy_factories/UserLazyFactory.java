@@ -15,13 +15,13 @@ public class UserLazyFactory {
     }
 
     public static UserLazyFactory getInstance(){
-        if (instance!=null){
-            return instance;
+        if (instance == null) {
+            instance = new UserLazyFactory();
         }
-        else return new UserLazyFactory();
+        return instance;
     }
 
-    public User getUser(String email) {
+    public User getUserByEmail(String email) {
         for(User u : registeredUsers){
             if(u.getEmail().equals(email)) {
                 return u; //TODO implementare exception
@@ -30,7 +30,4 @@ public class UserLazyFactory {
         return UserDAO.getInstance().getUser(email); //TODO implementare exception
     }
 
-    public void addRegisteredUser(User user) {
-        this.registeredUsers.add(user);
-    }
 }

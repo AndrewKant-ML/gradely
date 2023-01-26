@@ -1,5 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.daos;
 
+import it.uniroma2.dicii.ispw.gradely.lazy_factories.UserLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.User;
 
 import java.util.ArrayList;
@@ -7,20 +8,18 @@ import java.util.List;
 
 public class UserDAO {
     private static UserDAO instance;
-    private User user;
     private List<User> registeredUsers;
 
-    private UserDAO(){
-        user = new User("mario","rossi","RSSMRI01A02H501Y","m.rossi@uniroma2.it","PWD.difficilissim4");
+    private UserDAO(){ //TODO implementare costruttore vero
         registeredUsers = new ArrayList<User>();
-        registeredUsers.add(user);
+        registeredUsers.add(new User("mario","rossi","RSSMRI01A02H501Y","m.rossi@uniroma2.it","PWD.difficilissim4"));
     }
 
     public static UserDAO getInstance(){
-        if (instance!=null){
-            return instance;
+        if (instance == null) {
+            instance = new UserDAO();
         }
-        else return new UserDAO();
+        return instance;
     }
 
     public User getUser(String email) {
@@ -32,12 +31,5 @@ public class UserDAO {
         return null; //TODO implementare exceptions
     }
 
-    public void setRegisteredUsers(List<User> registeredUsers) {
-        this.registeredUsers = registeredUsers;
-    }
-
-    public void addRegisteredUser(User user) {
-        this.registeredUsers.add(user);
-    }
 
 }

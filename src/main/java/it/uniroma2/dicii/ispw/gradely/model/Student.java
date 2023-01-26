@@ -11,7 +11,7 @@ import java.util.List;
 public class Student extends AbstractRole {
     private String ID;
     private LocalDate registrationDate;
-    private List<TitleEnum> titoli;
+    private List<TitleEnum> titles;
 
     private List<DegreeCourseEnrollment> degreeCourseEnrollments;
     private List<SubjectCourseEnrollment> subjectCourseEnrollments;
@@ -21,7 +21,7 @@ public class Student extends AbstractRole {
         setUser(user);
         this.ID = ID;
         this.registrationDate = registrationDate;
-        this.titoli = titoli;
+        this.titles = titoli;
     }
 
     @Override
