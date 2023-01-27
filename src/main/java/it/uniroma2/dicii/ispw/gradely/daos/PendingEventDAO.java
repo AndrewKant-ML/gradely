@@ -28,7 +28,7 @@ public class PendingEventDAO {
 
     public PendingEvent getPendingEventById(UUID id) {
         for(PendingEvent p : pendingEvents){
-            if(p.getID().equals(id)) {
+            if(p.getId().equals(id)) {
                 return p; //TODO implementare exception
             }
         }

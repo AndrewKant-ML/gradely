@@ -39,8 +39,8 @@ public class CourseAssignmentLazyFactory {
                 lazyList.add(c); //TODO implementare exceptions
             }
         }
-        List<CourseAssignment> DAOList = CourseAssignmentDAO.getInstance().getCourseAssignmentsByProfessor(professor); //TODO implementare exception
-        for(CourseAssignment c : DAOList){
+        List<CourseAssignment> daoList = CourseAssignmentDAO.getInstance().getCourseAssignmentsByProfessor(professor); //TODO implementare exception
+        for(CourseAssignment c : daoList){
             if(!lazyList.contains(c)) {
                 lazyList.add(c); //TODO implementare exceptions
             }

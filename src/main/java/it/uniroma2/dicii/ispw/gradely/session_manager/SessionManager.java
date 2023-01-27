@@ -18,7 +18,6 @@ public class SessionManager {
         return instance;
     }
     public Session getSession(User user){
-        List<Session> list = new ArrayList<Session>();
         for(Session s : activeSessions){
             if(s.getUser().equals(user)) {
                 return s;
@@ -28,7 +27,6 @@ public class SessionManager {
     }
 
     public Session getSession(Token token){
-        List<Session> list = new ArrayList<Session>();
         for(Session s : activeSessions){
             if(s.getToken().equals(token)) {
                 return s;

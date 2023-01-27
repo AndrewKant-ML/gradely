@@ -10,10 +10,10 @@ import java.util.List;
 public class EnrollToDegreeCourseControl {
 
 
-    public List<DegreeCourseBean> getDegreeCourses(Student student) {
+   /* public List<DegreeCourseBean> getDegreeCourses(Student student) {
         List<DegreeCourse> degreeCourses;
         DegreeCourseLazyFactory lazyFactory = DegreeCourseLazyFactory.getInstance();
 
         return null;
-    }
+    }*/
 }

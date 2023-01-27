@@ -42,7 +42,7 @@ public class Session {
 
     public Boolean checkUUID(UUID id){
         for(PendingEvent event : pendingEvents){
-            if(id.equals(event.getID())){
+            if(id.equals(event.getId())){
                 return true;
             }
         }

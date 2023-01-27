@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 public class MainGraphicControl {
-    //{
     @FXML
     private Label welcomeText;
 

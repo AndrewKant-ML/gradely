@@ -9,10 +9,10 @@ import java.util.List;
 
 public class CCDLazyFactory {
     private static CCDLazyFactory instance;
-    private List<CCD> CCDs;
+    private List<CCD> ccds;
 
     private CCDLazyFactory(){
-        CCDs = new ArrayList<CCD>();
+        ccds = new ArrayList<CCD>();
     }
 
     public static CCDLazyFactory getInstance(){
@@ -23,7 +23,7 @@ public class CCDLazyFactory {
     }
 
     public CCD getCCDByUser(User user) {
-        for(CCD c : CCDs){
+        for(CCD c : ccds){
             if(c.getUser().equals(user)) {
                 return c; //TODO implementare exception
             }

@@ -30,8 +30,8 @@ public class ExamEnrollmentLazyFactory {
                 lazyList.add(e); //TODO implementare exception
             }
         }
-        List<ExamEnrollment> DAOList = ExamEnrollmentDAO.getInstance().getExamEnrollmentsByExam(exam); //TODO implementare exception
-        for(ExamEnrollment e : DAOList){
+        List<ExamEnrollment> daoList = ExamEnrollmentDAO.getInstance().getExamEnrollmentsByExam(exam); //TODO implementare exception
+        for(ExamEnrollment e : daoList){
             if(!lazyList.contains(e)) {
                 lazyList.add(e); //TODO implementare exceptions
             }
@@ -46,8 +46,8 @@ public class ExamEnrollmentLazyFactory {
                 lazyList.add(e); //TODO implementare exception
             }
         }
-        List<ExamEnrollment> DAOList = ExamEnrollmentDAO.getInstance().getExamEnrollmentsByStudent(student); //TODO implementare exception
-        for(ExamEnrollment e : DAOList){
+        List<ExamEnrollment> daoList = ExamEnrollmentDAO.getInstance().getExamEnrollmentsByStudent(student); //TODO implementare exception
+        for(ExamEnrollment e : daoList){
             if(!lazyList.contains(e)) {
                 lazyList.add(e); //TODO implementare exceptions
             }
