@@ -1,5 +1,8 @@
 package it.uniroma2.dicii.ispw.gradely.model;
 
+import it.uniroma2.dicii.ispw.gradely.enums.AppelloEnum;
+import it.uniroma2.dicii.ispw.gradely.enums.RoomEnum;
+import it.uniroma2.dicii.ispw.gradely.enums.SessionEnum;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.ExamEnrollment;
 
 import java.time.LocalDate;
@@ -9,26 +12,25 @@ public class Exam {
     private LocalDate enrollmentStartDate;
     private LocalDate enrollmentEndDate;
     private LocalDate examinationDate;
-    private String room; //TODO: enum
-    private Integer appello;
-    private String sessione; //TODO: enum
+    private RoomEnum room;
+    private AppelloEnum appello;
+    private SessionEnum session;
     private SubjectCourse course;
-
+    private Boolean verbalizable;
     private LocalDate verbaleDate;
     private Integer verbaleNumber;
     private List<ExamEnrollment> enrollments;
 
     public Exam(){
-
     }
 
-    public Exam(LocalDate enrollmentStartDate, LocalDate enrollmentEndDate, LocalDate examinationDate, String room, Integer appello, String sessione, SubjectCourse course) {
+    public Exam(LocalDate enrollmentStartDate, LocalDate enrollmentEndDate, LocalDate examinationDate, RoomEnum room, AppelloEnum appello, SessionEnum session, SubjectCourse course) {
         this.enrollmentStartDate = enrollmentStartDate;
         this.enrollmentEndDate = enrollmentEndDate;
         this.examinationDate = examinationDate;
         this.room = room;
         this.appello = appello;
-        this.sessione = sessione;
+        this.session = session;
         this.course = course;
     }
 
@@ -56,28 +58,28 @@ public class Exam {
         this.examinationDate = examinationDate;
     }
 
-    public String getRoom() {
+    public RoomEnum getRoom() {
         return room;
     }
 
-    public void setRoom(String room) {
+    public void setRoom(RoomEnum room) {
         this.room = room;
     }
 
-    public Integer getAppello() {
+    public AppelloEnum getAppello() {
         return appello;
     }
 
-    public void setAppello(Integer appello) {
+    public void setAppello(AppelloEnum appello) {
         this.appello = appello;
     }
 
-    public String getSessione() {
-        return sessione;
+    public SessionEnum getSession() {
+        return session;
     }
 
-    public void setSessione(String sessione) {
-        this.sessione = sessione;
+    public void setSession(SessionEnum session) {
+        this.session = session;
     }
 
     public SubjectCourse getCourse() {
@@ -86,6 +88,14 @@ public class Exam {
 
     public void setCourse(SubjectCourse course) {
         this.course = course;
+    }
+
+    public Boolean getVerbalizable() {
+        return verbalizable;
+    }
+
+    public void setVerbalizable(Boolean verbalizable) {
+        this.verbalizable = verbalizable;
     }
 
     public LocalDate getVerbaleDate() {

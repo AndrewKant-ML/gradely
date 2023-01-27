@@ -9,7 +9,7 @@ import java.util.UUID;
 public class Session {
     private User user;
     private Token token;
-    private List<PendingEvent> pendingEvents;
+
 
     public Session(User user) {
         this.user = user;
@@ -32,20 +32,4 @@ public class Session {
         this.token = token;
     }
 
-    public List<PendingEvent> getPendingEvents() {
-        return pendingEvents;
-    }
-
-    public void setPendingEvents(List<PendingEvent> pendingEvents) {
-        this.pendingEvents = pendingEvents;
-    }
-
-    public Boolean checkUUID(UUID id){
-        for(PendingEvent event : pendingEvents){
-            if(id.equals(event.getId())){
-                return true;
-            }
-        }
-        return false;
-    }
 }

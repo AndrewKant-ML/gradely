@@ -1,6 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.daos;
 
 import it.uniroma2.dicii.ispw.gradely.model.Exam;
+import it.uniroma2.dicii.ispw.gradely.model.Professor;
 import it.uniroma2.dicii.ispw.gradely.model.SubjectCourse;
 
 import java.util.ArrayList;
@@ -30,4 +31,5 @@ public class ExamDAO {
         }
         return null; //TODO implementare exceptions
     }
+
 }

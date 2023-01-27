@@ -47,4 +47,19 @@ public class CourseAssignmentLazyFactory {
         }
         return lazyList;
     }
+    public List<SubjectCourse> getAssignedSubjectCoursesByProfessor(Professor professor) {
+        List<SubjectCourse> lazyList = new ArrayList<>();
+        for(CourseAssignment c : courseAssignments){
+            if(c.getProfessor().equals(professor)) {
+                lazyList.add(c.getSubjectCourse()); //TODO implementare exceptions
+            }
+        }
+        List<CourseAssignment> daoList = CourseAssignmentDAO.getInstance().getCourseAssignmentsByProfessor(professor); //TODO implementare exception
+        for(CourseAssignment c : daoList){
+            if(!lazyList.contains(c.getSubjectCourse())) {
+                lazyList.add(c.getSubjectCourse()); //TODO implementare exceptions
+            }
+        }
+        return lazyList;
+    }
 }
