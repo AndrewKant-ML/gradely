@@ -1,15 +1,10 @@
 package it.uniroma2.dicii.ispw.gradely.daos;
 
-import it.uniroma2.dicii.ispw.gradely.lazy_factories.UserLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.Exam;
-import it.uniroma2.dicii.ispw.gradely.model.PendingEvent;
 import it.uniroma2.dicii.ispw.gradely.model.SubjectCourse;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-
-import static it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum.E4;
 
 public class ExamDAO {
     private static ExamDAO instance;

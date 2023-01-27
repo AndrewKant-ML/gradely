@@ -4,7 +4,10 @@ import it.uniroma2.dicii.ispw.gradely.model.Professor;
 import it.uniroma2.dicii.ispw.gradely.model.SubjectCourse;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.CourseAssignment;
 
+<<<<<<< HEAD
 import java.time.Year;
+=======
+>>>>>>> main
 import java.util.ArrayList;
 import java.util.List;
 

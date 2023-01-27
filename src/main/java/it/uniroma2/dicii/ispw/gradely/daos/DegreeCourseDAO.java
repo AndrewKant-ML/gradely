@@ -1,13 +1,10 @@
 package it.uniroma2.dicii.ispw.gradely.daos;
 
 import it.uniroma2.dicii.ispw.gradely.model.DegreeCourse;
-import it.uniroma2.dicii.ispw.gradely.model.SubjectCourse;
 
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
-import static it.uniroma2.dicii.ispw.gradely.enums.SubjectCourseCodeEnum.C01;
 
 public class DegreeCourseDAO {
     private static DegreeCourseDAO instance;

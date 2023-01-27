@@ -1,9 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.lazy_factories;
 
 import it.uniroma2.dicii.ispw.gradely.daos.PendingEventDAO;
-import it.uniroma2.dicii.ispw.gradely.daos.UserDAO;
 import it.uniroma2.dicii.ispw.gradely.model.PendingEvent;
-import it.uniroma2.dicii.ispw.gradely.model.User;
 
 import java.util.ArrayList;
 import java.util.List;

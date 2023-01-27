@@ -7,8 +7,8 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <GridPane alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea"
-          hgap="40" vgap="30" prefWidth="650" stylesheets="@styles/home-card-style.css"
-          prefHeight="430" fx:controller="it.uniroma2.dicii.ispw.gradely.HomepageGraphicControl">
+          hgap="40" vgap="30" prefWidth="650" prefHeight="430" stylesheets="@styles/home-card-style.css"
+          fx:controller="it.uniroma2.dicii.ispw.gradely.HomepageGraphicControl">
 
     <AnchorPane prefHeight="200" prefWidth="190"
                 styleClass="card"

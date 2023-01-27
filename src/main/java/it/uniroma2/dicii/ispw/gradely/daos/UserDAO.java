@@ -1,6 +1,5 @@
 package it.uniroma2.dicii.ispw.gradely.daos;
 
-import it.uniroma2.dicii.ispw.gradely.lazy_factories.UserLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.User;
 
 import java.util.ArrayList;

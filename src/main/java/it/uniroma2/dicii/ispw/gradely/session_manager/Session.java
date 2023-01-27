@@ -3,8 +3,6 @@ package it.uniroma2.dicii.ispw.gradely.session_manager;
 import it.uniroma2.dicii.ispw.gradely.model.PendingEvent;
 import it.uniroma2.dicii.ispw.gradely.model.User;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 

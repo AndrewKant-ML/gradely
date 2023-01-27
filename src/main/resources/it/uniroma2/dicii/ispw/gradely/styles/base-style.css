@@ -21,3 +21,14 @@
     -fx-background-color: white;
     -fx-cursor: hand;
 }
+
+.back-button {
+    -fx-pref-width: 24px;
+    -fx-pref-height: 24px;
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+.back-button:hover {
+    cursor: hand;
+}

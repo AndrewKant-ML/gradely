@@ -1,9 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.lazy_factories;
 
 import it.uniroma2.dicii.ispw.gradely.daos.ProfessorDAO;
-import it.uniroma2.dicii.ispw.gradely.daos.SecretaryDAO;
 import it.uniroma2.dicii.ispw.gradely.model.Professor;
-import it.uniroma2.dicii.ispw.gradely.model.Secretary;
 import it.uniroma2.dicii.ispw.gradely.model.User;
 
 import java.util.ArrayList;

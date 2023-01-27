@@ -1,7 +1,12 @@
 package it.uniroma2.dicii.ispw.gradely.daos.association_classes_daos;
 
+<<<<<<< HEAD
 import it.uniroma2.dicii.ispw.gradely.model.SubjectCourse;
 import it.uniroma2.dicii.ispw.gradely.model.Student;
+=======
+import it.uniroma2.dicii.ispw.gradely.model.Student;
+import it.uniroma2.dicii.ispw.gradely.model.SubjectCourse;
+>>>>>>> main
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.SubjectCourseEnrollment;
 
 import java.util.ArrayList;
