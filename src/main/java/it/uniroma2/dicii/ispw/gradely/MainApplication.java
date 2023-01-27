@@ -25,7 +25,7 @@ public class MainApplication extends Application {
     }
 
     private Pane loadBasePane() {
-        FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(MainApplication.class.getResource("base-view.fxml")));
+        FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(MainApplication.class.getResource("base_view.fxml")));
 
         try {
             Pane basePane = loader.load();
