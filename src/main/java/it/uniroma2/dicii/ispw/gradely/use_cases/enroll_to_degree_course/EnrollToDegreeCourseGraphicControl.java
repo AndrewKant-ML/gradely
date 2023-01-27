@@ -1,6 +1,5 @@
 package it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course;
 
-import it.uniroma2.dicii.ispw.gradely.AbstractGraphicControl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -12,7 +11,7 @@ import javafx.scene.input.MouseEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class EnrollToDegreeCourseGraphicControl extends AbstractGraphicControl implements Initializable {
+public class EnrollToDegreeCourseGraphicControl implements Initializable {
 
     @FXML
     private ListView<String> degreeCoursesList;
