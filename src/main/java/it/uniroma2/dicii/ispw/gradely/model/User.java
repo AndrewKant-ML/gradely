@@ -8,7 +8,7 @@ public class User {
     private String codiceFiscale;
     private String email;
     private String password;
-    private List<AbstractRole> roles;
+    private AbstractRole role;
 
     public User() {
     }
@@ -61,11 +61,11 @@ public class User {
         this.password = password;
     }
 
-    public List<AbstractRole> getRoles() {
-        return roles;
+    public AbstractRole getRole() {
+        return role;
     }
 
-    public void setRoles(List<AbstractRole> roles) {
-        this.roles = roles;
+    public void setRole(AbstractRole role) {
+        this.role = role;
     }
 }

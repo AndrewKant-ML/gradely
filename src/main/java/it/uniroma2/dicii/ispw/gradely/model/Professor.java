@@ -24,4 +24,8 @@ public class Professor extends AbstractRole {
         this.registrationDate = registrationDate;
     }
 
+    @Override
+    public Professor Professor() {
+        return this;
+    }
 }

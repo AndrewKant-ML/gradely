@@ -12,7 +12,6 @@ public class DegreeCourse extends AbstractDegreeCourse{
     private DipartimentoEnum dipartimento;
     private DegreeCourseTypeEnum type;
     private List<AbstractDegreeCourse> prerequisites;
-
     private Professor coordinatore;
     private List <DegreeCourseEnrollment> enrollments;
     private List <SubjectCourse> subjectCourses;

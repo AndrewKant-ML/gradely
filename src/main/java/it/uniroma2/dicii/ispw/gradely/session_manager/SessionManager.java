@@ -1,13 +1,16 @@
 package it.uniroma2.dicii.ispw.gradely.session_manager;
 
+import it.uniroma2.dicii.ispw.gradely.model.PendingEvent;
 import it.uniroma2.dicii.ispw.gradely.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class SessionManager {
     private static SessionManager instance;
     private List<Session> activeSessions;
+    private List<PendingEvent> pendingEvents;
     private SessionManager(){
         activeSessions = new ArrayList<Session>();
     }
@@ -17,7 +20,7 @@ public class SessionManager {
         }
         return instance;
     }
-    public Session getSession(User user){
+    private Session getSession(User user){
         for(Session s : activeSessions){
             if(s.getUser().equals(user)) {
                 return s;
@@ -26,7 +29,7 @@ public class SessionManager {
         return null;
     }
 
-    public Session getSession(Token token){
+    private Session getSession(Token token){
         for(Session s : activeSessions){
             if(s.getToken().equals(token)) {
                 return s;
@@ -34,7 +37,13 @@ public class SessionManager {
         }
         return null;
     }
-
+    public User getLazySessionUser(Token token){
+        Session s = getSession(token);
+        if (s == null) {
+            return null;
+        }
+        return s.getUser();
+    }
     public Token getLazySessionToken(User user){
         Session s = getSession(user);
         if (s == null) {
@@ -43,6 +52,21 @@ public class SessionManager {
         }
         return s.getToken();
     }
+    public List<PendingEvent> getPendingEvents() {
+        return pendingEvents;
+    }
 
+    public void setPendingEvents(List<PendingEvent> pendingEvents) {
+        this.pendingEvents = pendingEvents;
+    }
+
+    public Boolean checkUUID(UUID id){
+        for(PendingEvent event : pendingEvents){
+            if(id.equals(event.getId())){
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

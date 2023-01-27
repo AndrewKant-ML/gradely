@@ -18,7 +18,7 @@ public class PendingEvent {
         UUID id;
         do{
             id=UUID.randomUUID();
-        }while(SessionManager.getInstance().getSession(user).checkUUID(id));
+        }while(SessionManager.getInstance().checkUUID(id));
 
         this.id = id;
         this.user = user;
