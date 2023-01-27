@@ -54,4 +54,14 @@ public class DegreeCourseEnrollmentLazyFactory {
         }
         return lazyList;
     }
+
+    public Boolean checkDegreeCourseEnrollmentPresence(Student student, DegreeCourse course){
+        List<DegreeCourseEnrollment> list = getDegreeCourseEnrollmentsByStudent(student);
+        for(DegreeCourseEnrollment e : list){
+            if(!e.getDegreeCourse().equals(course)) {
+                return true; //TODO implementare exceptions
+            }
+        }
+        return false;
+    }
 }
