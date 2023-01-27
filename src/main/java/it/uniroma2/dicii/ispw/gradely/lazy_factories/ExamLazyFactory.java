@@ -2,6 +2,8 @@ package it.uniroma2.dicii.ispw.gradely.lazy_factories;
 
 import it.uniroma2.dicii.ispw.gradely.daos.ExamDAO;
 import it.uniroma2.dicii.ispw.gradely.daos.association_classes_daos.SubjectCourseEnrollmentDAO;
+import it.uniroma2.dicii.ispw.gradely.enums.AppelloEnum;
+import it.uniroma2.dicii.ispw.gradely.enums.SessionEnum;
 import it.uniroma2.dicii.ispw.gradely.lazy_factories.association_classes_lazy_factories.CourseAssignmentLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.Professor;
@@ -26,13 +28,13 @@ public class ExamLazyFactory {
         return instance;
     }
 
-    public Exam getExamByAppelloAndCourse(Integer appello, SubjectCourse course) {
+    public Exam getExamByAppelloCourseAndSession(AppelloEnum appello, SubjectCourse course, SessionEnum session) {
         for(Exam e : exams){
-            if(e.getAppello().equals(appello) && e.getCourse().equals(course)) {
+            if(e.getAppello().equals(appello) && e.getCourse().equals(course) && e.getSession().equals(session)) {
                 return e; //TODO implementare exception
             }
         }
-        return ExamDAO.getInstance().getExamByAppelloAndCourse(appello, course); //TODO implementare exception
+        return ExamDAO.getInstance().getExamByAppelloCourseAndSession(appello, course, session); //TODO implementare exception
     }
 
     public List<Exam> getGradableExams(Professor professor){
