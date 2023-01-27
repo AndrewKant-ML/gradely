@@ -25,7 +25,7 @@ public class HomepageGraphicControl implements Initializable {
     }
 
     public void openCareerPage() {
-        PageNavigationController.navigateTo("degree-course-enrollment-view");
+        PageNavigationController.navigateTo("enroll_to_degree_course");
     }
 
     public void openServicesPage() {

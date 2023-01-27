@@ -1,13 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.daos.association_classes_daos;
 
 import it.uniroma2.dicii.ispw.gradely.model.DegreeCourse;
-<<<<<<< HEAD
-import it.uniroma2.dicii.ispw.gradely.model.Professor;
 import it.uniroma2.dicii.ispw.gradely.model.Student;
-import it.uniroma2.dicii.ispw.gradely.model.SubjectCourse;
-=======
-import it.uniroma2.dicii.ispw.gradely.model.Student;
->>>>>>> main
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.DegreeCourseEnrollment;
 
 import java.util.ArrayList;
@@ -31,8 +25,8 @@ public class DegreeCourseEnrollmentDAO {
 
     public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByDegreeCourse(DegreeCourse course) {
         List<DegreeCourseEnrollment> lazyList = new ArrayList<>();
-        for(DegreeCourseEnrollment e : degreeCourseEnrollments){
-            if(e.getDegreeCourse().equals(course)) {
+        for (DegreeCourseEnrollment e : degreeCourseEnrollments) {
+            if (e.getDegreeCourse().equals(course)) {
                 lazyList.add(e); //TODO implementare exception
             }
         }
@@ -41,8 +35,8 @@ public class DegreeCourseEnrollmentDAO {
 
     public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByStudent(Student student) {
         List<DegreeCourseEnrollment> lazyList = new ArrayList<>();
-        for(DegreeCourseEnrollment e : degreeCourseEnrollments){
-            if(e.getStudent().equals(student)) {
+        for (DegreeCourseEnrollment e : degreeCourseEnrollments) {
+            if (e.getStudent().equals(student)) {
                 lazyList.add(e); //TODO implementare exception
             }
         }

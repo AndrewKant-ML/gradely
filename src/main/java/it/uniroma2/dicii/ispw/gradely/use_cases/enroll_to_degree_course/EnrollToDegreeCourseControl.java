@@ -1,11 +1,15 @@
 package it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course;
 
-import it.uniroma2.dicii.ispw.gradely.beans.DegreeCourseBean;
-import it.uniroma2.dicii.ispw.gradely.lazy_factories.DegreeCourseLazyFactory;
-import it.uniroma2.dicii.ispw.gradely.model.DegreeCourse;
-import it.uniroma2.dicii.ispw.gradely.model.Student;
+import it.uniroma2.dicii.ispw.gradely.general_beans.DegreeCourseBean;
+import it.uniroma2.dicii.ispw.gradely.general_beans.StudentBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EnrollToDegreeCourseControl {
+
+    public List<DegreeCourseBean> getDegreeCourses(StudentBean studentBean) {
+        // TODO call to lazyfactory method
+        return new ArrayList<>();
+    }
 }
