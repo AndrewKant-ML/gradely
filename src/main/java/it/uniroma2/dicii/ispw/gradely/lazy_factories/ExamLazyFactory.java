@@ -1,14 +1,11 @@
 package it.uniroma2.dicii.ispw.gradely.lazy_factories;
 
 import it.uniroma2.dicii.ispw.gradely.daos.ExamDAO;
-import it.uniroma2.dicii.ispw.gradely.daos.PendingEventDAO;
 import it.uniroma2.dicii.ispw.gradely.model.Exam;
-import it.uniroma2.dicii.ispw.gradely.model.PendingEvent;
 import it.uniroma2.dicii.ispw.gradely.model.SubjectCourse;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class ExamLazyFactory {
     private static ExamLazyFactory instance;

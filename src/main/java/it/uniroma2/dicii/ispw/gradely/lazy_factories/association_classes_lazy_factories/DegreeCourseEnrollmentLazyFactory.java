@@ -1,11 +1,8 @@
 package it.uniroma2.dicii.ispw.gradely.lazy_factories.association_classes_lazy_factories;
 
-import it.uniroma2.dicii.ispw.gradely.daos.association_classes_daos.CourseAssignmentDAO;
 import it.uniroma2.dicii.ispw.gradely.daos.association_classes_daos.DegreeCourseEnrollmentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.DegreeCourse;
-import it.uniroma2.dicii.ispw.gradely.model.Professor;
 import it.uniroma2.dicii.ispw.gradely.model.Student;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.CourseAssignment;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.DegreeCourseEnrollment;
 
 import java.util.ArrayList;

@@ -3,15 +3,11 @@ package it.uniroma2.dicii.ispw.gradely.daos;
 import it.uniroma2.dicii.ispw.gradely.enums.TitleEnum;
 import it.uniroma2.dicii.ispw.gradely.lazy_factories.UserLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.Student;
-import it.uniroma2.dicii.ispw.gradely.model.SubjectCourse;
 import it.uniroma2.dicii.ispw.gradely.model.User;
 
 import java.time.LocalDate;
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
-
-import static it.uniroma2.dicii.ispw.gradely.enums.SubjectCourseCodeEnum.C01;
 
 public class StudentDAO {
     private static StudentDAO instance;

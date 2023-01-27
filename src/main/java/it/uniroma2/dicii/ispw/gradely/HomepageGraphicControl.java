@@ -1,9 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.stage.Window;
 
 import java.net.URL;
 import java.util.ResourceBundle;
