@@ -1,0 +1,20 @@
+.background {
+    -fx-background-color: white;
+}
+
+.text-field {
+    -fx-font-family: Cantarell;
+    -fx-font-size: 14px;
+
+    -fx-pref-height: 18px;
+    -fx-padding: 2px;
+}
+
+.text-button {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+.text-button:hover {
+    -fx-cursor: hand;
+}
