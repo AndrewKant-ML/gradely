@@ -21,6 +21,8 @@ public class EnrollToDegreeCourseGraphicControl implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         controller = new EnrollToDegreeCourseControl();
+
+        // TODO remove stub
         ObservableList<String> values = FXCollections.observableArrayList();
         values.addAll("Ingegneria informatica",
                 "Ingegneria meccanica",
