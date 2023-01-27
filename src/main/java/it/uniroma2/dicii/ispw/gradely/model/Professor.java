@@ -7,26 +7,21 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class Professor extends AbstractRole {
-    private String ID;
+    private String id;
     private LocalDate registrationDate;
+
+
     private DipartimentoEnum dipartimento;
     private List<CourseAssignment> courseAssignments;
     private DegreeCourse coordinatedCourses;
 
+    public Professor() {
+    }
 
-    public Professor(User user, String ID, LocalDate registrationDate) {
+    public Professor(User user, String id, LocalDate registrationDate) {
         setUser(user);
-        this.ID = ID;
+        this.id = id;
         this.registrationDate = registrationDate;
     }
 
-    @Override
-    public User getUser() {
-        return super.getUser();
-    }
-
-    @Override
-    public void setUser(User user) {
-        super.setUser(user);
-    }
 }

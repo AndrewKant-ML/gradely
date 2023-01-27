@@ -6,13 +6,4 @@ public class CCD extends AbstractRole {
         setUser(user);
     }
 
-    @Override
-    public User getUser() {
-        return super.getUser();
-    }
-
-    @Override
-    public void setUser(User user) {
-        super.setUser(user);
-    }
 }

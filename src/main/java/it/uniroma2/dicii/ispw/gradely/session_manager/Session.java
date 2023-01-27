@@ -3,7 +3,6 @@ package it.uniroma2.dicii.ispw.gradely.session_manager;
 import it.uniroma2.dicii.ispw.gradely.model.PendingEvent;
 import it.uniroma2.dicii.ispw.gradely.model.User;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,6 +13,7 @@ public class Session {
 
     public Session(User user) {
         this.user = user;
+        this.token = new Token();
     }
 
     public User getUser() {
@@ -40,11 +40,12 @@ public class Session {
         this.pendingEvents = pendingEvents;
     }
 
-    public List<UUID> getUUIDs(){
-        List<UUID> list = new ArrayList<UUID>();
+    public Boolean checkUUID(UUID id){
         for(PendingEvent event : pendingEvents){
-            list.add(event.getID());
+            if(id.equals(event.getId())){
+                return true;
+            }
         }
-        return list;
+        return false;
     }
 }

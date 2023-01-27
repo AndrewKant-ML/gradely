@@ -12,6 +12,9 @@ public class ExamEnrollment {
     private Exam exam;
     private ExamResult grade;
 
+    public ExamEnrollment() {
+    }
+
     public ExamEnrollment(LocalDate enrollmentDate, Student student, Exam exam, ExamResult grade) {
         this.enrollmentDate = enrollmentDate;
         this.student = student;

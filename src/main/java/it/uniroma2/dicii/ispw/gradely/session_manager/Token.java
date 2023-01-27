@@ -1,7 +1,5 @@
 package it.uniroma2.dicii.ispw.gradely.session_manager;
 
-import it.uniroma2.dicii.ispw.gradely.model.User;
-
 import java.time.LocalDate;
 
 public class Token {

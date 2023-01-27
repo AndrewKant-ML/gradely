@@ -1,22 +1,32 @@
 package it.uniroma2.dicii.ispw.gradely.lazy_factories;
 
+import it.uniroma2.dicii.ispw.gradely.daos.DegreeCourseDAO;
 import it.uniroma2.dicii.ispw.gradely.model.DegreeCourse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DegreeCourseLazyFactory {
+    private static DegreeCourseLazyFactory instance;
+    private List<DegreeCourse> degreeCourses;
 
-    private static class DegreeCourseLazyFactoryHolder {
-        public final static DegreeCourseLazyFactory instance = new DegreeCourseLazyFactory();
+    private DegreeCourseLazyFactory(){
+        degreeCourses = new ArrayList<DegreeCourse>();
     }
 
-    private DegreeCourseLazyFactory() {}
-
-    public static DegreeCourseLazyFactory getInstance() {
-        return DegreeCourseLazyFactoryHolder.instance;
+    public static DegreeCourseLazyFactory getInstance(){
+        if (instance == null) {
+            instance = new DegreeCourseLazyFactory();
+        }
+        return instance;
     }
 
-    public List<DegreeCourse> getDegreeCourses() {
-        return null;
+    public DegreeCourse getDegreeCourseByName(String name) {
+        for(DegreeCourse d : degreeCourses){
+            if(d.getName().equals(name)) {
+                return d; //TODO implementare exception
+            }
+        }
+        return DegreeCourseDAO.getInstance().getDegreeCourseByName(name); //TODO implementare exception
     }
 }

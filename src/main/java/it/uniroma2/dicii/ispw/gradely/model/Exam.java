@@ -18,6 +18,10 @@ public class Exam {
     private Integer verbaleNumber;
     private List<ExamEnrollment> enrollments;
 
+    public Exam(){
+
+    }
+
     public Exam(LocalDate enrollmentStartDate, LocalDate enrollmentEndDate, LocalDate examinationDate, String room, Integer appello, String sessione, SubjectCourse course) {
         this.enrollmentStartDate = enrollmentStartDate;
         this.enrollmentEndDate = enrollmentEndDate;

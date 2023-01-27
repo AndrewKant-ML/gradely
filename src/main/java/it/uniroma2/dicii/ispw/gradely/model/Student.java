@@ -9,28 +9,18 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class Student extends AbstractRole {
-    private String ID;
+    private String id;
     private LocalDate registrationDate;
-    private List<TitleEnum> titoli;
+    private List<TitleEnum> titles;
 
     private List<DegreeCourseEnrollment> degreeCourseEnrollments;
     private List<SubjectCourseEnrollment> subjectCourseEnrollments;
     private List<ExamEnrollment> examEnrollments;
 
-    public Student(User user, String ID, LocalDate registrationDate, List<TitleEnum> titoli) {
+    public Student(User user, String id, LocalDate registrationDate, List<TitleEnum> titoli) {
         setUser(user);
-        this.ID = ID;
+        this.id = id;
         this.registrationDate = registrationDate;
-        this.titoli = titoli;
-    }
-
-    @Override
-    public User getUser() {
-        return super.getUser();
-    }
-
-    @Override
-    public void setUser(User user) {
-        super.setUser(user);
+        this.titles = titoli;
     }
 }

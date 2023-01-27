@@ -1,23 +1,26 @@
 package it.uniroma2.dicii.ispw.gradely.model;
 
+import it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum;
 import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
 
 import java.util.UUID;
 
 public class PendingEvent {
-    private UUID ID;
+    private UUID id;
     private User user;
-    private String type; //TODO enum
+    private PendingEventTypeEnum type;
     private String message;
     private Boolean notified;
 
-    public PendingEvent(User user, String type, String message) {
-        UUID ID;
+    public PendingEvent() {
+    }
+    public PendingEvent(User user, PendingEventTypeEnum type, String message) {
+        UUID id;
         do{
-            ID=UUID.randomUUID();
-        }while(!SessionManager.getInstance().getSession(user).getUUIDs().contains(ID));
+            id=UUID.randomUUID();
+        }while(SessionManager.getInstance().getSession(user).checkUUID(id));
 
-        this.ID = ID;
+        this.id = id;
         this.user = user;
         this.type = type;
         this.message = message;
@@ -32,19 +35,19 @@ public class PendingEvent {
         this.user = user;
     }
 
-    public UUID getID() {
-        return ID;
+    public UUID getId() {
+        return id;
     }
 
-    public void setID(UUID ID) {
-        this.ID = ID;
+    public void setId(UUID id) {
+        this.id = id;
     }
 
-    public String getType() {
+    public PendingEventTypeEnum getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(PendingEventTypeEnum type) {
         this.type = type;
     }
 

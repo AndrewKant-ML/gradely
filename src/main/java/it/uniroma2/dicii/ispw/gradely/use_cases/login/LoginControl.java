@@ -7,9 +7,9 @@ import it.uniroma2.dicii.ispw.gradely.session_manager.Token;
 
 public class LoginControl {
     public Token login(String email, String password) throws Exception{
-        User user = UserLazyFactory.getInstance().getUser(email); //TODO implementare exception
+        User user = UserLazyFactory.getInstance().getUserByEmail(email); //TODO implementare exception
         if(user.getPassword().equals(password)){// TODO implementare ricerca utente nel DAO
-            return SessionManager.getInstance().getNewSession(user);
+            return SessionManager.getInstance().getLazySessionToken(user);
         }
         else throw new Exception(); //TODO implementare exception
 
