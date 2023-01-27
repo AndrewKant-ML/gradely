@@ -12,6 +12,8 @@ public class PendingEvent {
     private String message;
     private Boolean notified;
 
+    public PendingEvent() {
+    }
     public PendingEvent(User user, PendingEventTypeEnum type, String message) {
         UUID ID;
         do{

@@ -10,6 +10,9 @@ public class DegreeCourseEnrollment {
     private Student student;
     private DegreeCourse degreeCourse;
 
+    public DegreeCourseEnrollment() {
+    }
+
     public DegreeCourseEnrollment(LocalDate enrollmentDate, Student student, DegreeCourse degreeCourse) {
         this.enrollmentDate = enrollmentDate;
         this.student = student;

@@ -7,6 +7,9 @@ public class CourseAssignment {
     private SubjectCourse subjectCourse;
     private Professor professor;
 
+
+    public CourseAssignment() {
+    }
     public CourseAssignment(SubjectCourse subjectCourse, Professor professor) {
         this.subjectCourse = subjectCourse;
         this.professor = professor;
