@@ -10,6 +10,9 @@ public class User {
     private String password;
     private List<AbstractRole> roles;
 
+    public User() {
+    }
+
     public User(String name, String surname, String codiceFiscale, String email, String password) {
         this.name = name;
         this.surname = surname;

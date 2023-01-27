@@ -10,6 +10,9 @@ public class SubjectCourseEnrollment {
     private Student student;
     private LocalDate date;
 
+    public SubjectCourseEnrollment() {
+    }
+
     public SubjectCourseEnrollment(SubjectCourse subjectCourse, Student student, LocalDate date) {
         this.subjectCourse = subjectCourse;
         this.student = student;

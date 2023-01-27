@@ -15,6 +15,8 @@ public class Professor extends AbstractRole {
     private List<CourseAssignment> courseAssignments;
     private DegreeCourse coordinatedCourses;
 
+    public Professor() {
+    }
 
     public Professor(User user, String ID, LocalDate registrationDate) {
         setUser(user);
