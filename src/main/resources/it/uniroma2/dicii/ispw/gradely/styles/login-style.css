@@ -1,0 +1,17 @@
+.title {
+    -fx-font-family: Cantarell;
+    -fx-font-size: 24px;
+}
+
+.action-button {
+    -fx-background-color: #2d7c5f;
+    -fx-text-fill: white;
+    -fx-border-radius: 3px;
+}
+
+.action-button:hover {
+    -fx-background-color: white;
+    -fx-border-width: 1px;
+    -fx-border-color: #2d7c5f;
+    -fx-text-fill: black;
+}

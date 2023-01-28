@@ -5,15 +5,26 @@ import javafx.fxml.FXMLLoader;
 import java.io.IOException;
 import java.util.Objects;
 
-public class PageNavigationController {
+public final class PageNavigationController {
 
-    private static BaseGraphicControl baseGraphicController;
+    private static PageNavigationController INSTANCE;
+    private BaseGraphicControl baseGraphicController;
 
-    public static void setBaseGraphicController(BaseGraphicControl baseGraphicController) {
-        PageNavigationController.baseGraphicController = baseGraphicController;
+    private PageNavigationController() {
+
     }
 
-    public static void navigateTo(String pageName) {
+    public static PageNavigationController getInstance() {
+        if (INSTANCE == null)
+            INSTANCE = new PageNavigationController();
+        return INSTANCE;
+    }
+
+    public void setBaseGraphicController(BaseGraphicControl baseGraphicController) {
+        this.baseGraphicController = baseGraphicController;
+    }
+
+    public void navigateTo(String pageName) {
         pageName = pageName.concat(".fxml");
         try {
             baseGraphicController.switchTo(
@@ -27,5 +38,13 @@ public class PageNavigationController {
             e.printStackTrace();
             // TODO throw new exception
         }
+    }
+
+    public void showLogin() {
+
+    }
+
+    public void goToMainPage() {
+
     }
 }

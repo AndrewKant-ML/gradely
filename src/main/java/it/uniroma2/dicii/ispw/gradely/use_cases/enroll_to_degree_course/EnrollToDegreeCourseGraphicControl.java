@@ -1,6 +1,5 @@
 package it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course;
 
-import it.uniroma2.dicii.ispw.gradely.SelectDegreeCourseGraphicControl;
 import it.uniroma2.dicii.ispw.gradely.general_beans.DegreeCourseBean;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -40,6 +39,7 @@ public class EnrollToDegreeCourseGraphicControl implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         controller = new EnrollToDegreeCourseControl();
         currentStage = 1;
+        // TODO pass Student from login token
         //firstStageController.setDegreeCoursesList(controller.getDegreeCourses());
     }
 

@@ -1,4 +1,4 @@
-package it.uniroma2.dicii.ispw.gradely;
+package it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course;
 
 import it.uniroma2.dicii.ispw.gradely.general_beans.DegreeCourseBean;
 import javafx.collections.FXCollections;
@@ -23,7 +23,6 @@ public class SelectDegreeCourseGraphicControl implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // TODO remove stub
 
-        //degreeCoursesList.setItems();
         degreeCoursesList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
         degreeCoursesList.setOnMouseClicked(mouseEvent -> chosenDegreeCourse = degreeCoursesList.getSelectionModel().getSelectedItem());

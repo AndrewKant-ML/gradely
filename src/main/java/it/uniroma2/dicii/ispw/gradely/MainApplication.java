@@ -13,7 +13,7 @@ public class MainApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        Scene scene = new Scene(loadBasePane(), 720, 512);
+        Scene scene = new Scene(loadLoginPane(), 720, 512);
         stage.setTitle("Gradely");
         stage.setScene(scene);
         stage.setResizable(false);
@@ -21,19 +21,16 @@ public class MainApplication extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+        // TODO check GUI type
+        System.setProperty("persistence", "DB");
+        System.setProperty("gui", "javafx");
+
+        launch(args);
     }
 
-    private Pane loadBasePane() {
-        FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(MainApplication.class.getResource("base_view.fxml")));
-
+    private Pane loadLoginPane() {
         try {
-            Pane basePane = loader.load();
-
-            PageNavigationController.setBaseGraphicController(loader.getController());
-            PageNavigationController.navigateTo("homepage");
-
-            return basePane;
+            return FXMLLoader.load(Objects.requireNonNull(MainApplication.class.getResource("login.fxml")));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
