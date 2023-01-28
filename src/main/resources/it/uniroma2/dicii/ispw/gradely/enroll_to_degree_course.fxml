@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.EnrollToDegreeCourseGraphicControl"
+            prefWidth="650" prefHeight="430" stylesheets="@styles/invisible-view.css, @styles/default.css"
+            styleClass="no-background">
+
+    <StackPane AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" prefWidth="650"
+               prefHeight="400">
+        <fx:include source="choose_degree_course.fxml" fx:id="firstStage" visible="true"/>
+        <fx:include source="insert_anagraphical_data.fxml" fx:id="secondStage" visible="false"/>
+        <fx:include source="choose_degree_course.fxml" fx:id="thirdStage" visible="false"/>
+    </StackPane>
+
+    <HBox AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0" prefWidth="650"
+          prefHeight="30" styleClass="background">
+        <Button text="Back" fx:id="backButton" onAction="#previousStage" HBox.hgrow="NEVER" styleClass="text-button" visible="false"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="Next" fx:id="nextButton" onAction="#nextStage" HBox.hgrow="NEVER" styleClass="text-button"/>
+    </HBox>
+
+</AnchorPane>

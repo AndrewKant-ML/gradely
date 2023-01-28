@@ -8,10 +8,8 @@ public class DegreeCourseBean {
     private String facolta;
     private DegreeCourseTypeEnum type;
 
-    public DegreeCourseBean(String name, String facolta, DegreeCourseTypeEnum type) {
+    public DegreeCourseBean(String name) {
         this.name = name;
-        this.facolta = facolta;
-        this.type = type;
     }
 
     @Override

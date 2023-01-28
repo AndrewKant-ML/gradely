@@ -25,8 +25,8 @@ public class DegreeCourseEnrollmentDAO {
 
     public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByDegreeCourse(DegreeCourse course) {
         List<DegreeCourseEnrollment> lazyList = new ArrayList<>();
-        for(DegreeCourseEnrollment e : degreeCourseEnrollments){
-            if(e.getDegreeCourse().equals(course)) {
+        for (DegreeCourseEnrollment e : degreeCourseEnrollments) {
+            if (e.getDegreeCourse().equals(course)) {
                 lazyList.add(e); //TODO implementare exception
             }
         }
@@ -35,8 +35,8 @@ public class DegreeCourseEnrollmentDAO {
 
     public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByStudent(Student student) {
         List<DegreeCourseEnrollment> lazyList = new ArrayList<>();
-        for(DegreeCourseEnrollment e : degreeCourseEnrollments){
-            if(e.getStudent().equals(student)) {
+        for (DegreeCourseEnrollment e : degreeCourseEnrollments) {
+            if (e.getStudent().equals(student)) {
                 lazyList.add(e); //TODO implementare exception
             }
         }

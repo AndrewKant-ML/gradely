@@ -4,11 +4,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.EnrollToDegreeCourseGraphicControl"
+            fx:controller="it.uniroma2.dicii.ispw.gradely.SelectDegreeCourseGraphicControl"
             prefWidth="650" prefHeight="430" stylesheets="@styles/list-styles.css, @styles/default.css"
             styleClass="background">
 
-    <ListView fx:id="degreeCoursesList" styleClass="degree-courses-list" AnchorPane.topAnchor="23" AnchorPane.leftAnchor="35" AnchorPane.rightAnchor="35">
+    <ListView fx:id="degreeCoursesList" styleClass="degree-courses-list" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0">
     </ListView>
 
 </AnchorPane>

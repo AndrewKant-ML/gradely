@@ -34,8 +34,8 @@
     </HBox>
 
     <AnchorPane VBox.vgrow="ALWAYS">
-        <StackPane fx:id="content" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0"
-                   AnchorPane.bottomAnchor="0">
+        <StackPane fx:id="content" AnchorPane.topAnchor="23" AnchorPane.rightAnchor="35" AnchorPane.leftAnchor="35"
+                   AnchorPane.bottomAnchor="24">
         </StackPane>
     </AnchorPane>
 </VBox>

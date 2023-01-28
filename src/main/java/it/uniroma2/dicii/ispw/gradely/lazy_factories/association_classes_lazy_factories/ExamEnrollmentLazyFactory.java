@@ -54,4 +54,20 @@ public class ExamEnrollmentLazyFactory {
         }
         return lazyList;
     }
+
+    public List<ExamEnrollment> getExamEnrollmentsByExamAndStudent(Exam exam, Student student) {
+        List<ExamEnrollment> lazyList = new ArrayList<>();
+        for(ExamEnrollment e : examEnrollments){
+            if(e.getExam().equals(exam) && e.getStudent().equals(student)) {
+                lazyList.add(e); //TODO implementare exception
+            }
+        }
+        List<ExamEnrollment> daoList = ExamEnrollmentDAO.getInstance().getExamEnrollmentsByExam(exam); //TODO implementare exception
+        for(ExamEnrollment e : daoList){
+            if(!lazyList.contains(e)) {
+                lazyList.add(e); //TODO implementare exceptions
+            }
+        }
+        return lazyList;
+    }
 }

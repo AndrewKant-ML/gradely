@@ -21,7 +21,7 @@ public class InsertStudentsGradesControl {
         return new ExamListBean(createExamListBean(ExamLazyFactory.getInstance().getGradableExams(SessionManager.getInstance().getLazySessionUser(token).getRole().Professor())));
     }
 
-    private List<ExamBean> createExamListBean(List<Exam> inList){
+    private List<ExamBean> createExamBeanList(List<Exam> inList){
         List<ExamBean> outList = new ArrayList<>();
         for (Exam e : inList){
             outList.add(new ExamBean(new SubjectCourseBean(e.getCourse().getCode(),e.getCourse().getName(),e.getCourse().getAcademicYear()),e.getAppello(),e.getSession()));
@@ -30,8 +30,9 @@ public class InsertStudentsGradesControl {
     }
 
     public ExamEnrollmentListBean getExamEnrollments(ExamBean bean){
+        List<ExamEnrollment> list = new ArrayList<>();
         for (ExamEnrollment e : ExamEnrollmentLazyFactory.getInstance().getExamEnrollmentsByExam(getExamByBean(bean))){
-            
+            list.add(e.);
         }
     }
 
@@ -41,7 +42,30 @@ public class InsertStudentsGradesControl {
 
     private SubjectCourse getSubjectCourseByBean(SubjectCourseBean bean){
         return SubjectCourseLazyFactory.getInstance().getSubjectCourseByName(bean.getName());
+
     }
+
+    private List<ExamBean> createExamListBean(List<Exam> inList){
+        List<ExamBean> outList = new ArrayList<>();
+        for (Exam e : inList){
+            outList.add(new ExamBean(new SubjectCourseBean(e.getCourse().getCode(),e.getCourse().getName(),e.getCourse().getAcademicYear()),e.getAppello(),e.getSession()));
+        }
+        return outList;
+    }
+
+   /* public ExamEnrollmentListBean getExamEnrollments(ExamBean bean){
+        for (ExamEnrollment e : ExamEnrollmentLazyFactory.getInstance().getExamEnrollmentsByExam(getExamByBean(bean))){
+            
+        }
+    }*/
+
+    /*private Exam getExamByBean(ExamBean bean){
+        return ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(bean.getAppello(), getSubjectCourseByBean(bean.getCourse()),bean.getSessione());
+    }*/
+
+   /* private SubjectCourse getSubjectCourseByBean(SubjectCourseBean bean){
+        return SubjectCourseLazyFactory.getInstance().getSubjectCourseByName(bean.getName());
+    }*/
 
 
 }
