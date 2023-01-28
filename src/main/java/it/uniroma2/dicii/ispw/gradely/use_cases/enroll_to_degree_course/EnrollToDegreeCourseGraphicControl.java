@@ -1,6 +1,5 @@
 package it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course;
 
-import it.uniroma2.dicii.ispw.gradely.SelectDegreeCourseGraphicControl;
 import it.uniroma2.dicii.ispw.gradely.general_beans.DegreeCourseBean;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,28 +20,30 @@ public class EnrollToDegreeCourseGraphicControl implements Initializable {
 
     @FXML
     private Parent firstStage, secondStage, thirdStage;
-    private Integer currentStage;
 
     @FXML
     private SelectDegreeCourseGraphicControl firstStageController;
 
     @FXML
-    private InsertAnagraphicalData secondStageController;
+    private ConfirmAnagraphicalData secondStageController;
 
     private EnrollToDegreeCourseControl controller;
 
     private DegreeCourseBean selectedDegreeCourse;
 
-    private Object anagraphicalData;
+    private Integer currentStage;
 
     @Override
-    @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // TODO pass Student from login token
         controller = new EnrollToDegreeCourseControl();
         currentStage = 1;
-        //firstStageController.setDegreeCoursesList(controller.getDegreeCourses());
+        firstStageController.setDegreeCoursesList(controller.getDegreeCourses());
     }
 
+    /**
+     * Switch to the next stage of the use case
+     */
     public void nextStage() {
         switch (currentStage) {
             case 1 -> goToStageTwo();
@@ -51,17 +52,30 @@ public class EnrollToDegreeCourseGraphicControl implements Initializable {
         currentStage += currentStage >= 3 ? 0 : 1;
     }
 
+    /**
+     * Switch to the previous stage of the use case
+     */
     public void previousStage() {
+        switch (currentStage) {
+            case 2 -> secondStage.setVisible(false);
+            case 3 -> thirdStage.setVisible(false);
+        }
         currentStage -= currentStage <= 1 ? 0 : 1;
     }
 
+    /**
+     * Opens second use case stage
+     */
     private void goToStageTwo() {
         selectedDegreeCourse = firstStageController.getSelectedDegreeCourse();
+        secondStageController.setAnagraphicalData(controller.getStudentBean(), controller.getUserBean());
         secondStage.setVisible(true);
     }
 
+    /**
+     * Opens third use case stage
+     */
     private void goToStageThree() {
-        anagraphicalData = secondStageController.getAnagraphicalData();
         thirdStage.setVisible(true);
     }
 }

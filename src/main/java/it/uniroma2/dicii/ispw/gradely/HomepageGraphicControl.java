@@ -13,26 +13,26 @@ public class HomepageGraphicControl implements Initializable {
     }
 
     public void openTaxesPage() {
-        PageNavigationController.navigateTo("taxes-view");
+        PageNavigationController.getInstance().navigateTo("taxes-view");
     }
 
     public void openCoursesPage() {
-        PageNavigationController.navigateTo("courses-view");
+        PageNavigationController.getInstance().navigateTo("courses-view");
     }
 
     public void openExamsPage() {
-        PageNavigationController.navigateTo("exams-view");
+        PageNavigationController.getInstance().navigateTo("exams-view");
     }
 
     public void openCareerPage() {
-        PageNavigationController.navigateTo("enroll_to_degree_course");
+        PageNavigationController.getInstance().navigateTo("enroll_to_degree_course");
     }
 
     public void openServicesPage() {
-        PageNavigationController.navigateTo("services-view");
+        PageNavigationController.getInstance().navigateTo("services-view");
     }
 
     public void openPersonalDataPage() {
-        PageNavigationController.navigateTo("data-view");
+        PageNavigationController.getInstance().navigateTo("data-view");
     }
 }

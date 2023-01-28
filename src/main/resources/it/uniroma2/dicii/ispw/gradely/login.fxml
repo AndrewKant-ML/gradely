@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="it.uniroma2.dicii.ispw.gradely.use_cases.login.LoginGraphicControl"
+            stylesheets="@styles/default.css, @styles/login-style.css"
+            styleClass="background"
+            prefHeight="512" prefWidth="720">
+
+    <VBox AnchorPane.topAnchor="60" AnchorPane.leftAnchor="200" AnchorPane.rightAnchor="200" spacing="20">
+
+        <HBox alignment="CENTER">
+            <ImageView>
+                <Image url="@images/utv-logo.png" requestedWidth="320" preserveRatio="true"/>
+            </ImageView>
+        </HBox>
+        <HBox alignment="CENTER">
+            <Label text="Login" styleClass="title"/>
+        </HBox>
+        <TextField fx:id="emailField" styleClass="text-field"/>
+        <PasswordField fx:id="passwordField" styleClass="text-field"/>
+        <HBox>
+            <Button fx:id="registerButton" text="Register" styleClass="text-button, action-button"/>
+            <Region HBox.hgrow="SOMETIMES"/>
+            <Button fx:id="loginButton" text="Login" onAction="#login" styleClass="text-button, action-button"/>
+        </HBox>
+    </VBox>
+
+</AnchorPane>
