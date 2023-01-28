@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.lazy_factories;
 
-import it.uniroma2.dicii.ispw.gradely.daos.PendingEventDAO;
+import it.uniroma2.dicii.ispw.gradely.daos.abstracts.AbstractPendingEventDAO;
 import it.uniroma2.dicii.ispw.gradely.model.PendingEvent;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class PendingEventLazyFactory {
                 return p; //TODO implementare exception
             }
         }
-        return PendingEventDAO.getInstance().getPendingEventById(id); //TODO implementare exception
+        return AbstractPendingEventDAO.getInstance().getPendingEventById(id); //TODO implementare exception
     }
 
 }

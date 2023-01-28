@@ -1,7 +1,8 @@
 package it.uniroma2.dicii.ispw.gradely.lazy_factories.association_classes_lazy_factories;
 
-import it.uniroma2.dicii.ispw.gradely.daos.association_classes_daos.ExamEnrollmentDAO;
+import it.uniroma2.dicii.ispw.gradely.daos.abstracts.association_classes_daos.ExamEnrollmentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.Exam;
+import it.uniroma2.dicii.ispw.gradely.model.ExamResult;
 import it.uniroma2.dicii.ispw.gradely.model.Student;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.ExamEnrollment;
 
@@ -53,5 +54,26 @@ public class ExamEnrollmentLazyFactory {
             }
         }
         return lazyList;
+    }
+
+    public List<ExamEnrollment> getExamEnrollmentsByExamAndStudent(Exam exam, Student student) {
+        List<ExamEnrollment> lazyList = new ArrayList<>();
+        for(ExamEnrollment e : examEnrollments){
+            if(e.getExam().equals(exam) && e.getStudent().equals(student)) {
+                lazyList.add(e); //TODO implementare exception
+            }
+        }
+        List<ExamEnrollment> daoList = ExamEnrollmentDAO.getInstance().getExamEnrollmentsByExam(exam); //TODO implementare exception
+        for(ExamEnrollment e : daoList){
+            if(!lazyList.contains(e)) {
+                lazyList.add(e); //TODO implementare exceptions
+            }
+        }
+        return lazyList;
+    }
+
+    public void saveExamResult(ExamEnrollment enrollment, ExamResult result){
+        enrollment.setExamResult(result);
+        ExamEnrollmentDAO.getInstance().update(enrollment);
     }
 }

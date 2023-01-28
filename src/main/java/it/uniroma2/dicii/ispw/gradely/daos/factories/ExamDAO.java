@@ -1,7 +1,8 @@
-package it.uniroma2.dicii.ispw.gradely.daos;
+package it.uniroma2.dicii.ispw.gradely.daos.factories;
 
+import it.uniroma2.dicii.ispw.gradely.enums.AppelloEnum;
+import it.uniroma2.dicii.ispw.gradely.enums.SessionEnum;
 import it.uniroma2.dicii.ispw.gradely.model.Exam;
-import it.uniroma2.dicii.ispw.gradely.model.Professor;
 import it.uniroma2.dicii.ispw.gradely.model.SubjectCourse;
 
 import java.util.ArrayList;
@@ -23,9 +24,9 @@ public class ExamDAO {
         return instance;
     }
 
-    public Exam getExamByAppelloAndCourse(Integer appello, SubjectCourse course) {
+    public Exam getExamByAppelloCourseAndSession(AppelloEnum appello, SubjectCourse course, SessionEnum session) {
         for(Exam e : exams){
-            if(e.getAppello().equals(appello) && e.getCourse().equals(course)) {
+            if(e.getAppello().equals(appello) && e.getCourse().equals(course) && e.getSession().equals(session)) {
                 return e; //TODO implementare exception
             }
         }

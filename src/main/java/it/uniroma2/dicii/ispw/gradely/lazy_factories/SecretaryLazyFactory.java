@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.lazy_factories;
 
-import it.uniroma2.dicii.ispw.gradely.daos.SecretaryDAO;
+import it.uniroma2.dicii.ispw.gradely.daos.abstracts.AbstractSecretaryDAO;
 import it.uniroma2.dicii.ispw.gradely.model.Secretary;
 import it.uniroma2.dicii.ispw.gradely.model.User;
 
@@ -28,6 +28,6 @@ public class SecretaryLazyFactory {
                 return s; //TODO implementare exception
             }
         }
-        return SecretaryDAO.getInstance().getSecretaryByUser(user); //TODO implementare exception
+        return AbstractSecretaryDAO.getInstance().getSecretaryByUser(user); //TODO implementare exception
     }
 }

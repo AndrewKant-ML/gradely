@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.lazy_factories;
 
-import it.uniroma2.dicii.ispw.gradely.daos.CCDDAO;
+import it.uniroma2.dicii.ispw.gradely.daos.abstracts.AbstractCCDDAO;
 import it.uniroma2.dicii.ispw.gradely.model.CCD;
 import it.uniroma2.dicii.ispw.gradely.model.User;
 
@@ -28,6 +28,6 @@ public class CCDLazyFactory {
                 return c; //TODO implementare exception
             }
         }
-        return CCDDAO.getInstance().getCCDByUser(user); //TODO implementare exception
+        return AbstractCCDDAO.getInstance().getCCDByUser(user); //TODO implementare exception
     }
 }

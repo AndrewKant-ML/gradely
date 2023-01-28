@@ -1,4 +1,4 @@
-package it.uniroma2.dicii.ispw.gradely.daos.association_classes_daos;
+package it.uniroma2.dicii.ispw.gradely.daos.concrete_file_system.association_classes_daos;
 
 import it.uniroma2.dicii.ispw.gradely.model.DegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.Student;

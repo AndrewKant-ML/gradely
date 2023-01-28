@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.lazy_factories.association_classes_lazy_factories;
 
-import it.uniroma2.dicii.ispw.gradely.daos.association_classes_daos.CourseAssignmentDAO;
+import it.uniroma2.dicii.ispw.gradely.daos.abstracts.association_classes_daos.CourseAssignmentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.Professor;
 import it.uniroma2.dicii.ispw.gradely.model.SubjectCourse;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.CourseAssignment;

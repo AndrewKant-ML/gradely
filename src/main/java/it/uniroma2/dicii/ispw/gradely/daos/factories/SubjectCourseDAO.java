@@ -1,4 +1,4 @@
-package it.uniroma2.dicii.ispw.gradely.daos;
+package it.uniroma2.dicii.ispw.gradely.daos.factories;
 
 import it.uniroma2.dicii.ispw.gradely.model.SubjectCourse;
 
