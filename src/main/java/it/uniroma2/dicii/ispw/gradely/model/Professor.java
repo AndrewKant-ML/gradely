@@ -25,7 +25,7 @@ public class Professor extends AbstractRole {
     }
 
     @Override
-    public Professor Professor() {
+    public Professor professor() {
         return this;
     }
 }

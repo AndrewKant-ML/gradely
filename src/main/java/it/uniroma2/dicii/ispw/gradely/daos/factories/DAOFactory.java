@@ -7,6 +7,8 @@ import it.uniroma2.dicii.ispw.gradely.daos.abstracts.association_classes_daos.Ab
 import it.uniroma2.dicii.ispw.gradely.daos.abstracts.association_classes_daos.AbstractSubjectCourseEnrollmentDAO;
 import it.uniroma2.dicii.ispw.gradely.enums.PersistenceTypeEnum;
 
+import static it.uniroma2.dicii.ispw.gradely.enums.PersistenceTypeEnum.*;
+
 public abstract class DAOFactory {
 
     private static DAOFactory me = null;
@@ -19,9 +21,11 @@ public abstract class DAOFactory {
         if (me == null){
             String persistenceType = System.getProperty("gradely.persistence_type");
 
-            switch (PersistenceTypeEnum.valueOf(persistenceType)){
-                case DB -> me = new DAOFactoryDB();
-                case FS -> me = new DAOFactoryFS();
+            if (PersistenceTypeEnum.valueOf(persistenceType) == DB){
+                me = new DAOFactoryDB();
+
+            } else if (PersistenceTypeEnum.valueOf(persistenceType) == FS) {
+                me = new DAOFactoryFS();
             }
         }
         return me;

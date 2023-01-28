@@ -39,7 +39,7 @@ public class ExamLazyFactory {
         List<Exam> list = new ArrayList<>();
         for(SubjectCourse c : CourseAssignmentLazyFactory.getInstance().getAssignedSubjectCoursesByProfessor(professor)) {
             for (Exam e : c.getExams()){
-                if (e.getVerbalizable()){
+                if (e.getVerbalizable()==true){
                     list.add(e);
                 }
             }

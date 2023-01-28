@@ -11,8 +11,9 @@ public abstract class AbstractRole {
         this.user = user;
     }
 
-    public  Professor Professor(){return null;}
-    public  Student Student(){return null;}
-    public  Secretary Secretary(){return null;}
+
+    public  Professor professor(){return null;}
+    public  Student student(){return null;}
+    public  Secretary secretary(){return null;}
 
 }

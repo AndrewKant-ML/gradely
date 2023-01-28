@@ -25,7 +25,7 @@ public class Student extends AbstractRole {
     }
 
     @Override
-    public Student Student() {
+    public Student student() {
         return this;
     }
 

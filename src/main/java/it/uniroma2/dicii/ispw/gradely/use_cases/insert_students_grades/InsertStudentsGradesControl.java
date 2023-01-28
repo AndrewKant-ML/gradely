@@ -9,14 +9,14 @@ import it.uniroma2.dicii.ispw.gradely.model.SubjectCourse;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.ExamEnrollment;
 import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
 import it.uniroma2.dicii.ispw.gradely.session_manager.Token;
-import it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.beans.InsertStudentGradesBean;
+import it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.beans.StudentGradesBean;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class InsertStudentsGradesControl {
     public ExamListBean getGradableExams(Token token){ //TODO exceptions
-        return new ExamListBean(createExamBeanList(ExamLazyFactory.getInstance().getGradableExams(SessionManager.getInstance().getSessionUserByToken(token).getRole().Professor())));
+        return new ExamListBean(createExamBeanList(ExamLazyFactory.getInstance().getGradableExams(SessionManager.getInstance().getSessionUserByToken(token).getRole().professor())));
     }
 
     private List<ExamBean> createExamBeanList(List<Exam> inList){
@@ -44,7 +44,7 @@ public class InsertStudentsGradesControl {
 
     }
 
-    public void saveResults(InsertStudentGradesBean bean){
+    public void saveResults(StudentGradesBean bean){
 
     }
 
