@@ -1,13 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            prefHeight="400.0" prefWidth="600.0">
+            fx:controller="it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.TestInfoController"
+            prefHeight="400" prefWidth="650">
+
+    <VBox AnchorPane.topAnchor="30" AnchorPane.leftAnchor="30" AnchorPane.rightAnchor="30" spacing="20">
+        <HBox>
+            <Label text="Degree course"/>
+            <Region HBox.hgrow="SOMETIMES"/>
+            <Label fx:id="degreeCourseName"/>
+        </HBox>
+        <HBox>
+            <Label text="Test"/>
+            <Region HBox.hgrow="SOMETIMES"/>
+            <Label fx:id="testID"/>
+        </HBox>
+        <HBox>
+            <Label text="Date"/>
+            <Region HBox.hgrow="SOMETIMES"/>
+            <Label fx:id="testDate"/>
+        </HBox>
+        <HBox>
+            <Label text="Place"/>
+            <Region HBox.hgrow="SOMETIMES"/>
+            <Label fx:id="testPlace"/>
+        </HBox>
+        <HBox>
+            <Label text="Test info"/>
+            <Region HBox.hgrow="SOMETIMES"/>
+            <Hyperlink fx:id="testInfoUrl"/>
+        </HBox>
+    </VBox>
 
 </AnchorPane>

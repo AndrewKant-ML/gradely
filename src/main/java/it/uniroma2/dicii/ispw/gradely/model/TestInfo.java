@@ -5,10 +5,29 @@ import java.time.LocalDate;
 
 public class TestInfo {
 
+    private DegreeCourse degreeCourse;
+    private String ID;
     private LocalDate testDate;
-    private URL testLink;
+    private URL testReservationLink;
     private LocalDate resultsDate;
     private URL infoLink;
+    private String place;
+
+    public DegreeCourse getDegreeCourse() {
+        return degreeCourse;
+    }
+
+    public void setDegreeCourse(DegreeCourse degreeCourse) {
+        this.degreeCourse = degreeCourse;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
 
     public LocalDate getTestDate() {
         return testDate;
@@ -18,12 +37,12 @@ public class TestInfo {
         this.testDate = testDate;
     }
 
-    public URL getTestLink() {
-        return testLink;
+    public URL getTestReservationLink() {
+        return testReservationLink;
     }
 
-    public void setTestLink(URL testLink) {
-        this.testLink = testLink;
+    public void setTestReservationLink(URL testReservationLink) {
+        this.testReservationLink = testReservationLink;
     }
 
     public LocalDate getResultsDate() {
@@ -40,5 +59,13 @@ public class TestInfo {
 
     public void setInfoLink(URL infoLink) {
         this.infoLink = infoLink;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
     }
 }
