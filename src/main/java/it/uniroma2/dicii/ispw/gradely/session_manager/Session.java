@@ -1,19 +1,19 @@
 package it.uniroma2.dicii.ispw.gradely.session_manager;
 
-import it.uniroma2.dicii.ispw.gradely.model.PendingEvent;
+import it.uniroma2.dicii.ispw.gradely.enums.FrontEndTypeEnum;
 import it.uniroma2.dicii.ispw.gradely.model.User;
-
-import java.util.List;
-import java.util.UUID;
 
 public class Session {
     private User user;
     private Token token;
 
+    private FrontEndTypeEnum frontEndType;
 
-    public Session(User user) {
+
+    public Session(User user, FrontEndTypeEnum frontEndType) {
         this.user = user;
         this.token = new Token();
+        this.frontEndType = frontEndType;
     }
 
     public User getUser() {
@@ -30,6 +30,14 @@ public class Session {
 
     public void setToken(Token token) {
         this.token = token;
+    }
+
+    public FrontEndTypeEnum getFrontEndType() {
+        return frontEndType;
+    }
+
+    public void setFrontEndType(FrontEndTypeEnum frontEndType) {
+        this.frontEndType = frontEndType;
     }
 
 }

@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.lazy_factories;
 
-import it.uniroma2.dicii.ispw.gradely.daos.ProfessorDAO;
+import it.uniroma2.dicii.ispw.gradely.daos.abstracts.AbstractProfessorDAO;
 import it.uniroma2.dicii.ispw.gradely.model.Professor;
 import it.uniroma2.dicii.ispw.gradely.model.User;
 
@@ -28,6 +28,6 @@ public class ProfessorLazyFactory {
                 return s; //TODO implementare exception
             }
         }
-        return ProfessorDAO.getInstance().getProfessorByUser(user); //TODO implementare exceptions
+        return AbstractProfessorDAO.getInstance().getProfessorByUser(user); //TODO implementare exceptions
     }
 }

@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static it.uniroma2.dicii.ispw.gradely.enums.FrontEndTypeEnum.*;
+
 public class SessionManager {
     private static SessionManager instance;
     private List<Session> activeSessions;
@@ -47,7 +49,7 @@ public class SessionManager {
     public Token getLazySessionToken(User user){
         Session s = getSession(user);
         if (s == null) {
-            s = new Session(user);
+            s = new Session(user,GUI,DB); //TODO implementare
             activeSessions.add(s);
         }
         return s.getToken();

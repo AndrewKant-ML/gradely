@@ -1,4 +1,4 @@
-package it.uniroma2.dicii.ispw.gradely.daos;
+package it.uniroma2.dicii.ispw.gradely.daos.concrete_data_base;
 
 import it.uniroma2.dicii.ispw.gradely.lazy_factories.UserLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.Professor;

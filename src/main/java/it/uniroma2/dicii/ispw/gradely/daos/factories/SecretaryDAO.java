@@ -1,23 +1,24 @@
-package it.uniroma2.dicii.ispw.gradely.lazy_factories;
+package it.uniroma2.dicii.ispw.gradely.daos.factories;
 
-import it.uniroma2.dicii.ispw.gradely.daos.abstracts.AbstractSecretaryDAO;
+import it.uniroma2.dicii.ispw.gradely.lazy_factories.UserLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.Secretary;
 import it.uniroma2.dicii.ispw.gradely.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SecretaryLazyFactory {
-    private static SecretaryLazyFactory instance;
+public class SecretaryDAO {
+    private static SecretaryDAO instance;
     private List<Secretary> secretaries;
 
-    private SecretaryLazyFactory(){
+    private SecretaryDAO(){ //TODO implementare costruttore vero
         secretaries = new ArrayList<Secretary>();
+        secretaries.add(new Secretary(UserLazyFactory.getInstance().getUserByEmail("m.rossi@uniroma2.it")));
     }
 
-    public static SecretaryLazyFactory getInstance(){
+    public static SecretaryDAO getInstance(){
         if (instance == null) {
-            instance = new SecretaryLazyFactory();
+            instance = new SecretaryDAO();
         }
         return instance;
     }
@@ -28,6 +29,6 @@ public class SecretaryLazyFactory {
                 return s; //TODO implementare exception
             }
         }
-        return AbstractSecretaryDAO.getInstance().getSecretaryByUser(user); //TODO implementare exception
+        return null; //TODO implementare exceptions
     }
 }
