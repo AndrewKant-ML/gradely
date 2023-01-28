@@ -1,6 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.lazy_factories;
 
 import it.uniroma2.dicii.ispw.gradely.daos.abstracts.AbstractUserDAO;
+import it.uniroma2.dicii.ispw.gradely.daos.factories.DAOFactory;
 import it.uniroma2.dicii.ispw.gradely.model.User;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class UserLazyFactory {
                 return u; //TODO implementare exception
             }
         }
-        return AbstractUserDAO.getInstance().getUserByEmail(email); //TODO implementare exception
+        return DAOFactory.getDAOFactory().getUserDAO().getUserByEmail(email); //TODO implementare exception
     }
 
 }

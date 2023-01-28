@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.UUID;
 
 import static it.uniroma2.dicii.ispw.gradely.enums.FrontEndTypeEnum.*;
-import static it.uniroma2.dicii.ispw.gradely.enums.PersistenceTypeEnum.*;
 
 public class SessionManager {
     private static SessionManager instance;
@@ -40,14 +39,14 @@ public class SessionManager {
         }
         return null;
     }
-    public User getLazySessionUser(Token token){
+    public User getSessionUserByToken(Token token){
         Session s = getSession(token);
         if (s == null) {
             return null;
         }
         return s.getUser();
     }
-    public Token getLazySessionToken(User user){
+    public Token getSessionTokenByUser(User user){
         Session s = getSession(user);
         if (s == null) {
             s = new Session(user,JAVAFX); //TODO implementare

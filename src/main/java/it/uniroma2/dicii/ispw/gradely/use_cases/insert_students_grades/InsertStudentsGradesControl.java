@@ -16,7 +16,7 @@ import java.util.List;
 
 public class InsertStudentsGradesControl {
     public ExamListBean getGradableExams(Token token){ //TODO exceptions
-        return new ExamListBean(createExamBeanList(ExamLazyFactory.getInstance().getGradableExams(SessionManager.getInstance().getLazySessionUser(token).getRole().Professor())));
+        return new ExamListBean(createExamBeanList(ExamLazyFactory.getInstance().getGradableExams(SessionManager.getInstance().getSessionUserByToken(token).getRole().Professor())));
     }
 
     private List<ExamBean> createExamBeanList(List<Exam> inList){

@@ -33,33 +33,33 @@ public class CourseAssignmentLazyFactory {
     }
 
     public List<CourseAssignment> getCourseAssignmentsByProfessor(Professor professor) {
-        List<CourseAssignment> lazyList = new ArrayList<>();
+        List<CourseAssignment> list = new ArrayList<>();
         for(CourseAssignment c : courseAssignments){
             if(c.getProfessor().equals(professor)) {
-                lazyList.add(c); //TODO implementare exceptions
+                list.add(c); //TODO implementare exceptions
             }
         }
         List<CourseAssignment> daoList = AbstractCourseAssignmentDAO.getInstance().getCourseAssignmentsByProfessor(professor); //TODO implementare exception
         for(CourseAssignment c : daoList){
-            if(!lazyList.contains(c)) {
-                lazyList.add(c); //TODO implementare exceptions
+            if(!list.contains(c)) {
+                list.add(c); //TODO implementare exceptions
             }
         }
-        return lazyList;
+        return list;
     }
     public List<SubjectCourse> getAssignedSubjectCoursesByProfessor(Professor professor) {
-        List<SubjectCourse> lazyList = new ArrayList<>();
+        List<SubjectCourse> list = new ArrayList<>();
         for(CourseAssignment c : courseAssignments){
             if(c.getProfessor().equals(professor)) {
-                lazyList.add(c.getSubjectCourse()); //TODO implementare exceptions
+                list.add(c.getSubjectCourse()); //TODO implementare exceptions
             }
         }
         List<CourseAssignment> daoList = AbstractCourseAssignmentDAO.getInstance().getCourseAssignmentsByProfessor(professor); //TODO implementare exception
         for(CourseAssignment c : daoList){
-            if(!lazyList.contains(c.getSubjectCourse())) {
-                lazyList.add(c.getSubjectCourse()); //TODO implementare exceptions
+            if(!list.contains(c.getSubjectCourse())) {
+                list.add(c.getSubjectCourse()); //TODO implementare exceptions
             }
         }
-        return lazyList;
+        return list;
     }
 }

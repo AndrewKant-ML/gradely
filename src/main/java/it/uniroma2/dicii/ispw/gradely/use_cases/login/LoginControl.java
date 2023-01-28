@@ -9,7 +9,7 @@ public class LoginControl {
     public Token login(String email, String password) throws Exception{
         User user = UserLazyFactory.getInstance().getUserByEmail(email); //TODO implementare exception
         if(user.getPassword().equals(password)){// TODO implementare ricerca utente nel DAO
-            return SessionManager.getInstance().getLazySessionToken(user);
+            return SessionManager.getInstance().getSessionTokenByUser(user);
         }
         else throw new Exception(); //TODO implementare exception
 

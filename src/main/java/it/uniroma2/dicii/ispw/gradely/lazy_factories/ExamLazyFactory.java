@@ -36,14 +36,14 @@ public class ExamLazyFactory {
     }
 
     public List<Exam> getGradableExams(Professor professor){
-        List<Exam> lazyList = new ArrayList<>();
+        List<Exam> list = new ArrayList<>();
         for(SubjectCourse c : CourseAssignmentLazyFactory.getInstance().getAssignedSubjectCoursesByProfessor(professor)) {
             for (Exam e : c.getExams()){
                 if (e.getVerbalizable()){
-                    lazyList.add(e);
+                    list.add(e);
                 }
             }
         }
-        return lazyList;
+        return list;
     }
 }
