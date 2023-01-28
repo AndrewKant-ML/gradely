@@ -34,16 +34,6 @@ public class SecretaryLazyFactory {
         return DAOFactory.getDAOFactory().getSecretaryDAO().getSecretaryByUser(user); //TODO implementare exception
     }
 
-    /*
-    public List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento){
-        List<Secretary> list = new ArrayList<>();
-        for(Secretary s : secretaries){
-            if(s.getDipartimento().equals(dipartimento)) {
-                list.add(s); //TODO implementare exception
-            }
-        }
-        return DAOFactory.getDAOFactory().getSecretaryDAO().getSecretaryByUser(user); //TODO implementare exception
-    }*/
 
 
     public List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento){

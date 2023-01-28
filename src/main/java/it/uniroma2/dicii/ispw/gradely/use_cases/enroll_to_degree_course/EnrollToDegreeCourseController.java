@@ -27,7 +27,7 @@ public class EnrollToDegreeCourseController {
         User user = SessionManager.getInstance().getSessionUserByToken(
                 PageNavigationController.getInstance().getSessionToken()
         );
-        this.studentBean = new StudentBean(user.getRole().Student().getId());
+        this.studentBean = new StudentBean(user.getRole().student().getId());
         this.userBean = new UserBean(
                 user.getName(),
                 user.getSurname(),

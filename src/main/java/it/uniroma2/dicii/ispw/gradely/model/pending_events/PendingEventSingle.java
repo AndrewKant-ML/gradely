@@ -12,17 +12,18 @@ public class PendingEventSingle extends PendingEvent{
     public PendingEventSingle() {
     }
     public PendingEventSingle(User user, PendingEventTypeEnum type, String message) {
-        UUID id;
+        UUID generatedId;
         do{
-            id=UUID.randomUUID();
-        }while(SessionManager.getInstance().checkUUID(id));
+            generatedId=UUID.randomUUID();
+        }while(SessionManager.getInstance().checkUUID(generatedId));
 
-        this.id = id;
+        this.id = generatedId;
         this.user = user;
         this.type = type;
         this.message = message;
         this.notified = false;
     }
+
 
     public User getUser() {
         return user;
@@ -32,34 +33,42 @@ public class PendingEventSingle extends PendingEvent{
         this.user = user;
     }
 
+    @Override
     public UUID getId() {
         return id;
     }
 
+    @Override
     public void setId(UUID id) {
         this.id = id;
     }
 
+    @Override
     public PendingEventTypeEnum getType() {
         return type;
     }
 
+    @Override
     public void setType(PendingEventTypeEnum type) {
         this.type = type;
     }
 
+    @Override
     public String getMessage() {
         return message;
     }
 
+    @Override
     public void setMessage(String message) {
         this.message = message;
     }
 
+    @Override
     public Boolean getNotified() {
         return notified;
     }
 
+    @Override
     public void setNotified(Boolean notified) {
         this.notified = notified;
     }

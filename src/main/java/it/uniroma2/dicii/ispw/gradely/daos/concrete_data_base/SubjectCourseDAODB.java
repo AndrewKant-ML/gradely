@@ -18,6 +18,7 @@ public class SubjectCourseDAODB extends AbstractSubjectCourseDAO {
         subjectCourses.add(new SubjectCourse(C01,"ISPW",Year.parse("2022"),12));
     }
 
+    @Override
     public SubjectCourse getSubjectCourseByName(String name) {
         for(SubjectCourse s : subjectCourses){
             if(s.getName().equals(name)) {

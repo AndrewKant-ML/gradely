@@ -23,6 +23,7 @@ public class SubjectCourseEnrollmentDAOFS extends AbstractSubjectCourseEnrollmen
         return instance;
     }
 
+    @Override
     public List<SubjectCourseEnrollment> getSubjectCourseEnrollmentsBySubjectCourse(SubjectCourse course) {
         List<SubjectCourseEnrollment> list = new ArrayList<>();
         for (SubjectCourseEnrollment e : subjectCourseEnrollments) {
@@ -33,6 +34,7 @@ public class SubjectCourseEnrollmentDAOFS extends AbstractSubjectCourseEnrollmen
         return list;
     }
 
+    @Override
     public List<SubjectCourseEnrollment> getSubjectCourseEnrollmentsByStudent(Student student) {
         List<SubjectCourseEnrollment> list = new ArrayList<>();
         for (SubjectCourseEnrollment e : subjectCourseEnrollments) {

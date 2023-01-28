@@ -18,6 +18,7 @@ public class StudentDAODB extends AbstractStudentDAO {
         students.add(new Student(UserLazyFactory.getInstance().getUserByEmail("m.rossi@uniroma2.it"), "123456", LocalDate.now(), new ArrayList<TitleEnum>()));
     }
 
+    @Override
     public Student getStudentByUser(User user) {
         for(Student s : students){
             if(s.getUser().equals(user)) {

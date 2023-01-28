@@ -26,6 +26,7 @@ public class SubjectCourseDAOFS extends AbstractSubjectCourseDAO {
         return instance;
     }
 
+    @Override
     public SubjectCourse getSubjectCourseByName(String name) {
         for(SubjectCourse s : subjectCourses){
             if(s.getName().equals(name)) {

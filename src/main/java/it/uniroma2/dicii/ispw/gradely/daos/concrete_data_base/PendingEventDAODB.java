@@ -3,6 +3,7 @@ package it.uniroma2.dicii.ispw.gradely.daos.concrete_data_base;
 import it.uniroma2.dicii.ispw.gradely.daos.abstracts.AbstractPendingEventDAO;
 import it.uniroma2.dicii.ispw.gradely.lazy_factories.UserLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEvent;
+import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEventSingle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ public class PendingEventDAODB extends AbstractPendingEventDAO {
 
     private PendingEventDAODB(){ //TODO implementare costruttore vero
         pendingEvents = new ArrayList<PendingEvent>();
-        pendingEvents.add(new PendingEvent(UserLazyFactory.getInstance().getUserByEmail("m.rossi@uniroma2.it"),E4,"prova test prova"));
+        pendingEvents.add(new PendingEventSingle(UserLazyFactory.getInstance().getUserByEmail("m.rossi@uniroma2.it"),E4,"prova test prova"));
     }
 
     public static AbstractPendingEventDAO getInstance(){

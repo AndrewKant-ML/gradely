@@ -22,6 +22,7 @@ public class StudentLazyFactory {
         return instance;
     }
 
+
     public Student getStudentByUser(User user) {
         for(Student s : students){
             if(s.getUser().equals(user)) {

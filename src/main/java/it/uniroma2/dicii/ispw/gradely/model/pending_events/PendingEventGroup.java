@@ -13,12 +13,12 @@ public class PendingEventGroup extends PendingEvent{
     public PendingEventGroup() {
     }
     public PendingEventGroup(List<User> users, PendingEventTypeEnum type, String message) {
-        UUID id;
+        UUID generatedId;
         do{
-            id=UUID.randomUUID();
-        }while(SessionManager.getInstance().checkUUID(id));
+            generatedId=UUID.randomUUID();
+        }while(SessionManager.getInstance().checkUUID(generatedId));
 
-        super.id = id;
+        super.id = generatedId;
         this.users = users;
         super.type = type;
         super.message = message;
@@ -33,34 +33,42 @@ public class PendingEventGroup extends PendingEvent{
         this.users = users;
     }
 
+    @Override
     public UUID getId() {
         return id;
     }
 
+    @Override
     public void setId(UUID id) {
         this.id = id;
     }
 
+    @Override
     public PendingEventTypeEnum getType() {
         return type;
     }
 
+    @Override
     public void setType(PendingEventTypeEnum type) {
         this.type = type;
     }
 
+    @Override
     public String getMessage() {
         return message;
     }
 
+    @Override
     public void setMessage(String message) {
         this.message = message;
     }
 
+    @Override
     public Boolean getNotified() {
         return notified;
     }
 
+    @Override
     public void setNotified(Boolean notified) {
         this.notified = notified;
     }

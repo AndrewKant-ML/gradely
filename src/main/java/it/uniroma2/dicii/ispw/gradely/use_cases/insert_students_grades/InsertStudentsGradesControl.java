@@ -73,7 +73,7 @@ public class InsertStudentsGradesControl {
         enrollment.getExamResult().setConfirmed(decision);
     }
 
-    private void checkTimers(ExamConfirmationTimer timer){
+    private void checkTimers(ExamConfirmationTimer timer){ //TODO timered trigger
         for (ExamConfirmationTimer t : timers){
             if (t.getConfirmationExpiration().isAfter(LocalDate.now())){
                 for (ExamEnrollment e : t.getExam().getEnrollments()){

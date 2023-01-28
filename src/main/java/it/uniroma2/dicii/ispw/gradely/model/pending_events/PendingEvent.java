@@ -17,12 +17,12 @@ public abstract class PendingEvent {
     protected PendingEvent() {
     }
     protected PendingEvent(User user, PendingEventTypeEnum type, String message, Objects object) {
-        UUID id;
+        UUID generatedId;
         do{
-            id=UUID.randomUUID();
-        }while(SessionManager.getInstance().checkUUID(id));
+            generatedId=UUID.randomUUID();
+        }while(SessionManager.getInstance().checkUUID(generatedId));
 
-        this.id = id;
+        this.id = generatedId;
         this.type = type;
         this.message = message;
         this.notified = false;
