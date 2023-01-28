@@ -10,7 +10,29 @@ import java.util.List;
 
 public class InsertStudentsGradesControl {
     public ExamListBean getGradableExams(Token token){ //TODO exceptions
-        List<Exam> list = ExamLazyFactory.getInstance().getGradableExams(SessionManager.getInstance().getLazySessionUser(token).getRole().Professor());
-        return new ExamListBean();
+        return new ExamListBean(createExamBeanList(ExamLazyFactory.getInstance().getGradableExams(SessionManager.getInstance().getLazySessionUser(token).getRole().Professor())));
+    }
+
+    private List<ExamBean> createExamBeanList(List<Exam> inList){
+        List<ExamBean> outList = new ArrayList<>();
+        for (Exam e : inList){
+            outList.add(new ExamBean(new SubjectCourseBean(e.getCourse().getCode(),e.getCourse().getName(),e.getCourse().getAcademicYear()),e.getAppello(),e.getSession()));
+        }
+        return outList;
+    }
+
+    public ExamEnrollmentListBean getExamEnrollments(ExamBean bean){
+        List<ExamEnrollment> list = new ArrayList<>();
+        for (ExamEnrollment e : ExamEnrollmentLazyFactory.getInstance().getExamEnrollmentsByExam(getExamByBean(bean))){
+            list.add(e.);
+        }
+    }
+
+    private Exam getExamByBean(ExamBean bean){
+        return ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(bean.getAppello(), getSubjectCourseByBean(bean.getCourse()),bean.getSessione());
+    }
+
+    private SubjectCourse getSubjectCourseByBean(SubjectCourseBean bean){
+        return SubjectCourseLazyFactory.getInstance().getSubjectCourseByName(bean.getName());
     }
 }
