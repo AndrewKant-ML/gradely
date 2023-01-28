@@ -1,5 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.daos.abstracts;
 
+import it.uniroma2.dicii.ispw.gradely.daos.concrete_data_base.StudentDAODB;
 import it.uniroma2.dicii.ispw.gradely.enums.TitleEnum;
 import it.uniroma2.dicii.ispw.gradely.lazy_factories.UserLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.Student;
@@ -13,14 +14,14 @@ public abstract class AbstractStudentDAO {
     private static AbstractStudentDAO instance;
     private List<Student> students;
 
-    private AbstractStudentDAO(){ //TODO implementare costruttore vero
+    protected AbstractStudentDAO(){ //TODO implementare costruttore vero
         students = new ArrayList<Student>();
         students.add(new Student(UserLazyFactory.getInstance().getUserByEmail("m.rossi@uniroma2.it"), "123456", LocalDate.now(), new ArrayList<TitleEnum>()));
     }
 
     public static AbstractStudentDAO getInstance(){
         if (instance == null) {
-            instance = new AbstractStudentDAO();
+            instance = new StudentDAODB();
         }
         return instance;
     }

@@ -25,51 +25,51 @@ public class ExamEnrollmentLazyFactory {
     }
 
     public List<ExamEnrollment> getExamEnrollmentsByExam(Exam exam) {
-        List<ExamEnrollment> lazyList = new ArrayList<>();
+        List<ExamEnrollment> list = new ArrayList<>();
         for(ExamEnrollment e : examEnrollments){
             if(e.getExam().equals(exam)) {
-                lazyList.add(e); //TODO implementare exception
+                list.add(e); //TODO implementare exception
             }
         }
         List<ExamEnrollment> daoList = AbstractExamEnrollmentDAO.getInstance().getExamEnrollmentsByExam(exam); //TODO implementare exception
         for(ExamEnrollment e : daoList){
-            if(!lazyList.contains(e)) {
-                lazyList.add(e); //TODO implementare exceptions
+            if(!list.contains(e)) {
+                list.add(e); //TODO implementare exceptions
             }
         }
-        return lazyList;
+        return list;
     }
 
     public List<ExamEnrollment> getExamEnrollmentsByStudent(Student student) {
-        List<ExamEnrollment> lazyList = new ArrayList<>();
+        List<ExamEnrollment> list = new ArrayList<>();
         for(ExamEnrollment e : examEnrollments){
             if(e.getStudent().equals(student)) {
-                lazyList.add(e); //TODO implementare exception
+                list.add(e); //TODO implementare exception
             }
         }
         List<ExamEnrollment> daoList = AbstractExamEnrollmentDAO.getInstance().getExamEnrollmentsByStudent(student); //TODO implementare exception
         for(ExamEnrollment e : daoList){
-            if(!lazyList.contains(e)) {
-                lazyList.add(e); //TODO implementare exceptions
+            if(!list.contains(e)) {
+                list.add(e); //TODO implementare exceptions
             }
         }
-        return lazyList;
+        return list;
     }
 
     public List<ExamEnrollment> getExamEnrollmentsByExamAndStudent(Exam exam, Student student) {
-        List<ExamEnrollment> lazyList = new ArrayList<>();
+        List<ExamEnrollment> list = new ArrayList<>();
         for(ExamEnrollment e : examEnrollments){
             if(e.getExam().equals(exam) && e.getStudent().equals(student)) {
-                lazyList.add(e); //TODO implementare exception
+                list.add(e); //TODO implementare exception
             }
         }
         List<ExamEnrollment> daoList = AbstractExamEnrollmentDAO.getInstance().getExamEnrollmentsByExam(exam); //TODO implementare exception
         for(ExamEnrollment e : daoList){
-            if(!lazyList.contains(e)) {
-                lazyList.add(e); //TODO implementare exceptions
+            if(!list.contains(e)) {
+                list.add(e); //TODO implementare exceptions
             }
         }
-        return lazyList;
+        return list;
     }
 
     public void saveExamResult(ExamEnrollment enrollment, ExamResult result){

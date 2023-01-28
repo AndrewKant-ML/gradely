@@ -25,23 +25,23 @@ public class SubjectCourseEnrollmentDAODB extends AbstractSubjectCourseEnrollmen
     }
 
     public List<SubjectCourseEnrollment> getSubjectCourseEnrollmentsBySubjectCourse(SubjectCourse course) {
-        List<SubjectCourseEnrollment> lazyList = new ArrayList<>();
+        List<SubjectCourseEnrollment> list = new ArrayList<>();
         for (SubjectCourseEnrollment e : subjectCourseEnrollments) {
             if (e.getSubjectCourse().equals(course)) {
-                lazyList.add(e); //TODO implementare exception
+                list.add(e); //TODO implementare exception
             }
         }
-        return lazyList;
+        return list;
     }
 
     public List<SubjectCourseEnrollment> getSubjectCourseEnrollmentsByStudent(Student student) {
-        List<SubjectCourseEnrollment> lazyList = new ArrayList<>();
+        List<SubjectCourseEnrollment> list = new ArrayList<>();
         for (SubjectCourseEnrollment e : subjectCourseEnrollments) {
             if (e.getStudent().equals(student)) {
-                lazyList.add(e); //TODO implementare exception
+                list.add(e); //TODO implementare exception
             }
         }
-        return lazyList;
+        return list;
     }
 
 }

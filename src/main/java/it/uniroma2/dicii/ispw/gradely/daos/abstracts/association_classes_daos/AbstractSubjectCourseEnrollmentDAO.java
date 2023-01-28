@@ -8,39 +8,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractSubjectCourseEnrollmentDAO {
-    private static AbstractSubjectCourseEnrollmentDAO instance;
+    protected static AbstractSubjectCourseEnrollmentDAO instance;
     private List<SubjectCourseEnrollment> subjectCourseEnrollments;
 
-    private AbstractSubjectCourseEnrollmentDAO() { //TODO implementare costruttore vero
-        subjectCourseEnrollments = new ArrayList<SubjectCourseEnrollment>();
-        subjectCourseEnrollments.add(new SubjectCourseEnrollment());
-    }
-
-    public static AbstractSubjectCourseEnrollmentDAO getInstance() {
-        if (instance == null) {
-            instance = new AbstractSubjectCourseEnrollmentDAO();
-        }
-        return instance;
+    protected AbstractSubjectCourseEnrollmentDAO() { //TODO implementare costruttore vero
     }
 
     public List<SubjectCourseEnrollment> getSubjectCourseEnrollmentsBySubjectCourse(SubjectCourse course) {
-        List<SubjectCourseEnrollment> lazyList = new ArrayList<>();
+        List<SubjectCourseEnrollment> list = new ArrayList<>();
         for (SubjectCourseEnrollment e : subjectCourseEnrollments) {
             if (e.getSubjectCourse().equals(course)) {
-                lazyList.add(e); //TODO implementare exception
+                list.add(e); //TODO implementare exception
             }
         }
-        return lazyList;
+        return list;
     }
 
     public List<SubjectCourseEnrollment> getSubjectCourseEnrollmentsByStudent(Student student) {
-        List<SubjectCourseEnrollment> lazyList = new ArrayList<>();
+        List<SubjectCourseEnrollment> list = new ArrayList<>();
         for (SubjectCourseEnrollment e : subjectCourseEnrollments) {
             if (e.getStudent().equals(student)) {
-                lazyList.add(e); //TODO implementare exception
+                list.add(e); //TODO implementare exception
             }
         }
-        return lazyList;
+        return list;
     }
 
 }

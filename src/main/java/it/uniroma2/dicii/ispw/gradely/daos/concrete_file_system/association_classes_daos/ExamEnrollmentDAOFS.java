@@ -25,33 +25,33 @@ public class ExamEnrollmentDAOFS extends AbstractExamEnrollmentDAO {
     }
 
     public List<ExamEnrollment> getExamEnrollmentsByExam(Exam exam) {
-        List<ExamEnrollment> lazyList = new ArrayList<>();
+        List<ExamEnrollment> list = new ArrayList<>();
         for(ExamEnrollment e : examEnrollments){
             if(e.getExam().equals(exam)) {
-                lazyList.add(e); //TODO implementare exception
+                list.add(e); //TODO implementare exception
             }
         }
-        return lazyList;
+        return list;
     }
 
     public List<ExamEnrollment> getExamEnrollmentsByStudent(Student student) {
-        List<ExamEnrollment> lazyList = new ArrayList<>();
+        List<ExamEnrollment> list = new ArrayList<>();
         for(ExamEnrollment e : examEnrollments){
             if(e.getStudent().equals(student)) {
-                lazyList.add(e); //TODO implementare exception
+                list.add(e); //TODO implementare exception
             }
         }
-        return lazyList;
+        return list;
     }
 
     public List<ExamEnrollment> getExamEnrollmentsByExamAndStudent(Exam exam, Student student) {
-        List<ExamEnrollment> lazyList = new ArrayList<>();
+        List<ExamEnrollment> list = new ArrayList<>();
         for(ExamEnrollment e : examEnrollments){
             if(e.getExam().equals(exam) && e.getStudent().equals(student)) {
-                lazyList.add(e); //TODO implementare exception
+                list.add(e); //TODO implementare exception
             }
         }
-        return lazyList;
+        return list;
     }
 
     public void update(ExamEnrollment enrollment){

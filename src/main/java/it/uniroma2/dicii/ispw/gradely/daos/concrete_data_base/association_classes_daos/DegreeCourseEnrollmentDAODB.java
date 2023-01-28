@@ -25,23 +25,23 @@ public class DegreeCourseEnrollmentDAODB extends AbstractDegreeCourseEnrollmentD
     }
 
     public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByDegreeCourse(DegreeCourse course) {
-        List<DegreeCourseEnrollment> lazyList = new ArrayList<>();
+        List<DegreeCourseEnrollment> list = new ArrayList<>();
         for (DegreeCourseEnrollment e : degreeCourseEnrollments) {
             if (e.getDegreeCourse().equals(course)) {
-                lazyList.add(e); //TODO implementare exception
+                list.add(e); //TODO implementare exception
             }
         }
-        return lazyList;
+        return list;
     }
 
     public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByStudent(Student student) {
-        List<DegreeCourseEnrollment> lazyList = new ArrayList<>();
+        List<DegreeCourseEnrollment> list = new ArrayList<>();
         for (DegreeCourseEnrollment e : degreeCourseEnrollments) {
             if (e.getStudent().equals(student)) {
-                lazyList.add(e); //TODO implementare exception
+                list.add(e); //TODO implementare exception
             }
         }
-        return lazyList;
+        return list;
     }
 
 }

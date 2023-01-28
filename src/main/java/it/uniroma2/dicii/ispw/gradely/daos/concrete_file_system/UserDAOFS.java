@@ -22,7 +22,7 @@ public class UserDAOFS extends AbstractUserDAO {
         return instance;
     }
 
-    public User getUser(String email) {
+    public User getUserByEmail(String email) {
         for(User u : registeredUsers){
             if(u.getEmail().equals(email)) {
                 return u; //TODO implementare exceptions

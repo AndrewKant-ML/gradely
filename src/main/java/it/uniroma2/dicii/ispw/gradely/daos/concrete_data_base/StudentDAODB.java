@@ -11,19 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDAODB extends AbstractStudentDAO {
-    private static StudentDAODB instance;
     private List<Student> students;
 
-    private StudentDAODB(){ //TODO implementare costruttore vero
+    public StudentDAODB(){ //TODO implementare costruttore vero
         students = new ArrayList<Student>();
         students.add(new Student(UserLazyFactory.getInstance().getUserByEmail("m.rossi@uniroma2.it"), "123456", LocalDate.now(), new ArrayList<TitleEnum>()));
-    }
-
-    public static StudentDAODB getInstance(){
-        if (instance == null) {
-            instance = new StudentDAODB();
-        }
-        return instance;
     }
 
     public Student getStudentByUser(User user) {

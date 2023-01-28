@@ -1,6 +1,10 @@
 package it.uniroma2.dicii.ispw.gradely.daos.factories;
 
 import it.uniroma2.dicii.ispw.gradely.daos.abstracts.*;
+import it.uniroma2.dicii.ispw.gradely.daos.abstracts.association_classes_daos.AbstractCourseAssignmentDAO;
+import it.uniroma2.dicii.ispw.gradely.daos.abstracts.association_classes_daos.AbstractDegreeCourseEnrollmentDAO;
+import it.uniroma2.dicii.ispw.gradely.daos.abstracts.association_classes_daos.AbstractExamEnrollmentDAO;
+import it.uniroma2.dicii.ispw.gradely.daos.abstracts.association_classes_daos.AbstractSubjectCourseEnrollmentDAO;
 import it.uniroma2.dicii.ispw.gradely.enums.PersistenceTypeEnum;
 import it.uniroma2.dicii.ispw.gradely.model.AbstractDegreeCourse;
 
@@ -24,14 +28,18 @@ public abstract class DAOFactory {
         return me;
     }
 
-    public abstract AbstractCCDDAO createCCDDAO();
-    public abstract AbstractDegreeCourse createDegreeCourse();
-    public abstract AbstractExamDAO createExamDAO();
-    public abstract AbstractPendingEventDAO createPendingEventDAO();
-    public abstract AbstractProfessorDAO createProfessorDAO();
-    public abstract AbstractSecretaryDAO createSecretaryDAO();
-    public abstract AbstractStudentDAO createStudentDAO();
-    public abstract AbstractSubjectCourseDAO createSubjectCourseDAO();
-    public abstract AbstractUserDAO createUserDAO();
+    public abstract AbstractCourseAssignmentDAO getCourseAssignmentDAO();
+    public abstract AbstractDegreeCourseEnrollmentDAO getDegreeCourseEnrollmentDAO();
+    public abstract AbstractExamEnrollmentDAO getExamEnrollmentDAO();
+    public abstract AbstractSubjectCourseEnrollmentDAO getSubjectCourseEnrollmentDAO();
+    public abstract AbstractCCDDAO getCCDDAO();
+    public abstract AbstractDegreeCourseDAO getDegreeCourseDAO();
+    public abstract AbstractExamDAO getExamDAO();
+    public abstract AbstractPendingEventDAO getPendingEventDAO();
+    public abstract AbstractProfessorDAO getProfessorDAO();
+    public abstract AbstractSecretaryDAO getSecretaryDAO();
+    public abstract AbstractStudentDAO getStudentDAO();
+    public abstract AbstractSubjectCourseDAO getSubjectCourseDAO();
+    public abstract AbstractUserDAO getUserDAO();
 
 }

@@ -1,5 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.daos.abstracts;
 
+import it.uniroma2.dicii.ispw.gradely.daos.concrete_data_base.SubjectCourseDAODB;
 import it.uniroma2.dicii.ispw.gradely.model.SubjectCourse;
 
 import java.time.Year;
@@ -13,14 +14,14 @@ public abstract class AbstractSubjectCourseDAO {
     private static AbstractSubjectCourseDAO instance;
     private List<SubjectCourse> subjectCourses;
 
-    private AbstractSubjectCourseDAO(){ //TODO implementare costruttore vero
+    protected AbstractSubjectCourseDAO(){ //TODO implementare costruttore vero
         subjectCourses = new ArrayList<SubjectCourse>();
         subjectCourses.add(new SubjectCourse(C01,"ISPW",Year.parse("2022"),12));
     }
 
     public static AbstractSubjectCourseDAO getInstance(){
         if (instance == null) {
-            instance = new AbstractSubjectCourseDAO();
+            instance = new SubjectCourseDAODB();
         }
         return instance;
     }
