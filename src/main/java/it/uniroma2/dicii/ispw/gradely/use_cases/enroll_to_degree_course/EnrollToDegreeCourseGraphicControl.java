@@ -27,6 +27,9 @@ public class EnrollToDegreeCourseGraphicControl implements Initializable {
     @FXML
     private ConfirmAnagraphicalData secondStageController;
 
+    @FXML
+    private TestInfoController thirdStageController;
+
     private EnrollToDegreeCourseControl controller;
 
     private DegreeCourseBean selectedDegreeCourse;
@@ -76,6 +79,7 @@ public class EnrollToDegreeCourseGraphicControl implements Initializable {
      * Opens third use case stage
      */
     private void goToStageThree() {
+        thirdStageController.setData(controller.getTestInfo(selectedDegreeCourse), selectedDegreeCourse);
         thirdStage.setVisible(true);
     }
 }

@@ -5,7 +5,7 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.SelectDegreeCourseGraphicControl"
-            prefWidth="650" prefHeight="430" stylesheets="@styles/list-style.css, @styles/default.css"
+            prefWidth="650" prefHeight="400" stylesheets="@styles/list-style.css, @styles/default.css"
             styleClass="background">
 
     <ListView fx:id="degreeCoursesList" styleClass="degree-courses-list" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0">

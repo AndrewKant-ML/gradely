@@ -1,4 +1,40 @@
 package it.uniroma2.dicii.ispw.gradely.general_beans;
 
+import java.net.URL;
+import java.time.LocalDate;
+
 public class TestInfoBean {
+
+    private String ID;
+    private LocalDate testDate;
+    private URL testReservationLink;
+    private URL infoLink;
+    private String place;
+
+    public TestInfoBean(String ID, LocalDate testDate, URL testReservationLink, URL infoLink) {
+        this.ID = ID;
+        this.testDate = testDate;
+        this.testReservationLink = testReservationLink;
+        this.infoLink = infoLink;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public LocalDate getTestDate() {
+        return testDate;
+    }
+
+    public URL getTestReservationLink() {
+        return testReservationLink;
+    }
+
+    public URL getInfoLink() {
+        return infoLink;
+    }
+
+    public String getPlace() {
+        return this.place;
+    }
 }

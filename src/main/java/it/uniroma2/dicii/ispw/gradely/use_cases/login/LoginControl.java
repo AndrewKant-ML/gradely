@@ -19,7 +19,7 @@ public class LoginControl {
     }
 
     public void emailMatches(String email) throws EmailFormatException {
-        final Pattern emailPattern = Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
+        final Pattern emailPattern = Pattern.compile("^\\w+(\\.-\\w)*@\\w+(\\.-\\w+)*(\\.\\w{2,3})+$");
         final Matcher emailMatcher = emailPattern.matcher(email);
         if (!emailMatcher.matches())
             throw new EmailFormatException("Please insert an email with a correct format");
