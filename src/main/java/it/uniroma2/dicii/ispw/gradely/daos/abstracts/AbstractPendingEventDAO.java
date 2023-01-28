@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.daos.abstracts;
 
-import it.uniroma2.dicii.ispw.gradely.model.PendingEvent;
+import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEvent;
 
 import java.util.UUID;
 
@@ -11,4 +11,7 @@ public abstract class AbstractPendingEventDAO {
     }
 
     public abstract PendingEvent getPendingEventById(UUID id);
+
+    public abstract void update(PendingEvent pendingEvent);
+
 }

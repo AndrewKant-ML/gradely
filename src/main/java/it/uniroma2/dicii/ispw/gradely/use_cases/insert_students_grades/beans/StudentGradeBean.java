@@ -3,11 +3,11 @@ package it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.beans;
 import it.uniroma2.dicii.ispw.gradely.general_beans.ExamEnrollmentBean;
 import it.uniroma2.dicii.ispw.gradely.general_beans.ExamResultBean;
 
-public class StudentGradesBean {
+public class StudentGradeBean {
     private ExamEnrollmentBean enrollmentBean;
     private ExamResultBean examResultBean;
 
-    public StudentGradesBean(ExamEnrollmentBean enrollmentBean, ExamResultBean examResultBean) {
+    public StudentGradeBean(ExamEnrollmentBean enrollmentBean, ExamResultBean examResultBean) {
         this.enrollmentBean = enrollmentBean;
         this.examResultBean = examResultBean;
     }

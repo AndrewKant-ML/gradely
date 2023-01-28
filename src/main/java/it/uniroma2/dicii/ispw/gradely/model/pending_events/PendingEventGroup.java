@@ -1,38 +1,36 @@
-package it.uniroma2.dicii.ispw.gradely.model;
+package it.uniroma2.dicii.ispw.gradely.model.pending_events;
 
 import it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum;
+import it.uniroma2.dicii.ispw.gradely.model.User;
 import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
 
+import java.util.List;
 import java.util.UUID;
 
-public class PendingEvent {
-    private UUID id;
-    private User user;
-    private PendingEventTypeEnum type;
-    private String message;
-    private Boolean notified;
+public class PendingEventGroup extends PendingEvent{
+    private List<User> users;
 
-    public PendingEvent() {
+    public PendingEventGroup() {
     }
-    public PendingEvent(User user, PendingEventTypeEnum type, String message) {
+    public PendingEventGroup(List<User> users, PendingEventTypeEnum type, String message) {
         UUID id;
         do{
             id=UUID.randomUUID();
         }while(SessionManager.getInstance().checkUUID(id));
 
-        this.id = id;
-        this.user = user;
-        this.type = type;
-        this.message = message;
-        this.notified = false;
+        super.id = id;
+        this.users = users;
+        super.type = type;
+        super.message = message;
+        super.notified = false;
     }
 
-    public User getUser() {
-        return user;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     public UUID getId() {

@@ -1,6 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.daos.concrete_file_system;
 
 import it.uniroma2.dicii.ispw.gradely.daos.abstracts.AbstractSecretaryDAO;
+import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
 import it.uniroma2.dicii.ispw.gradely.lazy_factories.UserLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.Secretary;
 import it.uniroma2.dicii.ispw.gradely.model.User;
@@ -13,7 +14,7 @@ public class SecretaryDAOFS extends AbstractSecretaryDAO {
 
     private SecretaryDAOFS(){ //TODO implementare costruttore vero
         secretaries = new ArrayList<Secretary>();
-        secretaries.add(new Secretary(UserLazyFactory.getInstance().getUserByEmail("m.rossi@uniroma2.it")));
+        secretaries.add(new Secretary(UserLazyFactory.getInstance().getUserByEmail("m.rossi@uniroma2.it"), DipartimentoEnum.DICII));
     }
 
     public static AbstractSecretaryDAO getInstance(){

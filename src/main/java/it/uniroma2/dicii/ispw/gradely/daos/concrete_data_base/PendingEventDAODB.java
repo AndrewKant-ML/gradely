@@ -2,7 +2,7 @@ package it.uniroma2.dicii.ispw.gradely.daos.concrete_data_base;
 
 import it.uniroma2.dicii.ispw.gradely.daos.abstracts.AbstractPendingEventDAO;
 import it.uniroma2.dicii.ispw.gradely.lazy_factories.UserLazyFactory;
-import it.uniroma2.dicii.ispw.gradely.model.PendingEvent;
+import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +26,7 @@ public class PendingEventDAODB extends AbstractPendingEventDAO {
         return instance;
     }
 
+    @Override
     public PendingEvent getPendingEventById(UUID id) {
         for(PendingEvent p : pendingEvents){
             if(p.getId().equals(id)) {
@@ -34,4 +35,9 @@ public class PendingEventDAODB extends AbstractPendingEventDAO {
         }
         return null; //TODO implementare exceptions
     }
+    @Override
+    public void update(PendingEvent pendingEvent){
+        System.out.println("Updated");
+    }
+
 }

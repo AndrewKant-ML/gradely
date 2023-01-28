@@ -43,14 +43,13 @@ public class ExamEnrollmentDAODB extends AbstractExamEnrollmentDAO {
         return list;
     }
 
-    public List<ExamEnrollment> getExamEnrollmentsByExamAndStudent(Exam exam, Student student) {
-        List<ExamEnrollment> list = new ArrayList<>();
+    public ExamEnrollment getExamEnrollmentByExamAndStudent(Exam exam, Student student) {
         for(ExamEnrollment e : examEnrollments){
             if(e.getExam().equals(exam) && e.getStudent().equals(student)) {
-                list.add(e); //TODO implementare exception
+                return e; //TODO implementare exception
             }
         }
-        return list;
+        return null;
     }
 
     public void update(ExamEnrollment enrollment){

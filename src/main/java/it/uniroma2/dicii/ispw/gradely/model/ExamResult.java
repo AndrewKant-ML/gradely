@@ -1,15 +1,17 @@
 package it.uniroma2.dicii.ispw.gradely.model;
 
+import it.uniroma2.dicii.ispw.gradely.enums.ExamResultConfirmationEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.ResultEnum;
 
 public class ExamResult {
     private Integer grade;
     private ResultEnum result;
-    private Boolean confirmed;
+    private ExamResultConfirmationEnum confirmed;
 
     public ExamResult() {
+        this.confirmed = ExamResultConfirmationEnum.NULL;
     }
-    public ExamResult(Integer grade, ResultEnum result, Boolean confirmed) {
+    public ExamResult(Integer grade, ResultEnum result, ExamResultConfirmationEnum confirmed) {
         this.grade = grade;
         this.result = result;
         this.confirmed = confirmed;
@@ -31,11 +33,11 @@ public class ExamResult {
         this.result = result;
     }
 
-    public Boolean getConfirmed() {
+    public ExamResultConfirmationEnum getConfirmed() {
         return confirmed;
     }
 
-    public void setConfirmed(Boolean confirmed) {
+    public void setConfirmed(ExamResultConfirmationEnum confirmed) {
         this.confirmed = confirmed;
     }
 }

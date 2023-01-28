@@ -1,7 +1,11 @@
 package it.uniroma2.dicii.ispw.gradely.lazy_factories;
 
 import it.uniroma2.dicii.ispw.gradely.daos.factories.DAOFactory;
-import it.uniroma2.dicii.ispw.gradely.model.PendingEvent;
+import it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum;
+import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEvent;
+import it.uniroma2.dicii.ispw.gradely.model.User;
+import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEventGroup;
+import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEventSingle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +33,18 @@ public class PendingEventLazyFactory {
             }
         }
         return DAOFactory.getDAOFactory().getPendingEventDAO().getPendingEventById(id); //TODO implementare exception
+    }
+
+    public void createNewPendingEventSingle(User user, PendingEventTypeEnum type, String message){
+        PendingEvent p = new PendingEventSingle(user, type, message);
+        pendingEvents.add(p);
+        DAOFactory.getDAOFactory().getPendingEventDAO().update(p);
+    }
+
+    public void createNewPendingEventGroup(List<User> users, PendingEventTypeEnum type, String message){
+        PendingEventGroup p = new PendingEventGroup(users, type, message);
+        pendingEvents.add(p);
+        DAOFactory.getDAOFactory().getPendingEventDAO().update(p);
     }
 
 }

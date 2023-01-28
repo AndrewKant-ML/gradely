@@ -15,7 +15,7 @@ public abstract class AbstractExamEnrollmentDAO {
 
     public abstract List<ExamEnrollment> getExamEnrollmentsByStudent(Student student);
 
-    public abstract List<ExamEnrollment> getExamEnrollmentsByExamAndStudent(Exam exam, Student student);
+    public abstract ExamEnrollment getExamEnrollmentByExamAndStudent(Exam exam, Student student);
 
     public abstract void update(ExamEnrollment enrollment);
 
