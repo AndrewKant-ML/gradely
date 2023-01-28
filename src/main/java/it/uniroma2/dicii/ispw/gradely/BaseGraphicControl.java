@@ -51,4 +51,8 @@ public class BaseGraphicControl implements Initializable {
     public void setSessionToken(Token sessionToken) {
         this.sessionToken = sessionToken;
     }
+
+    public Token getSessionToken() {
+        return sessionToken;
+    }
 }

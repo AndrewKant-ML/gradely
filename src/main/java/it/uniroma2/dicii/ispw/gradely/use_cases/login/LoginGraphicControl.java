@@ -52,8 +52,8 @@ public class LoginGraphicControl implements Initializable {
         try {
             loginController.emailMatches(email);
             //Token loginToken = loginController.login(email, password);
-            Token loginToken = new Token(); // TODO remove this in production
-            goToMainPage((Stage) ((Node)(event.getSource())).getScene().getWindow(), loginToken);
+            Token sessionToken = new Token(); // TODO remove this in production
+            goToMainPage((Stage) ((Node) (event.getSource())).getScene().getWindow(), sessionToken);
         } catch (EmailFormatException efe) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Login error");
@@ -66,17 +66,19 @@ public class LoginGraphicControl implements Initializable {
 
     /**
      * Opens the user home page
-     * @param stage the Stage object of the current application
-     * @param loginToken the session token generated after login
+     *
+     * @param stage        the Stage object of the current application
+     * @param sessionToken the session token generated after login
      */
-    private void goToMainPage(Stage stage, Token loginToken) {
+    private void goToMainPage(Stage stage, Token sessionToken) {
         FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(MainApplication.class.getResource("base_view.fxml")));
         try {
             Pane basePane = loader.load();
             BaseGraphicControl baseGraphicControl = loader.getController();
-            baseGraphicControl.setSessionToken(loginToken);
+            baseGraphicControl.setSessionToken(sessionToken);
             PageNavigationController.getInstance().setBaseGraphicController(baseGraphicControl);
             PageNavigationController.getInstance().navigateTo("homepage");
+            PageNavigationController.getInstance().setSessionToken(sessionToken);
 
             Scene scene = new Scene(basePane);
             stage.setScene(scene);

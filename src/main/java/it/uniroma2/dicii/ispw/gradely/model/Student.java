@@ -23,4 +23,13 @@ public class Student extends AbstractRole {
         this.registrationDate = registrationDate;
         this.titles = titoli;
     }
+
+    @Override
+    public Student Student() {
+        return this;
+    }
+
+    public String getId() {
+        return id;
+    }
 }
