@@ -6,3 +6,4 @@ git switch GVC
 git pull
 git merge main
 git push -u origin GVC
+git switch main
