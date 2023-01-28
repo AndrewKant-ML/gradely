@@ -14,6 +14,5 @@ public abstract class AbstractRole {
     public  Professor Professor(){return null;}
     public  Student Student(){return null;}
     public  Secretary Secretary(){return null;}
-    public  CCD CCD(){return null;}
 
 }

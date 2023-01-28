@@ -3,7 +3,9 @@ package it.uniroma2.dicii.ispw.gradely.use_cases.login;
 import it.uniroma2.dicii.ispw.gradely.BaseGraphicControl;
 import it.uniroma2.dicii.ispw.gradely.MainApplication;
 import it.uniroma2.dicii.ispw.gradely.PageNavigationController;
+import it.uniroma2.dicii.ispw.gradely.daos.factories.DAOFactory;
 import it.uniroma2.dicii.ispw.gradely.exceptions.EmailFormatException;
+import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
 import it.uniroma2.dicii.ispw.gradely.session_manager.Token;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -50,16 +52,15 @@ public class LoginGraphicControl implements Initializable {
         final String password = this.passwordField.getText();
 
         try {
-            loginController.emailMatches(email);
-            //Token loginToken = loginController.login(email, password);
-            Token sessionToken = new Token(); // TODO remove this in production
+            //loginController.emailMatches(email);
+            Token sessionToken = loginController.login(email, password);
             goToMainPage((Stage) ((Node) (event.getSource())).getScene().getWindow(), sessionToken);
-        } catch (EmailFormatException efe) {
+        } /*catch (EmailFormatException efe) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Login error");
             alert.setContentText(efe.getMessage());
             alert.show();
-        } catch (Exception e) { // TODO change exception type when changed on LoginControl
+        } */catch (Exception e) { // TODO change exception type when changed on LoginControl
             throw new RuntimeException(e);
         }
     }

@@ -1,14 +1,14 @@
 package it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course;
 
+import it.uniroma2.dicii.ispw.gradely.PageNavigationController;
 import it.uniroma2.dicii.ispw.gradely.general_beans.DegreeCourseBean;
 import it.uniroma2.dicii.ispw.gradely.general_beans.StudentBean;
 import it.uniroma2.dicii.ispw.gradely.general_beans.TestInfoBean;
 import it.uniroma2.dicii.ispw.gradely.general_beans.UserBean;
-<<<<<<< HEAD
-=======
+import it.uniroma2.dicii.ispw.gradely.model.User;
+import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
 import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.boundary.AbstractTestBoundary;
 import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.factory.AbstractTestFactory;
->>>>>>> AC
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,21 +19,16 @@ public class EnrollToDegreeCourseControl {
     private final UserBean userBean;
 
     public EnrollToDegreeCourseControl() {
-        this.studentBean = new StudentBean("0294136");
-        this.userBean = new UserBean("Andrea", "Cantarini", "DJDKDJ", "a@gmail.cm");
-        /*this.studentBean = new StudentBean(
-            SessionManager.getInstance().getLazySessionUser(
-                    PageNavigationController.getInstance().getCurrentToken()
-            ).getRole().Student().getId());
-        User user = SessionManager.getInstance().getLazySessionUser(
-                PageNavigationController.getInstance().getCurrentToken()
+        User user = SessionManager.getInstance().getSessionUserByToken(
+                PageNavigationController.getInstance().getSessionToken()
         );
+        this.studentBean = new StudentBean(user.getRole().Student().getId());
         this.userBean = new UserBean(
                 user.getName(),
                 user.getSurname(),
                 user.getCodiceFiscale(),
                 user.getEmail()
-        );*/
+        );
     }
 
     public List<DegreeCourseBean> getDegreeCourses() {
