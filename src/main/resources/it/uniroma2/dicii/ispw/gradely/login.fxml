@@ -27,9 +27,9 @@
         <TextField fx:id="emailField" styleClass="text-field"/>
         <PasswordField fx:id="passwordField" styleClass="text-field"/>
         <HBox>
-            <Button fx:id="registerButton" text="Register" styleClass="text-button, action-button"/>
+            <Button fx:id="registerButton" text="Register" styleClass="action-button"/>
             <Region HBox.hgrow="SOMETIMES"/>
-            <Button fx:id="loginButton" text="Login" onAction="#login" styleClass="text-button, action-button"/>
+            <Button fx:id="loginButton" text="Login" onAction="#login" styleClass="action-button"/>
         </HBox>
     </VBox>
 

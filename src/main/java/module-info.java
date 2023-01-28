@@ -16,4 +16,6 @@ module it.uniroma2.dicii.ispw.gradely {
     opens it.uniroma2.dicii.ispw.gradely.session_manager to javafx.fxml;
     opens it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course to javafx.fxml;
     opens it.uniroma2.dicii.ispw.gradely.use_cases.login to javafx.fxml;
+    exports it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.boundary;
+    opens it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.boundary to javafx.fxml;
 }

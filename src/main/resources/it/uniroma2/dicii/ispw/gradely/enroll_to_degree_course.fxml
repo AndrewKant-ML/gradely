@@ -17,9 +17,9 @@
 
     <HBox AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0" prefWidth="650"
           prefHeight="30" styleClass="background">
-        <Button text="Back" fx:id="backButton" onAction="#previousStage" HBox.hgrow="NEVER" styleClass="text-button" visible="false"/>
+        <Button text="Back" fx:id="backButton" onAction="#previousStage" HBox.hgrow="NEVER" styleClass="simple-button" visible="false"/>
         <Region HBox.hgrow="ALWAYS"/>
-        <Button text="Next" fx:id="nextButton" onAction="#nextStage" HBox.hgrow="NEVER" styleClass="text-button"/>
+        <Button text="Next" fx:id="nextButton" onAction="#nextStage" HBox.hgrow="NEVER" styleClass="simple-button"/>
     </HBox>
 
 </AnchorPane>
