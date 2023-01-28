@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.graphic_controllers.TestReservationCodeGraphicController"
+            stylesheets="@styles/default.css, @styles/reservation-code.css"
+            styleClass="background"
+            prefHeight="400.0" prefWidth="650.0">
+
+    <HBox AnchorPane.topAnchor="50" AnchorPane.leftAnchor="75" AnchorPane.rightAnchor="75">
+        <Region HBox.hgrow="ALWAYS"/>
+        <VBox spacing="30" HBox.hgrow="NEVER" alignment="CENTER">
+            <Label text="Your reservation code:" textAlignment="CENTER"/>
+            <Label fx:id="testReservationCodeLabel" styleClass="reservation-code"/>
+        </VBox>
+        <Region HBox.hgrow="ALWAYS"/>
+    </HBox>
+
+</AnchorPane>

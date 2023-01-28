@@ -3,9 +3,6 @@ package it.uniroma2.dicii.ispw.gradely.use_cases.login;
 import it.uniroma2.dicii.ispw.gradely.BaseGraphicControl;
 import it.uniroma2.dicii.ispw.gradely.MainApplication;
 import it.uniroma2.dicii.ispw.gradely.PageNavigationController;
-import it.uniroma2.dicii.ispw.gradely.daos.factories.DAOFactory;
-import it.uniroma2.dicii.ispw.gradely.exceptions.EmailFormatException;
-import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
 import it.uniroma2.dicii.ispw.gradely.session_manager.Token;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,7 +10,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -41,6 +37,12 @@ public class LoginGraphicControl implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loginController = new LoginControl();
+        /*loginButton.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if (keyEvent.)
+            }
+        });*/
     }
 
     /**
@@ -76,7 +78,6 @@ public class LoginGraphicControl implements Initializable {
         try {
             Pane basePane = loader.load();
             BaseGraphicControl baseGraphicControl = loader.getController();
-            baseGraphicControl.setSessionToken(sessionToken);
             PageNavigationController.getInstance().setBaseGraphicController(baseGraphicControl);
             PageNavigationController.getInstance().navigateTo("homepage");
             PageNavigationController.getInstance().setSessionToken(sessionToken);

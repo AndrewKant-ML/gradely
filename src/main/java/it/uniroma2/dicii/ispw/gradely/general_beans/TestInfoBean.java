@@ -11,11 +11,12 @@ public class TestInfoBean {
     private URL infoLink;
     private String place;
 
-    public TestInfoBean(String ID, LocalDate testDate, URL testReservationLink, URL infoLink) {
+    public TestInfoBean(String ID, LocalDate testDate, URL testReservationLink, URL infoLink, String place) {
         this.ID = ID;
         this.testDate = testDate;
         this.testReservationLink = testReservationLink;
         this.infoLink = infoLink;
+        this.place = place;
     }
 
     public String getID() {

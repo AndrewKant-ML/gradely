@@ -1,24 +1,29 @@
 package it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course;
 
 import it.uniroma2.dicii.ispw.gradely.PageNavigationController;
+import it.uniroma2.dicii.ispw.gradely.exceptions.TestRetrivialException;
 import it.uniroma2.dicii.ispw.gradely.general_beans.DegreeCourseBean;
 import it.uniroma2.dicii.ispw.gradely.general_beans.StudentBean;
 import it.uniroma2.dicii.ispw.gradely.general_beans.TestInfoBean;
 import it.uniroma2.dicii.ispw.gradely.general_beans.UserBean;
+import it.uniroma2.dicii.ispw.gradely.lazy_factories.DegreeCourseLazyFactory;
+import it.uniroma2.dicii.ispw.gradely.model.DegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.User;
 import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
-import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.boundary.AbstractTestBoundary;
+import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.beans.TestReservationBean;
+import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.external_boundaries.AbstractTestBoundary;
 import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.factory.AbstractTestFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EnrollToDegreeCourseControl {
+public class EnrollToDegreeCourseController {
 
     private final StudentBean studentBean;
     private final UserBean userBean;
+    private AbstractTestBoundary testBoundary;
 
-    public EnrollToDegreeCourseControl() {
+    public EnrollToDegreeCourseController() {
         User user = SessionManager.getInstance().getSessionUserByToken(
                 PageNavigationController.getInstance().getSessionToken()
         );
@@ -32,8 +37,14 @@ public class EnrollToDegreeCourseControl {
     }
 
     public List<DegreeCourseBean> getDegreeCourses() {
-        // TODO call to lazyfactory method
-        return new ArrayList<>();
+        List<DegreeCourse> degreeCourses = DegreeCourseLazyFactory.getInstance().getDegreeCourses();
+        List<DegreeCourseBean> beans = new ArrayList<>();
+        for (DegreeCourse degreeCourse : degreeCourses) {
+            beans.add(
+                    new DegreeCourseBean(degreeCourse.getName(), degreeCourse.getFacolta(), degreeCourse.getType(), degreeCourse.getTestType())
+            );
+        }
+        return beans;
     }
 
     public StudentBean getStudentBean() {
@@ -54,8 +65,12 @@ public class EnrollToDegreeCourseControl {
      * @param degreeCourseBean the degree course referred from the test
      * @return the test info
      */
-    public TestInfoBean getTestInfo(DegreeCourseBean degreeCourseBean) {
-        AbstractTestBoundary testBoundary = AbstractTestFactory.getInstance(degreeCourseBean.getTestTypeEnum()).createTestBoundary();
+    public TestInfoBean getTestInfo(DegreeCourseBean degreeCourseBean) throws TestRetrivialException {
+        this.testBoundary = AbstractTestFactory.getInstance(degreeCourseBean.getTestType()).createTestBoundary();
         return testBoundary.getTestInfo();
+    }
+
+    public TestReservationBean reserveTest(TestInfoBean testInfo) {
+        return this.testBoundary.reserveTest(testInfo.getID());
     }
 }

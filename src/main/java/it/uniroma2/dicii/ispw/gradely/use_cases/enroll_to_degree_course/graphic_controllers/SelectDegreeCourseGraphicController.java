@@ -1,4 +1,4 @@
-package it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course;
+package it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.graphic_controllers;
 
 import it.uniroma2.dicii.ispw.gradely.general_beans.DegreeCourseBean;
 import javafx.collections.FXCollections;
@@ -11,7 +11,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class SelectDegreeCourseGraphicControl implements Initializable {
+public class SelectDegreeCourseGraphicController implements Initializable {
 
     @FXML
     private ListView<DegreeCourseBean> degreeCoursesList;

@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.EnrollToDegreeCourseGraphicControl"
+            fx:controller="it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.graphic_controllers.EnrollToDegreeCourseGraphicController"
             prefWidth="650" prefHeight="430" stylesheets="@styles/invisible-view.css, @styles/default.css"
             styleClass="no-background">
 
@@ -13,6 +13,7 @@
         <fx:include source="choose_degree_course.fxml" fx:id="firstStage" visible="true"/>
         <fx:include source="insert_anagraphical_data.fxml" fx:id="secondStage" visible="false"/>
         <fx:include source="test-info.fxml" fx:id="thirdStage" visible="false"/>
+        <fx:include source="test_reservation_code.fxml" fx:id="fourthStage" visible="false"/>
     </StackPane>
 
     <HBox AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0" prefWidth="650"

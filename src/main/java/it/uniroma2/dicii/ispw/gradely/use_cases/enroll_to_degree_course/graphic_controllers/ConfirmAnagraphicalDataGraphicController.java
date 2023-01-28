@@ -1,4 +1,4 @@
-package it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course;
+package it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.graphic_controllers;
 
 import it.uniroma2.dicii.ispw.gradely.general_beans.StudentBean;
 import it.uniroma2.dicii.ispw.gradely.general_beans.UserBean;
@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ConfirmAnagraphicalData implements Initializable {
+public class ConfirmAnagraphicalDataGraphicController implements Initializable {
 
     @FXML
     private TextField matricola, name, surname, email, codiceFiscale;
