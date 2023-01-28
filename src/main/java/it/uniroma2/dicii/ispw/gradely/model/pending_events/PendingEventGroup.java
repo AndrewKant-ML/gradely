@@ -33,43 +33,4 @@ public class PendingEventGroup extends PendingEvent{
         this.users = users;
     }
 
-    @Override
-    public UUID getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    @Override
-    public PendingEventTypeEnum getType() {
-        return type;
-    }
-
-    @Override
-    public void setType(PendingEventTypeEnum type) {
-        this.type = type;
-    }
-
-    @Override
-    public String getMessage() {
-        return message;
-    }
-
-    @Override
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    @Override
-    public Boolean getNotified() {
-        return notified;
-    }
-
-    @Override
-    public void setNotified(Boolean notified) {
-        this.notified = notified;
-    }
 }
