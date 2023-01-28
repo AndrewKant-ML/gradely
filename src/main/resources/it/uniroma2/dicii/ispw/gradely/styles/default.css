@@ -1,3 +1,7 @@
+Button:hover {
+    -fx-cursor: hand;
+}
+
 .background {
     -fx-background-color: white;
 }
@@ -10,11 +14,20 @@
     -fx-padding: 2px;
 }
 
-.text-button {
+.simple-button {
     -fx-background-color: transparent;
     -fx-border-width: 0;
 }
 
-.text-button:hover {
-    -fx-cursor: hand;
+.action-button {
+    -fx-background-color: #2d7c5f;
+    -fx-text-fill: white;
+    -fx-border-radius: 3px;
+}
+
+.action-button:hover {
+    -fx-background-color: white;
+    -fx-border-width: 1px;
+    -fx-border-color: #2d7c5f;
+    -fx-text-fill: black;
 }
