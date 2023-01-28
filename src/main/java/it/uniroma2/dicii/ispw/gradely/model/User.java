@@ -1,7 +1,5 @@
 package it.uniroma2.dicii.ispw.gradely.model;
 
-import java.util.List;
-
 public class User {
     private String name;
     private String surname;

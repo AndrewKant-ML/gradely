@@ -1,14 +1,12 @@
 package it.uniroma2.dicii.ispw.gradely.daos.concrete_data_base;
 
 import it.uniroma2.dicii.ispw.gradely.daos.abstracts.AbstractUserDAO;
-import it.uniroma2.dicii.ispw.gradely.daos.factories.DAOFactory;
 import it.uniroma2.dicii.ispw.gradely.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAODB extends AbstractUserDAO {
-
     private List<User> registeredUsers;
 
     private UserDAODB(){//TODO implementare costruttore vero

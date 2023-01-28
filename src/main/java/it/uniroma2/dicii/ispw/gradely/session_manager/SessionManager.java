@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static it.uniroma2.dicii.ispw.gradely.enums.FrontEndTypeEnum.*;
+import static it.uniroma2.dicii.ispw.gradely.enums.FrontEndTypeEnum.JAVAFX;
 
 public class SessionManager {
     private static SessionManager instance;

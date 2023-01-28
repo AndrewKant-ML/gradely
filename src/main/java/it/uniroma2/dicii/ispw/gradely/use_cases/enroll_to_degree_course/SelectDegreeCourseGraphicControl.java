@@ -2,7 +2,6 @@ package it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course;
 
 import it.uniroma2.dicii.ispw.gradely.general_beans.DegreeCourseBean;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;

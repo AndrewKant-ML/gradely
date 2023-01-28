@@ -10,7 +10,6 @@ import java.util.List;
 
 
 public class CourseAssignmentDAODB extends AbstractCourseAssignmentDAO {
-    private static CourseAssignmentDAODB instance;
     private List<CourseAssignment> courseAssignments;
 
     private CourseAssignmentDAODB() { //TODO implementare costruttore vero
@@ -18,7 +17,7 @@ public class CourseAssignmentDAODB extends AbstractCourseAssignmentDAO {
         courseAssignments.add(new CourseAssignment());
     }
 
-    public static CourseAssignmentDAODB getInstance() {
+    public static AbstractCourseAssignmentDAO getInstance() {
         if (instance == null) {
             instance = new CourseAssignmentDAODB();
         }

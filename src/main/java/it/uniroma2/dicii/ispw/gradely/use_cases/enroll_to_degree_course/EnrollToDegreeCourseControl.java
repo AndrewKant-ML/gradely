@@ -3,7 +3,6 @@ package it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course;
 import it.uniroma2.dicii.ispw.gradely.general_beans.DegreeCourseBean;
 import it.uniroma2.dicii.ispw.gradely.general_beans.StudentBean;
 import it.uniroma2.dicii.ispw.gradely.general_beans.UserBean;
-import it.uniroma2.dicii.ispw.gradely.session_manager.Token;
 
 import java.util.ArrayList;
 import java.util.List;

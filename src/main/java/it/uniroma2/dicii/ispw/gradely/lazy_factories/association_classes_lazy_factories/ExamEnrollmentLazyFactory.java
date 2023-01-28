@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.lazy_factories.association_classes_lazy_factories;
 
-import it.uniroma2.dicii.ispw.gradely.daos.abstracts.association_classes_daos.AbstractExamEnrollmentDAO;
+import it.uniroma2.dicii.ispw.gradely.daos.factories.DAOFactory;
 import it.uniroma2.dicii.ispw.gradely.model.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.ExamResult;
 import it.uniroma2.dicii.ispw.gradely.model.Student;
@@ -31,7 +31,7 @@ public class ExamEnrollmentLazyFactory {
                 list.add(e); //TODO implementare exception
             }
         }
-        List<ExamEnrollment> daoList = AbstractExamEnrollmentDAO.getInstance().getExamEnrollmentsByExam(exam); //TODO implementare exception
+        List<ExamEnrollment> daoList = DAOFactory.getDAOFactory().getExamEnrollmentDAO().getExamEnrollmentsByExam(exam); //TODO implementare exception
         for(ExamEnrollment e : daoList){
             if(!list.contains(e)) {
                 list.add(e); //TODO implementare exceptions
@@ -47,7 +47,7 @@ public class ExamEnrollmentLazyFactory {
                 list.add(e); //TODO implementare exception
             }
         }
-        List<ExamEnrollment> daoList = AbstractExamEnrollmentDAO.getInstance().getExamEnrollmentsByStudent(student); //TODO implementare exception
+        List<ExamEnrollment> daoList = DAOFactory.getDAOFactory().getExamEnrollmentDAO().getExamEnrollmentsByStudent(student); //TODO implementare exception
         for(ExamEnrollment e : daoList){
             if(!list.contains(e)) {
                 list.add(e); //TODO implementare exceptions
@@ -63,7 +63,7 @@ public class ExamEnrollmentLazyFactory {
                 list.add(e); //TODO implementare exception
             }
         }
-        List<ExamEnrollment> daoList = AbstractExamEnrollmentDAO.getInstance().getExamEnrollmentsByExam(exam); //TODO implementare exception
+        List<ExamEnrollment> daoList = DAOFactory.getDAOFactory().getExamEnrollmentDAO().getExamEnrollmentsByExam(exam); //TODO implementare exception
         for(ExamEnrollment e : daoList){
             if(!list.contains(e)) {
                 list.add(e); //TODO implementare exceptions
@@ -74,6 +74,6 @@ public class ExamEnrollmentLazyFactory {
 
     public void saveExamResult(ExamEnrollment enrollment, ExamResult result){
         enrollment.setExamResult(result);
-        AbstractExamEnrollmentDAO.getInstance().update(enrollment);
+        DAOFactory.getDAOFactory().getExamEnrollmentDAO().update(enrollment);
     }
 }

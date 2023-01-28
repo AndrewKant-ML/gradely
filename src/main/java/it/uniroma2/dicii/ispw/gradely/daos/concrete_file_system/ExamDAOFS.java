@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExamDAOFS extends AbstractExamDAO {
-    private static ExamDAOFS instance;
     private List<Exam> exams;
 
     private ExamDAOFS(){ //TODO implementare costruttore vero
@@ -18,7 +17,7 @@ public class ExamDAOFS extends AbstractExamDAO {
         exams.add(new Exam());
     }
 
-    public static ExamDAOFS getInstance(){
+    public static AbstractExamDAO getInstance(){
         if (instance == null) {
             instance = new ExamDAOFS();
         }

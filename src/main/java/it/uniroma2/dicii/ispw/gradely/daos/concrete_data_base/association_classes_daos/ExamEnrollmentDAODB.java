@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExamEnrollmentDAODB extends AbstractExamEnrollmentDAO {
-    private static ExamEnrollmentDAODB instance;
     private List<ExamEnrollment> examEnrollments;
 
     private ExamEnrollmentDAODB() { //TODO implementare costruttore vero
@@ -17,7 +16,7 @@ public class ExamEnrollmentDAODB extends AbstractExamEnrollmentDAO {
         examEnrollments.add(new ExamEnrollment());
     }
 
-    public static ExamEnrollmentDAODB getInstance() {
+    public static AbstractExamEnrollmentDAO getInstance() {
         if (instance == null) {
             instance = new ExamEnrollmentDAODB();
         }

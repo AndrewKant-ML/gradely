@@ -10,7 +10,6 @@ import java.util.List;
 
 
 public class CourseAssignmentDAOFS extends AbstractCourseAssignmentDAO {
-    private static CourseAssignmentDAOFS instance;
     private List<CourseAssignment> courseAssignments;
 
     private CourseAssignmentDAOFS() { //TODO implementare costruttore vero
@@ -18,7 +17,7 @@ public class CourseAssignmentDAOFS extends AbstractCourseAssignmentDAO {
         courseAssignments.add(new CourseAssignment());
     }
 
-    public static CourseAssignmentDAOFS getInstance() {
+    public static AbstractCourseAssignmentDAO getInstance() {
         if (instance == null) {
             instance = new CourseAssignmentDAOFS();
         }

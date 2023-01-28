@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProfessorDAOFS extends AbstractProfessorDAO {
-    private static ProfessorDAOFS instance;
     private List<Professor> professors;
 
     private ProfessorDAOFS(){ //TODO implementare costruttore vero
@@ -18,7 +17,7 @@ public class ProfessorDAOFS extends AbstractProfessorDAO {
         professors.add(new Professor(UserLazyFactory.getInstance().getUserByEmail("m.rossi@uniroma2.it"), "123456", LocalDate.now()));
     }
 
-    public static ProfessorDAOFS getInstance(){
+    public static AbstractProfessorDAO getInstance(){
         if (instance == null) {
             instance = new ProfessorDAOFS();
         }

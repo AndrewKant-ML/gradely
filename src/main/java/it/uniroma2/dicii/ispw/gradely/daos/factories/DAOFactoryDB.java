@@ -24,9 +24,6 @@ public class DAOFactoryDB extends DAOFactory{
     public AbstractSubjectCourseEnrollmentDAO getSubjectCourseEnrollmentDAO(){
         return SubjectCourseEnrollmentDAODB.getInstance();
     }
-    public AbstractCCDDAO getCCDDAO(){
-        return CCDDAODB.getInstance();
-    }
     public AbstractDegreeCourseDAO getDegreeCourseDAO(){
         return DegreeCourseDAODB.getInstance();
     }

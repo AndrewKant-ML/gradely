@@ -24,9 +24,6 @@ public class DAOFactoryFS extends DAOFactory{
     public AbstractSubjectCourseEnrollmentDAO getSubjectCourseEnrollmentDAO(){
         return SubjectCourseEnrollmentDAOFS.getInstance();
     }
-    public AbstractCCDDAO getCCDDAO(){
-        return CCDDAOFS.getInstance();
-    }
     public AbstractDegreeCourseDAO getDegreeCourseDAO(){
         return DegreeCourseDAOFS.getInstance();
     }

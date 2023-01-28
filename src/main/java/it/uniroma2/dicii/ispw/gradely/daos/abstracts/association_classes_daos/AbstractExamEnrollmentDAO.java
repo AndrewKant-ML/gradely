@@ -4,57 +4,19 @@ import it.uniroma2.dicii.ispw.gradely.model.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.Student;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.ExamEnrollment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractExamEnrollmentDAO {
-    private static AbstractExamEnrollmentDAO instance;
-    private List<ExamEnrollment> examEnrollments;
-
-    private AbstractExamEnrollmentDAO() { //TODO implementare costruttore vero
-        examEnrollments = new ArrayList<ExamEnrollment>();
-        examEnrollments.add(new ExamEnrollment());
+    protected static AbstractExamEnrollmentDAO instance;
+    protected AbstractExamEnrollmentDAO() { //TODO implementare costruttore vero
     }
 
-    public static AbstractExamEnrollmentDAO getInstance() {
-        if (instance == null) {
-            instance = new AbstractExamEnrollmentDAO();
-        }
-        return instance;
-    }
+    public abstract List<ExamEnrollment> getExamEnrollmentsByExam(Exam exam);
 
-    public List<ExamEnrollment> getExamEnrollmentsByExam(Exam exam) {
-        List<ExamEnrollment> list = new ArrayList<>();
-        for(ExamEnrollment e : examEnrollments){
-            if(e.getExam().equals(exam)) {
-                list.add(e); //TODO implementare exception
-            }
-        }
-        return list;
-    }
+    public abstract List<ExamEnrollment> getExamEnrollmentsByStudent(Student student);
 
-    public List<ExamEnrollment> getExamEnrollmentsByStudent(Student student) {
-        List<ExamEnrollment> list = new ArrayList<>();
-        for(ExamEnrollment e : examEnrollments){
-            if(e.getStudent().equals(student)) {
-                list.add(e); //TODO implementare exception
-            }
-        }
-        return list;
-    }
+    public abstract List<ExamEnrollment> getExamEnrollmentsByExamAndStudent(Exam exam, Student student);
 
-    public List<ExamEnrollment> getExamEnrollmentsByExamAndStudent(Exam exam, Student student) {
-        List<ExamEnrollment> list = new ArrayList<>();
-        for(ExamEnrollment e : examEnrollments){
-            if(e.getExam().equals(exam) && e.getStudent().equals(student)) {
-                list.add(e); //TODO implementare exception
-            }
-        }
-        return list;
-    }
-
-    public void update(ExamEnrollment enrollment){
-        System.out.println("Updated");
-    }
+    public abstract void update(ExamEnrollment enrollment);
 
 }

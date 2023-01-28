@@ -1,6 +1,5 @@
 package it.uniroma2.dicii.ispw.gradely.lazy_factories;
 
-import it.uniroma2.dicii.ispw.gradely.daos.abstracts.AbstractUserDAO;
 import it.uniroma2.dicii.ispw.gradely.daos.factories.DAOFactory;
 import it.uniroma2.dicii.ispw.gradely.model.User;
 

@@ -8,7 +8,6 @@ import java.util.List;
 
 
 public class DegreeCourseDAOFS extends AbstractDegreeCourseDAO {
-    private static DegreeCourseDAOFS instance;
     private List<DegreeCourse> subjectCourses;
 
     private DegreeCourseDAOFS(){ //TODO implementare costruttore vero
@@ -16,7 +15,7 @@ public class DegreeCourseDAOFS extends AbstractDegreeCourseDAO {
         subjectCourses.add(new DegreeCourse());
     }
 
-    public static DegreeCourseDAOFS getInstance(){
+    public static AbstractDegreeCourseDAO getInstance(){
         if (instance == null) {
             instance = new DegreeCourseDAOFS();
         }

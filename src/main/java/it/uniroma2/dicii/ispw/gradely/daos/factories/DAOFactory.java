@@ -6,7 +6,6 @@ import it.uniroma2.dicii.ispw.gradely.daos.abstracts.association_classes_daos.Ab
 import it.uniroma2.dicii.ispw.gradely.daos.abstracts.association_classes_daos.AbstractExamEnrollmentDAO;
 import it.uniroma2.dicii.ispw.gradely.daos.abstracts.association_classes_daos.AbstractSubjectCourseEnrollmentDAO;
 import it.uniroma2.dicii.ispw.gradely.enums.PersistenceTypeEnum;
-import it.uniroma2.dicii.ispw.gradely.model.AbstractDegreeCourse;
 
 public abstract class DAOFactory {
 
@@ -32,7 +31,6 @@ public abstract class DAOFactory {
     public abstract AbstractDegreeCourseEnrollmentDAO getDegreeCourseEnrollmentDAO();
     public abstract AbstractExamEnrollmentDAO getExamEnrollmentDAO();
     public abstract AbstractSubjectCourseEnrollmentDAO getSubjectCourseEnrollmentDAO();
-    public abstract AbstractCCDDAO getCCDDAO();
     public abstract AbstractDegreeCourseDAO getDegreeCourseDAO();
     public abstract AbstractExamDAO getExamDAO();
     public abstract AbstractPendingEventDAO getPendingEventDAO();

@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProfessorDAODB extends AbstractProfessorDAO {
-    private static ProfessorDAODB instance;
     private List<Professor> professors;
 
     private ProfessorDAODB(){ //TODO implementare costruttore vero
@@ -18,7 +17,7 @@ public class ProfessorDAODB extends AbstractProfessorDAO {
         professors.add(new Professor(UserLazyFactory.getInstance().getUserByEmail("m.rossi@uniroma2.it"), "123456", LocalDate.now()));
     }
 
-    public static ProfessorDAODB getInstance(){
+    public static AbstractProfessorDAO getInstance(){
         if (instance == null) {
             instance = new ProfessorDAODB();
         }

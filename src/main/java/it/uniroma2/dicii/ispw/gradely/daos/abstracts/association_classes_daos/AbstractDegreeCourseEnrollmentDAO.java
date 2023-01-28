@@ -4,7 +4,6 @@ import it.uniroma2.dicii.ispw.gradely.model.DegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.Student;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.DegreeCourseEnrollment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractDegreeCourseEnrollmentDAO {

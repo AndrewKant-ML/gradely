@@ -8,7 +8,6 @@ import java.util.List;
 
 
 public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
-    private static DegreeCourseDAODB instance;
     private List<DegreeCourse> subjectCourses;
 
     private DegreeCourseDAODB(){ //TODO implementare costruttore vero
@@ -16,7 +15,7 @@ public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
         subjectCourses.add(new DegreeCourse());
     }
 
-    public static DegreeCourseDAODB getInstance(){
+    public static AbstractDegreeCourseDAO getInstance(){
         if (instance == null) {
             instance = new DegreeCourseDAODB();
         }

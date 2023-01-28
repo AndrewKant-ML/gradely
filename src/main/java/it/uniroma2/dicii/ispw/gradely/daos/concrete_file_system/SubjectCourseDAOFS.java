@@ -1,7 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.daos.concrete_file_system;
 
 import it.uniroma2.dicii.ispw.gradely.daos.abstracts.AbstractSubjectCourseDAO;
-import it.uniroma2.dicii.ispw.gradely.model.AbstractSubjectCourse;
 import it.uniroma2.dicii.ispw.gradely.model.SubjectCourse;
 
 import java.time.Year;

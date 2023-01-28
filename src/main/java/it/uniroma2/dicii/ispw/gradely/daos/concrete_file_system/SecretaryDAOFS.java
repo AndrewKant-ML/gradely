@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SecretaryDAOFS extends AbstractSecretaryDAO {
-    private static SecretaryDAOFS instance;
     private List<Secretary> secretaries;
 
     private SecretaryDAOFS(){ //TODO implementare costruttore vero
@@ -17,7 +16,7 @@ public class SecretaryDAOFS extends AbstractSecretaryDAO {
         secretaries.add(new Secretary(UserLazyFactory.getInstance().getUserByEmail("m.rossi@uniroma2.it")));
     }
 
-    public static SecretaryDAOFS getInstance(){
+    public static AbstractSecretaryDAO getInstance(){
         if (instance == null) {
             instance = new SecretaryDAOFS();
         }

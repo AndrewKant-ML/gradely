@@ -12,7 +12,6 @@ import static it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum.E4;
 
 
 public class PendingEventDAODB extends AbstractPendingEventDAO {
-    private static PendingEventDAODB instance;
     private List<PendingEvent> pendingEvents;
 
     private PendingEventDAODB(){ //TODO implementare costruttore vero
@@ -20,7 +19,7 @@ public class PendingEventDAODB extends AbstractPendingEventDAO {
         pendingEvents.add(new PendingEvent(UserLazyFactory.getInstance().getUserByEmail("m.rossi@uniroma2.it"),E4,"prova test prova"));
     }
 
-    public static PendingEventDAODB getInstance(){
+    public static AbstractPendingEventDAO getInstance(){
         if (instance == null) {
             instance = new PendingEventDAODB();
         }
