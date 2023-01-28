@@ -10,16 +10,16 @@ public class ExamEnrollment {
     private LocalDate enrollmentDate;
     private Student student;
     private Exam exam;
-    private ExamResult grade;
+    private ExamResult examResult;
 
     public ExamEnrollment() {
     }
 
-    public ExamEnrollment(LocalDate enrollmentDate, Student student, Exam exam, ExamResult grade) {
+    public ExamEnrollment(LocalDate enrollmentDate, Student student, Exam exam, ExamResult examResult) {
         this.enrollmentDate = enrollmentDate;
         this.student = student;
         this.exam = exam;
-        this.grade = grade;
+        this.examResult = examResult;
     }
 
     public LocalDate getEnrollmentDate() {
@@ -46,11 +46,11 @@ public class ExamEnrollment {
         this.exam = exam;
     }
 
-    public ExamResult getGrade() {
-        return grade;
+    public ExamResult getExamResult() {
+        return examResult;
     }
 
-    public void setGrade(ExamResult grade) {
-        this.grade = grade;
+    public void setExamResult(ExamResult examResult) {
+        this.examResult = examResult;
     }
 }

@@ -7,6 +7,8 @@ public class ExamEnrollmentBean {
     private Student student;
     private Exam exam;
 
+
+
     public ExamEnrollmentBean(Student student, Exam exam) {
         this.student = student;
         this.exam = exam;

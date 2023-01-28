@@ -53,4 +53,8 @@ public class ExamEnrollmentDAO {
         return lazyList;
     }
 
+    public void update(ExamEnrollment enrollment){
+        System.out.println("Updated");
+    }
+
 }

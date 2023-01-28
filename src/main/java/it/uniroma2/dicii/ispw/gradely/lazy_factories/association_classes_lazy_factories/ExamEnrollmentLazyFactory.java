@@ -2,6 +2,7 @@ package it.uniroma2.dicii.ispw.gradely.lazy_factories.association_classes_lazy_f
 
 import it.uniroma2.dicii.ispw.gradely.daos.association_classes_daos.ExamEnrollmentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.Exam;
+import it.uniroma2.dicii.ispw.gradely.model.ExamResult;
 import it.uniroma2.dicii.ispw.gradely.model.Student;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.ExamEnrollment;
 
@@ -69,5 +70,10 @@ public class ExamEnrollmentLazyFactory {
             }
         }
         return lazyList;
+    }
+
+    public void saveExamResult(ExamEnrollment enrollment, ExamResult result){
+        enrollment.setExamResult(result);
+        ExamEnrollmentDAO.getInstance().update(enrollment);
     }
 }
