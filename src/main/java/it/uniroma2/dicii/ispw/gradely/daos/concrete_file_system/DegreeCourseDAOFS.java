@@ -31,6 +31,8 @@ public class DegreeCourseDAOFS extends AbstractDegreeCourseDAO {
         return null; //TODO implementare exceptions
     }
 
-
-
+    @Override
+    public List<DegreeCourse> getAllDegreeCourses() {
+        return null;
+    }
 }

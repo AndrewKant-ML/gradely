@@ -2,28 +2,33 @@ package it.uniroma2.dicii.ispw.gradely.model;
 
 import it.uniroma2.dicii.ispw.gradely.enums.DegreeCourseTypeEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
+import it.uniroma2.dicii.ispw.gradely.enums.TestTypeEnum;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.DegreeCourseEnrollment;
 
 import java.util.List;
 
-public class DegreeCourse extends AbstractDegreeCourse{
+public class DegreeCourse extends AbstractDegreeCourse {
     private String name;
     private String facolta; //TODO: enum
     private DipartimentoEnum dipartimento;
     private DegreeCourseTypeEnum type;
     private List<AbstractDegreeCourse> prerequisites;
     private Professor coordinatore;
-    private List <DegreeCourseEnrollment> enrollments;
-    private List <SubjectCourse> subjectCourses;
+    private List<DegreeCourseEnrollment> enrollments;
+    private List<SubjectCourse> subjectCourses;
 
-    public DegreeCourse(){
+    private TestTypeEnum testType;
+
+    public DegreeCourse() {
 
     }
-    public DegreeCourse(String name, String facolta, DipartimentoEnum dipartimento, DegreeCourseTypeEnum type, List<AbstractDegreeCourse> prerequisites) {
+
+    public DegreeCourse(String name, String facolta, DipartimentoEnum dipartimento, DegreeCourseTypeEnum type, TestTypeEnum testType, List<AbstractDegreeCourse> prerequisites) {
         this.name = name;
         this.facolta = facolta;
         this.dipartimento = dipartimento;
         this.type = type;
+        this.testType = testType;
         this.prerequisites = prerequisites;
     }
 
@@ -89,5 +94,13 @@ public class DegreeCourse extends AbstractDegreeCourse{
 
     public void setSubjectCourses(List<SubjectCourse> subjectCourses) {
         this.subjectCourses = subjectCourses;
+    }
+
+    public TestTypeEnum getTestType() {
+        return testType;
+    }
+
+    public void setTestType(TestTypeEnum testType) {
+        this.testType = testType;
     }
 }

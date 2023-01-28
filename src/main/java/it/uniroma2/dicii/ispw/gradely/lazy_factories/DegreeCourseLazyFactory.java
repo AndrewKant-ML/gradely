@@ -22,11 +22,17 @@ public class DegreeCourseLazyFactory {
     }
 
     public DegreeCourse getDegreeCourseByName(String name) {
-        for(DegreeCourse d : degreeCourses){
-            if(d.getName().equals(name)) {
+        for (DegreeCourse d : degreeCourses) {
+            if (d.getName().equals(name)) {
                 return d; //TODO implementare exception
             }
         }
         return DAOFactory.getDAOFactory().getDegreeCourseDAO().getDegreeCourseByName(name); //TODO implementare exception
+    }
+
+    public List<DegreeCourse> getDegreeCourses() {
+        // TODO implement correct query
+        this.degreeCourses = DAOFactory.getDAOFactory().getDegreeCourseDAO().getAllDegreeCourses();
+        return this.degreeCourses;
     }
 }

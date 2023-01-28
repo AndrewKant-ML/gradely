@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.SelectDegreeCourseGraphicControl"
+            fx:controller="it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.graphic_controllers.SelectDegreeCourseGraphicController"
             prefWidth="650" prefHeight="400" stylesheets="@styles/list-style.css, @styles/default.css"
             styleClass="background">
 

@@ -2,6 +2,7 @@ package it.uniroma2.dicii.ispw.gradely;
 
 import it.uniroma2.dicii.ispw.gradely.session_manager.Token;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -31,11 +32,15 @@ public final class PageNavigationController {
             baseGraphicController.switchTo(
                     FXMLLoader.load(Objects.requireNonNull(MainApplication.class.getResource(pageName))));
         } catch (IOException e) {
-            System.err.printf("Error while loading component %s. ", pageName);
-            System.err.printf("Error message %s.\n", e.getMessage());
-            e.printStackTrace();
-            // TODO throw new exception
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Loading error");
+            alert.setContentText(String.format("Error while loading view. Error message: %s", e.getMessage()));
+            alert.show();
         }
+    }
+
+    public void returnToMainPage() {
+        baseGraphicController.returnToMainPage();
     }
 
     public Token getSessionToken() {

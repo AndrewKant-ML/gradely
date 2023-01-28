@@ -23,7 +23,7 @@ public class MainApplication extends Application {
     public static void main(String[] args) {
         // TODO check GUI type
         System.setProperty("gradely.persistence_type", "DB");
-        System.setProperty("gui", "javafx");
+        System.setProperty("gradely.frontend_type", "javafx");
 
         launch(args);
     }

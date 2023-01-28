@@ -6,7 +6,7 @@
             xmlns:fx="http://javafx.com/fxml"
             prefWidth="650" prefHeight="400"
             stylesheets="@styles/default.css"
-            fx:controller="it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.ConfirmAnagraphicalData"
+            fx:controller="it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.graphic_controllers.ConfirmAnagraphicalDataGraphicController"
             styleClass="background">
 
     <VBox AnchorPane.topAnchor="30" AnchorPane.rightAnchor="30" AnchorPane.leftAnchor="30" spacing="10">
