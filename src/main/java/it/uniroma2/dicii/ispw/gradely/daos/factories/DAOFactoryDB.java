@@ -1,15 +1,29 @@
 package it.uniroma2.dicii.ispw.gradely.daos.factories;
 
-import it.uniroma2.dicii.ispw.gradely.daos.abstracts.*;
-import it.uniroma2.dicii.ispw.gradely.daos.abstracts.association_classes_daos.AbstractCourseAssignmentDAO;
-import it.uniroma2.dicii.ispw.gradely.daos.abstracts.association_classes_daos.AbstractDegreeCourseEnrollmentDAO;
-import it.uniroma2.dicii.ispw.gradely.daos.abstracts.association_classes_daos.AbstractExamEnrollmentDAO;
-import it.uniroma2.dicii.ispw.gradely.daos.abstracts.association_classes_daos.AbstractSubjectCourseEnrollmentDAO;
-import it.uniroma2.dicii.ispw.gradely.daos.concrete_data_base.*;
-import it.uniroma2.dicii.ispw.gradely.daos.concrete_data_base.association_classes_daos.CourseAssignmentDAODB;
-import it.uniroma2.dicii.ispw.gradely.daos.concrete_data_base.association_classes_daos.DegreeCourseEnrollmentDAODB;
-import it.uniroma2.dicii.ispw.gradely.daos.concrete_data_base.association_classes_daos.ExamEnrollmentDAODB;
-import it.uniroma2.dicii.ispw.gradely.daos.concrete_data_base.association_classes_daos.SubjectCourseEnrollmentDAODB;
+import it.uniroma2.dicii.ispw.gradely.daos.association_classes_daos.course_assignment.AbstractCourseAssignmentDAO;
+import it.uniroma2.dicii.ispw.gradely.daos.association_classes_daos.degree_course_enrollment.AbstractDegreeCourseEnrollmentDAO;
+import it.uniroma2.dicii.ispw.gradely.daos.association_classes_daos.exam_enrollment.AbstractExamEnrollmentDAO;
+import it.uniroma2.dicii.ispw.gradely.daos.association_classes_daos.subject_course_enrollment.AbstractSubjectCourseEnrollmentDAO;
+import it.uniroma2.dicii.ispw.gradely.daos.association_classes_daos.course_assignment.CourseAssignmentDAODB;
+import it.uniroma2.dicii.ispw.gradely.daos.association_classes_daos.degree_course_enrollment.DegreeCourseEnrollmentDAODB;
+import it.uniroma2.dicii.ispw.gradely.daos.association_classes_daos.exam_enrollment.ExamEnrollmentDAODB;
+import it.uniroma2.dicii.ispw.gradely.daos.association_classes_daos.subject_course_enrollment.SubjectCourseEnrollmentDAODB;
+import it.uniroma2.dicii.ispw.gradely.daos.degree_course.AbstractDegreeCourseDAO;
+import it.uniroma2.dicii.ispw.gradely.daos.degree_course.DegreeCourseDAODB;
+import it.uniroma2.dicii.ispw.gradely.daos.exam.AbstractExamDAO;
+import it.uniroma2.dicii.ispw.gradely.daos.exam.ExamDAODB;
+import it.uniroma2.dicii.ispw.gradely.daos.pending_event.AbstractPendingEventDAO;
+import it.uniroma2.dicii.ispw.gradely.daos.pending_event.PendingEventDAODB;
+import it.uniroma2.dicii.ispw.gradely.daos.professor.AbstractProfessorDAO;
+import it.uniroma2.dicii.ispw.gradely.daos.professor.ProfessorDAODB;
+import it.uniroma2.dicii.ispw.gradely.daos.secretary.AbstractSecretaryDAO;
+import it.uniroma2.dicii.ispw.gradely.daos.secretary.SecretaryDAODB;
+import it.uniroma2.dicii.ispw.gradely.daos.student.AbstractStudentDAO;
+import it.uniroma2.dicii.ispw.gradely.daos.student.StudentDAODB;
+import it.uniroma2.dicii.ispw.gradely.daos.subject_course.AbstractSubjectCourseDAO;
+import it.uniroma2.dicii.ispw.gradely.daos.subject_course.SubjectCourseDAODB;
+import it.uniroma2.dicii.ispw.gradely.daos.user.AbstractUserDAO;
+import it.uniroma2.dicii.ispw.gradely.daos.user.UserDAODB;
 
 public class DAOFactoryDB extends DAOFactory{
     public AbstractCourseAssignmentDAO getCourseAssignmentDAO(){
