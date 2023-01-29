@@ -61,7 +61,7 @@ public class InsertStudentsGradesControl {
     public void saveExamResults(StudentGradeListBean list){
         for (StudentGradeBean g : list.getGrades()){
             saveExamResult(g);
-            PendingEventLazyFactory.getInstance().createNewPendingEventSingle(g.getEnrollmentBean().getStudent().getUser(), PendingEventTypeEnum.E1, "pending grade notification, system is waiting confirmation from student"); //TODO implementare messaggi automatici
+            PendingEventLazyFactory.getInstance().createNewPendingEventSingle(g.getEnrollmentBean().getStudent().getUser(), PendingEventTypeEnum.E1, "pending grade notification, system is waiting confirmation from student", g.getEnrollmentBean().getExam()); //TODO implementare messaggi automatici
         }
         timers.add(new ExamConfirmationTimer(list.getExam(), LocalDate.now().plusDays(7L)));
     }
@@ -78,7 +78,7 @@ public class InsertStudentsGradesControl {
             if (t.getConfirmationExpiration().isAfter(LocalDate.now())){
                 for (ExamEnrollment e : t.getExam().getEnrollments()){
                     e.getExamResult().setConfirmed(ExamResultConfirmationEnum.ACCEPTED);
-                    PendingEventLazyFactory.getInstance().createNewPendingEventSingle(e.getStudent().getUser(), PendingEventTypeEnum.E2, "The exam was marked accepted by the system due to lack of confirmation by the student");
+                    PendingEventLazyFactory.getInstance().createNewPendingEventSingle(e.getStudent().getUser(), PendingEventTypeEnum.E2, "The exam was marked accepted by the system due to lack of confirmation by the student", e);
                 }
                 List<User> list = new ArrayList<>();
                 for (DegreeCourse d : t.getExam().getCourse().getDegreeCourses()){
@@ -86,11 +86,19 @@ public class InsertStudentsGradesControl {
                         list.add(s.getUser());
                     }
                 }
-                PendingEventLazyFactory.getInstance().createNewPendingEventGroup(list,PendingEventTypeEnum.E3,"Please verify validity for the following exam grades");
+                PendingEventLazyFactory.getInstance().createNewPendingEventGroup(list,PendingEventTypeEnum.E3,"Please verify validity for the following exam grades", t.getExam());
 
                 timers.remove(t);
             }
         }
+    }
+
+    public void confirmExamVerbaleProtocolizzation(Secretary secretary, ProtocolBean bean){
+        Exam e = ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(bean.getExamBean().getAppello(), SubjectCourseLazyFactory.getInstance().getSubjectCourseByName(bean.getExamBean().getCourse().getName()), bean.getExamBean().getSessione());
+        e.setVerbalizable(false);
+        e.setVerbaleDate(LocalDate.now());
+        e.setVerbaleNumber(bean.getVerbaleNumber());
+        ExamLazyFactory.getInstance().update(e);
     }
 
 }

@@ -33,4 +33,9 @@ public class ExamDAOFS extends AbstractExamDAO {
         return null; //TODO implementare exceptions
     }
 
+    @Override
+    public void update(Exam exam){
+        System.out.println("Updated");
+    }
+
 }

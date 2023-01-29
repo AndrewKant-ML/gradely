@@ -69,4 +69,8 @@ public class ExamEnrollmentLazyFactory {
         enrollment.setExamResult(result);
         DAOFactory.getDAOFactory().getExamEnrollmentDAO().update(enrollment);
     }
+
+    public void update (ExamEnrollment exam){
+        DAOFactory.getDAOFactory().getExamEnrollmentDAO().update(exam);
+    }
 }

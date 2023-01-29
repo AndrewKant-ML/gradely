@@ -5,6 +5,7 @@ import it.uniroma2.dicii.ispw.gradely.model.User;
 import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 public class PendingEventGroup extends PendingEvent{
@@ -12,7 +13,7 @@ public class PendingEventGroup extends PendingEvent{
 
     public PendingEventGroup() {
     }
-    public PendingEventGroup(List<User> users, PendingEventTypeEnum type, String message) {
+    public PendingEventGroup(List<User> users, PendingEventTypeEnum type, String message, Object object) {
         UUID generatedId;
         do{
             generatedId=UUID.randomUUID();

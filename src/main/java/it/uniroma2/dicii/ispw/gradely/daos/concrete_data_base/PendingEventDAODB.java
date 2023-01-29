@@ -17,7 +17,7 @@ public class PendingEventDAODB extends AbstractPendingEventDAO {
 
     private PendingEventDAODB(){ //TODO implementare costruttore vero
         pendingEvents = new ArrayList<PendingEvent>();
-        pendingEvents.add(new PendingEventSingle(UserLazyFactory.getInstance().getUserByEmail("m.rossi@uniroma2.it"),E4,"prova test prova"));
+        pendingEvents.add(new PendingEventSingle(UserLazyFactory.getInstance().getUserByEmail("m.rossi@uniroma2.it"),E4,"prova messaggio","prova object"));
     }
 
     public static AbstractPendingEventDAO getInstance(){

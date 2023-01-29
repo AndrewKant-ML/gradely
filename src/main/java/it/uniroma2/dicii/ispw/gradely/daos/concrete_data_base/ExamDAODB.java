@@ -5,6 +5,7 @@ import it.uniroma2.dicii.ispw.gradely.enums.AppelloEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.SessionEnum;
 import it.uniroma2.dicii.ispw.gradely.model.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.SubjectCourse;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.ExamEnrollment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,5 +33,11 @@ public class ExamDAODB extends AbstractExamDAO {
         }
         return null; //TODO implementare exceptions
     }
+
+    @Override
+    public void update(Exam exam){
+        System.out.println("Updated");
+    }
+
 
 }

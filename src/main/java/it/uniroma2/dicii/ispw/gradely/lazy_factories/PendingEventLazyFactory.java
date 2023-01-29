@@ -9,6 +9,7 @@ import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEventSingle;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 public class PendingEventLazyFactory {
@@ -35,14 +36,14 @@ public class PendingEventLazyFactory {
         return DAOFactory.getDAOFactory().getPendingEventDAO().getPendingEventById(id); //TODO implementare exception
     }
 
-    public void createNewPendingEventSingle(User user, PendingEventTypeEnum type, String message){
-        PendingEvent p = new PendingEventSingle(user, type, message);
+    public void createNewPendingEventSingle(User user, PendingEventTypeEnum type, String message, Object object){
+        PendingEvent p = new PendingEventSingle(user, type, message, object);
         pendingEvents.add(p);
         DAOFactory.getDAOFactory().getPendingEventDAO().update(p);
     }
 
-    public void createNewPendingEventGroup(List<User> users, PendingEventTypeEnum type, String message){
-        PendingEventGroup p = new PendingEventGroup(users, type, message);
+    public void createNewPendingEventGroup(List<User> users, PendingEventTypeEnum type, String message, Object object){
+        PendingEventGroup p = new PendingEventGroup(users, type, message, object);
         pendingEvents.add(p);
         DAOFactory.getDAOFactory().getPendingEventDAO().update(p);
     }

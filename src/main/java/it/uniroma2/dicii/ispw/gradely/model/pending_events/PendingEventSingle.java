@@ -4,6 +4,7 @@ import it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum;
 import it.uniroma2.dicii.ispw.gradely.model.User;
 import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class PendingEventSingle extends PendingEvent{
@@ -11,7 +12,7 @@ public class PendingEventSingle extends PendingEvent{
 
     public PendingEventSingle() {
     }
-    public PendingEventSingle(User user, PendingEventTypeEnum type, String message) {
+    public PendingEventSingle(User user, PendingEventTypeEnum type, String message, Object object) {
         UUID generatedId;
         do{
             generatedId=UUID.randomUUID();

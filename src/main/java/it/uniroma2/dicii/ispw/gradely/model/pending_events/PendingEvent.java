@@ -12,11 +12,11 @@ public abstract class PendingEvent {
     protected PendingEventTypeEnum type;
     protected String message;
     protected Boolean notified;
-    protected Objects object;
+    protected Object object;
 
     protected PendingEvent() {
     }
-    protected PendingEvent(User user, PendingEventTypeEnum type, String message, Objects object) {
+    protected PendingEvent(User user, PendingEventTypeEnum type, String message, Object object) {
         UUID generatedId;
         do{
             generatedId=UUID.randomUUID();
@@ -61,7 +61,7 @@ public abstract class PendingEvent {
         this.notified = notified;
     }
 
-    public Objects getObject() {
+    public Object getObject() {
         return object;
     }
 
