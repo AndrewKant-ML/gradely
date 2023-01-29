@@ -1,10 +1,10 @@
 #!/bin/bash
 echo "(START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT)"
 git switch GVC
-git commit -am "$1  (`date`)"
+git commit -am "$1  ($(date))"
 git push -u origin GVC
 git switch main
-git commit -am "$1  (`date`)"
+git commit -am "$1  ($(date))"
 git push -u origin main
 git switch GVC
 git pull

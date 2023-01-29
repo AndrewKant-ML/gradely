@@ -1,10 +1,10 @@
 #!/bin/bash
 echo "(START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT)"
 git switch AC
-git commit -am "$1  (`date`)"
+git commit -am "$1  ($(date))"
 git push -u origin AC
 git switch main
-git commit -am "$1  (`date`)"
+git commit -am "$1  ($(date))"
 git push -u origin main
 git switch AC
 git pull
