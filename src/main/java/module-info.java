@@ -7,7 +7,7 @@ module it.uniroma2.dicii.ispw.gradely {
     exports it.uniroma2.dicii.ispw.gradely;
     exports it.uniroma2.dicii.ispw.gradely.session_manager;
     exports it.uniroma2.dicii.ispw.gradely.model;
-    exports it.uniroma2.dicii.ispw.gradely.general_beans;
+    exports it.uniroma2.dicii.ispw.gradely.beans_general;
     exports it.uniroma2.dicii.ispw.gradely.exceptions;
     exports it.uniroma2.dicii.ispw.gradely.enums;
     exports it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course;

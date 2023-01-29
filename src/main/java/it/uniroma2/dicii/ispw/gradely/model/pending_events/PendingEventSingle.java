@@ -12,7 +12,7 @@ public class PendingEventSingle extends PendingEvent{
 
     public PendingEventSingle() {
     }
-    public PendingEventSingle(User user, PendingEventTypeEnum type, String message, Object object) {
+    public PendingEventSingle(User user, PendingEventTypeEnum type, Object object) {
         UUID generatedId;
         do{
             generatedId=UUID.randomUUID();
@@ -21,11 +21,14 @@ public class PendingEventSingle extends PendingEvent{
         this.id = generatedId;
         this.user = user;
         this.type = type;
-        this.message = message;
+        this.message = type.message;
         this.notified = false;
     }
 
-
+    @Override
+    public Boolean isForUser(User user){
+        return (this.user == user);
+    }
     public User getUser() {
         return user;
     }

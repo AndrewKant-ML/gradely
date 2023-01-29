@@ -2,10 +2,10 @@ package it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course;
 
 import it.uniroma2.dicii.ispw.gradely.PageNavigationController;
 import it.uniroma2.dicii.ispw.gradely.exceptions.TestRetrivialException;
-import it.uniroma2.dicii.ispw.gradely.general_beans.DegreeCourseBean;
-import it.uniroma2.dicii.ispw.gradely.general_beans.StudentBean;
-import it.uniroma2.dicii.ispw.gradely.general_beans.TestInfoBean;
-import it.uniroma2.dicii.ispw.gradely.general_beans.UserBean;
+import it.uniroma2.dicii.ispw.gradely.beans_general.DegreeCourseBean;
+import it.uniroma2.dicii.ispw.gradely.beans_general.StudentBean;
+import it.uniroma2.dicii.ispw.gradely.beans_general.TestInfoBean;
+import it.uniroma2.dicii.ispw.gradely.beans_general.UserBean;
 import it.uniroma2.dicii.ispw.gradely.lazy_factories.DegreeCourseLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.DegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.User;

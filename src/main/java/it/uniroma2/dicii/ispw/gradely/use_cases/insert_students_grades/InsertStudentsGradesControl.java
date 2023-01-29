@@ -1,15 +1,15 @@
 package it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades;
 
 import it.uniroma2.dicii.ispw.gradely.daos.factories.DAOFactory;
-import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.ExamResultConfirmationEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum;
-import it.uniroma2.dicii.ispw.gradely.general_beans.*;
+import it.uniroma2.dicii.ispw.gradely.beans_general.*;
 import it.uniroma2.dicii.ispw.gradely.lazy_factories.ExamLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.lazy_factories.PendingEventLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.lazy_factories.SubjectCourseLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.lazy_factories.association_classes_lazy_factories.ExamEnrollmentLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.*;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.CourseAssignment;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.ExamEnrollment;
 import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
 import it.uniroma2.dicii.ispw.gradely.session_manager.Token;
@@ -61,7 +61,7 @@ public class InsertStudentsGradesControl {
     public void saveExamResults(StudentGradeListBean list){
         for (StudentGradeBean g : list.getGrades()){
             saveExamResult(g);
-            PendingEventLazyFactory.getInstance().createNewPendingEventSingle(g.getEnrollmentBean().getStudent().getUser(), PendingEventTypeEnum.E1, "pending grade notification, system is waiting confirmation from student", g.getEnrollmentBean().getExam()); //TODO implementare messaggi automatici
+            PendingEventLazyFactory.getInstance().createNewPendingEventSingle(g.getEnrollmentBean().getStudent().getUser(), PendingEventTypeEnum.EVENT_1, g.getEnrollmentBean().getExam()); //TODO implementare messaggi automatici
         }
         timers.add(new ExamConfirmationTimer(list.getExam(), LocalDate.now().plusDays(7L)));
     }
@@ -78,7 +78,7 @@ public class InsertStudentsGradesControl {
             if (t.getConfirmationExpiration().isAfter(LocalDate.now())){
                 for (ExamEnrollment e : t.getExam().getEnrollments()){
                     e.getExamResult().setConfirmed(ExamResultConfirmationEnum.ACCEPTED);
-                    PendingEventLazyFactory.getInstance().createNewPendingEventSingle(e.getStudent().getUser(), PendingEventTypeEnum.E2, "The exam was marked accepted by the system due to lack of confirmation by the student", e);
+                    PendingEventLazyFactory.getInstance().createNewPendingEventSingle(e.getStudent().getUser(), PendingEventTypeEnum.EVENT_2, e);
                 }
                 List<User> list = new ArrayList<>();
                 for (DegreeCourse d : t.getExam().getCourse().getDegreeCourses()){
@@ -86,19 +86,30 @@ public class InsertStudentsGradesControl {
                         list.add(s.getUser());
                     }
                 }
-                PendingEventLazyFactory.getInstance().createNewPendingEventGroup(list,PendingEventTypeEnum.E3,"Please verify validity for the following exam grades", t.getExam());
+                PendingEventLazyFactory.getInstance().createNewPendingEventGroup(list,PendingEventTypeEnum.EVENT_3, t.getExam());
 
                 timers.remove(t);
             }
         }
     }
 
-    public void confirmExamVerbaleProtocolizzation(Secretary secretary, ProtocolBean bean){
+    public void confirmExamVerbaleProtocolization(Secretary secretary, ProtocolBean bean){
         Exam e = ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(bean.getExamBean().getAppello(), SubjectCourseLazyFactory.getInstance().getSubjectCourseByName(bean.getExamBean().getCourse().getName()), bean.getExamBean().getSessione());
         e.setVerbalizable(false);
-        e.setVerbaleDate(LocalDate.now());
+        e.setVerbaleDate(bean.getVerbaleDate());
         e.setVerbaleNumber(bean.getVerbaleNumber());
         ExamLazyFactory.getInstance().update(e);
+        notifyExamProtocolization(e);
+    }
+    public void notifyExamProtocolization(Exam exam){
+        List<User> users = new ArrayList<>();
+        for (ExamEnrollment e : exam.getEnrollments()){
+            users.add(e.getStudent().getUser());
+        }
+        for (CourseAssignment c : exam.getCourse().getCourseAssignments()){
+            users.add(c.getProfessor().getUser());
+        }
+        PendingEventLazyFactory.getInstance().createNewPendingEventGroup(users,PendingEventTypeEnum.EVENT_4,exam);
     }
 
 }

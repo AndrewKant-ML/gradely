@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum.E4;
+import static it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum.EVENT_PROVA;
 
 
 public class PendingEventDAOFS extends AbstractPendingEventDAO {
@@ -17,7 +17,7 @@ public class PendingEventDAOFS extends AbstractPendingEventDAO {
 
     private PendingEventDAOFS(){ //TODO implementare costruttore vero
         pendingEvents = new ArrayList<PendingEvent>();
-        pendingEvents.add(new PendingEventSingle(UserLazyFactory.getInstance().getUserByEmail("m.rossi@uniroma2.it"),E4,"prova messaggio","prova object"));
+        pendingEvents.add(new PendingEventSingle(UserLazyFactory.getInstance().getUserByEmail("m.rossi@uniroma2.it"), EVENT_PROVA,"prova object"));
     }
 
     public static AbstractPendingEventDAO getInstance(){
@@ -39,5 +39,10 @@ public class PendingEventDAOFS extends AbstractPendingEventDAO {
     @Override
     public void update(PendingEvent pendingEvent){
         System.out.println("Updated");
+    }
+
+    @Override
+    public List<PendingEvent> refresh(List<PendingEvent> pendingEvents) {
+        return null;
     }
 }

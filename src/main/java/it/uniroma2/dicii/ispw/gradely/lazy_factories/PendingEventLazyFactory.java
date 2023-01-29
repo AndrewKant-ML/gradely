@@ -36,14 +36,14 @@ public class PendingEventLazyFactory {
         return DAOFactory.getDAOFactory().getPendingEventDAO().getPendingEventById(id); //TODO implementare exception
     }
 
-    public void createNewPendingEventSingle(User user, PendingEventTypeEnum type, String message, Object object){
-        PendingEvent p = new PendingEventSingle(user, type, message, object);
+    public void createNewPendingEventSingle(User user, PendingEventTypeEnum type, Object object){
+        PendingEvent p = new PendingEventSingle(user, type, object);
         pendingEvents.add(p);
         DAOFactory.getDAOFactory().getPendingEventDAO().update(p);
     }
 
-    public void createNewPendingEventGroup(List<User> users, PendingEventTypeEnum type, String message, Object object){
-        PendingEventGroup p = new PendingEventGroup(users, type, message, object);
+    public void createNewPendingEventGroup(List<User> users, PendingEventTypeEnum type, Object object){
+        PendingEventGroup p = new PendingEventGroup(users, type, object);
         pendingEvents.add(p);
         DAOFactory.getDAOFactory().getPendingEventDAO().update(p);
     }

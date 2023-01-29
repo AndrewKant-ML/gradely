@@ -1,7 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.beans;
 
-import it.uniroma2.dicii.ispw.gradely.general_beans.ExamEnrollmentBean;
-import it.uniroma2.dicii.ispw.gradely.general_beans.ExamResultBean;
+import it.uniroma2.dicii.ispw.gradely.beans_general.ExamEnrollmentBean;
+import it.uniroma2.dicii.ispw.gradely.beans_general.ExamResultBean;
 
 public class StudentGradeBean {
     private ExamEnrollmentBean enrollmentBean;

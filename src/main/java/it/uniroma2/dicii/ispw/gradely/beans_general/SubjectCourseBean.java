@@ -1,4 +1,4 @@
-package it.uniroma2.dicii.ispw.gradely.general_beans;
+package it.uniroma2.dicii.ispw.gradely.beans_general;
 
 import it.uniroma2.dicii.ispw.gradely.enums.SubjectCourseCodeEnum;
 

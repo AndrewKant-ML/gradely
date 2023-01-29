@@ -1,7 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.graphic_controllers;
 
-import it.uniroma2.dicii.ispw.gradely.general_beans.DegreeCourseBean;
-import it.uniroma2.dicii.ispw.gradely.general_beans.TestInfoBean;
+import it.uniroma2.dicii.ispw.gradely.beans_general.DegreeCourseBean;
+import it.uniroma2.dicii.ispw.gradely.beans_general.TestInfoBean;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Hyperlink;

@@ -1,7 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.beans;
 
-import it.uniroma2.dicii.ispw.gradely.general_beans.StudentBean;
-import it.uniroma2.dicii.ispw.gradely.general_beans.UserBean;
+import it.uniroma2.dicii.ispw.gradely.beans_general.StudentBean;
+import it.uniroma2.dicii.ispw.gradely.beans_general.UserBean;
 
 public class AnagraphicalDataBean {
 

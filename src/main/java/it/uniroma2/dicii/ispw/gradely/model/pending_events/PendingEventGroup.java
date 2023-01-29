@@ -13,7 +13,7 @@ public class PendingEventGroup extends PendingEvent{
 
     public PendingEventGroup() {
     }
-    public PendingEventGroup(List<User> users, PendingEventTypeEnum type, String message, Object object) {
+    public PendingEventGroup(List<User> users, PendingEventTypeEnum type, Object object) {
         UUID generatedId;
         do{
             generatedId=UUID.randomUUID();
@@ -22,8 +22,13 @@ public class PendingEventGroup extends PendingEvent{
         super.id = generatedId;
         this.users = users;
         super.type = type;
-        super.message = message;
+        super.message = type.message;
         super.notified = false;
+    }
+
+    @Override
+    public Boolean isForUser(User user){
+        return (this.users.contains(user));
     }
 
     public List<User> getUsers() {
