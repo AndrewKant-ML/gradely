@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment;
 
-import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactory;
+import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.exam_result.ExamResult;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
@@ -30,7 +30,7 @@ public class ExamEnrollmentLazyFactory {
                 list.add(e); //TODO implementare exception
             }
         }
-        List<ExamEnrollment> daoList = DAOFactory.getDAOFactory().getExamEnrollmentDAO().getExamEnrollmentsByExam(exam); //TODO implementare exception
+        List<ExamEnrollment> daoList = DAOFactoryAbstract.getDAOFactory().getExamEnrollmentDAO().getExamEnrollmentsByExam(exam); //TODO implementare exception
         for(ExamEnrollment e : daoList){
             if(!list.contains(e)) {
                 list.add(e); //TODO implementare exceptions
@@ -46,7 +46,7 @@ public class ExamEnrollmentLazyFactory {
                 list.add(e); //TODO implementare exception
             }
         }
-        List<ExamEnrollment> daoList = DAOFactory.getDAOFactory().getExamEnrollmentDAO().getExamEnrollmentsByStudent(student); //TODO implementare exception
+        List<ExamEnrollment> daoList = DAOFactoryAbstract.getDAOFactory().getExamEnrollmentDAO().getExamEnrollmentsByStudent(student); //TODO implementare exception
         for(ExamEnrollment e : daoList){
             if(!list.contains(e)) {
                 list.add(e); //TODO implementare exceptions
@@ -61,15 +61,15 @@ public class ExamEnrollmentLazyFactory {
                 return e; //TODO implementare exception
             }
         }
-        return DAOFactory.getDAOFactory().getExamEnrollmentDAO().getExamEnrollmentByExamAndStudent(exam, student);
+        return DAOFactoryAbstract.getDAOFactory().getExamEnrollmentDAO().getExamEnrollmentByExamAndStudent(exam, student);
     }
 
     public void saveExamResult(ExamEnrollment enrollment, ExamResult result){
         enrollment.setExamResult(result);
-        DAOFactory.getDAOFactory().getExamEnrollmentDAO().update(enrollment);
+        DAOFactoryAbstract.getDAOFactory().getExamEnrollmentDAO().update(enrollment);
     }
 
     public void update (ExamEnrollment exam){
-        DAOFactory.getDAOFactory().getExamEnrollmentDAO().update(exam);
+        DAOFactoryAbstract.getDAOFactory().getExamEnrollmentDAO().update(exam);
     }
 }

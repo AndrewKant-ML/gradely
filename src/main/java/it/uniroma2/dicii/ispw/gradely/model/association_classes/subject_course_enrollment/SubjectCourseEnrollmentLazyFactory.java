@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment;
 
-import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactory;
+import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 
@@ -29,7 +29,7 @@ public class SubjectCourseEnrollmentLazyFactory {
                 list.add(e); //TODO implementare exception
             }
         }
-        List<SubjectCourseEnrollment> daoList = DAOFactory.getDAOFactory().getSubjectCourseEnrollmentDAO().getSubjectCourseEnrollmentsBySubjectCourse(course); //TODO implementare exception
+        List<SubjectCourseEnrollment> daoList = DAOFactoryAbstract.getDAOFactory().getSubjectCourseEnrollmentDAO().getSubjectCourseEnrollmentsBySubjectCourse(course); //TODO implementare exception
         for(SubjectCourseEnrollment e : daoList){
             if(!list.contains(e)) {
                 list.add(e); //TODO implementare exceptions
@@ -45,7 +45,7 @@ public class SubjectCourseEnrollmentLazyFactory {
                 list.add(e); //TODO implementare exception
             }
         }
-        List<SubjectCourseEnrollment> daoList = DAOFactory.getDAOFactory().getSubjectCourseEnrollmentDAO().getSubjectCourseEnrollmentsByStudent(student); //TODO implementare exception
+        List<SubjectCourseEnrollment> daoList = DAOFactoryAbstract.getDAOFactory().getSubjectCourseEnrollmentDAO().getSubjectCourseEnrollmentsByStudent(student); //TODO implementare exception
         for(SubjectCourseEnrollment e : daoList){
             if(!list.contains(e)) {
                 list.add(e); //TODO implementare exceptions

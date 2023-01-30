@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.degree_course;
 
-import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactory;
+import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactoryAbstract;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,12 +26,12 @@ public class DegreeCourseLazyFactory {
                 return d; //TODO implementare exception
             }
         }
-        return DAOFactory.getDAOFactory().getDegreeCourseDAO().getDegreeCourseByName(name); //TODO implementare exception
+        return DAOFactoryAbstract.getDAOFactory().getDegreeCourseDAO().getDegreeCourseByName(name); //TODO implementare exception
     }
 
     public List<DegreeCourse> getDegreeCourses() {
         // TODO implement correct query
-        this.degreeCourses = DAOFactory.getDAOFactory().getDegreeCourseDAO().getAllDegreeCourses();
+        this.degreeCourses = DAOFactoryAbstract.getDAOFactory().getDegreeCourseDAO().getAllDegreeCourses();
         return this.degreeCourses;
     }
 }

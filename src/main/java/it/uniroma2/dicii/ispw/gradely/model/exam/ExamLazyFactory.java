@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.exam;
 
-import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactory;
+import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.AppelloEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.SessionEnum;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.course_assignment.CourseAssignmentLazyFactory;
@@ -27,11 +27,11 @@ public class ExamLazyFactory {
 
     public Exam getExamByAppelloCourseAndSession(AppelloEnum appello, SubjectCourse course, SessionEnum session) {
         for(Exam e : exams){
-            if(e.getAppello().equals(appello) && e.getCourse().equals(course) && e.getSession().equals(session)) {
+            if(e.getAppello().equals(appello) && e.getSubjectCourse().equals(course) && e.getSession().equals(session)) {
                 return e; //TODO implementare exception
             }
         }
-        return DAOFactory.getDAOFactory().getExamDAO().getExamByAppelloCourseAndSession(appello, course, session); //TODO implementare exception
+        return DAOFactoryAbstract.getDAOFactory().getExamDAO().getExamByAppelloCourseAndSession(appello, course, session); //TODO implementare exception
     }
 
     public List<Exam> getGradableExams(Professor professor){
@@ -47,6 +47,6 @@ public class ExamLazyFactory {
     }
 
     public void update (Exam exam){
-        DAOFactory.getDAOFactory().getExamDAO().update(exam);
+        DAOFactoryAbstract.getDAOFactory().getExamDAO().update(exam);
     }
 }

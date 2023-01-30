@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.association_classes.course_assignment;
 
-import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactory;
+import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.Professor;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 
@@ -28,7 +28,7 @@ public class CourseAssignmentLazyFactory {
                 return c; //TODO implementare exception
             }
         }
-        return DAOFactory.getDAOFactory().getCourseAssignmentDAO().getCourseAssignmentBySubjectCourse(course); //TODO implementare exception
+        return DAOFactoryAbstract.getDAOFactory().getCourseAssignmentDAO().getCourseAssignmentBySubjectCourse(course); //TODO implementare exception
     }
 
     public List<CourseAssignment> getCourseAssignmentsByProfessor(Professor professor) {
@@ -38,7 +38,7 @@ public class CourseAssignmentLazyFactory {
                 list.add(c); //TODO implementare exceptions
             }
         }
-        List<CourseAssignment> daoList = DAOFactory.getDAOFactory().getCourseAssignmentDAO().getCourseAssignmentsByProfessor(professor); //TODO implementare exception
+        List<CourseAssignment> daoList = DAOFactoryAbstract.getDAOFactory().getCourseAssignmentDAO().getCourseAssignmentsByProfessor(professor); //TODO implementare exception
         for(CourseAssignment c : daoList){
             if(!list.contains(c)) {
                 list.add(c); //TODO implementare exceptions
@@ -53,7 +53,7 @@ public class CourseAssignmentLazyFactory {
                 list.add(c.getSubjectCourse()); //TODO implementare exceptions
             }
         }
-        List<CourseAssignment> daoList = DAOFactory.getDAOFactory().getCourseAssignmentDAO().getCourseAssignmentsByProfessor(professor); //TODO implementare exception
+        List<CourseAssignment> daoList = DAOFactoryAbstract.getDAOFactory().getCourseAssignmentDAO().getCourseAssignmentsByProfessor(professor); //TODO implementare exception
         for(CourseAssignment c : daoList){
             if(!list.contains(c.getSubjectCourse())) {
                 list.add(c.getSubjectCourse()); //TODO implementare exceptions

@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.user;
 
-import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactory;
+import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 
 import java.time.LocalDate;
@@ -15,7 +15,7 @@ public class UserLazyFactory {
         registeredUsers = new ArrayList<User>();
         User user = new User("studente","studenti","stdstd01A02H501Y","s.studenti@uniroma2.it","PWD.difficilissim4");
         user.setRole(new Student(user, "342342", LocalDate.now(), new ArrayList<>()));
-        DAOFactory.getDAOFactory().getStudentDAO().update(user.getRole().student());
+        DAOFactoryAbstract.getDAOFactory().getStudentDAO().update(user.getRole().student());
         registeredUsers.add(user);
     }
 
@@ -32,12 +32,12 @@ public class UserLazyFactory {
                 return u; //TODO implementare exception
             }
         }
-        return DAOFactory.getDAOFactory().getUserDAO().getUserByEmail(email); //TODO implementare exception
+        return DAOFactoryAbstract.getDAOFactory().getUserDAO().getUserByEmail(email); //TODO implementare exception
     }
 
     public User newUser(String name, String surname, String codiceFiscale, String email, String password){
         User newUser = new User(name, surname,codiceFiscale,email,password);
-        DAOFactory.getDAOFactory().getUserDAO().insert(newUser);
+        DAOFactoryAbstract.getDAOFactory().getUserDAO().insert(newUser);
         registeredUsers.add(newUser);
         return newUser;
     }

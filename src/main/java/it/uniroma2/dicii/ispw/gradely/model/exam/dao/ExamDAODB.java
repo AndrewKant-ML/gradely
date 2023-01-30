@@ -25,7 +25,7 @@ public class ExamDAODB extends AbstractExamDAO {
     @Override
     public Exam getExamByAppelloCourseAndSession(AppelloEnum appello, SubjectCourse course, SessionEnum session) {
         for(Exam e : exams){
-            if(e.getAppello().equals(appello) && e.getCourse().equals(course) && e.getSession().equals(session)) {
+            if(e.getAppello().equals(appello) && e.getSubjectCourse().equals(course) && e.getSession().equals(session)) {
                 return e; //TODO implementare exception
             }
         }

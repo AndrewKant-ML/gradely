@@ -11,21 +11,22 @@ import it.uniroma2.dicii.ispw.gradely.model.role.professor.dao.AbstractProfessor
 import it.uniroma2.dicii.ispw.gradely.model.role.secretary.dao.AbstractSecretaryDAO;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.dao.AbstractStudentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.dao.AbstractSubjectCourseDAO;
+import it.uniroma2.dicii.ispw.gradely.model.timer.dao.TimerDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.user.dao.UserDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.PersistenceTypeEnum;
 
 import static it.uniroma2.dicii.ispw.gradely.enums.PersistenceTypeEnum.DB;
 import static it.uniroma2.dicii.ispw.gradely.enums.PersistenceTypeEnum.FS;
 
-public abstract class DAOFactory {
+public abstract class DAOFactoryAbstract {
 
-    private static DAOFactory me = null;
+    private static DAOFactoryAbstract me = null;
 
-    protected DAOFactory(){
+    protected DAOFactoryAbstract(){
 
     }
 
-    public static synchronized DAOFactory getDAOFactory(){
+    public static synchronized DAOFactoryAbstract getDAOFactory(){
         if (me == null){
             String persistenceType = System.getProperty("gradely.persistence_type");
 
@@ -50,6 +51,7 @@ public abstract class DAOFactory {
     public abstract AbstractSecretaryDAO getSecretaryDAO();
     public abstract AbstractStudentDAO getStudentDAO();
     public abstract AbstractSubjectCourseDAO getSubjectCourseDAO();
+    public abstract TimerDAOAbstract getTimerDAO();
     public abstract UserDAOAbstract getUserDAO();
 
 }

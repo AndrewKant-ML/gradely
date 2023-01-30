@@ -22,10 +22,12 @@ import it.uniroma2.dicii.ispw.gradely.model.role.student.dao.AbstractStudentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.dao.StudentDAODB;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.dao.AbstractSubjectCourseDAO;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.dao.SubjectCourseDAODB;
+import it.uniroma2.dicii.ispw.gradely.model.timer.dao.TimerDAOAbstract;
+import it.uniroma2.dicii.ispw.gradely.model.timer.dao.TimerDAODB;
 import it.uniroma2.dicii.ispw.gradely.model.user.dao.UserDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.user.dao.UserDAODB;
 
-public class DAOFactoryDB extends DAOFactory{
+public class DAOFactoryDB extends DAOFactoryAbstract {
     public AbstractCourseAssignmentDAO getCourseAssignmentDAO(){
         return CourseAssignmentDAODB.getInstance();
     }
@@ -59,6 +61,12 @@ public class DAOFactoryDB extends DAOFactory{
     public AbstractSubjectCourseDAO getSubjectCourseDAO(){
         return SubjectCourseDAODB.getInstance();
     }
+
+    @Override
+    public TimerDAOAbstract getTimerDAO() {
+        return TimerDAODB.getInstance();
+    }
+
     public UserDAOAbstract getUserDAO(){
         return UserDAODB.getInstance();
     }

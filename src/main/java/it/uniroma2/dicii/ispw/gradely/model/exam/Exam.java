@@ -16,7 +16,7 @@ public class Exam {
     private RoomEnum room;
     private AppelloEnum appello;
     private SessionEnum session;
-    private SubjectCourse course;
+    private SubjectCourse subjectCourse;
     private Boolean verbalizable;
     private LocalDate verbaleDate;
     private Integer verbaleNumber;
@@ -25,14 +25,14 @@ public class Exam {
     public Exam(){
     }
 
-    public Exam(LocalDate enrollmentStartDate, LocalDate enrollmentEndDate, LocalDate examinationDate, RoomEnum room, AppelloEnum appello, SessionEnum session, SubjectCourse course) {
+    public Exam(LocalDate enrollmentStartDate, LocalDate enrollmentEndDate, LocalDate examinationDate, RoomEnum room, AppelloEnum appello, SessionEnum session, SubjectCourse subjectCourse) {
         this.enrollmentStartDate = enrollmentStartDate;
         this.enrollmentEndDate = enrollmentEndDate;
         this.examinationDate = examinationDate;
         this.room = room;
         this.appello = appello;
         this.session = session;
-        this.course = course;
+        this.subjectCourse = subjectCourse;
     }
 
     public LocalDate getEnrollmentStartDate() {
@@ -83,12 +83,12 @@ public class Exam {
         this.session = session;
     }
 
-    public SubjectCourse getCourse() {
-        return course;
+    public SubjectCourse getSubjectCourse() {
+        return subjectCourse;
     }
 
-    public void setCourse(SubjectCourse course) {
-        this.course = course;
+    public void setSubjectCourse(SubjectCourse subjectCourse) {
+        this.subjectCourse = subjectCourse;
     }
 
     public Boolean getVerbalizable() {

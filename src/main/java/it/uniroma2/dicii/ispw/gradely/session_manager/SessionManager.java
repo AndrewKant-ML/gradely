@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.session_manager;
 
-import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactory;
+import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEvent;
 
@@ -57,7 +57,7 @@ public class SessionManager {
     }
 
     private void refreshPendingEvents(List<PendingEvent> pendingEvents){
-        for (PendingEvent p : DAOFactory.getDAOFactory().getPendingEventDAO().refresh(pendingEvents)){
+        for (PendingEvent p : DAOFactoryAbstract.getDAOFactory().getPendingEventDAO().refresh(pendingEvents)){
             if (!pendingEvents.contains(p)){
                 pendingEvents.add(p);
             }

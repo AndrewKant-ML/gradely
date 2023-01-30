@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.role.secretary;
 
-import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactory;
+import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
@@ -28,7 +28,7 @@ public class SecretaryLazyFactory {
                 return s; //TODO implementare exception
             }
         }
-        return DAOFactory.getDAOFactory().getSecretaryDAO().getSecretaryByUser(user); //TODO implementare exception
+        return DAOFactoryAbstract.getDAOFactory().getSecretaryDAO().getSecretaryByUser(user); //TODO implementare exception
     }
 
 
@@ -40,7 +40,7 @@ public class SecretaryLazyFactory {
                 list.add(s); //TODO implementare exception
             }
         }
-        List<Secretary> daoList = DAOFactory.getDAOFactory().getSecretaryDAO().getSecretariesByDipartimento(dipartimento); //TODO implementare exception
+        List<Secretary> daoList = DAOFactoryAbstract.getDAOFactory().getSecretaryDAO().getSecretariesByDipartimento(dipartimento); //TODO implementare exception
         for(Secretary s : daoList){
             if(s.getDipartimento().equals(dipartimento)) {
                 list.add(s); //TODO implementare exception

@@ -8,6 +8,8 @@ import it.uniroma2.dicii.ispw.gradely.beans_general.UserBean;
 import it.uniroma2.dicii.ispw.gradely.exceptions.TestRetrivialException;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
+import it.uniroma2.dicii.ispw.gradely.model.timer.AbstractTimer;
+import it.uniroma2.dicii.ispw.gradely.model.timer.TimerObserver;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
 import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.beans.TestReservationBean;
@@ -17,7 +19,7 @@ import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.factory.
 import java.util.ArrayList;
 import java.util.List;
 
-public class EnrollToDegreeCourseController {
+public class EnrollToDegreeCourseController implements TimerObserver {
 
     private final StudentBean studentBean;
     private final UserBean userBean;
@@ -72,5 +74,10 @@ public class EnrollToDegreeCourseController {
 
     public TestReservationBean reserveTest(TestInfoBean testInfo) {
         return this.testBoundary.reserveTest(testInfo.getID());
+    }
+
+    @Override
+    public void timeIsUp(AbstractTimer timer) {
+
     }
 }
