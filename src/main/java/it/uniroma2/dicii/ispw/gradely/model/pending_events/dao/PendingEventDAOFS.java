@@ -14,8 +14,7 @@ import static it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum.EVENT_PR
 public class PendingEventDAOFS extends AbstractPendingEventDAO {
 
     private PendingEventDAOFS(){ //TODO implementare costruttore vero
-        pendingEvents = new ArrayList<PendingEvent>();
-        pendingEvents.add(new PendingEventSingle(UserLazyFactory.getInstance().getUserByEmail("m.rossi@uniroma2.it"), EVENT_PROVA,"prova object"));
+
     }
 
     public static AbstractPendingEventDAO getInstance(){
@@ -27,13 +26,14 @@ public class PendingEventDAOFS extends AbstractPendingEventDAO {
 
     @Override
     public PendingEvent getPendingEventById(UUID id) {
-        for(PendingEvent p : pendingEvents){
-            if(p.getId().equals(id)) {
-                return p; //TODO implementare exception
-            }
-        }
         return null; //TODO implementare exceptions
     }
+
+    @Override
+    public void insert(PendingEvent pendingEvent) {
+
+    }
+
     @Override
     public void update(PendingEvent pendingEvent){
         System.out.println("Updated");

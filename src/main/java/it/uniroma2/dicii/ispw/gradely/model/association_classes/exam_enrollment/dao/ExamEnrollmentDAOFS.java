@@ -1,4 +1,4 @@
-package it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.exam_enrollment;
+package it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.dao;
 
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
@@ -10,8 +10,7 @@ import java.util.List;
 public class ExamEnrollmentDAOFS extends AbstractExamEnrollmentDAO {
 
     private ExamEnrollmentDAOFS() {
-        examEnrollments = new ArrayList<ExamEnrollment>();
-        examEnrollments.add(new ExamEnrollment());
+
     }
 
     public static AbstractExamEnrollmentDAO getInstance() {
@@ -23,34 +22,22 @@ public class ExamEnrollmentDAOFS extends AbstractExamEnrollmentDAO {
 
     @Override
     public List<ExamEnrollment> getExamEnrollmentsByExam(Exam exam) {
-        List<ExamEnrollment> list = new ArrayList<>();
-        for(ExamEnrollment e : examEnrollments){
-            if(e.getExam().equals(exam)) {
-                list.add(e); //TODO implementare exception
-            }
-        }
-        return list;
+        return null;
     }
 
     @Override
     public List<ExamEnrollment> getExamEnrollmentsByStudent(Student student) {
-        List<ExamEnrollment> list = new ArrayList<>();
-        for(ExamEnrollment e : examEnrollments){
-            if(e.getStudent().equals(student)) {
-                list.add(e); //TODO implementare exception
-            }
-        }
-        return list;
+        return null;
     }
 
     @Override
     public ExamEnrollment getExamEnrollmentByExamAndStudent(Exam exam, Student student) {
-        for(ExamEnrollment e : examEnrollments){
-            if(e.getExam().equals(exam) && e.getStudent().equals(student)) {
-                return e; //TODO implementare exception
-            }
-        }
         return null;
+    }
+
+    @Override
+    public void insert(ExamEnrollment examEnrollment) {
+
     }
 
     @Override

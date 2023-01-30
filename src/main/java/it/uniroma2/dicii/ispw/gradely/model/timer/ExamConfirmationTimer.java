@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 public class ExamConfirmationTimer extends AbstractTimer<Exam, InsertStudentsGradesControl>{
 
-    public ExamConfirmationTimer(LocalDate expiration, Exam exam) {
+    protected ExamConfirmationTimer(LocalDate expiration, Exam exam) {
         super(expiration, exam);
     }
 

@@ -2,15 +2,15 @@ package it.uniroma2.dicii.ispw.gradely.dao_factories;
 
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.course_assignment.dao.AbstractCourseAssignmentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.dao.AbstractDegreeCourseEnrollmentDAO;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.exam_enrollment.AbstractExamEnrollmentDAO;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.subject_course_enrollment.AbstractSubjectCourseEnrollmentDAO;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.dao.AbstractExamEnrollmentDAO;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.dao.AbstractSubjectCourseEnrollmentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.dao.AbstractDegreeCourseDAO;
 import it.uniroma2.dicii.ispw.gradely.model.exam.dao.AbstractExamDAO;
 import it.uniroma2.dicii.ispw.gradely.model.pending_events.dao.AbstractPendingEventDAO;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.dao.AbstractProfessorDAO;
 import it.uniroma2.dicii.ispw.gradely.model.role.secretary.dao.AbstractSecretaryDAO;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.dao.AbstractStudentDAO;
-import it.uniroma2.dicii.ispw.gradely.model.subject_course.dao.AbstractSubjectCourseDAO;
+import it.uniroma2.dicii.ispw.gradely.model.subject_course.dao.SubjectCourseDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.timer.dao.TimerDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.user.dao.UserDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.PersistenceTypeEnum;
@@ -50,7 +50,7 @@ public abstract class DAOFactoryAbstract {
     public abstract AbstractProfessorDAO getProfessorDAO();
     public abstract AbstractSecretaryDAO getSecretaryDAO();
     public abstract AbstractStudentDAO getStudentDAO();
-    public abstract AbstractSubjectCourseDAO getSubjectCourseDAO();
+    public abstract SubjectCourseDAOAbstract getSubjectCourseDAO();
     public abstract TimerDAOAbstract getTimerDAO();
     public abstract UserDAOAbstract getUserDAO();
 

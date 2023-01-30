@@ -4,10 +4,10 @@ import it.uniroma2.dicii.ispw.gradely.model.association_classes.course_assignmen
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.course_assignment.dao.CourseAssignmentDAOFS;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.dao.AbstractDegreeCourseEnrollmentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.dao.DegreeCourseEnrollmentDAOFS;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.exam_enrollment.AbstractExamEnrollmentDAO;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.exam_enrollment.ExamEnrollmentDAOFS;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.subject_course_enrollment.AbstractSubjectCourseEnrollmentDAO;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.subject_course_enrollment.SubjectCourseEnrollmentDAOFS;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.dao.AbstractExamEnrollmentDAO;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.dao.ExamEnrollmentDAOFS;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.dao.AbstractSubjectCourseEnrollmentDAO;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.dao.SubjectCourseEnrollmentDAOFS;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.dao.AbstractDegreeCourseDAO;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.dao.DegreeCourseDAOFS;
 import it.uniroma2.dicii.ispw.gradely.model.exam.dao.AbstractExamDAO;
@@ -20,7 +20,7 @@ import it.uniroma2.dicii.ispw.gradely.model.role.secretary.dao.AbstractSecretary
 import it.uniroma2.dicii.ispw.gradely.model.role.secretary.dao.SecretaryDAOFS;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.dao.AbstractStudentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.dao.StudentDAOFS;
-import it.uniroma2.dicii.ispw.gradely.model.subject_course.dao.AbstractSubjectCourseDAO;
+import it.uniroma2.dicii.ispw.gradely.model.subject_course.dao.SubjectCourseDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.dao.SubjectCourseDAOFS;
 import it.uniroma2.dicii.ispw.gradely.model.timer.dao.TimerDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.timer.dao.TimerDAOFS;
@@ -58,7 +58,7 @@ public class DAOFactoryFS extends DAOFactoryAbstract {
     public AbstractStudentDAO getStudentDAO(){
         return StudentDAOFS.getInstance();
     }
-    public AbstractSubjectCourseDAO getSubjectCourseDAO(){
+    public SubjectCourseDAOAbstract getSubjectCourseDAO(){
         return SubjectCourseDAOFS.getInstance();
     }
 

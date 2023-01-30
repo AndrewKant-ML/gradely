@@ -11,9 +11,7 @@ import java.util.List;
 
 public class StudentDAODB extends AbstractStudentDAO {
 
-    public StudentDAODB(){ //TODO implementare costruttore vero
-        students = new ArrayList<Student>();
-        students.add(new Student(UserLazyFactory.getInstance().getUserByEmail("m.rossi@uniroma2.it"), "123456", LocalDate.now(), new ArrayList<TitleEnum>()));
+    public StudentDAODB(){
     }
 
     public static AbstractStudentDAO getInstance(){
@@ -25,12 +23,12 @@ public class StudentDAODB extends AbstractStudentDAO {
 
     @Override
     public Student getStudentByUser(User user) {
-        for(Student s : students){
-            if(s.getUser().equals(user)) {
-                return s; //TODO implementare exception
-            }
-        }
         return null; //TODO implementare exceptions
+    }
+
+    @Override
+    public void insert(Student student) {
+
     }
 
     @Override

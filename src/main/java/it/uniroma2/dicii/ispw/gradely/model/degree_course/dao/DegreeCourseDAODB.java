@@ -12,8 +12,7 @@ import java.util.List;
 public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
 
     private DegreeCourseDAODB(){ //TODO implementare costruttore vero
-        subjectCourses = new ArrayList<DegreeCourse>();
-        subjectCourses.add(new DegreeCourse());
+
     }
 
     public static AbstractDegreeCourseDAO getInstance(){
@@ -25,11 +24,6 @@ public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
 
     @Override
     public DegreeCourse getDegreeCourseByName(String name) {
-        for (DegreeCourse s : subjectCourses) {
-            if (s.getName().equals(name)) {
-                return s; //TODO implementare exceptions
-            }
-        }
         return null; //TODO implementare exceptions
     }
 
@@ -38,6 +32,11 @@ public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
         List<DegreeCourse> courses = new ArrayList<>();
         courses.add(new DegreeCourse("Ingegneria informatica", "Ingegneria", DipartimentoEnum.DICII, DegreeCourseTypeEnum.TRIENNALE, TestTypeEnum.MUR, new ArrayList<>()));
         return courses;
+    }
+
+    @Override
+    public void insert(DegreeCourse degreeCourse) {
+
     }
 
     @Override

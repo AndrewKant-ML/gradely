@@ -19,24 +19,21 @@ public class SubjectCourse extends AbstractSubjectCourse {
     private List <Exam> exams;
     private List <SubjectCourseEnrollment> enrollments;
 
-    public SubjectCourse() {
-    }
-
-    public SubjectCourse(SubjectCourseCodeEnum code, String name, Year academicYear, Integer cfu) {
+    protected SubjectCourse(SubjectCourseCodeEnum code, String name, Year academicYear, Integer cfu) {
+        super(code);
         this.name = name;
         this.academicYear = academicYear;
         this.cfu = cfu;
-        this.setCode(code);
     }
 
-    public SubjectCourse(SubjectCourseCodeEnum code, String name, Year academicYear, Integer cfu, List<AbstractSubjectCourse> prerequisites, List<DegreeCourse> degreeCourses, List<CourseAssignment> courseAssignments) {
+    protected SubjectCourse(SubjectCourseCodeEnum code, String name, Year academicYear, Integer cfu, List<AbstractSubjectCourse> prerequisites, List<DegreeCourse> degreeCourses, List<CourseAssignment> courseAssignments) {
+        super(code);
         this.name = name;
         this.academicYear = academicYear;
         this.cfu = cfu;
         this.prerequisites = prerequisites;
         this.degreeCourses = degreeCourses;
         this.courseAssignments = courseAssignments;
-        this.setCode(code);
     }
 
     @Override

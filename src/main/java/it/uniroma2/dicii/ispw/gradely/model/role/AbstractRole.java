@@ -6,7 +6,11 @@ import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
 public abstract class AbstractRole {
-    private User user;
+    protected User user;
+
+    protected AbstractRole(User user) {
+        this.user = user;
+    }
 
     public User getUser() {
         return user;

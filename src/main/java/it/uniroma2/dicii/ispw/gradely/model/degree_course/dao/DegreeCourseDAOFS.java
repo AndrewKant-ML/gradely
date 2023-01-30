@@ -9,8 +9,7 @@ import java.util.List;
 public class DegreeCourseDAOFS extends AbstractDegreeCourseDAO {
 
     private DegreeCourseDAOFS(){ //TODO implementare costruttore vero
-        subjectCourses = new ArrayList<DegreeCourse>();
-        subjectCourses.add(new DegreeCourse());
+
     }
 
     public static AbstractDegreeCourseDAO getInstance(){
@@ -22,17 +21,17 @@ public class DegreeCourseDAOFS extends AbstractDegreeCourseDAO {
 
     @Override
     public DegreeCourse getDegreeCourseByName(String name) {
-        for(DegreeCourse s : subjectCourses){
-            if(s.getName().equals(name)) {
-                return s; //TODO implementare exceptions
-            }
-        }
         return null; //TODO implementare exceptions
     }
 
     @Override
     public List<DegreeCourse> getAllDegreeCourses() {
         return null;
+    }
+
+    @Override
+    public void insert(DegreeCourse degreeCourse) {
+
     }
 
     @Override

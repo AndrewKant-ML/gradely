@@ -11,8 +11,7 @@ import java.util.List;
 public class ProfessorDAODB extends AbstractProfessorDAO {
 
     private ProfessorDAODB(){ //TODO implementare costruttore vero
-        professors = new ArrayList<Professor>();
-        professors.add(new Professor(UserLazyFactory.getInstance().getUserByEmail("m.rossi@uniroma2.it"), "123456", LocalDate.now()));
+
     }
 
     public static AbstractProfessorDAO getInstance(){
@@ -24,12 +23,12 @@ public class ProfessorDAODB extends AbstractProfessorDAO {
 
     @Override
     public Professor getProfessorByUser(User user) {
-        for(Professor p : professors){
-            if(p.getUser().equals(user)) {
-                return p; //TODO implementare exceptions
-            }
-        }
         return null; //TODO implementare exceptions
+    }
+
+    @Override
+    public void insert(Professor professor) {
+
     }
 
     @Override

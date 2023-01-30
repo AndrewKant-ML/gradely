@@ -98,8 +98,11 @@ public class InsertStudentsGradesControl implements TimerObserver {
     @Override
     public void timeIsUp(AbstractTimer timer){
         for (ExamEnrollment e : timer.examConfirmationTimer().getExam().getEnrollments()){
-            e.getExamResult().setConfirmed(ExamResultConfirmationEnum.ACCEPTED);
-            PendingEventLazyFactory.getInstance().createNewPendingEventSingle(e.getStudent().getUser(), PendingEventTypeEnum.EVENT_2, e);
+            if (e.getExamResult().getConfirmed()==ExamResultConfirmationEnum.NULL){
+                e.getExamResult().setConfirmed(ExamResultConfirmationEnum.ACCEPTED);
+                PendingEventLazyFactory.getInstance().createNewPendingEventSingle(e.getStudent().getUser(), PendingEventTypeEnum.EVENT_2, e);
+            }
+
         }
         List<User> list = new ArrayList<>();
         for (DegreeCourse d : timer.examConfirmationTimer().getExam().getSubjectCourse().getDegreeCourses()){
@@ -109,7 +112,5 @@ public class InsertStudentsGradesControl implements TimerObserver {
         }
         PendingEventLazyFactory.getInstance().createNewPendingEventGroup(list,PendingEventTypeEnum.EVENT_3, timer.examConfirmationTimer().getExam());
     }
-
-
 }
 

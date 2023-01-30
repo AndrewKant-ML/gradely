@@ -13,10 +13,6 @@ public class UserLazyFactory {
 
     private UserLazyFactory(){
         registeredUsers = new ArrayList<User>();
-        User user = new User("studente","studenti","stdstd01A02H501Y","s.studenti@uniroma2.it","PWD.difficilissim4");
-        user.setRole(new Student(user, "342342", LocalDate.now(), new ArrayList<>()));
-        DAOFactoryAbstract.getDAOFactory().getStudentDAO().update(user.getRole().student());
-        registeredUsers.add(user);
     }
 
     public static UserLazyFactory getInstance(){

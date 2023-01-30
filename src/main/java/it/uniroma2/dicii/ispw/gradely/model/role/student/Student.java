@@ -19,8 +19,8 @@ public class Student extends AbstractRole {
     private List<SubjectCourseEnrollment> subjectCourseEnrollments;
     private List<ExamEnrollment> examEnrollments;
 
-    public Student(User user, String id, LocalDate registrationDate, List<TitleEnum> titoli) {
-        setUser(user);
+    protected Student(User user, String id, LocalDate registrationDate, List<TitleEnum> titoli) {
+        super(user);
         this.id = id;
         this.registrationDate = registrationDate;
         this.titles = titoli;

@@ -15,6 +15,16 @@ public class Test {
     private URL infoLink;
     private String place;
 
+    protected Test(DegreeCourse degreeCourse, String ID, LocalDate testDate, URL testReservationLink, LocalDate resultsDate, URL infoLink, String place) {
+        this.degreeCourse = degreeCourse;
+        this.ID = ID;
+        this.testDate = testDate;
+        this.testReservationLink = testReservationLink;
+        this.resultsDate = resultsDate;
+        this.infoLink = infoLink;
+        this.place = place;
+    }
+
     public DegreeCourse getDegreeCourse() {
         return degreeCourse;
     }

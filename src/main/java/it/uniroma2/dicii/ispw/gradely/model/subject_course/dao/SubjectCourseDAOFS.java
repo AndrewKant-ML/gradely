@@ -9,14 +9,13 @@ import java.util.List;
 import static it.uniroma2.dicii.ispw.gradely.enums.SubjectCourseCodeEnum.C01;
 
 
-public class SubjectCourseDAOFS extends AbstractSubjectCourseDAO {
+public class SubjectCourseDAOFS extends SubjectCourseDAOAbstract {
 
-    private SubjectCourseDAOFS(){ //TODO implementare costruttore vero
-        subjectCourses = new ArrayList<SubjectCourse>();
-        subjectCourses.add(new SubjectCourse(C01,"ISPW",Year.parse("2022"),12));
+    private SubjectCourseDAOFS(){
+        super();
     }
 
-    public static AbstractSubjectCourseDAO getInstance(){
+    public static SubjectCourseDAOAbstract getInstance(){
         if (instance == null) {
             instance = new SubjectCourseDAOFS();
         }
@@ -25,12 +24,12 @@ public class SubjectCourseDAOFS extends AbstractSubjectCourseDAO {
 
     @Override
     public SubjectCourse getSubjectCourseByName(String name) {
-        for(SubjectCourse s : subjectCourses){
-            if(s.getName().equals(name)) {
-                return s; //TODO implementare exceptions
-            }
-        }
         return null; //TODO implementare exceptions
+    }
+
+    @Override
+    public void insert(SubjectCourse subjectCourse) {
+
     }
 
     @Override

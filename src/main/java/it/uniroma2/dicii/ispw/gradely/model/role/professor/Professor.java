@@ -18,11 +18,9 @@ public class Professor extends AbstractRole {
     private List<CourseAssignment> courseAssignments;
     private DegreeCourse coordinatedCourses;
 
-    public Professor() {
-    }
 
     public Professor(User user, String id, LocalDate registrationDate) {
-        setUser(user);
+        super(user);
         this.id = id;
         this.registrationDate = registrationDate;
     }

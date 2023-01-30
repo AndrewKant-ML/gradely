@@ -18,26 +18,23 @@ public class UserDAOFS extends UserDAOAbstract {
     }
 
     public User getUserByEmail(String email) {
-        for(User u : registeredUsers){
-            if(u.getEmail().equals(email)) {
-                return u; //TODO implementare exceptions
-            }
-        }
-        return null; //TODO implementare exceptions
+        //TODO implementare query
+        return null;
     }
 
     @Override
     public void insert(User user) {
-
+        //TODO implementare query
     }
 
     @Override
     public void update(User user) {
-
+        //TODO implementare query
     }
 
     @Override
     public List<User> refresh(List<User> users) {
+        //TODO implementare query
         return null;
     }
 

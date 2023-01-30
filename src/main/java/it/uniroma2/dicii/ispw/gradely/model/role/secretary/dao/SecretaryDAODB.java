@@ -11,8 +11,7 @@ import java.util.List;
 public class SecretaryDAODB extends AbstractSecretaryDAO {
 
     private SecretaryDAODB(){ //TODO implementare costruttore vero
-        secretaries = new ArrayList<Secretary>();
-        secretaries.add(new Secretary(UserLazyFactory.getInstance().getUserByEmail("m.rossi@uniroma2.it"), DipartimentoEnum.DICII));
+
     }
 
     public static AbstractSecretaryDAO getInstance(){
@@ -24,17 +23,17 @@ public class SecretaryDAODB extends AbstractSecretaryDAO {
 
     @Override
     public Secretary getSecretaryByUser(User user) {
-        for(Secretary s : secretaries){
-            if(s.getUser().equals(user)) {
-                return s; //TODO implementare exception
-            }
-        }
         return null; //TODO implementare exceptions
     }
 
     @Override
     public List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento) {
         return null;
+    }
+
+    @Override
+    public void insert(Secretary secretary) {
+
     }
 
     @Override

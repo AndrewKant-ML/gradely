@@ -9,7 +9,7 @@ public abstract class AbstractTimer <T, O extends TimerObserver>{
     protected List<O> observers;
 
 
-    public AbstractTimer(LocalDate expiration, T t) {
+    protected AbstractTimer(LocalDate expiration, T t) {
         this.expiration = expiration;
         this.t = t;
     }

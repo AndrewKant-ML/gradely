@@ -11,8 +11,7 @@ import java.util.List;
 public class ExamDAOFS extends AbstractExamDAO {
 
     private ExamDAOFS(){ //TODO implementare costruttore vero
-        exams = new ArrayList<Exam>();
-        exams.add(new Exam());
+
     }
 
     public static AbstractExamDAO getInstance(){
@@ -24,12 +23,12 @@ public class ExamDAOFS extends AbstractExamDAO {
 
     @Override
     public Exam getExamByAppelloCourseAndSession(AppelloEnum appello, SubjectCourse course, SessionEnum session) {
-        for(Exam e : exams){
-            if(e.getAppello().equals(appello) && e.getSubjectCourse().equals(course) && e.getSession().equals(session)) {
-                return e; //TODO implementare exception
-            }
-        }
         return null; //TODO implementare exceptions
+    }
+
+    @Override
+    public void insert(Exam exam) {
+
     }
 
     @Override

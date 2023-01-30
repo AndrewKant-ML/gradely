@@ -17,12 +17,7 @@ public class UserDAODB extends UserDAOAbstract {
     }
 
     public User getUserByEmail(String email) {
-        for(User u : registeredUsers){
-            if(u.getEmail().equals(email)) {
-                return u; //TODO implementare exceptions
-            }
-        }
-        return null; //TODO implementare exceptions
+        return null;
     }
 
     @Override

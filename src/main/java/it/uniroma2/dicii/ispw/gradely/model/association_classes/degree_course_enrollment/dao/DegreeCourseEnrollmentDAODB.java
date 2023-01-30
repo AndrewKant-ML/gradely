@@ -10,8 +10,7 @@ import java.util.List;
 public class DegreeCourseEnrollmentDAODB extends AbstractDegreeCourseEnrollmentDAO {
 
     private DegreeCourseEnrollmentDAODB() {
-        degreeCourseEnrollments = new ArrayList<DegreeCourseEnrollment>();
-        degreeCourseEnrollments.add(new DegreeCourseEnrollment());
+
     }
 
     public static AbstractDegreeCourseEnrollmentDAO getInstance() {
@@ -23,24 +22,17 @@ public class DegreeCourseEnrollmentDAODB extends AbstractDegreeCourseEnrollmentD
 
     @Override
     public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByDegreeCourse(DegreeCourse course) {
-        List<DegreeCourseEnrollment> list = new ArrayList<>();
-        for (DegreeCourseEnrollment e : degreeCourseEnrollments) {
-            if (e.getDegreeCourse().equals(course)) {
-                list.add(e); //TODO implementare exception
-            }
-        }
-        return list;
+        return null;
     }
 
     @Override
     public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByStudent(Student student) {
-        List<DegreeCourseEnrollment> list = new ArrayList<>();
-        for (DegreeCourseEnrollment e : degreeCourseEnrollments) {
-            if (e.getStudent().equals(student)) {
-                list.add(e); //TODO implementare exception
-            }
-        }
-        return list;
+        return null;
+    }
+
+    @Override
+    public void insert(DegreeCourseEnrollment degreeCourseEnrollment) {
+
     }
 
     @Override
