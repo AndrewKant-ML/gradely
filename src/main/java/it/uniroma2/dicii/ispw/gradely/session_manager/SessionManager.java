@@ -1,7 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.session_manager;
 
-import it.uniroma2.dicii.ispw.gradely.daos.factories.DAOFactory;
-import it.uniroma2.dicii.ispw.gradely.model.User;
+import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactory;
+import it.uniroma2.dicii.ispw.gradely.model.user.User;
 import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEvent;
 
 import java.util.ArrayList;

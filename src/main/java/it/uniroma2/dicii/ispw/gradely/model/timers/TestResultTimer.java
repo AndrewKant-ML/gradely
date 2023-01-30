@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.timers;
 
-import it.uniroma2.dicii.ispw.gradely.model.Test;
+import it.uniroma2.dicii.ispw.gradely.model.test.Test;
 
 import java.time.LocalDate;
 

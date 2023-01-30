@@ -1,7 +1,5 @@
 package it.uniroma2.dicii.ispw.gradely.model.timers;
 
-import it.uniroma2.dicii.ispw.gradely.model.Exam;
-
 import java.time.LocalDate;
 
 public abstract class AbstractTimer {
