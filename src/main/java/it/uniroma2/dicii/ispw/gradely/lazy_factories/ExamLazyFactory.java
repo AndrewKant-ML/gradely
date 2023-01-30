@@ -7,7 +7,6 @@ import it.uniroma2.dicii.ispw.gradely.lazy_factories.association_classes_lazy_fa
 import it.uniroma2.dicii.ispw.gradely.model.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.Professor;
 import it.uniroma2.dicii.ispw.gradely.model.SubjectCourse;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.ExamEnrollment;
 
 import java.util.ArrayList;
 import java.util.List;

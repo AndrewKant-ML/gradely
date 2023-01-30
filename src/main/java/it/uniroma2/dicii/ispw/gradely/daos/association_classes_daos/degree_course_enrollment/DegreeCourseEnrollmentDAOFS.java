@@ -9,7 +9,7 @@ import java.util.List;
 
 public class DegreeCourseEnrollmentDAOFS extends AbstractDegreeCourseEnrollmentDAO {
 
-    private DegreeCourseEnrollmentDAOFS() { //TODO implementare costruttore vero
+    private DegreeCourseEnrollmentDAOFS() {
         degreeCourseEnrollments = new ArrayList<DegreeCourseEnrollment>();
         degreeCourseEnrollments.add(new DegreeCourseEnrollment());
     }

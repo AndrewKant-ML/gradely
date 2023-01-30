@@ -8,7 +8,7 @@ public abstract class AbstractUserDAO {
     protected static AbstractUserDAO instance;
     protected List<User> registeredUsers;
 
-    protected AbstractUserDAO(){ //TODO implementare costruttore vero
+    protected AbstractUserDAO(){
     }
 
     public abstract User getUserByEmail(String email);

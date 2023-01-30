@@ -3,7 +3,7 @@ package it.uniroma2.dicii.ispw.gradely.model;
 import java.net.URL;
 import java.time.LocalDate;
 
-public class TestInfo {
+public class Test {
 
     private DegreeCourse degreeCourse;
     private String ID;

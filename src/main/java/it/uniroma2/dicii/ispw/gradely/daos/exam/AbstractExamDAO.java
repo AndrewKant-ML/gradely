@@ -11,7 +11,7 @@ public abstract class AbstractExamDAO {
     protected static AbstractExamDAO instance;
     protected List<Exam> exams;
 
-    protected AbstractExamDAO(){ //TODO implementare costruttore vero
+    protected AbstractExamDAO(){
     }
 
 

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ExamEnrollmentDAODB extends AbstractExamEnrollmentDAO {
 
-    private ExamEnrollmentDAODB() { //TODO implementare costruttore vero
+    private ExamEnrollmentDAODB() {
         examEnrollments = new ArrayList<ExamEnrollment>();
         examEnrollments.add(new ExamEnrollment());
     }

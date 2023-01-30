@@ -14,7 +14,8 @@ import it.uniroma2.dicii.ispw.gradely.daos.subject_course.AbstractSubjectCourseD
 import it.uniroma2.dicii.ispw.gradely.daos.user.AbstractUserDAO;
 import it.uniroma2.dicii.ispw.gradely.enums.PersistenceTypeEnum;
 
-import static it.uniroma2.dicii.ispw.gradely.enums.PersistenceTypeEnum.*;
+import static it.uniroma2.dicii.ispw.gradely.enums.PersistenceTypeEnum.DB;
+import static it.uniroma2.dicii.ispw.gradely.enums.PersistenceTypeEnum.FS;
 
 public abstract class DAOFactory {
 

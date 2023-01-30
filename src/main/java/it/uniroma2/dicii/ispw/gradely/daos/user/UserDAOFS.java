@@ -7,7 +7,7 @@ import java.util.List;
 
 public class UserDAOFS extends AbstractUserDAO {
 
-    private UserDAOFS(){ //TODO implementare costruttore vero
+    private UserDAOFS(){
         registeredUsers = new ArrayList<User>();
         registeredUsers.add(new User("mario","rossi","RSSMRI01A02H501Y","m.rossi@uniroma2.it","PWD.difficilissim4"));
     }

@@ -10,7 +10,7 @@ public abstract class AbstractSecretaryDAO {
     protected static AbstractSecretaryDAO instance;
     protected List<Secretary> secretaries;
 
-    protected AbstractSecretaryDAO(){ //TODO implementare costruttore vero
+    protected AbstractSecretaryDAO(){
     }
 
     public abstract Secretary getSecretaryByUser(User user);

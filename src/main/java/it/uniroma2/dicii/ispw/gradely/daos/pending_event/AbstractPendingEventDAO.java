@@ -10,7 +10,7 @@ public abstract class AbstractPendingEventDAO {
     protected static AbstractPendingEventDAO instance;
     protected List<PendingEvent> pendingEvents;
 
-    protected AbstractPendingEventDAO(){ //TODO implementare costruttore vero
+    protected AbstractPendingEventDAO(){
     }
 
     public abstract PendingEvent getPendingEventById(UUID id);

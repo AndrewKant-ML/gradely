@@ -2,14 +2,13 @@ package it.uniroma2.dicii.ispw.gradely.lazy_factories;
 
 import it.uniroma2.dicii.ispw.gradely.daos.factories.DAOFactory;
 import it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum;
-import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEvent;
 import it.uniroma2.dicii.ispw.gradely.model.User;
+import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEvent;
 import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEventGroup;
 import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEventSingle;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 public class PendingEventLazyFactory {

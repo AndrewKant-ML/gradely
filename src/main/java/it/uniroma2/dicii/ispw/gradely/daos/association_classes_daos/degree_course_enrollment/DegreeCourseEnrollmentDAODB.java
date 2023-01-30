@@ -9,7 +9,7 @@ import java.util.List;
 
 public class DegreeCourseEnrollmentDAODB extends AbstractDegreeCourseEnrollmentDAO {
 
-    private DegreeCourseEnrollmentDAODB() { //TODO implementare costruttore vero
+    private DegreeCourseEnrollmentDAODB() {
         degreeCourseEnrollments = new ArrayList<DegreeCourseEnrollment>();
         degreeCourseEnrollments.add(new DegreeCourseEnrollment());
     }

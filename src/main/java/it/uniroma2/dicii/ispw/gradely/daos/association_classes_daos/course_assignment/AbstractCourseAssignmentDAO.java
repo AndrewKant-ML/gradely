@@ -11,7 +11,7 @@ public abstract class AbstractCourseAssignmentDAO {
     protected static AbstractCourseAssignmentDAO instance;
     protected List<CourseAssignment> courseAssignments;
 
-    protected AbstractCourseAssignmentDAO() { //TODO implementare costruttore vero
+    protected AbstractCourseAssignmentDAO() {
     }
 
     public abstract CourseAssignment getCourseAssignmentBySubjectCourse(SubjectCourse course);

@@ -3,9 +3,7 @@ package it.uniroma2.dicii.ispw.gradely.lazy_factories;
 import it.uniroma2.dicii.ispw.gradely.daos.factories.DAOFactory;
 import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
 import it.uniroma2.dicii.ispw.gradely.model.Secretary;
-import it.uniroma2.dicii.ispw.gradely.model.Student;
 import it.uniroma2.dicii.ispw.gradely.model.User;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.ExamEnrollment;
 
 import java.util.ArrayList;
 import java.util.List;

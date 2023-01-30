@@ -10,7 +10,7 @@ public abstract class AbstractDegreeCourseEnrollmentDAO {
     protected static AbstractDegreeCourseEnrollmentDAO instance;
     protected List<DegreeCourseEnrollment> degreeCourseEnrollments;
 
-    protected AbstractDegreeCourseEnrollmentDAO() { //TODO implementare costruttore vero
+    protected AbstractDegreeCourseEnrollmentDAO() {
     }
 
 

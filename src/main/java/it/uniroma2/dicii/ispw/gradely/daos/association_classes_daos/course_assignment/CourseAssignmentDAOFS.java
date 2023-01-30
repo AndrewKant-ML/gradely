@@ -9,7 +9,7 @@ import java.util.List;
 
 
 public class CourseAssignmentDAOFS extends AbstractCourseAssignmentDAO {
-    private CourseAssignmentDAOFS() { //TODO implementare costruttore vero
+    private CourseAssignmentDAOFS() {
         courseAssignments = new ArrayList<CourseAssignment>();
         courseAssignments.add(new CourseAssignment());
     }

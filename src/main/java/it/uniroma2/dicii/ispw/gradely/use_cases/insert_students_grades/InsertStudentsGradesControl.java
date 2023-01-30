@@ -1,9 +1,9 @@
 package it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades;
 
+import it.uniroma2.dicii.ispw.gradely.beans_general.*;
 import it.uniroma2.dicii.ispw.gradely.daos.factories.DAOFactory;
 import it.uniroma2.dicii.ispw.gradely.enums.ExamResultConfirmationEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum;
-import it.uniroma2.dicii.ispw.gradely.beans_general.*;
 import it.uniroma2.dicii.ispw.gradely.lazy_factories.ExamLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.lazy_factories.PendingEventLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.lazy_factories.SubjectCourseLazyFactory;
@@ -11,6 +11,7 @@ import it.uniroma2.dicii.ispw.gradely.lazy_factories.association_classes_lazy_fa
 import it.uniroma2.dicii.ispw.gradely.model.*;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.CourseAssignment;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.ExamEnrollment;
+import it.uniroma2.dicii.ispw.gradely.model.timers.ExamConfirmationTimer;
 import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
 import it.uniroma2.dicii.ispw.gradely.session_manager.Token;
 import it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.beans.StudentGradeBean;
@@ -19,8 +20,6 @@ import it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.beans.Stu
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.lang.Thread.sleep;
 
 public class InsertStudentsGradesControl {
     List<ExamConfirmationTimer> timers;
@@ -75,7 +74,7 @@ public class InsertStudentsGradesControl {
 
     private void checkTimers(ExamConfirmationTimer timer){ //TODO timered trigger
         for (ExamConfirmationTimer t : timers){
-            if (t.getConfirmationExpiration().isAfter(LocalDate.now())){
+            if (t.getExpiration().isAfter(LocalDate.now())){
                 for (ExamEnrollment e : t.getExam().getEnrollments()){
                     e.getExamResult().setConfirmed(ExamResultConfirmationEnum.ACCEPTED);
                     PendingEventLazyFactory.getInstance().createNewPendingEventSingle(e.getStudent().getUser(), PendingEventTypeEnum.EVENT_2, e);

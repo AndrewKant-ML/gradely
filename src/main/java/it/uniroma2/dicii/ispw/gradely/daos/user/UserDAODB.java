@@ -9,7 +9,7 @@ import java.util.List;
 
 public class UserDAODB extends AbstractUserDAO {
 
-    private UserDAODB(){//TODO implementare costruttore vero
+    private UserDAODB(){
         super();
         registeredUsers = new ArrayList<User>();
         User user = new User("mario","rossi","RSSMRI01A02H501Y","m.rossi@uniroma2.it","PWD.difficilissim4");

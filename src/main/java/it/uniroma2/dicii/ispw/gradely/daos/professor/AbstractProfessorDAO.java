@@ -9,7 +9,7 @@ public abstract class AbstractProfessorDAO {
     protected static AbstractProfessorDAO instance;
     protected List<Professor> professors;
 
-    protected AbstractProfessorDAO(){ //TODO implementare costruttore vero
+    protected AbstractProfessorDAO(){
     }
 
     public abstract Professor getProfessorByUser(User user);

@@ -10,7 +10,7 @@ public abstract class AbstractExamEnrollmentDAO {
     protected static AbstractExamEnrollmentDAO instance;
     protected List<ExamEnrollment> examEnrollments;
 
-    protected AbstractExamEnrollmentDAO() { //TODO implementare costruttore vero
+    protected AbstractExamEnrollmentDAO() {
     }
 
     public abstract List<ExamEnrollment> getExamEnrollmentsByExam(Exam exam);
