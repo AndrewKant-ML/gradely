@@ -35,6 +35,11 @@ public class PendingEventDAOFS extends AbstractPendingEventDAO {
     }
 
     @Override
+    public void cancel(PendingEvent pendingEvent) {
+
+    }
+
+    @Override
     public void update(PendingEvent pendingEvent){
         System.out.println("Updated");
     }

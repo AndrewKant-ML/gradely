@@ -16,9 +16,9 @@ public class ExamConfirmationTimer extends AbstractTimer<Exam, InsertStudentsGra
         return this;
     }
     public Exam getExam() {
-        return t;
+        return object;
     }
     public void setExam(Exam exam) {
-        this.t = exam;
+        this.object = exam;
     }
 }

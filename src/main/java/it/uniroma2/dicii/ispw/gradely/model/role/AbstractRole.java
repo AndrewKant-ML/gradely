@@ -1,5 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.role;
 
+import it.uniroma2.dicii.ispw.gradely.exceptions.MissingAuthorizationException;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.Professor;
 import it.uniroma2.dicii.ispw.gradely.model.role.secretary.Secretary;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
@@ -21,8 +22,8 @@ public abstract class AbstractRole {
     }
 
 
-    public Professor professor(){return null;}
-    public Student student(){return null;}
-    public Secretary secretary(){return null;}
+    public Professor professor() throws MissingAuthorizationException {throw new MissingAuthorizationException("You don't have the authorization to execute the requested action, please get in touch with system administrator", new Throwable());}
+    public Student student()throws MissingAuthorizationException{throw new MissingAuthorizationException("You don't have the authorization to execute the requested action, please get in touch with system administrator", new Throwable());}
+    public Secretary secretary()throws MissingAuthorizationException{throw new MissingAuthorizationException("You don't have the authorization to execute the requested action, please get in touch with system administrator", new Throwable());}
 
 }

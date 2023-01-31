@@ -21,12 +21,17 @@ public class ExamDAODB extends AbstractExamDAO {
     }
 
     @Override
-    public Exam getExamByAppelloCourseAndSession(AppelloEnum appello, SubjectCourse course, SessionEnum session) {
+    public Exam getExamByAppelloAndSubjectCourseAndSession(AppelloEnum appello, SubjectCourse course, SessionEnum session) {
         return null; //TODO implementare exceptions
     }
 
     @Override
     public void insert(Exam exam) {
+
+    }
+
+    @Override
+    public void cancel(Exam exam) {
 
     }
 

@@ -1,6 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.model.role.secretary;
 
 import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
+import it.uniroma2.dicii.ispw.gradely.exceptions.MissingAuthorizationException;
 import it.uniroma2.dicii.ispw.gradely.model.role.AbstractRole;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
@@ -20,7 +21,7 @@ public class Secretary extends AbstractRole {
     }
 
     @Override
-    public Secretary secretary() {
+    public Secretary secretary() throws MissingAuthorizationException {
         return this;
     }
 

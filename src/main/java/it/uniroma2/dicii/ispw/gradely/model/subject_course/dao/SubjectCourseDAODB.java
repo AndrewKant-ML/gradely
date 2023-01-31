@@ -32,6 +32,11 @@ public class SubjectCourseDAODB extends SubjectCourseDAOAbstract {
     }
 
     @Override
+    public void cancel(SubjectCourse subjectCourse) {
+
+    }
+
+    @Override
     public void update(SubjectCourse subjectCourse) {
 
     }

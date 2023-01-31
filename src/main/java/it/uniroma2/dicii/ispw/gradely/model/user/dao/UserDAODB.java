@@ -26,6 +26,11 @@ public class UserDAODB extends UserDAOAbstract {
     }
 
     @Override
+    public void cancel(User user) {
+
+    }
+
+    @Override
     public void update(User user) {
 
     }

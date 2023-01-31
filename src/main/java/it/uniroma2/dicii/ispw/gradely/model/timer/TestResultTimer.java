@@ -12,11 +12,11 @@ public class TestResultTimer extends AbstractTimer<Test, EnrollToDegreeCourseCon
     }
 
     public Test getTest() {
-        return t;
+        return object;
     }
 
     public void setTest(Test test) {
-        this.t = test;
+        this.object = test;
     }
     @Override
     public TestResultTimer testResultTimer(){

@@ -31,6 +31,11 @@ public class ProfessorDAOFS extends AbstractProfessorDAO {
     }
 
     @Override
+    public void cancel(Professor professor) {
+
+    }
+
+    @Override
     public void update(Professor professor) {
 
     }

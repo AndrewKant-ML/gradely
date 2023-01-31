@@ -5,13 +5,13 @@ import java.util.List;
 
 public abstract class AbstractTimer <T, O extends TimerObserver>{
     protected LocalDate expiration;
-    protected T t;
-    protected List<O> observers;
+    protected T object;
+    protected List<O> observers; //can a timer have multiple observers? Snd multiple types?
 
 
-    protected AbstractTimer(LocalDate expiration, T t) {
+    protected AbstractTimer(LocalDate expiration, T object) {
         this.expiration = expiration;
-        this.t = t;
+        this.object = object;
     }
 
     public LocalDate getExpiration() {

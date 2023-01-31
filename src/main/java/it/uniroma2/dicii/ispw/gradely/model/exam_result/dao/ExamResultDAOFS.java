@@ -29,6 +29,11 @@ public class ExamResultDAOFS extends AbstractExamResultDAO {
     }
 
     @Override
+    public void cancel(ExamResult examResult) {
+
+    }
+
+    @Override
     public void update(ExamResult examResult) {
 
     }

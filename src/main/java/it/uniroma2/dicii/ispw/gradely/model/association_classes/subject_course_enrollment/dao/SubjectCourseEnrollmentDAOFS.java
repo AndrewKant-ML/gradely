@@ -10,8 +10,7 @@ import java.util.List;
 public class SubjectCourseEnrollmentDAOFS extends AbstractSubjectCourseEnrollmentDAO {
 
     private SubjectCourseEnrollmentDAOFS() {
-        subjectCourseEnrollments = new ArrayList<SubjectCourseEnrollment>();
-        subjectCourseEnrollments.add(new SubjectCourseEnrollment());
+
     }
 
     public static AbstractSubjectCourseEnrollmentDAO getInstance() {
@@ -23,24 +22,22 @@ public class SubjectCourseEnrollmentDAOFS extends AbstractSubjectCourseEnrollmen
 
     @Override
     public List<SubjectCourseEnrollment> getSubjectCourseEnrollmentsBySubjectCourse(SubjectCourse course) {
-        List<SubjectCourseEnrollment> list = new ArrayList<>();
-        for (SubjectCourseEnrollment e : subjectCourseEnrollments) {
-            if (e.getSubjectCourse().equals(course)) {
-                list.add(e); //TODO implementare exception
-            }
-        }
-        return list;
+        return null;
     }
 
     @Override
     public List<SubjectCourseEnrollment> getSubjectCourseEnrollmentsByStudent(Student student) {
-        List<SubjectCourseEnrollment> list = new ArrayList<>();
-        for (SubjectCourseEnrollment e : subjectCourseEnrollments) {
-            if (e.getStudent().equals(student)) {
-                list.add(e); //TODO implementare exception
-            }
-        }
-        return list;
+        return null;
+    }
+
+    @Override
+    public void insert(SubjectCourseEnrollment subjectCourseEnrollment) {
+
+    }
+
+    @Override
+    public void cancel(SubjectCourseEnrollment subjectCourseEnrollment) {
+
     }
 
     @Override

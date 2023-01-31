@@ -35,6 +35,11 @@ public class DegreeCourseDAOFS extends AbstractDegreeCourseDAO {
     }
 
     @Override
+    public void cancel(DegreeCourse degreeCourse) {
+
+    }
+
+    @Override
     public void update(DegreeCourse degreeCourse) {
 
     }

@@ -24,6 +24,11 @@ public class TimerDAOFS extends TimerDAOAbstract {
     }
 
     @Override
+    public void cancel(AbstractTimer timer) {
+
+    }
+
+    @Override
     public void update(AbstractTimer timer) {
 
     }

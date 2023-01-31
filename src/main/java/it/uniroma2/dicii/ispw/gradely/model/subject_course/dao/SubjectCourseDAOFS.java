@@ -33,6 +33,11 @@ public class SubjectCourseDAOFS extends SubjectCourseDAOAbstract {
     }
 
     @Override
+    public void cancel(SubjectCourse subjectCourse) {
+
+    }
+
+    @Override
     public void update(SubjectCourse subjectCourse) {
 
     }

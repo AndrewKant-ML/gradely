@@ -36,6 +36,11 @@ public class CourseAssignmentDAODB extends AbstractCourseAssignmentDAO {
     }
 
     @Override
+    public void cancel(CourseAssignment courseAssignment) {
+
+    }
+
+    @Override
     public void update(CourseAssignment courseAssignment) {
 
     }

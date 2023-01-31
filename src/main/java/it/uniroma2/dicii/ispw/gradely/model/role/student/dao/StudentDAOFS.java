@@ -33,6 +33,11 @@ public class StudentDAOFS extends AbstractStudentDAO {
     }
 
     @Override
+    public void cancel(Student student) {
+
+    }
+
+    @Override
     public void update(Student student) {
 
     }

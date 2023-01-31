@@ -41,6 +41,11 @@ public class ExamEnrollmentDAOFS extends AbstractExamEnrollmentDAO {
     }
 
     @Override
+    public void cancel(ExamEnrollment examEnrollment) {
+
+    }
+
+    @Override
     public void update(ExamEnrollment enrollment){
         System.out.println("Updated");
     }

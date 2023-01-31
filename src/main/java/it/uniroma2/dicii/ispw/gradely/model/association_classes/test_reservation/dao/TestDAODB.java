@@ -1,5 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.association_classes.test_reservation.dao;
 
+import it.uniroma2.dicii.ispw.gradely.model.test.Test;
 import it.uniroma2.dicii.ispw.gradely.model.timer.AbstractTimer;
 
 import java.util.List;
@@ -16,21 +17,23 @@ public class TestDAODB extends TestDAOAbstract {
         return instance;
     }
 
-
     @Override
-    public void insert(AbstractTimer timer) {
+    public void insert(Test test) {
 
     }
 
     @Override
-    public void update(AbstractTimer timer) {
+    public void cancel(Test test) {
 
     }
 
     @Override
-    public List<AbstractTimer> refresh(List<AbstractTimer> timers) {
+    public void update(Test test) {
+
+    }
+
+    @Override
+    public List<Test> refresh(List<Test> tests) {
         return null;
     }
-
-
 }

@@ -1,5 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.test_result.dao;
 
+import it.uniroma2.dicii.ispw.gradely.model.test_result.AbstractTestResult;
 import it.uniroma2.dicii.ispw.gradely.model.timer.AbstractTimer;
 
 import java.util.List;
@@ -17,21 +18,23 @@ public class TestResultDAOFS extends TestResultDAOAbstract {
         return instance;
     }
 
-
     @Override
-    public void insert(AbstractTimer timer) {
+    public void insert(AbstractTestResult abstractTestResult) {
 
     }
 
     @Override
-    public void update(AbstractTimer timer) {
+    public void cancel(AbstractTestResult abstractTestResult) {
 
     }
 
     @Override
-    public List<AbstractTimer> refresh(List<AbstractTimer> timers) {
+    public void update(AbstractTestResult abstractTestResult) {
+
+    }
+
+    @Override
+    public List<AbstractTestResult> refresh(List<AbstractTestResult> abstractTestResults) {
         return null;
     }
-
-
 }

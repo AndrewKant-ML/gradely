@@ -4,11 +4,13 @@ import it.uniroma2.dicii.ispw.gradely.beans_general.*;
 import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.ExamResultConfirmationEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum;
+import it.uniroma2.dicii.ispw.gradely.exceptions.MissingAuthorizationException;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.exam.ExamLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.exam_result.ExamResult;
 import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEventLazyFactory;
+import it.uniroma2.dicii.ispw.gradely.model.role.professor.Professor;
 import it.uniroma2.dicii.ispw.gradely.model.role.secretary.Secretary;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourseLazyFactory;
@@ -32,8 +34,12 @@ public class InsertStudentsGradesControl implements TimerObserver {
 
     }
 
-    public ExamListBean getGradableExams(Token token){ //TODO exceptions
-        return new ExamListBean(createExamBeanList(ExamLazyFactory.getInstance().getGradableExams(SessionManager.getInstance().getSessionUserByToken(token).getRole().professor())));
+    public ExamListBean getGradableExams(Token token) throws MissingAuthorizationException{ //TODO exceptions
+        if(SessionManager.getInstance().getSessionUserByToken(token).getRole().professor()!=null){
+            return new ExamListBean(createExamBeanList(ExamLazyFactory.getInstance().getGradableExams(SessionManager.getInstance().getSessionUserByToken(token).getRole().professor())));
+        }
+        else throw new MissingAuthorizationException("You don't have the authorization to execute the requested action, please get in touch with system administrator", new Throwable());
+
     }
 
     private List<ExamBean> createExamBeanList(List<Exam> inList){
@@ -44,8 +50,12 @@ public class InsertStudentsGradesControl implements TimerObserver {
         return outList;
     }
 
-    public ExamEnrollmentListBean getExamEnrollments(ExamBean bean){
+    public ExamEnrollmentListBean getExamEnrollments(Token token, ExamBean bean){
         List<ExamEnrollmentBean> list = new ArrayList<>();
+        try{SessionManager.getInstance().getSessionUserByToken(token).getRole().professor();
+        }catch (MissingAuthorizationException e){
+
+        }
         for (ExamEnrollment e : ExamEnrollmentLazyFactory.getInstance().getExamEnrollmentsByExam(getExamByBean(bean))){
             list.add(new ExamEnrollmentBean(e.getStudent(),e.getExam()));
         }
@@ -61,7 +71,17 @@ public class InsertStudentsGradesControl implements TimerObserver {
 
     }
 
-    public void saveExamResults(StudentGradeListBean list){
+    public void saveExamResults(Token token, StudentGradeListBean list){
+        try{
+            Professor professor = SessionManager.getInstance().getSessionUserByToken(token).getRole().professor();
+            List<Professor> professors = new ArrayList<>();
+            for (CourseAssignment c : list.getExam().getSubjectCourse().getCourseAssignments()){
+                professors.add(c.getProfessor());
+            }
+            if(!professors.contains(professor)) throw new MissingAuthorizationException("You don't have the authorization to execute the requested action, please get in touch with system administrator", new Throwable());
+        }catch (MissingAuthorizationException e){
+
+        }
         for (StudentGradeBean g : list.getGrades()){
             saveExamResult(g);
             PendingEventLazyFactory.getInstance().createNewPendingEventSingle(g.getEnrollmentBean().getStudent().getUser(), PendingEventTypeEnum.EVENT_1, g.getEnrollmentBean().getExam()); //TODO implementare messaggi automatici
@@ -76,13 +96,18 @@ public class InsertStudentsGradesControl implements TimerObserver {
         enrollment.getExamResult().setConfirmed(decision);
     }
 
-    public void confirmExamVerbaleProtocolization(Secretary secretary, ProtocolBean bean){
+    public void confirmExamVerbaleProtocolization(Token token, ProtocolBean bean) throws RuntimeException{
+        try{SessionManager.getInstance().getSessionUserByToken(token).getRole().secretary();
+        }catch (MissingAuthorizationException e){
+
+        }
         Exam e = ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(bean.getExamBean().getAppello(), SubjectCourseLazyFactory.getInstance().getSubjectCourseByName(bean.getExamBean().getCourse().getName()), bean.getExamBean().getSessione());
         e.setVerbalizable(false);
         e.setVerbaleDate(bean.getVerbaleDate());
         e.setVerbaleNumber(bean.getVerbaleNumber());
         ExamLazyFactory.getInstance().update(e);
         notifyExamProtocolization(e);
+
     }
     public void notifyExamProtocolization(Exam exam){
         List<User> users = new ArrayList<>();

@@ -32,7 +32,7 @@ public class ExamResultLazyFactory {
                 return e; //TODO implementare exception
             }
         }
-        return DAOFactoryAbstract.getDAOFactory().getExamDAO().getExamByAppelloCourseAndSession(appello, course, session); //TODO implementare exception
+        return DAOFactoryAbstract.getDAOFactory().getExamDAO().getExamByAppelloAndSubjectCourseAndSession(appello, course, session); //TODO implementare exception
     }
 
     public List<Exam> getGradableExams(Professor professor){

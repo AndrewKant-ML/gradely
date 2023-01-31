@@ -36,6 +36,11 @@ public class SubjectCourseEnrollmentDAODB extends AbstractSubjectCourseEnrollmen
     }
 
     @Override
+    public void cancel(SubjectCourseEnrollment subjectCourseEnrollment) {
+
+    }
+
+    @Override
     public void update(SubjectCourseEnrollment subjectCourseEnrollment) {
 
     }

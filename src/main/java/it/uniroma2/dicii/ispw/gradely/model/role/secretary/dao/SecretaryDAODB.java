@@ -37,6 +37,11 @@ public class SecretaryDAODB extends AbstractSecretaryDAO {
     }
 
     @Override
+    public void cancel(Secretary secretary) {
+
+    }
+
+    @Override
     public void update(Secretary secretary) {
 
     }

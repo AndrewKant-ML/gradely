@@ -28,6 +28,11 @@ public class UserDAOFS extends UserDAOAbstract {
     }
 
     @Override
+    public void cancel(User user) {
+
+    }
+
+    @Override
     public void update(User user) {
         //TODO implementare query
     }

@@ -36,6 +36,11 @@ public class DegreeCourseEnrollmentDAOFS extends AbstractDegreeCourseEnrollmentD
     }
 
     @Override
+    public void cancel(DegreeCourseEnrollment degreeCourseEnrollment) {
+
+    }
+
+    @Override
     public void update(DegreeCourseEnrollment degreeCourseEnrollment) {
 
     }
