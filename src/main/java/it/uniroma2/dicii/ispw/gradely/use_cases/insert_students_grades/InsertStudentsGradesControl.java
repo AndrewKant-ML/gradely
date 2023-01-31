@@ -36,6 +36,12 @@ public class InsertStudentsGradesControl implements TimerObserver {
 
     }
 
+    /**
+     *
+     * @param token
+     * @return
+     * @throws MissingAuthorizationException
+     */
     public ExamListBean getGradableExams(Token token) throws MissingAuthorizationException{ //TODO exceptions
         if(SessionManager.getInstance().getSessionUserByToken(token).getRole().professor()!=null){
             return new ExamListBean(createExamBeanList(ExamLazyFactory.getInstance().getGradableExams(SessionManager.getInstance().getSessionUserByToken(token).getRole().professor())));
@@ -94,22 +100,27 @@ public class InsertStudentsGradesControl implements TimerObserver {
         ExamEnrollmentLazyFactory.getInstance().saveExamResult(ExamEnrollmentLazyFactory.getInstance().getExamEnrollmentByExamAndStudent(bean.getEnrollmentBean().getExam(), bean.getEnrollmentBean().getStudent()), new ExamResult(bean.getExamResultBean().getGrade(),bean.getExamResultBean().getResult(), ExamResultConfirmationEnum.NULL));
     }
 
-    public void acceptOrRejectExamGrade(ExamEnrollment enrollment, ExamResultConfirmationEnum decision){
-        enrollment.getExamResult().setConfirmed(decision);
-    }
-
-    public void confirmExamVerbaleProtocolization(Token token, ProtocolBean bean) throws RuntimeException{
-        try{SessionManager.getInstance().getSessionUserByToken(token).getRole().secretary();
+    public void acceptOrRejectExamGrade(Token token, ExamEnrollment enrollment, ExamResultConfirmationEnum decision){
+        try{
+            SessionManager.getInstance().getSessionUserByToken(token).getRole().student();
+            enrollment.getExamResult().setConfirmed(decision);
         }catch (MissingAuthorizationException e){
 
         }
-        Exam e = ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(bean.getExamBean().getAppello(), SubjectCourseLazyFactory.getInstance().getSubjectCourseByName(bean.getExamBean().getCourse().getName()), bean.getExamBean().getSessione());
-        e.setVerbalizable(false);
-        e.setVerbaleDate(bean.getVerbaleDate());
-        e.setVerbaleNumber(bean.getVerbaleNumber());
-        ExamLazyFactory.getInstance().update(e);
-        notifyExamProtocolization(e);
+    }
 
+    public void confirmExamVerbaleProtocolization(Token token, ProtocolBean bean) throws RuntimeException{
+        try{
+            SessionManager.getInstance().getSessionUserByToken(token).getRole().secretary();
+            Exam e = ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(bean.getExamBean().getAppello(), SubjectCourseLazyFactory.getInstance().getSubjectCourseByName(bean.getExamBean().getCourse().getName()), bean.getExamBean().getSessione());
+            e.setVerbalizable(false);
+            e.setVerbaleDate(bean.getVerbaleDate());
+            e.setVerbaleNumber(bean.getVerbaleNumber());
+            ExamLazyFactory.getInstance().update(e);
+            notifyExamProtocolization(e);
+        }catch (MissingAuthorizationException e){
+
+        }
     }
     public void notifyExamProtocolization(Exam exam){
         List<User> users = new ArrayList<>();

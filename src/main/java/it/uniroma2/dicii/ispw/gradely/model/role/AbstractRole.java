@@ -22,8 +22,8 @@ public abstract class AbstractRole {
     }
 
 
-    public Professor professor() throws MissingAuthorizationException {throw new MissingAuthorizationException("You don't have the authorization to execute the requested action, please get in touch with system administrator", new Throwable());}
-    public Student student()throws MissingAuthorizationException{throw new MissingAuthorizationException("You don't have the authorization to execute the requested action, please get in touch with system administrator", new Throwable());}
-    public Secretary secretary()throws MissingAuthorizationException{throw new MissingAuthorizationException("You don't have the authorization to execute the requested action, please get in touch with system administrator", new Throwable());}
+    public Professor professor() throws MissingAuthorizationException {throw new MissingAuthorizationException("You don't have the authorization to execute the requested action, please get in touch with the system administrator");}
+    public Student student()throws MissingAuthorizationException{throw new MissingAuthorizationException("You don't have the authorization to execute the requested action, please get in touch with the system administrator");}
+    public Secretary secretary()throws MissingAuthorizationException{throw new MissingAuthorizationException("You don't have the authorization to execute the requested action, please get in touch with the system administrator");}
 
 }
