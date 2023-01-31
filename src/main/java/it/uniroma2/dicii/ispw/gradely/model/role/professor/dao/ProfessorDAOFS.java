@@ -1,11 +1,8 @@
 package it.uniroma2.dicii.ispw.gradely.model.role.professor.dao;
 
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.Professor;
-import it.uniroma2.dicii.ispw.gradely.model.user.UserLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProfessorDAOFS extends AbstractProfessorDAO {

@@ -4,8 +4,6 @@ import it.uniroma2.dicii.ispw.gradely.dao_interface.DAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
-import java.util.List;
-
 public abstract class AbstractStudentDAO implements DAOInterface<Student> {
     protected static AbstractStudentDAO instance;
 

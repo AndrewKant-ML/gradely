@@ -1,8 +1,8 @@
 package it.uniroma2.dicii.ispw.gradely.use_cases.login;
 
 import it.uniroma2.dicii.ispw.gradely.exceptions.EmailFormatException;
-import it.uniroma2.dicii.ispw.gradely.model.user.UserLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
+import it.uniroma2.dicii.ispw.gradely.model.user.UserLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
 import it.uniroma2.dicii.ispw.gradely.session_manager.Token;
 

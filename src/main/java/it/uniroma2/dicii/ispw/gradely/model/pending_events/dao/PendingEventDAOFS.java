@@ -1,14 +1,9 @@
 package it.uniroma2.dicii.ispw.gradely.model.pending_events.dao;
 
-import it.uniroma2.dicii.ispw.gradely.model.user.UserLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEvent;
-import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEventSingle;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-import static it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum.EVENT_PROVA;
 
 
 public class PendingEventDAOFS extends AbstractPendingEventDAO {

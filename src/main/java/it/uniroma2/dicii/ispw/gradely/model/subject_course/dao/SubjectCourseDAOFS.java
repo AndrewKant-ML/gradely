@@ -2,11 +2,7 @@ package it.uniroma2.dicii.ispw.gradely.model.subject_course.dao;
 
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 
-import java.time.Year;
-import java.util.ArrayList;
 import java.util.List;
-
-import static it.uniroma2.dicii.ispw.gradely.enums.SubjectCourseCodeEnum.C01;
 
 
 public class SubjectCourseDAOFS extends SubjectCourseDAOAbstract {

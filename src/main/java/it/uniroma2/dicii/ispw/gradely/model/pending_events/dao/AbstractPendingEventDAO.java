@@ -3,7 +3,6 @@ package it.uniroma2.dicii.ispw.gradely.model.pending_events.dao;
 import it.uniroma2.dicii.ispw.gradely.dao_interface.DAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEvent;
 
-import java.util.List;
 import java.util.UUID;
 
 

@@ -1,5 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.dao_factories;
 
+import it.uniroma2.dicii.ispw.gradely.enums.PersistenceTypeEnum;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.course_assignment.dao.AbstractCourseAssignmentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.dao.AbstractDegreeCourseEnrollmentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.dao.AbstractExamEnrollmentDAO;
@@ -13,7 +14,6 @@ import it.uniroma2.dicii.ispw.gradely.model.role.student.dao.AbstractStudentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.dao.SubjectCourseDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.timer.dao.TimerDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.user.dao.UserDAOAbstract;
-import it.uniroma2.dicii.ispw.gradely.enums.PersistenceTypeEnum;
 
 import static it.uniroma2.dicii.ispw.gradely.enums.PersistenceTypeEnum.DB;
 import static it.uniroma2.dicii.ispw.gradely.enums.PersistenceTypeEnum.FS;

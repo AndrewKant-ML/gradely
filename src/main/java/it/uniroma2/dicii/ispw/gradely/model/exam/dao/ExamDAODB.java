@@ -5,7 +5,6 @@ import it.uniroma2.dicii.ispw.gradely.enums.SessionEnum;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ExamDAODB extends AbstractExamDAO {

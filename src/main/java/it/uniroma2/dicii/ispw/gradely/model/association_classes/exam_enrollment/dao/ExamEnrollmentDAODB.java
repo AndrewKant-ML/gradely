@@ -1,10 +1,9 @@
 package it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.dao;
 
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.ExamEnrollment;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.ExamEnrollment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ExamEnrollmentDAODB extends AbstractExamEnrollmentDAO {

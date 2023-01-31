@@ -1,12 +1,8 @@
 package it.uniroma2.dicii.ispw.gradely.model.role.student.dao;
 
-import it.uniroma2.dicii.ispw.gradely.enums.TitleEnum;
-import it.uniroma2.dicii.ispw.gradely.model.user.UserLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDAODB extends AbstractStudentDAO {

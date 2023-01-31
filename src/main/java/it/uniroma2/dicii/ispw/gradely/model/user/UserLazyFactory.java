@@ -1,9 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.model.user;
 
 import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactoryAbstract;
-import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 

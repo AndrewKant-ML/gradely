@@ -2,7 +2,6 @@ package it.uniroma2.dicii.ispw.gradely.model.degree_course.dao;
 
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 
-import java.util.ArrayList;
 import java.util.List;
 
 

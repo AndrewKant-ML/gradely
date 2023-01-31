@@ -2,9 +2,9 @@ package it.uniroma2.dicii.ispw.gradely.model.role.professor;
 
 import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.MissingAuthorizationException;
-import it.uniroma2.dicii.ispw.gradely.model.role.AbstractRole;
-import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.course_assignment.CourseAssignment;
+import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
+import it.uniroma2.dicii.ispw.gradely.model.role.AbstractRole;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
 import java.time.LocalDate;

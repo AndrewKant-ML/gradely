@@ -1,11 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely;
 
-import it.uniroma2.dicii.ispw.gradely.model.role.secretary.Secretary;
-import it.uniroma2.dicii.ispw.gradely.model.user.UserLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.session_manager.Token;
 import it.uniroma2.dicii.ispw.gradely.use_cases.login.LoginControl;
-
-import java.util.ArrayList;
 
 public class MainControl {
     //this is the main application controller

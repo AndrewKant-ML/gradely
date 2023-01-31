@@ -1,10 +1,10 @@
 package it.uniroma2.dicii.ispw.gradely.model.subject_course;
 
 import it.uniroma2.dicii.ispw.gradely.enums.SubjectCourseCodeEnum;
-import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
-import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.course_assignment.CourseAssignment;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.SubjectCourseEnrollment;
+import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
+import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 
 import java.time.Year;
 import java.util.List;

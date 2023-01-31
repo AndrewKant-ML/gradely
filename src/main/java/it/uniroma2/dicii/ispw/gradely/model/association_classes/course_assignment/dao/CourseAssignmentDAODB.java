@@ -1,10 +1,9 @@
 package it.uniroma2.dicii.ispw.gradely.model.association_classes.course_assignment.dao;
 
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.course_assignment.CourseAssignment;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.Professor;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.course_assignment.CourseAssignment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 

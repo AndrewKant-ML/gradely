@@ -1,7 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.association_classes.test_reservation.dao;
 
 import it.uniroma2.dicii.ispw.gradely.model.test.Test;
-import it.uniroma2.dicii.ispw.gradely.model.timer.AbstractTimer;
 
 import java.util.List;
 
