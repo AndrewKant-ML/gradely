@@ -10,9 +10,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -30,40 +32,49 @@ public class LoginGraphicControl implements Initializable {
     private PasswordField passwordField;
 
     @FXML
-    private Button registerButton, loginButton;
+    private Button loginButton;
 
     private LoginControl loginController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loginController = new LoginControl();
-        /*loginButton.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if (keyEvent.)
-            }
-        });*/
+        loginButton.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode().equals(KeyCode.ENTER))
+                login((Node) keyEvent.getSource());
+        });
     }
 
     /**
      * Executes login operations
+     *
      * @param event the mouse click event
      */
     public void login(ActionEvent event) {
+        login((Node) event.getSource());
+    }
+
+    /**
+     * Executes login graphical operation
+     *
+     * @param node the JavaFX node where the event has been triggered
+     */
+    private void login(Node node) {
         final String email = this.emailField.getText();
         final String password = this.passwordField.getText();
 
         try {
             //loginController.emailMatches(email);
             Token sessionToken = loginController.login(email, password);
-            goToMainPage((Stage) ((Node) (event.getSource())).getScene().getWindow(), sessionToken);
+            goToMainPage((Stage) node.getScene().getWindow(), sessionToken);
         } /*catch (EmailFormatException efe) {
+            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, "Login error", "Email format error", e);
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Login error");
             alert.setContentText(efe.getMessage());
             alert.show();
-        } */catch (Exception e) { // TODO change exception type when changed on LoginControl
-            throw new RuntimeException(e);
+        } */ catch (Exception e) { // TODO change exception type when changed on LoginControl
+            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, "Login error", "Wrong credentials", e);
         }
     }
 
@@ -85,7 +96,7 @@ public class LoginGraphicControl implements Initializable {
             Scene scene = new Scene(basePane);
             stage.setScene(scene);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, "Loading error", "Error while loading Homepage view");
         }
     }
 }
