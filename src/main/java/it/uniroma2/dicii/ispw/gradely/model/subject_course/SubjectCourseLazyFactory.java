@@ -1,5 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.subject_course;
 
+import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactoryDB;
 
 import java.util.ArrayList;
@@ -26,6 +27,6 @@ public class SubjectCourseLazyFactory {
                 return s; //TODO implementare exception
             }
         }
-        return DAOFactoryDB.getDAOFactory().getSubjectCourseDAO().getSubjectCourseByName(name); //TODO implementare exception
+        return DAOFactoryAbstract.getDAOFactory().getSubjectCourseDAO().getSubjectCourseByName(name); //TODO implementare exception
     }
 }

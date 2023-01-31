@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 public final class PageNavigationController {
-    private static PageNavigationController INSTANCE;
+    private static PageNavigationController instance;
     private BaseGraphicControl baseGraphicController;
     private Token sessionToken;
 
@@ -17,9 +17,9 @@ public final class PageNavigationController {
     }
 
     public static PageNavigationController getInstance() {
-        if (INSTANCE == null)
-            INSTANCE = new PageNavigationController();
-        return INSTANCE;
+        if (instance == null)
+            instance = new PageNavigationController();
+        return instance;
     }
 
     public void setBaseGraphicController(BaseGraphicControl baseGraphicController) {

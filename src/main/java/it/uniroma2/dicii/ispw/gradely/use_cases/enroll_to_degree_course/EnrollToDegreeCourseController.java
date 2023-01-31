@@ -73,7 +73,7 @@ public class EnrollToDegreeCourseController implements TimerObserver {
     }
 
     public TestReservationBean reserveTest(TestInfoBean testInfo) {
-        return this.testBoundary.reserveTest(testInfo.getID());
+        return this.testBoundary.reserveTest(testInfo.getId());
     }
 
     @Override
