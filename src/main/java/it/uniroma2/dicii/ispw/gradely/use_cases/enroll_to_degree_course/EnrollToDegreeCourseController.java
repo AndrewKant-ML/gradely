@@ -5,6 +5,7 @@ import it.uniroma2.dicii.ispw.gradely.beans_general.DegreeCourseBean;
 import it.uniroma2.dicii.ispw.gradely.beans_general.StudentBean;
 import it.uniroma2.dicii.ispw.gradely.beans_general.TestInfoBean;
 import it.uniroma2.dicii.ispw.gradely.beans_general.UserBean;
+import it.uniroma2.dicii.ispw.gradely.exceptions.MissingAuthorizationException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.TestRetrivialException;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseLazyFactory;
@@ -12,6 +13,7 @@ import it.uniroma2.dicii.ispw.gradely.model.timer.AbstractTimer;
 import it.uniroma2.dicii.ispw.gradely.model.timer.TimerObserver;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
+import it.uniroma2.dicii.ispw.gradely.session_manager.Token;
 import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.beans.TestReservationBean;
 import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.external_boundaries.AbstractTestBoundary;
 import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.factory.AbstractTestFactory;
@@ -38,7 +40,8 @@ public class EnrollToDegreeCourseController implements TimerObserver {
         );
     }
 
-    public List<DegreeCourseBean> getDegreeCourses() {
+    public List<DegreeCourseBean> getDegreeCourses  (Token token) throws MissingAuthorizationException{
+        SessionManager.getInstance().getSessionUserByToken(token).getRole().student();
         List<DegreeCourse> degreeCourses = DegreeCourseLazyFactory.getInstance().getDegreeCourses();
         List<DegreeCourseBean> beans = new ArrayList<>();
         for (DegreeCourse degreeCourse : degreeCourses) {
@@ -67,12 +70,14 @@ public class EnrollToDegreeCourseController implements TimerObserver {
      * @param degreeCourseBean the degree course referred from the test
      * @return the test info
      */
-    public TestInfoBean getTestInfo(DegreeCourseBean degreeCourseBean) throws TestRetrivialException {
+    public TestInfoBean getTestInfo(Token token, DegreeCourseBean degreeCourseBean) throws TestRetrivialException, MissingAuthorizationException {
+        SessionManager.getInstance().getSessionUserByToken(token).getRole().student();
         this.testBoundary = AbstractTestFactory.getInstance(degreeCourseBean.getTestType()).createTestBoundary();
         return testBoundary.getTestInfo();
     }
 
-    public TestReservationBean reserveTest(TestInfoBean testInfo) {
+    public TestReservationBean reserveTest(Token token, TestInfoBean testInfo) throws MissingAuthorizationException{
+        SessionManager.getInstance().getSessionUserByToken(token).getRole().student();
         return this.testBoundary.reserveTest(testInfo.getId());
     }
 
