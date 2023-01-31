@@ -6,7 +6,6 @@ module it.uniroma2.dicii.ispw.gradely {
     opens it.uniroma2.dicii.ispw.gradely to javafx.fxml;
     exports it.uniroma2.dicii.ispw.gradely;
     exports it.uniroma2.dicii.ispw.gradely.session_manager;
-    exports it.uniroma2.dicii.ispw.gradely.model;
     exports it.uniroma2.dicii.ispw.gradely.beans_general;
     exports it.uniroma2.dicii.ispw.gradely.exceptions;
     exports it.uniroma2.dicii.ispw.gradely.enums;
@@ -22,5 +21,19 @@ module it.uniroma2.dicii.ispw.gradely {
     opens it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.external_boundaries to javafx.fxml;
     exports it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.graphic_controllers;
     opens it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.graphic_controllers to javafx.fxml;
-    
+    exports it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.graphic_controllers;
+    exports it.uniroma2.dicii.ispw.gradely.model.timer;
+    exports it.uniroma2.dicii.ispw.gradely.model.user;
+    exports it.uniroma2.dicii.ispw.gradely.model.user.dao;
+    exports it.uniroma2.dicii.ispw.gradely.model.test;
+    exports it.uniroma2.dicii.ispw.gradely.model.subject_course;
+    exports it.uniroma2.dicii.ispw.gradely.model.role.student;
+    exports it.uniroma2.dicii.ispw.gradely.model.role.secretary;
+    exports it.uniroma2.dicii.ispw.gradely.model.role.professor;
+    exports it.uniroma2.dicii.ispw.gradely.model.exam;
+    exports it.uniroma2.dicii.ispw.gradely.model.degree_course;
+    exports it.uniroma2.dicii.ispw.gradely.model.test_result;
+    exports it.uniroma2.dicii.ispw.gradely.model.role;
+    exports it.uniroma2.dicii.ispw.gradely.model.exam_result;
+
 }

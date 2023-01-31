@@ -5,22 +5,22 @@ import java.time.LocalDate;
 
 public class TestInfoBean {
 
-    private String ID;
+    private String id;
     private LocalDate testDate;
     private URL testReservationLink;
     private URL infoLink;
     private String place;
 
-    public TestInfoBean(String ID, LocalDate testDate, URL testReservationLink, URL infoLink, String place) {
-        this.ID = ID;
+    public TestInfoBean(String id, LocalDate testDate, URL testReservationLink, URL infoLink, String place) {
+        this.id = id;
         this.testDate = testDate;
         this.testReservationLink = testReservationLink;
         this.infoLink = infoLink;
         this.place = place;
     }
 
-    public String getID() {
-        return ID;
+    public String getId() {
+        return id;
     }
 
     public LocalDate getTestDate() {

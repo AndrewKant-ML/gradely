@@ -1,10 +1,9 @@
 package it.uniroma2.dicii.ispw.gradely.model.pending_events;
 
 import it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum;
-import it.uniroma2.dicii.ispw.gradely.model.User;
+import it.uniroma2.dicii.ispw.gradely.model.user.User;
 import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
 
-import java.util.Objects;
 import java.util.UUID;
 
 public class PendingEventSingle extends PendingEvent{
