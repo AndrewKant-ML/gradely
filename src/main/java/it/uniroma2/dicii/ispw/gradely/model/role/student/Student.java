@@ -28,7 +28,7 @@ public class Student extends AbstractRole {
     }
 
     @Override
-    public Student student() throws MissingAuthorizationException {
+    public Student getStudentRole() throws MissingAuthorizationException {
         return this;
     }
 

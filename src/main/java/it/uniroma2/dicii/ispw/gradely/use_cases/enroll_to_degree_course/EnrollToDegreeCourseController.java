@@ -27,11 +27,11 @@ public class EnrollToDegreeCourseController implements TimerObserver {
     private final UserBean userBean;
     private AbstractTestBoundary testBoundary;
 
-    public EnrollToDegreeCourseController() {
+    public EnrollToDegreeCourseController() throws MissingAuthorizationException{
         User user = SessionManager.getInstance().getSessionUserByToken(
                 PageNavigationController.getInstance().getSessionToken()
         );
-        this.studentBean = new StudentBean(user.getRole().student().getId());
+        this.studentBean = new StudentBean(user.getRole().getStudentRole().getId());
         this.userBean = new UserBean(
                 user.getName(),
                 user.getSurname(),
@@ -41,7 +41,7 @@ public class EnrollToDegreeCourseController implements TimerObserver {
     }
 
     public List<DegreeCourseBean> getDegreeCourses  (Token token) throws MissingAuthorizationException{
-        SessionManager.getInstance().getSessionUserByToken(token).getRole().student();
+        SessionManager.getInstance().getSessionUserByToken(token).getRole().getStudentRole();
         List<DegreeCourse> degreeCourses = DegreeCourseLazyFactory.getInstance().getDegreeCourses();
         List<DegreeCourseBean> beans = new ArrayList<>();
         for (DegreeCourse degreeCourse : degreeCourses) {
@@ -71,13 +71,13 @@ public class EnrollToDegreeCourseController implements TimerObserver {
      * @return the test info
      */
     public TestInfoBean getTestInfo(Token token, DegreeCourseBean degreeCourseBean) throws TestRetrivialException, MissingAuthorizationException {
-        SessionManager.getInstance().getSessionUserByToken(token).getRole().student();
+        SessionManager.getInstance().getSessionUserByToken(token).getRole().getStudentRole();
         this.testBoundary = AbstractTestFactory.getInstance(degreeCourseBean.getTestType()).createTestBoundary();
         return testBoundary.getTestInfo();
     }
 
     public TestReservationBean reserveTest(Token token, TestInfoBean testInfo) throws MissingAuthorizationException{
-        SessionManager.getInstance().getSessionUserByToken(token).getRole().student();
+        SessionManager.getInstance().getSessionUserByToken(token).getRole().getStudentRole();
         return this.testBoundary.reserveTest(testInfo.getId());
     }
 
