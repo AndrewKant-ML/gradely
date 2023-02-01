@@ -12,13 +12,7 @@ public class ExamConfirmationTimer extends AbstractTimer<Exam, InsertStudentsGra
     }
 
     @Override
-    public ExamConfirmationTimer examConfirmationTimer(){
+    public ExamConfirmationTimer castToExamConfirmationTimer(){
         return this;
-    }
-    public Exam getExam() {
-        return object;
-    }
-    public void setExam(Exam exam) {
-        this.object = exam;
     }
 }

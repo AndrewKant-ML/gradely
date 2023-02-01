@@ -11,15 +11,8 @@ public class TestResultTimer extends AbstractTimer<Test, EnrollToDegreeCourseCon
         super(expiration, test);
     }
 
-    public Test getTest() {
-        return object;
-    }
-
-    public void setTest(Test test) {
-        this.object = test;
-    }
     @Override
-    public TestResultTimer testResultTimer(){
+    public TestResultTimer castToTestResultTimer(){
         return this;
     }
 

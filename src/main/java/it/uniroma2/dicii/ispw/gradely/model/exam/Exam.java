@@ -17,6 +17,7 @@ public class Exam {
     private AppelloEnum appello;
     private SessionEnum session;
     private SubjectCourse subjectCourse;
+    private Boolean gradable;
     private Boolean verbalizable;
     private LocalDate verbaleDate;
     private Integer verbaleNumber;
@@ -24,7 +25,6 @@ public class Exam {
 
     public Exam(){
     }
-
     public Exam(LocalDate enrollmentStartDate, LocalDate enrollmentEndDate, LocalDate examinationDate, RoomEnum room, AppelloEnum appello, SessionEnum session, SubjectCourse subjectCourse) {
         this.enrollmentStartDate = enrollmentStartDate;
         this.enrollmentEndDate = enrollmentEndDate;
@@ -33,6 +33,20 @@ public class Exam {
         this.appello = appello;
         this.session = session;
         this.subjectCourse = subjectCourse;
+    }
+    public Exam(LocalDate enrollmentStartDate, LocalDate enrollmentEndDate, LocalDate examinationDate, RoomEnum room, AppelloEnum appello, SessionEnum session, SubjectCourse subjectCourse, Boolean gradable, Boolean verbalizable, LocalDate verbaleDate, Integer verbaleNumber, List<ExamEnrollment> enrollments) {
+        this.enrollmentStartDate = enrollmentStartDate;
+        this.enrollmentEndDate = enrollmentEndDate;
+        this.examinationDate = examinationDate;
+        this.room = room;
+        this.appello = appello;
+        this.session = session;
+        this.subjectCourse = subjectCourse;
+        this.gradable = gradable;
+        this.verbalizable = verbalizable;
+        this.verbaleDate = verbaleDate;
+        this.verbaleNumber = verbaleNumber;
+        this.enrollments = enrollments;
     }
 
     public LocalDate getEnrollmentStartDate() {
@@ -89,6 +103,14 @@ public class Exam {
 
     public void setSubjectCourse(SubjectCourse subjectCourse) {
         this.subjectCourse = subjectCourse;
+    }
+
+    public Boolean getGradable() {
+        return gradable;
+    }
+
+    public void setGradable(Boolean gradable) {
+        this.gradable = gradable;
     }
 
     public Boolean getVerbalizable() {

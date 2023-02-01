@@ -1,6 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.model.timer;
 
 import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactoryAbstract;
+import it.uniroma2.dicii.ispw.gradely.exceptions.WrongTimerTypeException;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.test.Test;
 
@@ -37,7 +38,7 @@ public class TimerLazyFactory {
         activeTimers.add(newTimer);
         return newTimer;
     }
-    private void checkTimers(){ //TODO timered trigger
+    private void checkTimers() throws WrongTimerTypeException { //TODO timered trigger
         for (AbstractTimer t : activeTimers){
             if (t.getExpiration().isAfter(LocalDate.now())){
                 t.notifyTimerExpiration();
