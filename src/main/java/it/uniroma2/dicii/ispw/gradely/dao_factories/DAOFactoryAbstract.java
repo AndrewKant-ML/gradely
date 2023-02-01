@@ -7,6 +7,7 @@ import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.dao.AbstractSubjectCourseEnrollmentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.dao.AbstractDegreeCourseDAO;
 import it.uniroma2.dicii.ispw.gradely.model.exam.dao.AbstractExamDAO;
+import it.uniroma2.dicii.ispw.gradely.model.exam_result.dao.AbstractExamResultDAO;
 import it.uniroma2.dicii.ispw.gradely.model.pending_events.dao.AbstractPendingEventDAO;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.dao.AbstractProfessorDAO;
 import it.uniroma2.dicii.ispw.gradely.model.role.secretary.dao.AbstractSecretaryDAO;
@@ -46,6 +47,7 @@ public abstract class DAOFactoryAbstract {
     public abstract AbstractSubjectCourseEnrollmentDAO getSubjectCourseEnrollmentDAO();
     public abstract AbstractDegreeCourseDAO getDegreeCourseDAO();
     public abstract AbstractExamDAO getExamDAO();
+    public abstract AbstractExamResultDAO getExamResultDAO();
     public abstract AbstractPendingEventDAO getPendingEventDAO();
     public abstract AbstractProfessorDAO getProfessorDAO();
     public abstract AbstractSecretaryDAO getSecretaryDAO();

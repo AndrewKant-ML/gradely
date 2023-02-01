@@ -26,28 +26,8 @@ public class ExamResultLazyFactory {
         return instance;
     }
 
-    public Exam getExamByAppelloCourseAndSession(AppelloEnum appello, SubjectCourse course, SessionEnum session) {
-        for(Exam e : exams){
-            if(e.getAppello().equals(appello) && e.getSubjectCourse().equals(course) && e.getSession().equals(session)) {
-                return e; //TODO implementare exception
-            }
-        }
-        return DAOFactoryAbstract.getDAOFactory().getExamDAO().getExamByAppelloAndSubjectCourseAndSession(appello, course, session); //TODO implementare exception
-    }
 
-    public List<Exam> getGradableExams(Professor professor){
-        List<Exam> list = new ArrayList<>();
-        for(SubjectCourse c : CourseAssignmentLazyFactory.getInstance().getAssignedSubjectCoursesByProfessor(professor)) {
-            for (Exam e : c.getExams()){
-                if (e.getVerbalizable()==true){
-                    list.add(e);
-                }
-            }
-        }
-        return list;
-    }
-
-    public void update (Exam exam){
-        DAOFactoryAbstract.getDAOFactory().getExamDAO().update(exam);
+    public void update (ExamResult examResult){
+        DAOFactoryAbstract.getDAOFactory().getExamResultDAO().update(examResult);
     }
 }
