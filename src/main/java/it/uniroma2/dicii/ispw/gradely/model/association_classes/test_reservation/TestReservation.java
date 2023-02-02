@@ -13,21 +13,21 @@ public class TestReservation {
 
     private LocalDate reservationDate;
 
-    public TestReservation(Student student, Test test) {
+    public TestReservation(Student student, Test test){
         this.student = student;
         this.test = test;
         this.reservationDate = LocalDate.now();
     }
 
-    public Student getStudent() {
+    public Student getStudent(){
         return student;
     }
 
-    public Test getTestInfo() {
+    public Test getTestInfo(){
         return test;
     }
 
-    public LocalDate getReservationDate() {
+    public LocalDate getReservationDate(){
         return reservationDate;
     }
 }

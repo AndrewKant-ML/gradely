@@ -10,8 +10,8 @@ public class TimerDAOFS extends TimerDAOAbstract {
         super();
     }
 
-    public static TimerDAOAbstract getInstance(){
-        if (instance == null) {
+    public static synchronized TimerDAOAbstract getInstance(){
+        if (instance == null){
             instance = new TimerDAOFS();
         }
         return instance;
@@ -19,22 +19,22 @@ public class TimerDAOFS extends TimerDAOAbstract {
 
 
     @Override
-    public void insert(AbstractTimer timer) {
+    public void insert(AbstractTimer timer){
 
     }
 
     @Override
-    public void cancel(AbstractTimer timer) {
+    public void cancel(AbstractTimer timer){
 
     }
 
     @Override
-    public void update(AbstractTimer timer) {
+    public void update(AbstractTimer timer){
 
     }
 
     @Override
-    public List<AbstractTimer> refresh(List<AbstractTimer> timers) {
+    public List<AbstractTimer> refresh(List<AbstractTimer> timers){
         return null;
     }
 

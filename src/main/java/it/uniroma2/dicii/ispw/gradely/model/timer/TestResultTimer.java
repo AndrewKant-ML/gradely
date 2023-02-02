@@ -7,19 +7,12 @@ import java.time.LocalDate;
 
 public class TestResultTimer extends AbstractTimer<Test, EnrollToDegreeCourseController>{
 
-    protected TestResultTimer(LocalDate expiration, Test test) {
+    protected TestResultTimer(LocalDate expiration, Test test){
         super(expiration, test);
     }
 
-    public Test getTest() {
-        return object;
-    }
-
-    public void setTest(Test test) {
-        this.object = test;
-    }
     @Override
-    public TestResultTimer testResultTimer(){
+    public TestResultTimer castToTestResultTimer(){
         return this;
     }
 

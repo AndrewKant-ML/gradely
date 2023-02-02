@@ -7,35 +7,35 @@ public class ExamResultBean {
     private ResultEnum result;
     private Boolean confirmed;
 
-    public ExamResultBean() {
+    public ExamResultBean(){
     }
-    public ExamResultBean(Integer grade, ResultEnum result, Boolean confirmed) {
+    public ExamResultBean(Integer grade, ResultEnum result, Boolean confirmed){
         this.grade = grade;
         this.result = result;
         this.confirmed = confirmed;
     }
 
-    public Integer getGrade() {
+    public Integer getGrade(){
         return grade;
     }
 
-    public void setGrade(Integer grade) {
+    public void setGrade(Integer grade){
         this.grade = grade;
     }
 
-    public ResultEnum getResult() {
+    public ResultEnum getResult(){
         return result;
     }
 
-    public void setResult(ResultEnum result) {
+    public void setResult(ResultEnum result){
         this.result = result;
     }
 
-    public Boolean getConfirmed() {
+    public Boolean getConfirmed(){
         return confirmed;
     }
 
-    public void setConfirmed(Boolean confirmed) {
+    public void setConfirmed(Boolean confirmed){
         this.confirmed = confirmed;
     }
 }

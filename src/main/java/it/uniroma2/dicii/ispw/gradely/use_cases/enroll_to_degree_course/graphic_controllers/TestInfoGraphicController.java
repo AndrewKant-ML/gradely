@@ -21,11 +21,11 @@ public class TestInfoGraphicController implements Initializable {
     private Hyperlink testInfoUrl;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle){
 
     }
 
-    public void setData(TestInfoBean testInfo, DegreeCourseBean degreeCourse) {
+    public void setData(TestInfoBean testInfo, DegreeCourseBean degreeCourse){
         this.degreeCourseName.setText(degreeCourse.toString());
         this.testID.setText(testInfo.getId());
         this.testDate.setText(testInfo.getTestDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));

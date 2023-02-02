@@ -19,14 +19,14 @@ public class SubjectCourse extends AbstractSubjectCourse {
     private List <Exam> exams;
     private List <SubjectCourseEnrollment> enrollments;
 
-    protected SubjectCourse(SubjectCourseCodeEnum code, String name, Year academicYear, Integer cfu) {
+    protected SubjectCourse(SubjectCourseCodeEnum code, String name, Year academicYear, Integer cfu){
         super(code);
         this.name = name;
         this.academicYear = academicYear;
         this.cfu = cfu;
     }
 
-    protected SubjectCourse(SubjectCourseCodeEnum code, String name, Year academicYear, Integer cfu, List<AbstractSubjectCourse> prerequisites, List<DegreeCourse> degreeCourses, List<CourseAssignment> courseAssignments) {
+    protected SubjectCourse(SubjectCourseCodeEnum code, String name, Year academicYear, Integer cfu, List<AbstractSubjectCourse> prerequisites, List<DegreeCourse> degreeCourses, List<CourseAssignment> courseAssignments){
         super(code);
         this.name = name;
         this.academicYear = academicYear;
@@ -37,68 +37,68 @@ public class SubjectCourse extends AbstractSubjectCourse {
     }
 
     @Override
-    public SubjectCourseCodeEnum getCode() {
+    public SubjectCourseCodeEnum getCode(){
         return super.getCode();
     }
 
     @Override
-    public void setCode(SubjectCourseCodeEnum code) {
+    public void setCode(SubjectCourseCodeEnum code){
         super.setCode(code);
     }
 
-    public String getName() {
+    public String getName(){
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name){
         this.name = name;
     }
 
-    public Year getAcademicYear() {
+    public Year getAcademicYear(){
         return academicYear;
     }
 
-    public void setAcademicYear(Year academicYear) {
+    public void setAcademicYear(Year academicYear){
         this.academicYear = academicYear;
     }
 
-    public Integer getCfu() {
+    public Integer getCfu(){
         return cfu;
     }
 
-    public void setCfu(Integer cfu) {
+    public void setCfu(Integer cfu){
         this.cfu = cfu;
     }
 
-    public List<AbstractSubjectCourse> getPrerequisites() {
+    public List<AbstractSubjectCourse> getPrerequisites(){
         return prerequisites;
     }
 
-    public void setPrerequisites(List<AbstractSubjectCourse> prerequisites) {
+    public void setPrerequisites(List<AbstractSubjectCourse> prerequisites){
         this.prerequisites = prerequisites;
     }
 
-    public List<DegreeCourse> getDegreeCourses() {
+    public List<DegreeCourse> getDegreeCourses(){
         return degreeCourses;
     }
 
-    public void setDegreeCourses(List<DegreeCourse> degreeCourses) {
+    public void setDegreeCourses(List<DegreeCourse> degreeCourses){
         this.degreeCourses = degreeCourses;
     }
 
-    public List<CourseAssignment> getCourseAssignments() {
+    public List<CourseAssignment> getCourseAssignments(){
         return courseAssignments;
     }
 
-    public void setCourseAssignments(List<CourseAssignment> courseAssignments) {
+    public void setCourseAssignments(List<CourseAssignment> courseAssignments){
         this.courseAssignments = courseAssignments;
     }
 
-    public List<Exam> getExams() {
+    public List<Exam> getExams(){
         return exams;
     }
 
-    public void setExams(List<Exam> exams) {
+    public void setExams(List<Exam> exams){
         this.exams = exams;
     }
 
@@ -106,11 +106,11 @@ public class SubjectCourse extends AbstractSubjectCourse {
         this.exams.add(exam);
     }
 
-    public List<SubjectCourseEnrollment> getEnrollments() {
+    public List<SubjectCourseEnrollment> getEnrollments(){
         return enrollments;
     }
 
-    public void setEnrollments(List<SubjectCourseEnrollment> enrollments) {
+    public void setEnrollments(List<SubjectCourseEnrollment> enrollments){
         this.enrollments = enrollments;
     }
 }

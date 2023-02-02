@@ -5,15 +5,15 @@ import it.uniroma2.dicii.ispw.gradely.enums.SubjectCourseCodeEnum;
 public abstract class AbstractSubjectCourse {
     private SubjectCourseCodeEnum code;
 
-    protected AbstractSubjectCourse(SubjectCourseCodeEnum code) {
+    protected AbstractSubjectCourse(SubjectCourseCodeEnum code){
         this.code = code;
     }
 
-    public SubjectCourseCodeEnum getCode() {
+    public SubjectCourseCodeEnum getCode(){
         return code;
     }
 
-    public void setCode(SubjectCourseCodeEnum code) {
+    public void setCode(SubjectCourseCodeEnum code){
         this.code = code;
     }
 }

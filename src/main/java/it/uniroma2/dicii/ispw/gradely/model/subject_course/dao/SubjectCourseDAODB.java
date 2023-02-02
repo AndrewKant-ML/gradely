@@ -10,35 +10,35 @@ public class SubjectCourseDAODB extends SubjectCourseDAOAbstract {
     public SubjectCourseDAODB(){
         super();
     }
-    public static SubjectCourseDAOAbstract getInstance(){
-        if (instance == null) {
+    public static synchronized SubjectCourseDAOAbstract getInstance(){
+        if (instance == null){
             instance = new SubjectCourseDAODB();
         }
         return instance;
     }
 
     @Override
-    public SubjectCourse getSubjectCourseByName(String name) {
+    public SubjectCourse getSubjectCourseByName(String name){
         return null;
     }
 
     @Override
-    public void insert(SubjectCourse subjectCourse) {
+    public void insert(SubjectCourse subjectCourse){
 
     }
 
     @Override
-    public void cancel(SubjectCourse subjectCourse) {
+    public void cancel(SubjectCourse subjectCourse){
 
     }
 
     @Override
-    public void update(SubjectCourse subjectCourse) {
+    public void update(SubjectCourse subjectCourse){
 
     }
 
     @Override
-    public List<SubjectCourse> refresh(List<SubjectCourse> subjectCourses) {
+    public List<SubjectCourse> refresh(List<SubjectCourse> subjectCourses){
         return null;
     }
 

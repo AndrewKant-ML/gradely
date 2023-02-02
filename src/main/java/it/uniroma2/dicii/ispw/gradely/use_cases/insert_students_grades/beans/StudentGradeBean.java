@@ -7,24 +7,24 @@ public class StudentGradeBean {
     private ExamEnrollmentBean enrollmentBean;
     private ExamResultBean examResultBean;
 
-    public StudentGradeBean(ExamEnrollmentBean enrollmentBean, ExamResultBean examResultBean) {
+    public StudentGradeBean(ExamEnrollmentBean enrollmentBean, ExamResultBean examResultBean){
         this.enrollmentBean = enrollmentBean;
         this.examResultBean = examResultBean;
     }
 
-    public ExamEnrollmentBean getEnrollmentBean() {
+    public ExamEnrollmentBean getEnrollmentBean(){
         return enrollmentBean;
     }
 
-    public void setEnrollmentBean(ExamEnrollmentBean enrollmentBean) {
+    public void setEnrollmentBean(ExamEnrollmentBean enrollmentBean){
         this.enrollmentBean = enrollmentBean;
     }
 
-    public ExamResultBean getExamResultBean() {
+    public ExamResultBean getExamResultBean(){
         return examResultBean;
     }
 
-    public void setExamResultBean(ExamResultBean examResultBean) {
+    public void setExamResultBean(ExamResultBean examResultBean){
         this.examResultBean = examResultBean;
     }
 }

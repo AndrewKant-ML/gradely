@@ -8,39 +8,39 @@ import java.util.List;
 
 public class ExamEnrollmentDAOFS extends AbstractExamEnrollmentDAO {
 
-    private ExamEnrollmentDAOFS() {
+    private ExamEnrollmentDAOFS(){
 
     }
 
-    public static AbstractExamEnrollmentDAO getInstance() {
-        if (instance == null) {
+    public static synchronized AbstractExamEnrollmentDAO getInstance(){
+        if (instance == null){
             instance = new ExamEnrollmentDAOFS();
         }
         return instance;
     }
 
     @Override
-    public List<ExamEnrollment> getExamEnrollmentsByExam(Exam exam) {
+    public List<ExamEnrollment> getExamEnrollmentsByExam(Exam exam){
         return null;
     }
 
     @Override
-    public List<ExamEnrollment> getExamEnrollmentsByStudent(Student student) {
+    public List<ExamEnrollment> getExamEnrollmentsByStudent(Student student){
         return null;
     }
 
     @Override
-    public ExamEnrollment getExamEnrollmentByExamAndStudent(Exam exam, Student student) {
+    public ExamEnrollment getExamEnrollmentByExamAndStudent(Exam exam, Student student){
         return null;
     }
 
     @Override
-    public void insert(ExamEnrollment examEnrollment) {
+    public void insert(ExamEnrollment examEnrollment){
 
     }
 
     @Override
-    public void cancel(ExamEnrollment examEnrollment) {
+    public void cancel(ExamEnrollment examEnrollment){
 
     }
 
@@ -50,7 +50,7 @@ public class ExamEnrollmentDAOFS extends AbstractExamEnrollmentDAO {
     }
 
     @Override
-    public List<ExamEnrollment> refresh(List<ExamEnrollment> examEnrollments) {
+    public List<ExamEnrollment> refresh(List<ExamEnrollment> examEnrollments){
         return null;
     }
 

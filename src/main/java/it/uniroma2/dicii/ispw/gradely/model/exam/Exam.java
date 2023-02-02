@@ -17,6 +17,7 @@ public class Exam {
     private AppelloEnum appello;
     private SessionEnum session;
     private SubjectCourse subjectCourse;
+    private Boolean gradable;
     private Boolean verbalizable;
     private LocalDate verbaleDate;
     private Integer verbaleNumber;
@@ -24,8 +25,7 @@ public class Exam {
 
     public Exam(){
     }
-
-    public Exam(LocalDate enrollmentStartDate, LocalDate enrollmentEndDate, LocalDate examinationDate, RoomEnum room, AppelloEnum appello, SessionEnum session, SubjectCourse subjectCourse) {
+    public Exam(LocalDate enrollmentStartDate, LocalDate enrollmentEndDate, LocalDate examinationDate, RoomEnum room, AppelloEnum appello, SessionEnum session, SubjectCourse subjectCourse){
         this.enrollmentStartDate = enrollmentStartDate;
         this.enrollmentEndDate = enrollmentEndDate;
         this.examinationDate = examinationDate;
@@ -34,92 +34,114 @@ public class Exam {
         this.session = session;
         this.subjectCourse = subjectCourse;
     }
+    public Exam(LocalDate enrollmentStartDate, LocalDate enrollmentEndDate, LocalDate examinationDate, RoomEnum room, AppelloEnum appello, SessionEnum session, SubjectCourse subjectCourse, Boolean gradable, Boolean verbalizable, LocalDate verbaleDate, Integer verbaleNumber, List<ExamEnrollment> enrollments){
+        this.enrollmentStartDate = enrollmentStartDate;
+        this.enrollmentEndDate = enrollmentEndDate;
+        this.examinationDate = examinationDate;
+        this.room = room;
+        this.appello = appello;
+        this.session = session;
+        this.subjectCourse = subjectCourse;
+        this.gradable = gradable;
+        this.verbalizable = verbalizable;
+        this.verbaleDate = verbaleDate;
+        this.verbaleNumber = verbaleNumber;
+        this.enrollments = enrollments;
+    }
 
-    public LocalDate getEnrollmentStartDate() {
+    public LocalDate getEnrollmentStartDate(){
         return enrollmentStartDate;
     }
 
-    public void setEnrollmentStartDate(LocalDate enrollmentStartDate) {
+    public void setEnrollmentStartDate(LocalDate enrollmentStartDate){
         this.enrollmentStartDate = enrollmentStartDate;
     }
 
-    public LocalDate getEnrollmentEndDate() {
+    public LocalDate getEnrollmentEndDate(){
         return enrollmentEndDate;
     }
 
-    public void setEnrollmentEndDate(LocalDate enrollmentEndDate) {
+    public void setEnrollmentEndDate(LocalDate enrollmentEndDate){
         this.enrollmentEndDate = enrollmentEndDate;
     }
 
-    public LocalDate getExaminationDate() {
+    public LocalDate getExaminationDate(){
         return examinationDate;
     }
 
-    public void setExaminationDate(LocalDate examinationDate) {
+    public void setExaminationDate(LocalDate examinationDate){
         this.examinationDate = examinationDate;
     }
 
-    public RoomEnum getRoom() {
+    public RoomEnum getRoom(){
         return room;
     }
 
-    public void setRoom(RoomEnum room) {
+    public void setRoom(RoomEnum room){
         this.room = room;
     }
 
-    public AppelloEnum getAppello() {
+    public AppelloEnum getAppello(){
         return appello;
     }
 
-    public void setAppello(AppelloEnum appello) {
+    public void setAppello(AppelloEnum appello){
         this.appello = appello;
     }
 
-    public SessionEnum getSession() {
+    public SessionEnum getSession(){
         return session;
     }
 
-    public void setSession(SessionEnum session) {
+    public void setSession(SessionEnum session){
         this.session = session;
     }
 
-    public SubjectCourse getSubjectCourse() {
+    public SubjectCourse getSubjectCourse(){
         return subjectCourse;
     }
 
-    public void setSubjectCourse(SubjectCourse subjectCourse) {
+    public void setSubjectCourse(SubjectCourse subjectCourse){
         this.subjectCourse = subjectCourse;
     }
 
-    public Boolean getVerbalizable() {
+    public Boolean getGradable(){
+        return gradable;
+    }
+
+    public void setGradable(Boolean gradable){
+        this.gradable = gradable;
+    }
+
+    public Boolean getVerbalizable(){
         return verbalizable;
     }
 
-    public void setVerbalizable(Boolean verbalizable) {
+    public void setVerbalizable(Boolean verbalizable){
         this.verbalizable = verbalizable;
     }
 
-    public LocalDate getVerbaleDate() {
+    public LocalDate getVerbaleDate(){
         return verbaleDate;
     }
 
-    public void setVerbaleDate(LocalDate verbaleDate) {
+    public void setVerbaleDate(LocalDate verbaleDate){
         this.verbaleDate = verbaleDate;
     }
 
-    public Integer getVerbaleNumber() {
+    public Integer getVerbaleNumber(){
         return verbaleNumber;
     }
 
-    public void setVerbaleNumber(Integer verbaleNumber) {
+    public void setVerbaleNumber(Integer verbaleNumber){
         this.verbaleNumber = verbaleNumber;
     }
 
-    public List<ExamEnrollment> getEnrollments() {
+    public List<ExamEnrollment> getEnrollments(){
         return enrollments;
     }
 
-    public void setEnrollments(List<ExamEnrollment> enrollments) {
+    public void setEnrollments(List<ExamEnrollment> enrollments){
         this.enrollments = enrollments;
     }
 }

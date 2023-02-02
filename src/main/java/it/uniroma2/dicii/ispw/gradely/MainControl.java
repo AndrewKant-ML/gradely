@@ -12,7 +12,7 @@ public class MainControl {
             System.out.println(token.getKey());
 
 
-        }catch (Exception e) {
+        }catch (Exception e){
             throw new RuntimeException(e);
         }
     }

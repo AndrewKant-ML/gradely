@@ -20,7 +20,7 @@ public class Student extends AbstractRole {
     private List<SubjectCourseEnrollment> subjectCourseEnrollments;
     private List<ExamEnrollment> examEnrollments;
 
-    protected Student(User user, String id, LocalDate registrationDate, List<TitleEnum> titoli) {
+    protected Student(User user, String id, LocalDate registrationDate, List<TitleEnum> titoli){
         super(user);
         this.id = id;
         this.registrationDate = registrationDate;
@@ -28,11 +28,11 @@ public class Student extends AbstractRole {
     }
 
     @Override
-    public Student student() throws MissingAuthorizationException {
+    public Student getStudentRole() throws MissingAuthorizationException {
         return this;
     }
 
-    public String getId() {
+    public String getId(){
         return id;
     }
 }

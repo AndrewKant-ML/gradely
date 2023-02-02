@@ -1,6 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.model.role.professor.dao;
 
 import it.uniroma2.dicii.ispw.gradely.dao_interface.DAOInterface;
+import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.Professor;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
@@ -10,5 +11,5 @@ public abstract class AbstractProfessorDAO implements DAOInterface<Professor> {
     protected AbstractProfessorDAO(){
     }
 
-    public abstract Professor getProfessorByUser(User user);
+    public abstract Professor getProfessorByUser(User user) throws DAOException;
 }

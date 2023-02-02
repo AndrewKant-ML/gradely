@@ -19,7 +19,7 @@ public class SelectDegreeCourseGraphicController implements Initializable {
     private DegreeCourseBean chosenDegreeCourse = null;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle){
         // TODO remove stub
 
         degreeCoursesList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -27,11 +27,11 @@ public class SelectDegreeCourseGraphicController implements Initializable {
         degreeCoursesList.setOnMouseClicked(mouseEvent -> chosenDegreeCourse = degreeCoursesList.getSelectionModel().getSelectedItem());
     }
 
-    public DegreeCourseBean getSelectedDegreeCourse() {
+    public DegreeCourseBean getSelectedDegreeCourse(){
         return chosenDegreeCourse;
     }
 
-    public void setDegreeCoursesList(List<DegreeCourseBean> degreeCoursesList) {
+    public void setDegreeCoursesList(List<DegreeCourseBean> degreeCoursesList){
         this.degreeCoursesList.setItems(FXCollections.observableArrayList(degreeCoursesList));
     }
 }

@@ -10,7 +10,7 @@ public enum PendingEventTypeEnum {
 
     public final String message;
 
-    private PendingEventTypeEnum(String message) {
+    private PendingEventTypeEnum(String message){
         this.message = message;
     }
 }

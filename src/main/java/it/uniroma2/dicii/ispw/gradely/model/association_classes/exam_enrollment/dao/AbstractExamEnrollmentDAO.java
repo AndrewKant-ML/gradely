@@ -10,7 +10,7 @@ import java.util.List;
 public abstract class AbstractExamEnrollmentDAO implements DAOInterface<ExamEnrollment> {
     protected static AbstractExamEnrollmentDAO instance;
 
-    protected AbstractExamEnrollmentDAO() {
+    protected AbstractExamEnrollmentDAO(){
     }
 
     public abstract List<ExamEnrollment> getExamEnrollmentsByExam(Exam exam);

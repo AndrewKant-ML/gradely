@@ -5,11 +5,11 @@ public abstract class AbstractTestResult {
     private Boolean testResult;
     private String message;
 
-    public Boolean getTestResult() {
+    public Boolean getTestResult(){
         return testResult;
     }
 
-    public String getMessage() {
+    public String getMessage(){
         return message;
     }
 }

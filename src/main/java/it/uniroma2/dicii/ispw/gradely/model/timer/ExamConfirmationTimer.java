@@ -7,18 +7,12 @@ import java.time.LocalDate;
 
 public class ExamConfirmationTimer extends AbstractTimer<Exam, InsertStudentsGradesControl>{
 
-    protected ExamConfirmationTimer(LocalDate expiration, Exam exam) {
+    protected ExamConfirmationTimer(LocalDate expiration, Exam exam){
         super(expiration, exam);
     }
 
     @Override
-    public ExamConfirmationTimer examConfirmationTimer(){
+    public ExamConfirmationTimer castToExamConfirmationTimer(){
         return this;
-    }
-    public Exam getExam() {
-        return object;
-    }
-    public void setExam(Exam exam) {
-        this.object = exam;
     }
 }

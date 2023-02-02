@@ -1,6 +1,8 @@
 package it.uniroma2.dicii.ispw.gradely.model.user;
 
-import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactoryAbstract;
+import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
+import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.UserNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,25 +15,25 @@ public class UserLazyFactory {
         registeredUsers = new ArrayList<User>();
     }
 
-    public static UserLazyFactory getInstance(){
-        if (instance == null) {
+    public static synchronized UserLazyFactory getInstance(){
+        if (instance == null){
             instance = new UserLazyFactory();
         }
         return instance;
     }
 
-    public User getUserByEmail(String email) {
+    public User getUserByEmail(String email) throws DAOException, UserNotFoundException {
         for(User u : registeredUsers){
-            if(u.getEmail().equals(email)) {
-                return u; //TODO implementare exception
+            if(u.getEmail().equals(email)){
+                return u; 
             }
         }
-        return DAOFactoryAbstract.getDAOFactory().getUserDAO().getUserByEmail(email); //TODO implementare exception
+        return DAOFactoryAbstract.getInstance().getUserDAO().getUserByEmail(email);
     }
 
-    public User newUser(String name, String surname, String codiceFiscale, String email, String password){
+    public User newUser(String name, String surname, String codiceFiscale, String email, String password) throws DAOException {
         User newUser = new User(name, surname,codiceFiscale,email,password);
-        DAOFactoryAbstract.getDAOFactory().getUserDAO().insert(newUser);
+        DAOFactoryAbstract.getInstance().getUserDAO().insert(newUser);
         registeredUsers.add(newUser);
         return newUser;
     }

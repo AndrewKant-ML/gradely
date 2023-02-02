@@ -8,25 +8,25 @@ public class StudentGradeListBean {
     private List<StudentGradeBean> grades;
     private Exam exam;
 
-    public StudentGradeListBean(List<StudentGradeBean> grades, Exam exam) {
+    public StudentGradeListBean(List<StudentGradeBean> grades, Exam exam){
         this.grades = grades;
         this.exam = exam;
-        //TODO implement exam check on list
+         implement exam check on list
     }
 
-    public List<StudentGradeBean> getGrades() {
+    public List<StudentGradeBean> getGrades(){
         return grades;
     }
 
-    public void setGrades(List<StudentGradeBean> grades) {
+    public void setGrades(List<StudentGradeBean> grades){
         this.grades = grades;
     }
 
-    public Exam getExam() {
+    public Exam getExam(){
         return exam;
     }
 
-    public void setExam(Exam exam) {
+    public void setExam(Exam exam){
         this.exam = exam;
     }
 }

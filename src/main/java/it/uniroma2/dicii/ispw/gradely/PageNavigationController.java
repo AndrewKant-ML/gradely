@@ -12,27 +12,31 @@ public final class PageNavigationController {
     private BaseGraphicControl baseGraphicController;
     private Token sessionToken;
 
-    private PageNavigationController() {
+    private PageNavigationController(){
 
     }
 
-    public static PageNavigationController getInstance() {
+    public static synchronized PageNavigationController getInstance(){
         if (instance == null)
             instance = new PageNavigationController();
         return instance;
     }
 
-    public void setBaseGraphicController(BaseGraphicControl baseGraphicController) {
+    public void setBaseGraphicController(BaseGraphicControl baseGraphicController){
         this.baseGraphicController = baseGraphicController;
     }
 
-    public void navigateTo(String pageName) {
+    public void navigateTo(String pageName){
         pageName = pageName.concat(".fxml");
         try {
             baseGraphicController.switchTo(
                     FXMLLoader.load(Objects.requireNonNull(MainApplication.class.getResource(pageName))));
+<<<<<<< HEAD
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, "Loading error", "");
+=======
+        } catch (IOException e){
+>>>>>>> GVC
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Loading error");
             alert.setContentText(String.format("Error while loading view. Error message: %s", e.getMessage()));
@@ -40,15 +44,15 @@ public final class PageNavigationController {
         }
     }
 
-    public void returnToMainPage() {
+    public void returnToMainPage(){
         baseGraphicController.returnToMainPage();
     }
 
-    public Token getSessionToken() {
+    public Token getSessionToken(){
         return sessionToken;
     }
 
-    public void setSessionToken(Token sessionToken) {
+    public void setSessionToken(Token sessionToken){
         this.sessionToken = sessionToken;
     }
 

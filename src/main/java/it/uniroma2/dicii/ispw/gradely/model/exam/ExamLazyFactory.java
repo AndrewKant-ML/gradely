@@ -1,8 +1,9 @@
 package it.uniroma2.dicii.ispw.gradely.model.exam;
 
-import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactoryAbstract;
+import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.AppelloEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.SessionEnum;
+import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.course_assignment.CourseAssignmentLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.Professor;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
@@ -18,27 +19,27 @@ public class ExamLazyFactory {
         exams = new ArrayList<Exam>();
     }
 
-    public static ExamLazyFactory getInstance(){
-        if (instance == null) {
+    public static synchronized ExamLazyFactory getInstance(){
+        if (instance == null){
             instance = new ExamLazyFactory();
         }
         return instance;
     }
 
-    public Exam getExamByAppelloCourseAndSession(AppelloEnum appello, SubjectCourse course, SessionEnum session) {
+    public Exam getExamByAppelloCourseAndSession(AppelloEnum appello, SubjectCourse course, SessionEnum session) throws DAOException {
         for(Exam e : exams){
-            if(e.getAppello().equals(appello) && e.getSubjectCourse().equals(course) && e.getSession().equals(session)) {
-                return e; //TODO implementare exception
+            if(e.getAppello().equals(appello) && e.getSubjectCourse().equals(course) && e.getSession().equals(session)){
+                return e;
             }
         }
-        return DAOFactoryAbstract.getDAOFactory().getExamDAO().getExamByAppelloAndSubjectCourseAndSession(appello, course, session); //TODO implementare exception
+        return DAOFactoryAbstract.getInstance().getExamDAO().getExamByAppelloAndSubjectCourseAndSession(appello, course, session);
     }
 
-    public List<Exam> getGradableExams(Professor professor){
+    public List<Exam> getGradableExams(Professor professor) throws DAOException {
         List<Exam> list = new ArrayList<>();
-        for(SubjectCourse c : CourseAssignmentLazyFactory.getInstance().getAssignedSubjectCoursesByProfessor(professor)) {
+        for(SubjectCourse c : CourseAssignmentLazyFactory.getInstance().getAssignedSubjectCoursesByProfessor(professor)){
             for (Exam e : c.getExams()){
-                if (e.getVerbalizable()){
+                if (e.getGradable()){
                     list.add(e);
                 }
             }
@@ -46,7 +47,7 @@ public class ExamLazyFactory {
         return list;
     }
 
-    public void update (Exam exam){
-        DAOFactoryAbstract.getDAOFactory().getExamDAO().update(exam);
+    public void update (Exam exam) throws DAOException {
+        DAOFactoryAbstract.getInstance().getExamDAO().update(exam);
     }
 }
