@@ -6,7 +6,6 @@ import it.uniroma2.dicii.ispw.gradely.model.user.User;
 public class Session {
     private User user;
     private Token token;
-
     private FrontEndTypeEnum frontEndType;
 
 

@@ -1,6 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.session_manager;
 
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
+import it.uniroma2.dicii.ispw.gradely.enums.FrontEndTypeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEvent;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
@@ -35,7 +36,7 @@ public class SessionManager {
 
     private Session getSession(Token token){
         for(Session s : activeSessions){
-            if(s.getToken().equals(token)){
+            if(s.getToken().getKey().equals(token.getKey())){
                 return s;
             }
         }
@@ -51,7 +52,7 @@ public class SessionManager {
     public Token getSessionTokenByUser(User user){
         Session s = getSession(user);
         if (s == null){
-            s = new Session(user,JAVAFX);  //TODO implementare
+            s = new Session(user, FrontEndTypeEnum.valueOf(System.getProperty("gradely.front_end_type")));  //TODO implementare
             activeSessions.add(s);
         }
         return s.getToken();
