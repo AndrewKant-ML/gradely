@@ -1,7 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.subject_course;
 
 import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactoryAbstract;
-import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactoryDB;
 
 import java.util.ArrayList;
 import java.util.List;

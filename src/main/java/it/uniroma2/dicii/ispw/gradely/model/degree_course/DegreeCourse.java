@@ -2,6 +2,7 @@ package it.uniroma2.dicii.ispw.gradely.model.degree_course;
 
 import it.uniroma2.dicii.ispw.gradely.enums.DegreeCourseTypeEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
+import it.uniroma2.dicii.ispw.gradely.enums.FacoltaEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.TestTypeEnum;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.DegreeCourseEnrollment;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.Professor;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class DegreeCourse extends AbstractDegreeCourse {
     private String name;
-    private String facolta; //TODO: enum
+    private FacoltaEnum facolta;
     private DipartimentoEnum dipartimento;
     private DegreeCourseTypeEnum type;
     private List<AbstractDegreeCourse> prerequisites;
@@ -25,7 +26,7 @@ public class DegreeCourse extends AbstractDegreeCourse {
 
     }
 
-    public DegreeCourse(String name, String facolta, DipartimentoEnum dipartimento, DegreeCourseTypeEnum type, TestTypeEnum testType, List<AbstractDegreeCourse> prerequisites) {
+    public DegreeCourse(String name, FacoltaEnum facolta, DipartimentoEnum dipartimento, DegreeCourseTypeEnum type, TestTypeEnum testType, List<AbstractDegreeCourse> prerequisites) {
         this.name = name;
         this.facolta = facolta;
         this.dipartimento = dipartimento;
@@ -42,11 +43,11 @@ public class DegreeCourse extends AbstractDegreeCourse {
         this.name = name;
     }
 
-    public String getFacolta() {
+    public FacoltaEnum getFacolta() {
         return facolta;
     }
 
-    public void setFacolta(String facolta) {
+    public void setFacolta(FacoltaEnum facolta) {
         this.facolta = facolta;
     }
 
