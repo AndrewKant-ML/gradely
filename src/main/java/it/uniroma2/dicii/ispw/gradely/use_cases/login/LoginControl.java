@@ -1,23 +1,23 @@
 package it.uniroma2.dicii.ispw.gradely.use_cases.login;
 
+import it.uniroma2.dicii.ispw.gradely.beans_general.LoginBean;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.EmailFormatException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.UserNotFoundException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.WrongPasswordException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 import it.uniroma2.dicii.ispw.gradely.model.user.UserLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
-import it.uniroma2.dicii.ispw.gradely.session_manager.Token;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LoginControl {
-    public Token login(String email, String password) throws UserNotFoundException, WrongPasswordException,DAOException {
+    public LoginBean login(String email, String password) throws UserNotFoundException, WrongPasswordException, DAOException, MissingAuthorizationException {
         User user = UserLazyFactory.getInstance().getUserByEmail(email);
         user.checkPassword(password);
-        return SessionManager.getInstance().getSessionTokenByUser(user);
+        return new LoginBean(
+                SessionManager.getInstance().getSessionTokenKeyByUser(user),
+                user.getRole().getRoleEnumType().type
+        );
     }
 
     public void emailMatches(String email) throws EmailFormatException {

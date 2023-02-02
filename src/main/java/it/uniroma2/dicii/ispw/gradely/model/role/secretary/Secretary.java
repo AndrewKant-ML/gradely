@@ -21,7 +21,7 @@ public class Secretary extends AbstractRole {
     }
 
     @Override
-    public Secretary getSecretaryRole() throws MissingAuthorizationException {
+    public Secretary castToSecretaryRole() throws MissingAuthorizationException {
         return this;
     }
 

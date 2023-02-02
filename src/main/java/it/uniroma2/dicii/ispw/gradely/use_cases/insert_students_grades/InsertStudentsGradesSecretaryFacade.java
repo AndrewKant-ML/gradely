@@ -10,7 +10,7 @@ public class InsertStudentsGradesSecretaryFacade {
     private InsertStudentsGradesControl controller;
 
     public InsertStudentsGradesSecretaryFacade(Token token) throws MissingAuthorizationException{
-        SessionManager.getInstance().getSessionUserByToken(token).getRole().getSecretaryRole();
+        SessionManager.getInstance().getSessionUserByTokenKey(token).getRole().castToSecretaryRole();
         controller = new InsertStudentsGradesControl();
     }
 

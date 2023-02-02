@@ -8,11 +8,13 @@ import it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.InsertStu
 public class ProfessorFacade {
     private InsertStudentsGradesProfessorFacade insertStudentsGrades;
 
-    public ProfessorFacade(Token token) throws MissingAuthorizationException{
-        SessionManager.getInstance().getSessionUserByToken(token).getRole().getProfessorRole();
+    public ProfessorFacade(String tokenKey) throws MissingAuthorizationException{
+        SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToProfessorRole();
     }
 
     public void InsertStudentsGrades(Token token) throws MissingAuthorizationException{
         insertStudentsGrades = new InsertStudentsGradesProfessorFacade(token);
     }
+
+
 }

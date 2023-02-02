@@ -1,9 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.degree_course;
 
-import it.uniroma2.dicii.ispw.gradely.enums.DegreeCourseTypeEnum;
-import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
-import it.uniroma2.dicii.ispw.gradely.enums.FacoltaEnum;
-import it.uniroma2.dicii.ispw.gradely.enums.TestTypeEnum;
+import it.uniroma2.dicii.ispw.gradely.enums.*;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.DegreeCourseEnrollment;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.Professor;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
@@ -14,7 +11,6 @@ public class DegreeCourse extends AbstractDegreeCourse {
     private String name;
     private FacoltaEnum facolta;
     private DipartimentoEnum dipartimento;
-    private DegreeCourseTypeEnum type;
     private List<AbstractDegreeCourse> prerequisites;
     private Professor coordinatore;
     private List<DegreeCourseEnrollment> enrollments;
@@ -22,11 +18,9 @@ public class DegreeCourse extends AbstractDegreeCourse {
 
     private TestTypeEnum testType;
 
-    public DegreeCourse(){
 
-    }
-
-    public DegreeCourse(String name, FacoltaEnum facolta, DipartimentoEnum dipartimento, DegreeCourseTypeEnum type, TestTypeEnum testType, List<AbstractDegreeCourse> prerequisites){
+    public DegreeCourse(DegreeCourseCodeEnum code, String name, FacoltaEnum facolta, DipartimentoEnum dipartimento, DegreeCourseTypeEnum type, TestTypeEnum testType, List<AbstractDegreeCourse> prerequisites) {
+        super(code, type);
         this.name = name;
         this.facolta = facolta;
         this.dipartimento = dipartimento;
@@ -35,7 +29,7 @@ public class DegreeCourse extends AbstractDegreeCourse {
         this.prerequisites = prerequisites;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
@@ -57,14 +51,6 @@ public class DegreeCourse extends AbstractDegreeCourse {
 
     public void setDipartimento(DipartimentoEnum dipartimento){
         this.dipartimento = dipartimento;
-    }
-
-    public DegreeCourseTypeEnum getType(){
-        return type;
-    }
-
-    public void setType(DegreeCourseTypeEnum type){
-        this.type = type;
     }
 
     public List<AbstractDegreeCourse> getPrerequisites(){

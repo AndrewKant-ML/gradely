@@ -13,26 +13,22 @@ import java.util.List;
 public class EnrollToDegreeCourseStudentFacade {
     private EnrollToDegreeCourseController controller;
 
-    public EnrollToDegreeCourseStudentFacade(Token token){
-        try{
-            SessionManager.getInstance().getSessionUserByToken(token).getRole().getStudentRole();
-            controller = new EnrollToDegreeCourseController();
-        }catch (MissingAuthorizationException e){
-
-        }
+    public EnrollToDegreeCourseStudentFacade(Token token) throws MissingAuthorizationException {
+        SessionManager.getInstance().getSessionUserByTokenKey(token).getRole().castToStudentRole();
+        controller = new EnrollToDegreeCourseController();
     }
 
-    public List<DegreeCourseBean> getDegreeCourses (Token token) throws MissingAuthorizationException{
-        return controller.getDegreeCourses(token);
+    public List<DegreeCourseBean> getDegreeCourses(Token token) throws MissingAuthorizationException {
+        return controller.getJoinableDegreeCourses(token);
     }
 
     public TestInfoBean getTestInfo(Token token, DegreeCourseBean degreeCourseBean) throws TestRetrivialException, MissingAuthorizationException {
-        SessionManager.getInstance().getSessionUserByToken(token).getRole().getStudentRole();
+        SessionManager.getInstance().getSessionUserByTokenKey(token).getRole().castToStudentRole();
         return controller.getTestInfo(token, degreeCourseBean);
     }
 
-    public TestReservationBean reserveTest(Token token, TestInfoBean testInfo) throws MissingAuthorizationException{
-        SessionManager.getInstance().getSessionUserByToken(token).getRole().getStudentRole();
+    public TestReservationBean reserveTest(Token token, TestInfoBean testInfo) throws MissingAuthorizationException {
+        SessionManager.getInstance().getSessionUserByTokenKey(token).getRole().castToStudentRole();
         return controller.reserveTest(token, testInfo);
     }
 
