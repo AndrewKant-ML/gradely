@@ -6,7 +6,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <GridPane alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea"
-          hgap="40" vgap="30" prefWidth="650" prefHeight="430" stylesheets="@styles/home-card-style.css"
+          hgap="40" vgap="30" prefWidth="650" prefHeight="430" stylesheets="@../styles/home-card-style.css"
           fx:controller="it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.graphic_controllers.ProfessorHomepageGraphicController">
 
     <!-- Exams card -->
@@ -16,7 +16,7 @@
 
         <ImageView preserveRatio="true" fitWidth="190" fitHeight="135"
                    AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0">
-            <Image url="@images/exams.png"/>
+            <Image url="@../images/exams.png"/>
         </ImageView>
 
         <AnchorPane prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
@@ -38,7 +38,7 @@
                     </shape>
                     <graphic>
                         <ImageView preserveRatio="true">
-                            <Image url="@images/right_arrow.png" requestedWidth="20" requestedHeight="20"/>
+                            <Image url="@../images/right_arrow.png" requestedWidth="20" requestedHeight="20"/>
                         </ImageView>
                     </graphic>
                 </Button>
@@ -54,7 +54,7 @@
 
         <ImageView preserveRatio="true" fitWidth="190" fitHeight="135"
                    AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0">
-            <Image url="@images/courses.png"/>
+            <Image url="@../images/courses.png"/>
         </ImageView>
 
         <AnchorPane prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
@@ -76,7 +76,7 @@
                     </shape>
                     <graphic>
                         <ImageView preserveRatio="true">
-                            <Image url="@images/right_arrow.png" requestedWidth="20" requestedHeight="20"/>
+                            <Image url="@../images/right_arrow.png" requestedWidth="20" requestedHeight="20"/>
                         </ImageView>
                     </graphic>
                 </Button>
@@ -92,7 +92,7 @@
 
         <ImageView preserveRatio="true" fitWidth="190" fitHeight="135"
                    AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0">
-            <Image url="@images/exams.png"/> <!--TODO find reception image-->
+            <Image url="@../images/exams.png"/> <!--TODO find reception image-->
         </ImageView>
 
         <AnchorPane prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
@@ -115,7 +115,7 @@
                     </shape>
                     <graphic>
                         <ImageView preserveRatio="true">
-                            <Image url="@images/right_arrow.png" requestedWidth="20" requestedHeight="20"/>
+                            <Image url="@../images/right_arrow.png" requestedWidth="20" requestedHeight="20"/>
                         </ImageView>
                     </graphic>
                 </Button>
@@ -131,7 +131,7 @@
 
         <ImageView preserveRatio="true" fitWidth="190" fitHeight="135"
                    AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0">
-            <Image url="@images/career.png"/>
+            <Image url="@../images/career.png"/>
         </ImageView>
 
         <AnchorPane prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
@@ -153,7 +153,7 @@
                     </shape>
                     <graphic>
                         <ImageView preserveRatio="true">
-                            <Image url="@images/right_arrow.png" requestedWidth="20" requestedHeight="20"/>
+                            <Image url="@../images/right_arrow.png" requestedWidth="20" requestedHeight="20"/>
                         </ImageView>
                     </graphic>
                 </Button>
@@ -169,7 +169,7 @@
 
         <ImageView preserveRatio="true" fitWidth="190" fitHeight="135"
                    AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0">
-            <Image url="@images/services.png"/>
+            <Image url="@../images/services.png"/>
         </ImageView>
 
         <AnchorPane prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
@@ -191,7 +191,7 @@
                     </shape>
                     <graphic>
                         <ImageView preserveRatio="true">
-                            <Image url="@images/right_arrow.png" requestedWidth="20" requestedHeight="20"/>
+                            <Image url="@../images/right_arrow.png" requestedWidth="20" requestedHeight="20"/>
                         </ImageView>
                     </graphic>
                 </Button>
@@ -206,7 +206,7 @@
 
         <ImageView preserveRatio="true" fitWidth="190" fitHeight="135"
                    AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0">
-            <Image url="@images/personal_data.png"/>
+            <Image url="@../images/personal_data.png"/>
         </ImageView>
 
         <AnchorPane prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
@@ -230,7 +230,7 @@
                     </shape>
                     <graphic>
                         <ImageView preserveRatio="true">
-                            <Image url="@images/right_arrow.png" requestedWidth="20" requestedHeight="20"/>
+                            <Image url="@../images/right_arrow.png" requestedWidth="20" requestedHeight="20"/>
                         </ImageView>
                     </graphic>
                 </Button>

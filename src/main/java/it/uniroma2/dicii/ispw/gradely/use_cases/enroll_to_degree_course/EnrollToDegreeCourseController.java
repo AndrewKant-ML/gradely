@@ -10,8 +10,8 @@ import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseLazyFactor
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 import it.uniroma2.dicii.ispw.gradely.model.timer.AbstractTimer;
 import it.uniroma2.dicii.ispw.gradely.model.timer.TimerObserver;
+import it.uniroma2.dicii.ispw.gradely.model.title.Title;
 import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
-import it.uniroma2.dicii.ispw.gradely.session_manager.Token;
 import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.beans.TestReservationBean;
 import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.external_boundaries.AbstractTestBoundary;
 import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.factory.AbstractTestFactory;
@@ -39,28 +39,23 @@ public class EnrollToDegreeCourseController implements TimerObserver {
      *     </li>
      * </ul>
      *
-     * @param token the student-relative token
+     * @param tokenKey the student-relative token
      * @return a list of student-joinable degree courses
      * @throws MissingAuthorizationException thrown when the requesting user is not a student
      * @throws DAOException                  thrown when problems occur while retrieving data from persistence
      */
-    public List<DegreeCourseBean> getJoinableDegreeCourses(Token token) throws MissingAuthorizationException, DAOException {
-        Student student = SessionManager.getInstance().getSessionUserByTokenKey(token).getRole().castToStudentRole();
+    public List<DegreeCourseBean> getJoinableDegreeCourses(String tokenKey) throws MissingAuthorizationException, DAOException {
+        Student student = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToStudentRole();
         List<DegreeCourse> degreeCourses = DegreeCourseLazyFactory.getInstance().getAllDegreeCourses();
         student.getDegreeCourseEnrollments().forEach(
                 degreeCourseEnrollment -> degreeCourses.remove(degreeCourseEnrollment.getDegreeCourse())
         );
-        degreeCourses.forEach(
+        degreeCourses.removeIf(
                 degreeCourse -> {
-                    degreeCourse.getPrerequisites().forEach(
-                            prerequisite -> {
-                                degreeCourses.removeIf(
-                                        degreeCourse1 -> {
-                                            return true;
-                                        }
-                                )
-                            }
-                    );
+                    for (Title title : student.getTitles())
+                        if (title.getDegreeCourse().getCode().equals(degreeCourse.getCode()))
+                            return true;
+                    return false;
                 }
         );
         List<DegreeCourseBean> beans = new ArrayList<>();
@@ -79,22 +74,23 @@ public class EnrollToDegreeCourseController implements TimerObserver {
      * - Moodle -> TestType.ONLINE
      * - MUR -> TestType.MUR
      *
+     * @param tokenKey         the token key
      * @param degreeCourseBean the degree course referred from the test
      * @return the test info
      */
-    public TestInfoBean getTestInfo(Token token, DegreeCourseBean degreeCourseBean) throws TestRetrivialException, MissingAuthorizationException {
-        SessionManager.getInstance().getSessionUserByTokenKey(token).getRole().castToStudentRole();
+    public TestInfoBean getTestInfo(String tokenKey, DegreeCourseBean degreeCourseBean) throws TestRetrivialException, MissingAuthorizationException {
+        SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToStudentRole();
         this.testBoundary = AbstractTestFactory.getInstance(degreeCourseBean.getTestType()).createTestBoundary();
         return testBoundary.getTestInfo();
     }
 
-    public TestReservationBean reserveTest(Token token, TestInfoBean testInfo) throws MissingAuthorizationException{
-        SessionManager.getInstance().getSessionUserByTokenKey(token).getRole().castToStudentRole();
+    public TestReservationBean reserveTest(String tokenKey, TestInfoBean testInfo) throws MissingAuthorizationException {
+        SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToStudentRole();
         return this.testBoundary.reserveTest(testInfo.getId());
     }
 
     @Override
-    public void timeIsUp(AbstractTimer timer){
+    public void timeIsUp(AbstractTimer timer) {
 
     }
 }
