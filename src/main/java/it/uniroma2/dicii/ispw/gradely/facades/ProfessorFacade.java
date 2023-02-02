@@ -2,7 +2,6 @@ package it.uniroma2.dicii.ispw.gradely.facades;
 
 import it.uniroma2.dicii.ispw.gradely.exceptions.MissingAuthorizationException;
 import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
-import it.uniroma2.dicii.ispw.gradely.session_manager.Token;
 import it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.InsertStudentsGradesProfessorFacade;
 
 public class ProfessorFacade {
@@ -12,8 +11,8 @@ public class ProfessorFacade {
         SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToProfessorRole();
     }
 
-    public void InsertStudentsGrades(Token token) throws MissingAuthorizationException{
-        insertStudentsGrades = new InsertStudentsGradesProfessorFacade(token);
+    public void InsertStudentsGrades(String tokenKey) throws MissingAuthorizationException{
+        insertStudentsGrades = new InsertStudentsGradesProfessorFacade(tokenKey);
     }
 
 

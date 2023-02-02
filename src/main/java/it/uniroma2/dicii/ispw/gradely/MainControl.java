@@ -1,8 +1,5 @@
 package it.uniroma2.dicii.ispw.gradely;
 
-import it.uniroma2.dicii.ispw.gradely.session_manager.Token;
-import it.uniroma2.dicii.ispw.gradely.use_cases.login.LoginControl;
-
 public class MainControl {
     //this is the main application controller
     public static void main(String [] args){

@@ -4,18 +4,17 @@ import it.uniroma2.dicii.ispw.gradely.enums.ExamResultConfirmationEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.MissingAuthorizationException;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.ExamEnrollment;
 import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
-import it.uniroma2.dicii.ispw.gradely.session_manager.Token;
 
 public class InsertStudentsGradesStudentFacade {
     private InsertStudentsGradesControl controller;
 
-    public InsertStudentsGradesStudentFacade(Token token) throws MissingAuthorizationException{
-        SessionManager.getInstance().getSessionUserByTokenKey(token).getRole().castToStudentRole();
+    public InsertStudentsGradesStudentFacade(String tokenKey) throws MissingAuthorizationException{
+        SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToStudentRole();
         controller = new InsertStudentsGradesControl();
     }
-    public void acceptOrRejectExamGrade(Token token, ExamEnrollment enrollment, ExamResultConfirmationEnum decision)throws MissingAuthorizationException{
-        SessionManager.getInstance().getSessionUserByTokenKey(token).getRole().castToStudentRole();
-        controller.acceptOrRejectExamGrade(token, enrollment, decision);
+    public void acceptOrRejectExamGrade(String tokenKey, ExamEnrollment enrollment, ExamResultConfirmationEnum decision)throws MissingAuthorizationException{
+        SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToStudentRole();
+        controller.acceptOrRejectExamGrade(tokenKey, enrollment, decision);
 
     }
 
