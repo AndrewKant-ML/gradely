@@ -30,7 +30,8 @@ public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
     }
 
     @Override
-    public List<DegreeCourse> getAllDegreeCourses(){
+    public List<DegreeCourse> getAllDegreeCourses(List<DegreeCourse> degreeCourses) throws DAOException {
+        // TODO implement correct query
         List<DegreeCourse> courses = new ArrayList<>();
         courses.add(new DegreeCourse("Ingegneria informatica", FacoltaEnum.INGEGNERIA, DipartimentoEnum.DICII, DegreeCourseTypeEnum.TRIENNALE, TestTypeEnum.MUR, new ArrayList<>()));
         return courses;

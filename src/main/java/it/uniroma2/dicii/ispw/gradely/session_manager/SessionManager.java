@@ -16,54 +16,60 @@ public class SessionManager {
     private static SessionManager instance;
     private List<Session> activeSessions;
     private List<PendingEvent> pendingEvents;
-    private SessionManager(){
+
+    private SessionManager() {
         activeSessions = new ArrayList<Session>();
     }
-    public static synchronized SessionManager getInstance(){
-        if (instance == null){
+
+    public static synchronized SessionManager getInstance() {
+        if (instance == null) {
             instance = new SessionManager();
         }
         return instance;
     }
-    private Session getSession(User user){
-        for(Session s : activeSessions){
-            if(s.getUser().equals(user)){
+
+    private Session getSession(User user) {
+        for (Session s : activeSessions) {
+            if (s.getUser().equals(user)) {
                 return s;
             }
         }
         return null;
     }
 
-    private Session getSession(Token token){
-        for(Session s : activeSessions){
-            if(s.getToken().getKey().equals(token.getKey())){
+
+    private Session getSession(String tokenKey) {
+        for (Session s : activeSessions) {
+            if (s.getToken().getKey().equals(tokenKey)) {
                 return s;
             }
         }
         return null;
     }
-    public User getSessionUserByToken(Token token){
-        Session s = getSession(token);
-        if (s == null){
+
+    public User getSessionUserByTokenKey(String tokenKey) {
+        Session s = getSession(tokenKey);
+        if (s == null) {
             return null;
         }
         return s.getUser();
     }
-    public Token getSessionTokenByUser(User user){
+
+    public String getSessionTokenKeyByUser(User user) {
         Session s = getSession(user);
-        if (s == null){
+        if (s == null) {
             s = new Session(user, FrontEndTypeEnum.valueOf(System.getProperty("gradely.front_end_type")));  //TODO implementare
-            activeSessions.add(s);
+                activeSessions.add(s);
+            }
+            return s.getToken().getKey();
         }
-        return s.getToken();
-    }
 
     private void refreshPendingEvents(List<PendingEvent> pendingEvents) throws DAOException {
-        for (PendingEvent p : DAOFactoryAbstract.getInstance().getPendingEventDAO().refresh(pendingEvents)){
-            if (!pendingEvents.contains(p)){
-                pendingEvents.add(p);
+            for (PendingEvent p : DAOFactoryAbstract.getInstance().getPendingEventDAO().refresh(pendingEvents)) {
+                if (!pendingEvents.contains(p)) {
+                    pendingEvents.add(p);
+                }
             }
-        }
 
     }
     public List<PendingEvent> getPendingEventsByUser(User user) throws DAOException {

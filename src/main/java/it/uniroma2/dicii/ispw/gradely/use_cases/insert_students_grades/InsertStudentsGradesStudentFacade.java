@@ -10,11 +10,11 @@ public class InsertStudentsGradesStudentFacade {
     private InsertStudentsGradesControl controller;
 
     public InsertStudentsGradesStudentFacade(Token token) throws MissingAuthorizationException{
-        SessionManager.getInstance().getSessionUserByToken(token).getRole().getStudentRole();
+        SessionManager.getInstance().getSessionUserByTokenKey(token).getRole().castToStudentRole();
         controller = new InsertStudentsGradesControl();
     }
     public void acceptOrRejectExamGrade(Token token, ExamEnrollment enrollment, ExamResultConfirmationEnum decision)throws MissingAuthorizationException{
-        SessionManager.getInstance().getSessionUserByToken(token).getRole().getStudentRole();
+        SessionManager.getInstance().getSessionUserByTokenKey(token).getRole().castToStudentRole();
         controller.acceptOrRejectExamGrade(token, enrollment, decision);
 
     }

@@ -4,7 +4,7 @@ import it.uniroma2.dicii.ispw.gradely.PageNavigationController;
 import it.uniroma2.dicii.ispw.gradely.beans_general.DegreeCourseBean;
 import it.uniroma2.dicii.ispw.gradely.beans_general.TestInfoBean;
 import it.uniroma2.dicii.ispw.gradely.exceptions.TestRetrivialException;
-import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.EnrollToDegreeCourseController;
+import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.EnrollToDegreeCourseStudentFacade;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -35,15 +35,15 @@ public class EnrollToDegreeCourseGraphicController implements Initializable {
     private TestInfoGraphicController thirdStageController;
     @FXML
     private TestReservationCodeGraphicController fourthStageController;
-    private EnrollToDegreeCourseController controller;
+    private EnrollToDegreeCourseStudentFacade facade;
     private DegreeCourseBean selectedDegreeCourse;
     private TestInfoBean testInfo;
     private Integer currentStage;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle){
-        controller = new EnrollToDegreeCourseController();
-        firstStageController.setDegreeCoursesList(controller.getDegreeCourses());
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        facade = new EnrollToDegreeCourseStudentFacade(PageNavigationController.getInstance().getSessionTokenKey());
+        firstStageController.setDegreeCoursesList(facade.getDegreeCourses());
         currentStage = 1;
     }
 
@@ -83,7 +83,7 @@ public class EnrollToDegreeCourseGraphicController implements Initializable {
      */
     private void goToStageTwo(){
         selectedDegreeCourse = firstStageController.getSelectedDegreeCourse();
-        secondStageController.setAnagraphicalData(controller.getStudentBean(), controller.getUserBean());
+        secondStageController.setAnagraphicalData(facade.getStudentBean(), facade.getUserBean());
         secondStage.setVisible(true);
         backButton.setVisible(true);
     }
@@ -93,7 +93,7 @@ public class EnrollToDegreeCourseGraphicController implements Initializable {
      */
     private void goToStageThree(){
         try {
-            this.testInfo = controller.getTestInfo(selectedDegreeCourse);
+            this.testInfo = facade.getTestInfo(selectedDegreeCourse);
             thirdStageController.setData(testInfo, selectedDegreeCourse);
         } catch (TestRetrivialException e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -106,7 +106,7 @@ public class EnrollToDegreeCourseGraphicController implements Initializable {
     }
 
     private void goToStageFour(){
-        fourthStageController.setTestReservationCode(controller.reserveTest(testInfo).getReservationCode().toString());
+        fourthStageController.setTestReservationCode(facade.reserveTest(testInfo).getReservationCode().toString());
         nextButton.setText("Close");
         fourthStage.setVisible(true);
     }

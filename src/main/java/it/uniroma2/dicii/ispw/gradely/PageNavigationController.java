@@ -1,6 +1,5 @@
 package it.uniroma2.dicii.ispw.gradely;
 
-import it.uniroma2.dicii.ispw.gradely.session_manager.Token;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 
@@ -10,7 +9,7 @@ import java.util.Objects;
 public final class PageNavigationController {
     private static PageNavigationController instance;
     private BaseGraphicControl baseGraphicController;
-    private Token sessionToken;
+    private String sessionTokenKey;
 
     private PageNavigationController(){
 
@@ -31,16 +30,8 @@ public final class PageNavigationController {
         try {
             baseGraphicController.switchTo(
                     FXMLLoader.load(Objects.requireNonNull(MainApplication.class.getResource(pageName))));
-<<<<<<< HEAD
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, "Loading error", "");
-=======
-        } catch (IOException e){
->>>>>>> GVC
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Loading error");
-            alert.setContentText(String.format("Error while loading view. Error message: %s", e.getMessage()));
-            alert.show();
         }
     }
 
@@ -48,12 +39,12 @@ public final class PageNavigationController {
         baseGraphicController.returnToMainPage();
     }
 
-    public Token getSessionToken(){
-        return sessionToken;
+    public String getSessionTokenKey(){
+        return sessionTokenKey;
     }
 
-    public void setSessionToken(Token sessionToken){
-        this.sessionToken = sessionToken;
+    public void setSessionTokenKey(String sessionTokenKey){
+        this.sessionTokenKey = sessionTokenKey;
     }
 
     // TODO implement user switch

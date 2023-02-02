@@ -27,7 +27,7 @@ public class Professor extends AbstractRole {
     }
 
     @Override
-    public Professor getProfessorRole() throws MissingAuthorizationException {
+    public Professor castToProfessorRole() throws MissingAuthorizationException {
         return this;
     }
 }

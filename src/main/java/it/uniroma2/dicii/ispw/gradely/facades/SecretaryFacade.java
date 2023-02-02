@@ -10,7 +10,7 @@ public class SecretaryFacade {
     private InsertStudentsGradesSecretaryFacade insertStudentsGrades;
 
     public SecretaryFacade(Token token) throws MissingAuthorizationException{
-        SessionManager.getInstance().getSessionUserByToken(token).getRole().getSecretaryRole();
+        SessionManager.getInstance().getSessionUserByTokenKey(token).getRole().castToSecretaryRole();
     }
 
     public void InsertStudentsGrades(Token token) throws MissingAuthorizationException{

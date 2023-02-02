@@ -37,7 +37,7 @@ import java.util.List;
 
 public class InsertStudentsGradesControl implements TimerObserver {
 
-    protected InsertStudentsGradesControl(){
+    InsertStudentsGradesControl() {
 
     }
 
@@ -53,8 +53,8 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @return gradable exam list
      * @throws MissingAuthorizationException
      */
-    protected ExamListBean getGradableExams(Token token) throws MissingAuthorizationException, DAOException {
-        Professor professor = SessionManager.getInstance().getSessionUserByToken(token).getRole().getProfessorRole();
+    ExamListBean getGradableExams(Token token) throws MissingAuthorizationException, DAOException {
+        Professor professor = SessionManager.getInstance().getSessionUserByTokenKey(token).getRole().castToProfessorRole();
         return new ExamListBean(createExamBeanList(ExamLazyFactory.getInstance().getGradableExams(professor)));
     }
 
@@ -82,18 +82,18 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * the exam is for and throws exception if not,
      * visibility is protected because it should only be usable by another
      * class in this class' package, e.g. the right facade
-     * 
+     *
      * @param token
      * @param bean
      * @return
      */
-    protected ExamEnrollmentListBean getExamEnrollments(Token token, ExamBean bean) throws MissingAuthorizationException, DAOException{
-        Professor professor = SessionManager.getInstance().getSessionUserByToken(token).getRole().getProfessorRole();
+    ExamEnrollmentListBean getExamEnrollments(Token token, ExamBean bean) throws MissingAuthorizationException, DAOException {
+        Professor professor = SessionManager.getInstance().getSessionUserByTokenKey(token).getRole().castToProfessorRole();
         Exam exam = getExamByBean(bean);
         checkExamProfessor(exam, professor);
         List<ExamEnrollmentBean> list = new ArrayList<>();
-        for (ExamEnrollment e : ExamEnrollmentLazyFactory.getInstance().getExamEnrollmentsByExam(exam)){
-            list.add(new ExamEnrollmentBean(e.getStudent(),e.getExam()));
+        for (ExamEnrollment e : ExamEnrollmentLazyFactory.getInstance().getExamEnrollmentsByExam(exam)) {
+            list.add(new ExamEnrollmentBean(e.getStudent(), e.getExam()));
         }
         return new ExamEnrollmentListBean(list);
     }
@@ -160,11 +160,11 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @param list
      * @throws MissingAuthorizationException
      */
-    protected void saveExamResults(Token token, StudentGradeListBean list) throws MissingAuthorizationException, DAOException{
-        Professor professor = SessionManager.getInstance().getSessionUserByToken(token).getRole().getProfessorRole();
+    void saveExamResults(Token token, StudentGradeListBean list) throws MissingAuthorizationException, DAOException {
+        Professor professor = SessionManager.getInstance().getSessionUserByTokenKey(token).getRole().castToProfessorRole();
         Exam exam = list.getExam();
         checkExamProfessor(exam, professor);
-        for (StudentGradeBean g : list.getGrades()){
+        for (StudentGradeBean g : list.getGrades()) {
             saveExamResult(g);
             PendingEventLazyFactory.getInstance().createNewPendingEventSingle(g.getEnrollmentBean().getStudent().getUser(), PendingEventTypeEnum.EVENT_1, g.getEnrollmentBean().getExam());
         }
@@ -196,9 +196,9 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @param decision
      * @throws MissingAuthorizationException
      */
-    protected void acceptOrRejectExamGrade(Token token, ExamEnrollment enrollment, ExamResultConfirmationEnum decision) throws MissingAuthorizationException{
-        Student student = SessionManager.getInstance().getSessionUserByToken(token).getRole().getStudentRole();
-        if (enrollment.getStudent().equals(student)){
+    void acceptOrRejectExamGrade(Token token, ExamEnrollment enrollment, ExamResultConfirmationEnum decision) throws MissingAuthorizationException {
+        Student student = SessionManager.getInstance().getSessionUserByTokenKey(token).getRole().castToStudentRole();
+        if (enrollment.getStudent().equals(student)) {
             enrollment.getExamResult().setConfirmed(decision);
         } else throw new MissingAuthorizationException(ExceptionMessagesEnum.MISSING_AUTH.message);
     }
@@ -216,8 +216,8 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @param bean
      * @throws MissingAuthorizationException
      */
-    protected void confirmExamVerbaleProtocolization(Token token, ProtocolBean bean) throws MissingAuthorizationException, DAOException{
-        Secretary secretary = SessionManager.getInstance().getSessionUserByToken(token).getRole().getSecretaryRole();
+    void confirmExamVerbaleProtocolization(Token token, ProtocolBean bean) throws MissingAuthorizationException, DAOException {
+        Secretary secretary = SessionManager.getInstance().getSessionUserByTokenKey(token).getRole().castToSecretaryRole();
         Exam e = ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(bean.getExamBean().getAppello(), SubjectCourseLazyFactory.getInstance().getSubjectCourseByName(bean.getExamBean().getCourse().getName()), bean.getExamBean().getSessione());
         checkExamSecretary(e, secretary);
         e.setVerbalizable(false);

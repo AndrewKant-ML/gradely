@@ -3,17 +3,17 @@ package it.uniroma2.dicii.ispw.gradely.session_manager;
 import java.time.LocalDate;
 
 public class Token {
-    private LocalDate key; //TODO implementare chiave decente
+    private String key; //TODO implementare chiave decente
 
     public Token(){
-        this.key=LocalDate.now();
+        this.key = LocalDate.now().toString();
     }
 
-    public LocalDate getKey(){
+    public String getKey() {
         return key;
     }
 
-    public void setKey(LocalDate key){
+    public void setKey(String key) {
         this.key = key;
     }
 }
