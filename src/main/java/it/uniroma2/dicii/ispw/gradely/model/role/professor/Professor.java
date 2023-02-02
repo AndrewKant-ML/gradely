@@ -20,7 +20,7 @@ public class Professor extends AbstractRole {
     private DegreeCourse coordinatedCourses;
 
 
-    public Professor(User user, String id, LocalDate registrationDate) {
+    public Professor(User user, String id, LocalDate registrationDate){
         super(user);
         this.id = id;
         this.registrationDate = registrationDate;

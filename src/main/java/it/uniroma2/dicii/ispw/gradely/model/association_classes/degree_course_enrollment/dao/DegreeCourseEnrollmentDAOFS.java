@@ -8,44 +8,44 @@ import java.util.List;
 
 public class DegreeCourseEnrollmentDAOFS extends AbstractDegreeCourseEnrollmentDAO {
 
-    private DegreeCourseEnrollmentDAOFS() {
+    private DegreeCourseEnrollmentDAOFS(){
 
     }
 
-    public static AbstractDegreeCourseEnrollmentDAO getInstance() {
-        if (instance == null) {
+    public static synchronized AbstractDegreeCourseEnrollmentDAO getInstance(){
+        if (instance == null){
             instance = new DegreeCourseEnrollmentDAOFS();
         }
         return instance;
     }
 
     @Override
-    public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByDegreeCourse(DegreeCourse course) {
+    public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByDegreeCourse(DegreeCourse course){
         return null;
     }
 
     @Override
-    public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByStudent(Student student) {
+    public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByStudent(Student student){
         return null;
     }
 
     @Override
-    public void insert(DegreeCourseEnrollment degreeCourseEnrollment) {
+    public void insert(DegreeCourseEnrollment degreeCourseEnrollment){
 
     }
 
     @Override
-    public void cancel(DegreeCourseEnrollment degreeCourseEnrollment) {
+    public void cancel(DegreeCourseEnrollment degreeCourseEnrollment){
 
     }
 
     @Override
-    public void update(DegreeCourseEnrollment degreeCourseEnrollment) {
+    public void update(DegreeCourseEnrollment degreeCourseEnrollment){
 
     }
 
     @Override
-    public List<DegreeCourseEnrollment> refresh(List<DegreeCourseEnrollment> degreeCourseEnrollments) {
+    public List<DegreeCourseEnrollment> refresh(List<DegreeCourseEnrollment> degreeCourseEnrollments){
         return null;
     }
 

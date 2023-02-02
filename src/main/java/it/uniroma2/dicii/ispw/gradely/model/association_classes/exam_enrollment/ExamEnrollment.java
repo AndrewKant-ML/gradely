@@ -12,45 +12,45 @@ public class ExamEnrollment {
     private Exam exam;
     private ExamResult examResult;
 
-    public ExamEnrollment() {
+    public ExamEnrollment(){
     }
 
-    public ExamEnrollment(LocalDate enrollmentDate, Student student, Exam exam, ExamResult examResult) {
+    public ExamEnrollment(LocalDate enrollmentDate, Student student, Exam exam, ExamResult examResult){
         this.enrollmentDate = enrollmentDate;
         this.student = student;
         this.exam = exam;
         this.examResult = examResult;
     }
 
-    public LocalDate getEnrollmentDate() {
+    public LocalDate getEnrollmentDate(){
         return enrollmentDate;
     }
 
-    public void setEnrollmentDate(LocalDate enrollmentDate) {
+    public void setEnrollmentDate(LocalDate enrollmentDate){
         this.enrollmentDate = enrollmentDate;
     }
 
-    public Student getStudent() {
+    public Student getStudent(){
         return student;
     }
 
-    public void setStudent(Student student) {
+    public void setStudent(Student student){
         this.student = student;
     }
 
-    public Exam getExam() {
+    public Exam getExam(){
         return exam;
     }
 
-    public void setExam(Exam exam) {
+    public void setExam(Exam exam){
         this.exam = exam;
     }
 
-    public ExamResult getExamResult() {
+    public ExamResult getExamResult(){
         return examResult;
     }
 
-    public void setExamResult(ExamResult examResult) {
+    public void setExamResult(ExamResult examResult){
         this.examResult = examResult;
     }
 }

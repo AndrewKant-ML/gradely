@@ -11,7 +11,7 @@ public class DegreeCourseBean {
 
     private TestTypeEnum testType;
 
-    public DegreeCourseBean(String name, String facolta, DegreeCourseTypeEnum type, TestTypeEnum testType) {
+    public DegreeCourseBean(String name, String facolta, DegreeCourseTypeEnum type, TestTypeEnum testType){
         this.name = name;
         this.facolta = facolta;
         this.type = type;
@@ -19,23 +19,23 @@ public class DegreeCourseBean {
     }
 
     @Override
-    public String toString() {
+    public String toString(){
         return this.name;
     }
 
-    public TestTypeEnum getTestType() {
+    public TestTypeEnum getTestType(){
         return testType;
     }
 
-    public String getName() {
+    public String getName(){
         return name;
     }
 
-    public String getFacolta() {
+    public String getFacolta(){
         return facolta;
     }
 
-    public DegreeCourseTypeEnum getType() {
+    public DegreeCourseTypeEnum getType(){
         return type;
     }
 }

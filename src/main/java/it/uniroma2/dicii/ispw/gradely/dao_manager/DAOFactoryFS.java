@@ -1,4 +1,4 @@
-package it.uniroma2.dicii.ispw.gradely.dao_factories;
+package it.uniroma2.dicii.ispw.gradely.dao_manager;
 
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.course_assignment.dao.AbstractCourseAssignmentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.course_assignment.dao.CourseAssignmentDAOFS;
@@ -55,7 +55,7 @@ public class DAOFactoryFS extends DAOFactoryAbstract {
         return ExamDAOFS.getInstance();
     }
     @Override
-    public AbstractExamResultDAO getExamResultDAO() {
+    public AbstractExamResultDAO getExamResultDAO(){
         return ExamResultDAOFS.getInstance();
     }
     @Override
@@ -79,7 +79,7 @@ public class DAOFactoryFS extends DAOFactoryAbstract {
         return SubjectCourseDAOFS.getInstance();
     }
     @Override
-    public TimerDAOAbstract getTimerDAO() {
+    public TimerDAOAbstract getTimerDAO(){
         return TimerDAOFS.getInstance();
     }
     @Override

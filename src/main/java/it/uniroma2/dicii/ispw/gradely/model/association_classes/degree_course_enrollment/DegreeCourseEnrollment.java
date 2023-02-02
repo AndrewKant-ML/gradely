@@ -10,36 +10,36 @@ public class DegreeCourseEnrollment {
     private Student student;
     private DegreeCourse degreeCourse;
 
-    public DegreeCourseEnrollment() {
+    public DegreeCourseEnrollment(){
     }
 
-    public DegreeCourseEnrollment(LocalDate enrollmentDate, Student student, DegreeCourse degreeCourse) {
+    public DegreeCourseEnrollment(LocalDate enrollmentDate, Student student, DegreeCourse degreeCourse){
         this.enrollmentDate = enrollmentDate;
         this.student = student;
         this.degreeCourse = degreeCourse;
     }
 
-    public LocalDate getEnrollmentDate() {
+    public LocalDate getEnrollmentDate(){
         return enrollmentDate;
     }
 
-    public void setEnrollmentDate(LocalDate enrollmentDate) {
+    public void setEnrollmentDate(LocalDate enrollmentDate){
         this.enrollmentDate = enrollmentDate;
     }
 
-    public Student getStudent() {
+    public Student getStudent(){
         return student;
     }
 
-    public void setStudent(Student student) {
+    public void setStudent(Student student){
         this.student = student;
     }
 
-    public DegreeCourse getDegreeCourse() {
+    public DegreeCourse getDegreeCourse(){
         return degreeCourse;
     }
 
-    public void setDegreeCourse(DegreeCourse degreeCourse) {
+    public void setDegreeCourse(DegreeCourse degreeCourse){
         this.degreeCourse = degreeCourse;
     }
 }

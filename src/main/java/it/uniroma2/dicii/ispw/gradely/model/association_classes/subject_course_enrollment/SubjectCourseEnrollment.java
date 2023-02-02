@@ -10,36 +10,36 @@ public class SubjectCourseEnrollment {
     private Student student;
     private LocalDate date;
 
-    public SubjectCourseEnrollment() {
+    public SubjectCourseEnrollment(){
     }
 
-    public SubjectCourseEnrollment(SubjectCourse subjectCourse, Student student, LocalDate date) {
+    public SubjectCourseEnrollment(SubjectCourse subjectCourse, Student student, LocalDate date){
         this.subjectCourse = subjectCourse;
         this.student = student;
         this.date = date;
     }
 
-    public SubjectCourse getSubjectCourse() {
+    public SubjectCourse getSubjectCourse(){
         return subjectCourse;
     }
 
-    public void setSubjectCourse(SubjectCourse subjectCourse) {
+    public void setSubjectCourse(SubjectCourse subjectCourse){
         this.subjectCourse = subjectCourse;
     }
 
-    public Student getStudent() {
+    public Student getStudent(){
         return student;
     }
 
-    public void setStudent(Student student) {
+    public void setStudent(Student student){
         this.student = student;
     }
 
-    public LocalDate getDate() {
+    public LocalDate getDate(){
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDate date){
         this.date = date;
     }
 }

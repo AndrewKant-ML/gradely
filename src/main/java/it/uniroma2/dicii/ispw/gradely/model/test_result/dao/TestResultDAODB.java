@@ -10,29 +10,29 @@ public class TestResultDAODB extends TestResultDAOAbstract {
         super();
     }
     public static synchronized TestResultDAOAbstract getInstance(){
-        if (instance == null) {
+        if (instance == null){
             instance = new TestResultDAODB();
         }
         return instance;
     }
 
     @Override
-    public void insert(AbstractTestResult abstractTestResult) {
+    public void insert(AbstractTestResult abstractTestResult){
 
     }
 
     @Override
-    public void cancel(AbstractTestResult abstractTestResult) {
+    public void cancel(AbstractTestResult abstractTestResult){
 
     }
 
     @Override
-    public void update(AbstractTestResult abstractTestResult) {
+    public void update(AbstractTestResult abstractTestResult){
 
     }
 
     @Override
-    public List<AbstractTestResult> refresh(List<AbstractTestResult> abstractTestResults) {
+    public List<AbstractTestResult> refresh(List<AbstractTestResult> abstractTestResults){
         return null;
     }
 }

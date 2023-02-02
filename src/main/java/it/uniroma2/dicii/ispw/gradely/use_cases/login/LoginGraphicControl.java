@@ -35,11 +35,11 @@ public class LoginGraphicControl implements Initializable {
     private LoginControl loginController;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle){
         loginController = new LoginControl();
-        /*loginButton.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        /*loginButton.setOnKeyPressed(new EventHandler<KeyEvent>(){
             @Override
-            public void handle(KeyEvent keyEvent) {
+            public void handle(KeyEvent keyEvent){
                 if (keyEvent.)
             }
         });*/
@@ -49,7 +49,7 @@ public class LoginGraphicControl implements Initializable {
      * Executes login operations
      * @param event the mouse click event
      */
-    public void login(ActionEvent event) {
+    public void login(ActionEvent event){
         final String email = this.emailField.getText();
         final String password = this.passwordField.getText();
 
@@ -57,12 +57,12 @@ public class LoginGraphicControl implements Initializable {
             //loginController.emailMatches(email);
             Token sessionToken = loginController.login(email, password);
             goToMainPage((Stage) ((Node) (event.getSource())).getScene().getWindow(), sessionToken);
-        } /*catch (EmailFormatException efe) {
+        } /*catch (EmailFormatException efe){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Login error");
             alert.setContentText(efe.getMessage());
             alert.show();
-        } */catch (Exception e) { // TODO change exception type when changed on LoginControl
+        } */catch (Exception e){ // TODO change exception type when changed on LoginControl
             throw new RuntimeException(e);
         }
     }
@@ -73,7 +73,7 @@ public class LoginGraphicControl implements Initializable {
      * @param stage        the Stage object of the current application
      * @param sessionToken the session token generated after login
      */
-    private void goToMainPage(Stage stage, Token sessionToken) {
+    private void goToMainPage(Stage stage, Token sessionToken){
         FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(MainApplication.class.getResource("base_view.fxml")));
         try {
             Pane basePane = loader.load();
@@ -84,7 +84,7 @@ public class LoginGraphicControl implements Initializable {
 
             Scene scene = new Scene(basePane);
             stage.setScene(scene);
-        } catch (IOException e) {
+        } catch (IOException e){
             throw new RuntimeException(e);
         }
     }

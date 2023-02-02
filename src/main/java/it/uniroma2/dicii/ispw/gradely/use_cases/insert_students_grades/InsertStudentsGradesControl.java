@@ -1,7 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades;
 
 import it.uniroma2.dicii.ispw.gradely.beans_general.*;
-import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactoryAbstract;
+import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.ExamResultConfirmationEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum;
@@ -37,7 +37,7 @@ import java.util.List;
 
 public class InsertStudentsGradesControl implements TimerObserver {
 
-    protected InsertStudentsGradesControl() {
+    protected InsertStudentsGradesControl(){
 
     }
 
@@ -111,7 +111,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
     private void checkExamProfessor(Exam exam, Professor professor) throws MissingAuthorizationException{
         Boolean check = false;
         for (CourseAssignment c : exam.getSubjectCourse().getCourseAssignments()){
-            if (c.getProfessor().equals(professor)) {
+            if (c.getProfessor().equals(professor)){
                 check = true;
                 break;
             }
@@ -141,7 +141,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @param bean
      * @return subjectCourse
      */
-    private SubjectCourse getSubjectCourseByBean(SubjectCourseBean bean){
+    private SubjectCourse getSubjectCourseByBean(SubjectCourseBean bean) throws DAOException {
         return SubjectCourseLazyFactory.getInstance().getSubjectCourseByName(bean.getName());
     }
 
@@ -240,7 +240,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
     private void checkExamSecretary(Exam exam, Secretary secretary) throws MissingAuthorizationException{
         Boolean check = false;
         for (DegreeCourse d : exam.getSubjectCourse().getDegreeCourses()){
-            if (d.getDipartimento().equals(secretary.getDipartimento())) {
+            if (d.getDipartimento().equals(secretary.getDipartimento())){
                 check = true;
                 break;
             }
@@ -256,7 +256,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
      *
      * @param exam
      */
-    private void notifyExamProtocolization(Exam exam){
+    private void notifyExamProtocolization(Exam exam) throws DAOException {
         List<User> users = new ArrayList<>();
         for (ExamEnrollment e : exam.getEnrollments()){
             users.add(e.getStudent().getUser());
@@ -278,7 +278,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @throws WrongTimerTypeException
      */
     @Override
-    public void timeIsUp(AbstractTimer timerArgument) throws WrongTimerTypeException {
+    public void timeIsUp(AbstractTimer timerArgument) throws WrongTimerTypeException, DAOException {
         ExamConfirmationTimer timer = timerArgument.castToExamConfirmationTimer();
         for (ExamEnrollment e : timer.getObject().getEnrollments()){
             if (e.getExamResult().getConfirmed()==ExamResultConfirmationEnum.NULL){
@@ -288,7 +288,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
         }
         List<User> list = new ArrayList<>();
         for (DegreeCourse d : timer.getObject().getSubjectCourse().getDegreeCourses()){
-            for (Secretary s : DAOFactoryAbstract.getDAOFactory().getSecretaryDAO().getSecretariesByDipartimento(d.getDipartimento())){
+            for (Secretary s : DAOFactoryAbstract.getInstance().getSecretaryDAO().getSecretariesByDipartimento(d.getDipartimento())){
                 list.add(s.getUser());
             }
         }

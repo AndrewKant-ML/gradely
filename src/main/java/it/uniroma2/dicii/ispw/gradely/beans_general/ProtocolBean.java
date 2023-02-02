@@ -7,33 +7,33 @@ public class ProtocolBean {
     private Integer verbaleNumber;
     private LocalDate verbaleDate;
 
-    public ProtocolBean(ExamBean examBean, Integer verbaleNumber, LocalDate verbaleDate) {
+    public ProtocolBean(ExamBean examBean, Integer verbaleNumber, LocalDate verbaleDate){
         this.examBean = examBean;
         this.verbaleNumber = verbaleNumber;
         this.verbaleDate = verbaleDate;
     }
 
-    public ExamBean getExamBean() {
+    public ExamBean getExamBean(){
         return examBean;
     }
 
-    public void setExamBean(ExamBean examBean) {
+    public void setExamBean(ExamBean examBean){
         this.examBean = examBean;
     }
 
-    public Integer getVerbaleNumber() {
+    public Integer getVerbaleNumber(){
         return verbaleNumber;
     }
 
-    public void setVerbaleNumber(Integer verbaleNumber) {
+    public void setVerbaleNumber(Integer verbaleNumber){
         this.verbaleNumber = verbaleNumber;
     }
 
-    public LocalDate getVerbaleDate() {
+    public LocalDate getVerbaleDate(){
         return verbaleDate;
     }
 
-    public void setVerbaleDate(LocalDate verbaleDate) {
+    public void setVerbaleDate(LocalDate verbaleDate){
         this.verbaleDate = verbaleDate;
     }
 }

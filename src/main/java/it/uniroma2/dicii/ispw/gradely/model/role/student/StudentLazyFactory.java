@@ -1,6 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.model.role.student;
 
-import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactoryDB;
+import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryDB;
+import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
 import java.util.ArrayList;
@@ -14,20 +15,20 @@ public class StudentLazyFactory {
         students = new ArrayList<Student>();
     }
 
-    public static StudentLazyFactory getInstance(){
-        if (instance == null) {
+    public static synchronized StudentLazyFactory getInstance(){
+        if (instance == null){
             instance = new StudentLazyFactory();
         }
         return instance;
     }
 
 
-    public Student getStudentByUser(User user) {
+    public Student getStudentByUser(User user) throws DAOException {
         for(Student s : students){
-            if(s.getUser().equals(user)) {
-                return s; //TODO implementare exception
+            if(s.getUser().equals(user)){
+                return s; 
             }
         }
-        return DAOFactoryDB.getDAOFactory().getStudentDAO().getStudentByUser(user); //TODO implementare exception
+        return DAOFactoryDB.getInstance().getStudentDAO().getStudentByUser(user);
     }
 }

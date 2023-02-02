@@ -15,7 +15,7 @@ public class Test {
     private URL infoLink;
     private String place;
 
-    protected Test(DegreeCourse degreeCourse, String ID, LocalDate testDate, URL testReservationLink, LocalDate resultsDate, URL infoLink, String place) {
+    protected Test(DegreeCourse degreeCourse, String ID, LocalDate testDate, URL testReservationLink, LocalDate resultsDate, URL infoLink, String place){
         this.degreeCourse = degreeCourse;
         this.ID = ID;
         this.testDate = testDate;
@@ -25,59 +25,59 @@ public class Test {
         this.place = place;
     }
 
-    public DegreeCourse getDegreeCourse() {
+    public DegreeCourse getDegreeCourse(){
         return degreeCourse;
     }
 
-    public void setDegreeCourse(DegreeCourse degreeCourse) {
+    public void setDegreeCourse(DegreeCourse degreeCourse){
         this.degreeCourse = degreeCourse;
     }
 
-    public String getID() {
+    public String getID(){
         return ID;
     }
 
-    public void setID(String ID) {
+    public void setID(String ID){
         this.ID = ID;
     }
 
-    public LocalDate getTestDate() {
+    public LocalDate getTestDate(){
         return testDate;
     }
 
-    public void setTestDate(LocalDate testDate) {
+    public void setTestDate(LocalDate testDate){
         this.testDate = testDate;
     }
 
-    public URL getTestReservationLink() {
+    public URL getTestReservationLink(){
         return testReservationLink;
     }
 
-    public void setTestReservationLink(URL testReservationLink) {
+    public void setTestReservationLink(URL testReservationLink){
         this.testReservationLink = testReservationLink;
     }
 
-    public LocalDate getResultsDate() {
+    public LocalDate getResultsDate(){
         return resultsDate;
     }
 
-    public void setResultsDate(LocalDate resultsDate) {
+    public void setResultsDate(LocalDate resultsDate){
         this.resultsDate = resultsDate;
     }
 
-    public URL getInfoLink() {
+    public URL getInfoLink(){
         return infoLink;
     }
 
-    public void setInfoLink(URL infoLink) {
+    public void setInfoLink(URL infoLink){
         this.infoLink = infoLink;
     }
 
-    public String getPlace() {
+    public String getPlace(){
         return place;
     }
 
-    public void setPlace(String place) {
+    public void setPlace(String place){
         this.place = place;
     }
 }
