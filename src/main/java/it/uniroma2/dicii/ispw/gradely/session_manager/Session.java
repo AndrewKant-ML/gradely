@@ -9,33 +9,33 @@ public class Session {
     private FrontEndTypeEnum frontEndType;
 
 
-    public Session(User user, FrontEndTypeEnum frontEndType){
+    Session(User user, FrontEndTypeEnum frontEndType){
         this.user = user;
         this.token = new Token();
         this.frontEndType = frontEndType;
     }
 
-    public User getUser(){
+    User getUser(){
         return user;
     }
 
-    public void setUser(User user){
+    void setUser(User user){
         this.user = user;
     }
 
-    public Token getToken(){
+    Token getToken(){
         return token;
     }
 
-    public void setToken(Token token){
+    void setToken(Token token){
         this.token = token;
     }
 
-    public FrontEndTypeEnum getFrontEndType(){
+    FrontEndTypeEnum getFrontEndType(){
         return frontEndType;
     }
 
-    public void setFrontEndType(FrontEndTypeEnum frontEndType){
+    void setFrontEndType(FrontEndTypeEnum frontEndType){
         this.frontEndType = frontEndType;
     }
 

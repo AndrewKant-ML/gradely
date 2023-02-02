@@ -27,7 +27,6 @@ import it.uniroma2.dicii.ispw.gradely.model.timer.TimerLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.timer.TimerObserver;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
-import it.uniroma2.dicii.ispw.gradely.session_manager.Token;
 import it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.beans.StudentGradeBean;
 import it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.beans.StudentGradeListBean;
 
@@ -49,12 +48,12 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * visibility is protected because it should only be usable by another
      * class in this class' package, e.g. the right facade
      *
-     * @param token
+     * @param tokenKey
      * @return gradable exam list
      * @throws MissingAuthorizationException
      */
-    ExamListBean getGradableExams(Token token) throws MissingAuthorizationException, DAOException {
-        Professor professor = SessionManager.getInstance().getSessionUserByTokenKey(token).getRole().castToProfessorRole();
+    ExamListBean getGradableExams(String tokenKey) throws MissingAuthorizationException, DAOException {
+        Professor professor = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToProfessorRole();
         return new ExamListBean(createExamBeanList(ExamLazyFactory.getInstance().getGradableExams(professor)));
     }
 
@@ -83,12 +82,12 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * visibility is protected because it should only be usable by another
      * class in this class' package, e.g. the right facade
      *
-     * @param token
+     * @param tokenKey
      * @param bean
      * @return
      */
-    ExamEnrollmentListBean getExamEnrollments(Token token, ExamBean bean) throws MissingAuthorizationException, DAOException {
-        Professor professor = SessionManager.getInstance().getSessionUserByTokenKey(token).getRole().castToProfessorRole();
+    ExamEnrollmentListBean getExamEnrollments(String tokenKey, ExamBean bean) throws MissingAuthorizationException, DAOException {
+        Professor professor = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToProfessorRole();
         Exam exam = getExamByBean(bean);
         checkExamProfessor(exam, professor);
         List<ExamEnrollmentBean> list = new ArrayList<>();
@@ -156,12 +155,12 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * visibility is protected because it should only be usable by another
      * class in this class' package, e.g. the right facade
      *
-     * @param token
+     * @param tokenKey
      * @param list
      * @throws MissingAuthorizationException
      */
-    void saveExamResults(Token token, StudentGradeListBean list) throws MissingAuthorizationException, DAOException {
-        Professor professor = SessionManager.getInstance().getSessionUserByTokenKey(token).getRole().castToProfessorRole();
+    void saveExamResults(String tokenKey, StudentGradeListBean list) throws MissingAuthorizationException, DAOException {
+        Professor professor = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToProfessorRole();
         Exam exam = list.getExam();
         checkExamProfessor(exam, professor);
         for (StudentGradeBean g : list.getGrades()) {
@@ -191,13 +190,13 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * visibility is protected because it should only be usable by another
      * class in this class' package, e.g. the right facade
      *
-     * @param token
+     * @param tokenKey
      * @param enrollment
      * @param decision
      * @throws MissingAuthorizationException
      */
-    void acceptOrRejectExamGrade(Token token, ExamEnrollment enrollment, ExamResultConfirmationEnum decision) throws MissingAuthorizationException {
-        Student student = SessionManager.getInstance().getSessionUserByTokenKey(token).getRole().castToStudentRole();
+    void acceptOrRejectExamGrade(String tokenKey, ExamEnrollment enrollment, ExamResultConfirmationEnum decision) throws MissingAuthorizationException {
+        Student student = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToStudentRole();
         if (enrollment.getStudent().equals(student)) {
             enrollment.getExamResult().setConfirmed(decision);
         } else throw new MissingAuthorizationException(ExceptionMessagesEnum.MISSING_AUTH.message);
@@ -212,12 +211,12 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * visibility is protected because it should only be usable by another
      * class in this class' package, e.g. the right facade
      *
-     * @param token
+     * @param tokenKey
      * @param bean
      * @throws MissingAuthorizationException
      */
-    void confirmExamVerbaleProtocolization(Token token, ProtocolBean bean) throws MissingAuthorizationException, DAOException {
-        Secretary secretary = SessionManager.getInstance().getSessionUserByTokenKey(token).getRole().castToSecretaryRole();
+    void confirmExamVerbaleProtocolization(String tokenKey, ProtocolBean bean) throws MissingAuthorizationException, DAOException {
+        Secretary secretary = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToSecretaryRole();
         Exam e = ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(bean.getExamBean().getAppello(), SubjectCourseLazyFactory.getInstance().getSubjectCourseByName(bean.getExamBean().getCourse().getName()), bean.getExamBean().getSessione());
         checkExamSecretary(e, secretary);
         e.setVerbalizable(false);
@@ -274,25 +273,25 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * notifies all the secretary assigned to any dipertimento correlated with the course that
      * the verbale needs to be protocolized
      *
-     * @param timerArgument
+     * @param timer
      * @throws WrongTimerTypeException
      */
     @Override
-    public void timeIsUp(AbstractTimer timerArgument) throws WrongTimerTypeException, DAOException {
-        ExamConfirmationTimer timer = timerArgument.castToExamConfirmationTimer();
-        for (ExamEnrollment e : timer.getObject().getEnrollments()){
+    public void timeIsUp(AbstractTimer timer) throws WrongTimerTypeException, DAOException {
+        ExamConfirmationTimer concreteTimer = timer.castToExamConfirmationTimer();
+        for (ExamEnrollment e : concreteTimer.getObject().getEnrollments()){
             if (e.getExamResult().getConfirmed()==ExamResultConfirmationEnum.NULL){
                 e.getExamResult().setConfirmed(ExamResultConfirmationEnum.ACCEPTED);
                 PendingEventLazyFactory.getInstance().createNewPendingEventSingle(e.getStudent().getUser(), PendingEventTypeEnum.EVENT_2, e);
             }
         }
         List<User> list = new ArrayList<>();
-        for (DegreeCourse d : timer.getObject().getSubjectCourse().getDegreeCourses()){
+        for (DegreeCourse d : concreteTimer.getObject().getSubjectCourse().getDegreeCourses()){
             for (Secretary s : DAOFactoryAbstract.getInstance().getSecretaryDAO().getSecretariesByDipartimento(d.getDipartimento())){
                 list.add(s.getUser());
             }
         }
-        PendingEventLazyFactory.getInstance().createNewPendingEventGroup(list,PendingEventTypeEnum.EVENT_3, timer.getObject());
+        PendingEventLazyFactory.getInstance().createNewPendingEventGroup(list,PendingEventTypeEnum.EVENT_3, concreteTimer.getObject());
     }
 }
 

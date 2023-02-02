@@ -39,7 +39,7 @@ public class TimerLazyFactory {
         activeTimers.add(newTimer);
         return newTimer;
     }
-    private void checkTimers() throws WrongTimerTypeException { //TODO timered trigger
+    private void checkTimers() throws WrongTimerTypeException, DAOException { //TODO timered trigger
         for (AbstractTimer t : activeTimers){
             if (t.getExpiration().isAfter(LocalDate.now())){
                 t.notifyTimerExpiration();
