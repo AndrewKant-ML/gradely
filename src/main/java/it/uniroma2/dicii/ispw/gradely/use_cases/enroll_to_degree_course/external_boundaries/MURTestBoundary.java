@@ -20,23 +20,23 @@ public class MURTestBoundary extends AbstractTestBoundary {
                     new URL("https://www.mur.gov.it/it"),
                     "Facoltà di ingegneria, Tor Vergata"
             );
-        } catch (MalformedURLException e) {
+        } catch (MalformedURLException e){
             throw new TestRetrivialException("Error occurred while retrieving test info on MUR platform", e);
         }
     }
 
     @Override
-    public TestReservationBean reserveTest(String testId) {
+    public TestReservationBean reserveTest(String testId){
         return new TestReservationBean(testId);
     }
 
     @Override
-    public Boolean checkResultsPresence(TestInfoBean testInfo) {
+    public Boolean checkResultsPresence(TestInfoBean testInfo){
         return null;
     }
 
     @Override
-    public TestResultsBean getTestResults(TestInfoBean testInfo) {
+    public TestResultsBean getTestResults(TestInfoBean testInfo){
         return null;
     }
 }

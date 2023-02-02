@@ -1,6 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.model.exam_result;
 
-import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactoryAbstract;
+import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
+import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 
 import java.util.ArrayList;
@@ -14,15 +15,15 @@ public class ExamResultLazyFactory {
         exams = new ArrayList<Exam>();
     }
 
-    public static ExamResultLazyFactory getInstance(){
-        if (instance == null) {
+    public static synchronized ExamResultLazyFactory getInstance(){
+        if (instance == null){
             instance = new ExamResultLazyFactory();
         }
         return instance;
     }
 
 
-    public void update (ExamResult examResult){
-        DAOFactoryAbstract.getDAOFactory().getExamResultDAO().update(examResult);
+    public void update (ExamResult examResult) throws DAOException {
+        DAOFactoryAbstract.getInstance().getExamResultDAO().update(examResult);
     }
 }

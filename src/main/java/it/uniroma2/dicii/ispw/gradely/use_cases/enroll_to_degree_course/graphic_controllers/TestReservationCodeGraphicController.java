@@ -14,15 +14,15 @@ public class TestReservationCodeGraphicController implements Initializable {
     private Label testReservationCodeLabel;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle){
 
     }
 
-    public void returnToMainPage() {
+    public void returnToMainPage(){
         PageNavigationController.getInstance().returnToMainPage();
     }
 
-    public void setTestReservationCode(String code) {
+    public void setTestReservationCode(String code){
         testReservationCodeLabel.setText(code);
     }
 }

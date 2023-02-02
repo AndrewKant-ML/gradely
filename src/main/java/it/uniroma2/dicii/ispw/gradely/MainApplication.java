@@ -20,7 +20,7 @@ public class MainApplication extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         // TODO check GUI type
         System.setProperty("gradely.persistence_type", "DB");
         System.setProperty("gradely.frontend_type", "javafx");
@@ -28,10 +28,10 @@ public class MainApplication extends Application {
         launch(args);
     }
 
-    private Pane loadLoginPane() {
+    private Pane loadLoginPane(){
         try {
             return FXMLLoader.load(Objects.requireNonNull(MainApplication.class.getResource("login.fxml")));
-        } catch (IOException e) {
+        } catch (IOException e){
             throw new RuntimeException(e);
         }
     }

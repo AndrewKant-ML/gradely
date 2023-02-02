@@ -11,7 +11,7 @@ public class TestInfoBean {
     private URL infoLink;
     private String place;
 
-    public TestInfoBean(String id, LocalDate testDate, URL testReservationLink, URL infoLink, String place) {
+    public TestInfoBean(String id, LocalDate testDate, URL testReservationLink, URL infoLink, String place){
         this.id = id;
         this.testDate = testDate;
         this.testReservationLink = testReservationLink;
@@ -19,23 +19,23 @@ public class TestInfoBean {
         this.place = place;
     }
 
-    public String getId() {
+    public String getId(){
         return id;
     }
 
-    public LocalDate getTestDate() {
+    public LocalDate getTestDate(){
         return testDate;
     }
 
-    public URL getTestReservationLink() {
+    public URL getTestReservationLink(){
         return testReservationLink;
     }
 
-    public URL getInfoLink() {
+    public URL getInfoLink(){
         return infoLink;
     }
 
-    public String getPlace() {
+    public String getPlace(){
         return this.place;
     }
 }

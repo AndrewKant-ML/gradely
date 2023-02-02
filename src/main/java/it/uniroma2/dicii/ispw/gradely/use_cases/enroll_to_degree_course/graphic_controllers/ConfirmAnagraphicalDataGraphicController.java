@@ -15,11 +15,11 @@ public class ConfirmAnagraphicalDataGraphicController implements Initializable {
     private TextField matricola, name, surname, email, codiceFiscale;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle){
 
     }
 
-    public void setAnagraphicalData(StudentBean studentBean, UserBean userBean) {
+    public void setAnagraphicalData(StudentBean studentBean, UserBean userBean){
         this.matricola.setText(studentBean.getMatricola());
         this.name.setText(userBean.getName());
         this.surname.setText(userBean.getSurname());

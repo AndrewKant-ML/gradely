@@ -13,7 +13,7 @@ import java.util.List;
 public class EnrollToDegreeCourseStudentFacade {
     private EnrollToDegreeCourseController controller;
 
-    public EnrollToDegreeCourseStudentFacade(Token token) {
+    public EnrollToDegreeCourseStudentFacade(Token token){
         try{
             SessionManager.getInstance().getSessionUserByToken(token).getRole().getStudentRole();
             controller = new EnrollToDegreeCourseController();

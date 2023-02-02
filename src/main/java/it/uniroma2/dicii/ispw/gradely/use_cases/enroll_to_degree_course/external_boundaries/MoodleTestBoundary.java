@@ -12,17 +12,17 @@ public class MoodleTestBoundary extends AbstractTestBoundary {
     }
 
     @Override
-    public TestReservationBean reserveTest(String testId) {
+    public TestReservationBean reserveTest(String testId){
         return null;
     }
 
     @Override
-    public Boolean checkResultsPresence(TestInfoBean testInfo) {
+    public Boolean checkResultsPresence(TestInfoBean testInfo){
         return null;
     }
 
     @Override
-    public TestResultsBean getTestResults(TestInfoBean testInfo) {
+    public TestResultsBean getTestResults(TestInfoBean testInfo){
         return null;
     }
 }

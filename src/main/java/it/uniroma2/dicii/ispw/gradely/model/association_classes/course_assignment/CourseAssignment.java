@@ -8,26 +8,26 @@ public class CourseAssignment {
     private Professor professor;
 
 
-    public CourseAssignment() {
+    public CourseAssignment(){
     }
-    public CourseAssignment(SubjectCourse subjectCourse, Professor professor) {
+    public CourseAssignment(SubjectCourse subjectCourse, Professor professor){
         this.subjectCourse = subjectCourse;
         this.professor = professor;
     }
 
-    public SubjectCourse getSubjectCourse() {
+    public SubjectCourse getSubjectCourse(){
         return subjectCourse;
     }
 
-    public void setSubjectCourse(SubjectCourse subjectCourse) {
+    public void setSubjectCourse(SubjectCourse subjectCourse){
         this.subjectCourse = subjectCourse;
     }
 
-    public Professor getProfessor() {
+    public Professor getProfessor(){
         return professor;
     }
 
-    public void setProfessor(Professor professor) {
+    public void setProfessor(Professor professor){
         this.professor = professor;
     }
 }

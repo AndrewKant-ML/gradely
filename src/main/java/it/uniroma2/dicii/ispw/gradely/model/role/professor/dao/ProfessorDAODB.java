@@ -8,12 +8,12 @@ import java.util.List;
 
 public class ProfessorDAODB extends AbstractProfessorDAO {
 
-    private ProfessorDAODB(){ //TODO implementare costruttore vero
+    private ProfessorDAODB(){ 
 
     }
 
-    public static AbstractProfessorDAO getInstance(){
-        if (instance == null) {
+    public static synchronized AbstractProfessorDAO getInstance(){
+        if (instance == null){
             instance = new ProfessorDAODB();
         }
         return instance;

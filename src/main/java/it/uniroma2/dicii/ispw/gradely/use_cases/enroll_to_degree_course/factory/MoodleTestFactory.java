@@ -7,12 +7,12 @@ import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.external
 
 public class MoodleTestFactory extends AbstractTestFactory{
     @Override
-    public AbstractTestBoundary createTestBoundary() {
+    public AbstractTestBoundary createTestBoundary(){
         return new MoodleTestBoundary();
     }
 
     @Override
-    public AbstractTestResult createTestResult() {
+    public AbstractTestResult createTestResult(){
         return new MoodleTestResult();
     }
 }

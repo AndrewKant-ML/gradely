@@ -22,11 +22,11 @@ public class DegreeCourse extends AbstractDegreeCourse {
 
     private TestTypeEnum testType;
 
-    public DegreeCourse() {
+    public DegreeCourse(){
 
     }
 
-    public DegreeCourse(String name, FacoltaEnum facolta, DipartimentoEnum dipartimento, DegreeCourseTypeEnum type, TestTypeEnum testType, List<AbstractDegreeCourse> prerequisites) {
+    public DegreeCourse(String name, FacoltaEnum facolta, DipartimentoEnum dipartimento, DegreeCourseTypeEnum type, TestTypeEnum testType, List<AbstractDegreeCourse> prerequisites){
         this.name = name;
         this.facolta = facolta;
         this.dipartimento = dipartimento;
@@ -35,75 +35,75 @@ public class DegreeCourse extends AbstractDegreeCourse {
         this.prerequisites = prerequisites;
     }
 
-    public String getName() {
+    public String getName(){
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name){
         this.name = name;
     }
 
-    public FacoltaEnum getFacolta() {
+    public FacoltaEnum getFacolta(){
         return facolta;
     }
 
-    public void setFacolta(FacoltaEnum facolta) {
+    public void setFacolta(FacoltaEnum facolta){
         this.facolta = facolta;
     }
 
-    public DipartimentoEnum getDipartimento() {
+    public DipartimentoEnum getDipartimento(){
         return dipartimento;
     }
 
-    public void setDipartimento(DipartimentoEnum dipartimento) {
+    public void setDipartimento(DipartimentoEnum dipartimento){
         this.dipartimento = dipartimento;
     }
 
-    public DegreeCourseTypeEnum getType() {
+    public DegreeCourseTypeEnum getType(){
         return type;
     }
 
-    public void setType(DegreeCourseTypeEnum type) {
+    public void setType(DegreeCourseTypeEnum type){
         this.type = type;
     }
 
-    public List<AbstractDegreeCourse> getPrerequisites() {
+    public List<AbstractDegreeCourse> getPrerequisites(){
         return prerequisites;
     }
 
-    public void setPrerequisites(List<AbstractDegreeCourse> prerequisites) {
+    public void setPrerequisites(List<AbstractDegreeCourse> prerequisites){
         this.prerequisites = prerequisites;
     }
 
-    public Professor getCoordinatore() {
+    public Professor getCoordinatore(){
         return coordinatore;
     }
 
-    public void setCoordinatore(Professor coordinatore) {
+    public void setCoordinatore(Professor coordinatore){
         this.coordinatore = coordinatore;
     }
 
-    public List<DegreeCourseEnrollment> getEnrollments() {
+    public List<DegreeCourseEnrollment> getEnrollments(){
         return enrollments;
     }
 
-    public void setEnrollments(List<DegreeCourseEnrollment> enrollments) {
+    public void setEnrollments(List<DegreeCourseEnrollment> enrollments){
         this.enrollments = enrollments;
     }
 
-    public List<SubjectCourse> getSubjectCourses() {
+    public List<SubjectCourse> getSubjectCourses(){
         return subjectCourses;
     }
 
-    public void setSubjectCourses(List<SubjectCourse> subjectCourses) {
+    public void setSubjectCourses(List<SubjectCourse> subjectCourses){
         this.subjectCourses = subjectCourses;
     }
 
-    public TestTypeEnum getTestType() {
+    public TestTypeEnum getTestType(){
         return testType;
     }
 
-    public void setTestType(TestTypeEnum testType) {
+    public void setTestType(TestTypeEnum testType){
         this.testType = testType;
     }
 }

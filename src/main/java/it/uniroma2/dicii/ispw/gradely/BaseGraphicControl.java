@@ -18,14 +18,14 @@ public class BaseGraphicControl implements Initializable {
     private Button backButton;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle){
         backButton.setVisible(false);
     }
 
     /**
      * Removes last stacked element from StackPane content
      */
-    public void goBack() {
+    public void goBack(){
         content.getChildren().remove(content.getChildren().size() - 1);
         if (content.getChildren().size() == 1)
             backButton.setVisible(false);
@@ -37,7 +37,7 @@ public class BaseGraphicControl implements Initializable {
      *
      * @param node the node to be added to the content
      */
-    public void switchTo(Node node) {
+    public void switchTo(Node node){
         content.getChildren().add(node);
         if (content.getChildren().size() == 2)
             backButton.setVisible(true);
@@ -47,7 +47,7 @@ public class BaseGraphicControl implements Initializable {
      * Returns to the main page by removing all the
      * levels stacked while navigating
      */
-    public void returnToMainPage() {
+    public void returnToMainPage(){
         while (content.getChildren().size() > 1)
             goBack();
     }

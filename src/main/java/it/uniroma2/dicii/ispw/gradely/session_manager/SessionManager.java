@@ -1,6 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.session_manager;
 
-import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactoryAbstract;
+import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
+import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEvent;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
@@ -17,15 +18,15 @@ public class SessionManager {
     private SessionManager(){
         activeSessions = new ArrayList<Session>();
     }
-    public static SessionManager getInstance(){
-        if (instance == null) {
+    public static synchronized SessionManager getInstance(){
+        if (instance == null){
             instance = new SessionManager();
         }
         return instance;
     }
     private Session getSession(User user){
         for(Session s : activeSessions){
-            if(s.getUser().equals(user)) {
+            if(s.getUser().equals(user)){
                 return s;
             }
         }
@@ -34,7 +35,7 @@ public class SessionManager {
 
     private Session getSession(Token token){
         for(Session s : activeSessions){
-            if(s.getToken().equals(token)) {
+            if(s.getToken().equals(token)){
                 return s;
             }
         }
@@ -42,29 +43,29 @@ public class SessionManager {
     }
     public User getSessionUserByToken(Token token){
         Session s = getSession(token);
-        if (s == null) {
+        if (s == null){
             return null;
         }
         return s.getUser();
     }
     public Token getSessionTokenByUser(User user){
         Session s = getSession(user);
-        if (s == null) {
-            s = new Session(user,JAVAFX); //TODO implementare
+        if (s == null){
+            s = new Session(user,JAVAFX);  //TODO implementare
             activeSessions.add(s);
         }
         return s.getToken();
     }
 
-    private void refreshPendingEvents(List<PendingEvent> pendingEvents){
-        for (PendingEvent p : DAOFactoryAbstract.getDAOFactory().getPendingEventDAO().refresh(pendingEvents)){
+    private void refreshPendingEvents(List<PendingEvent> pendingEvents) throws DAOException {
+        for (PendingEvent p : DAOFactoryAbstract.getInstance().getPendingEventDAO().refresh(pendingEvents)){
             if (!pendingEvents.contains(p)){
                 pendingEvents.add(p);
             }
         }
 
     }
-    public List<PendingEvent> getPendingEventsByUser(User user) {
+    public List<PendingEvent> getPendingEventsByUser(User user) throws DAOException {
         refreshPendingEvents(pendingEvents);
         List<PendingEvent> list = new ArrayList<>();
         for (PendingEvent p : pendingEvents){
@@ -75,11 +76,11 @@ public class SessionManager {
         return list;
     }
 
-    public void setPendingEvents(List<PendingEvent> pendingEvents) {
+    public void setPendingEvents(List<PendingEvent> pendingEvents){
         this.pendingEvents = pendingEvents;
     }
 
-    public Boolean checkUUID(UUID id){
+    public Boolean checkUUID(UUID id) throws DAOException {
         refreshPendingEvents(pendingEvents);
         for(PendingEvent event : pendingEvents){
             if(id.equals(event.getId())){

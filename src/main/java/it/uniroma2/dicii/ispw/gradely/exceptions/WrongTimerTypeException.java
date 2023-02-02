@@ -5,11 +5,11 @@ public class WrongTimerTypeException extends Exception{
     //MIGHT BE USELESS
 
 
-    public WrongTimerTypeException(String message) {
+    public WrongTimerTypeException(String message){
         super(message);
     }
 
-    public WrongTimerTypeException(String message, Throwable cause) {
+    public WrongTimerTypeException(String message, Throwable cause){
         super(message, cause);
     }
 }

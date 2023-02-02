@@ -8,44 +8,44 @@ import java.util.List;
 
 public class SubjectCourseEnrollmentDAOFS extends AbstractSubjectCourseEnrollmentDAO {
 
-    private SubjectCourseEnrollmentDAOFS() {
+    private SubjectCourseEnrollmentDAOFS(){
 
     }
 
-    public static AbstractSubjectCourseEnrollmentDAO getInstance() {
-        if (instance == null) {
+    public static synchronized AbstractSubjectCourseEnrollmentDAO getInstance(){
+        if (instance == null){
             instance = new SubjectCourseEnrollmentDAOFS();
         }
         return instance;
     }
 
     @Override
-    public List<SubjectCourseEnrollment> getSubjectCourseEnrollmentsBySubjectCourse(SubjectCourse course) {
+    public List<SubjectCourseEnrollment> getSubjectCourseEnrollmentsBySubjectCourse(SubjectCourse course){
         return null;
     }
 
     @Override
-    public List<SubjectCourseEnrollment> getSubjectCourseEnrollmentsByStudent(Student student) {
+    public List<SubjectCourseEnrollment> getSubjectCourseEnrollmentsByStudent(Student student){
         return null;
     }
 
     @Override
-    public void insert(SubjectCourseEnrollment subjectCourseEnrollment) {
+    public void insert(SubjectCourseEnrollment subjectCourseEnrollment){
 
     }
 
     @Override
-    public void cancel(SubjectCourseEnrollment subjectCourseEnrollment) {
+    public void cancel(SubjectCourseEnrollment subjectCourseEnrollment){
 
     }
 
     @Override
-    public void update(SubjectCourseEnrollment subjectCourseEnrollment) {
+    public void update(SubjectCourseEnrollment subjectCourseEnrollment){
 
     }
 
     @Override
-    public List<SubjectCourseEnrollment> refresh(List<SubjectCourseEnrollment> subjectCourseEnrollments) {
+    public List<SubjectCourseEnrollment> refresh(List<SubjectCourseEnrollment> subjectCourseEnrollments){
         return null;
     }
 

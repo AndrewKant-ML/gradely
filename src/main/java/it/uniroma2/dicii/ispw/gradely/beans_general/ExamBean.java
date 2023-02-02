@@ -8,33 +8,33 @@ public class ExamBean {
     private AppelloEnum appello;
     private SessionEnum sessione;
 
-    public ExamBean(SubjectCourseBean course, AppelloEnum appello, SessionEnum sessione) {
+    public ExamBean(SubjectCourseBean course, AppelloEnum appello, SessionEnum sessione){
         this.course = course;
         this.appello = appello;
         this.sessione = sessione;
     }
 
-    public SubjectCourseBean getCourse() {
+    public SubjectCourseBean getCourse(){
         return course;
     }
 
-    public void setCourse(SubjectCourseBean course) {
+    public void setCourse(SubjectCourseBean course){
         this.course = course;
     }
 
-    public AppelloEnum getAppello() {
+    public AppelloEnum getAppello(){
         return appello;
     }
 
-    public void setAppello(AppelloEnum appello) {
+    public void setAppello(AppelloEnum appello){
         this.appello = appello;
     }
 
-    public SessionEnum getSessione() {
+    public SessionEnum getSessione(){
         return sessione;
     }
 
-    public void setSessione(SessionEnum sessione) {
+    public void setSessione(SessionEnum sessione){
         this.sessione = sessione;
     }
 }

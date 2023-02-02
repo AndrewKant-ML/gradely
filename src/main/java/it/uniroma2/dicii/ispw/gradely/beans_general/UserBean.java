@@ -8,26 +8,26 @@ public class UserBean {
 
     private String email;
 
-    public UserBean(String name, String surname, String codiceFiscale, String email) {
+    public UserBean(String name, String surname, String codiceFiscale, String email){
         this.name = name;
         this.surname = surname;
         this.codiceFiscale = codiceFiscale;
         this.email = email;
     }
 
-    public String getName() {
+    public String getName(){
         return name;
     }
 
-    public String getSurname() {
+    public String getSurname(){
         return surname;
     }
 
-    public String getCodiceFiscale() {
+    public String getCodiceFiscale(){
         return codiceFiscale;
     }
 
-    public String getEmail() {
+    public String getEmail(){
         return email;
     }
 }

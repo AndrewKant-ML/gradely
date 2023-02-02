@@ -41,7 +41,7 @@ public class EnrollToDegreeCourseGraphicController implements Initializable {
     private Integer currentStage;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle){
         controller = new EnrollToDegreeCourseController();
         firstStageController.setDegreeCoursesList(controller.getDegreeCourses());
         currentStage = 1;
@@ -50,8 +50,8 @@ public class EnrollToDegreeCourseGraphicController implements Initializable {
     /**
      * Switch to the next stage of the use case
      */
-    public void nextStage() {
-        switch (currentStage) {
+    public void nextStage(){
+        switch (currentStage){
             case 1 -> goToStageTwo();
             case 2 -> goToStageThree();
             case 3 -> goToStageFour();
@@ -63,8 +63,8 @@ public class EnrollToDegreeCourseGraphicController implements Initializable {
     /**
      * Switch to the previous stage of the use case
      */
-    public void previousStage() {
-        switch (currentStage) {
+    public void previousStage(){
+        switch (currentStage){
             case 2 -> {
                 backButton.setVisible(false);
                 secondStage.setVisible(false);
@@ -81,7 +81,7 @@ public class EnrollToDegreeCourseGraphicController implements Initializable {
     /**
      * Opens second use case stage
      */
-    private void goToStageTwo() {
+    private void goToStageTwo(){
         selectedDegreeCourse = firstStageController.getSelectedDegreeCourse();
         secondStageController.setAnagraphicalData(controller.getStudentBean(), controller.getUserBean());
         secondStage.setVisible(true);
@@ -91,11 +91,11 @@ public class EnrollToDegreeCourseGraphicController implements Initializable {
     /**
      * Opens third use case stage
      */
-    private void goToStageThree() {
+    private void goToStageThree(){
         try {
             this.testInfo = controller.getTestInfo(selectedDegreeCourse);
             thirdStageController.setData(testInfo, selectedDegreeCourse);
-        } catch (TestRetrivialException e) {
+        } catch (TestRetrivialException e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("External error");
             alert.setContentText(e.getMessage());
@@ -105,7 +105,7 @@ public class EnrollToDegreeCourseGraphicController implements Initializable {
         thirdStage.setVisible(true);
     }
 
-    private void goToStageFour() {
+    private void goToStageFour(){
         fourthStageController.setTestReservationCode(controller.reserveTest(testInfo).getReservationCode().toString());
         nextButton.setText("Close");
         fourthStage.setVisible(true);

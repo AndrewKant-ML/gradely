@@ -1,6 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.model.pending_events;
 
 import it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum;
+import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
 
@@ -14,9 +15,9 @@ public abstract class PendingEvent {
     protected Boolean notified;
     protected Object object;
 
-    protected PendingEvent() {
+    protected PendingEvent(){
     }
-    protected PendingEvent(User user, PendingEventTypeEnum type, Object object) {
+    protected PendingEvent(User user, PendingEventTypeEnum type, Object object) throws DAOException {
         UUID generatedId;
         do{
             generatedId=UUID.randomUUID();
@@ -31,43 +32,43 @@ public abstract class PendingEvent {
 
     public abstract Boolean isForUser(User user);
 
-    public UUID getId() {
+    public UUID getId(){
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(UUID id){
         this.id = id;
     }
 
-    public PendingEventTypeEnum getType() {
+    public PendingEventTypeEnum getType(){
         return type;
     }
 
-    public void setType(PendingEventTypeEnum type) {
+    public void setType(PendingEventTypeEnum type){
         this.type = type;
     }
 
-    public String getMessage() {
+    public String getMessage(){
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(String message){
         this.message = message;
     }
 
-    public Boolean getNotified() {
+    public Boolean getNotified(){
         return notified;
     }
 
-    public void setNotified(Boolean notified) {
+    public void setNotified(Boolean notified){
         this.notified = notified;
     }
 
-    public Object getObject() {
+    public Object getObject(){
         return object;
     }
 
-    public void setObject(Objects object) {
+    public void setObject(Objects object){
         this.object = object;
     }
 }

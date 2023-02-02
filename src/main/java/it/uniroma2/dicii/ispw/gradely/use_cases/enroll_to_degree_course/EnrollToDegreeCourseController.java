@@ -44,7 +44,7 @@ public class EnrollToDegreeCourseController implements TimerObserver {
         SessionManager.getInstance().getSessionUserByToken(token).getRole().getStudentRole();
         List<DegreeCourse> degreeCourses = DegreeCourseLazyFactory.getInstance().getDegreeCourses();
         List<DegreeCourseBean> beans = new ArrayList<>();
-        for (DegreeCourse degreeCourse : degreeCourses) {
+        for (DegreeCourse degreeCourse : degreeCourses){
             beans.add(
                     new DegreeCourseBean(degreeCourse.getName(), degreeCourse.getFacolta(), degreeCourse.getType(), degreeCourse.getTestType())
             );
@@ -52,11 +52,11 @@ public class EnrollToDegreeCourseController implements TimerObserver {
         return beans;
     }
 
-    public StudentBean getStudentBean() {
+    public StudentBean getStudentBean(){
         return studentBean;
     }
 
-    public UserBean getUserBean() {
+    public UserBean getUserBean(){
         return userBean;
     }
 
@@ -82,7 +82,7 @@ public class EnrollToDegreeCourseController implements TimerObserver {
     }
 
     @Override
-    public void timeIsUp(AbstractTimer timer) {
+    public void timeIsUp(AbstractTimer timer){
 
     }
 }

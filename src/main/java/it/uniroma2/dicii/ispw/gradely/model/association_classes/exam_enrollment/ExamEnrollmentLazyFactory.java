@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment;
 
-import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactoryAbstract;
+import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.exam_result.ExamResult;
@@ -17,8 +17,8 @@ public class ExamEnrollmentLazyFactory {
         examEnrollments = new ArrayList<ExamEnrollment>();
     }
 
-    public static ExamEnrollmentLazyFactory getInstance(){
-        if (instance == null) {
+    public static synchronized ExamEnrollmentLazyFactory getInstance(){
+        if (instance == null){
             instance = new ExamEnrollmentLazyFactory();
         }
         return instance;
@@ -27,13 +27,13 @@ public class ExamEnrollmentLazyFactory {
     public List<ExamEnrollment> getExamEnrollmentsByExam(Exam exam) throws DAOException {
         List<ExamEnrollment> list = new ArrayList<>();
         for(ExamEnrollment e : examEnrollments){
-            if(e.getExam().equals(exam)) {
+            if(e.getExam().equals(exam)){
                 list.add(e);
             }
         }
-        List<ExamEnrollment> daoList = DAOFactoryAbstract.getDAOFactory().getExamEnrollmentDAO().getExamEnrollmentsByExam(exam);
+        List<ExamEnrollment> daoList = DAOFactoryAbstract.getInstance().getExamEnrollmentDAO().getExamEnrollmentsByExam(exam);
         for(ExamEnrollment e : daoList){
-            if(!list.contains(e)) {
+            if(!list.contains(e)){
                 list.add(e);
             }
         }
@@ -43,13 +43,13 @@ public class ExamEnrollmentLazyFactory {
     public List<ExamEnrollment> getExamEnrollmentsByStudent(Student student) throws DAOException {
         List<ExamEnrollment> list = new ArrayList<>();
         for(ExamEnrollment e : examEnrollments){
-            if(e.getStudent().equals(student)) {
+            if(e.getStudent().equals(student)){
                 list.add(e);
             }
         }
-        List<ExamEnrollment> daoList = DAOFactoryAbstract.getDAOFactory().getExamEnrollmentDAO().getExamEnrollmentsByStudent(student);
+        List<ExamEnrollment> daoList = DAOFactoryAbstract.getInstance().getExamEnrollmentDAO().getExamEnrollmentsByStudent(student);
         for(ExamEnrollment e : daoList){
-            if(!list.contains(e)) {
+            if(!list.contains(e)){
                 list.add(e);
             }
         }
@@ -58,19 +58,19 @@ public class ExamEnrollmentLazyFactory {
 
     public ExamEnrollment getExamEnrollmentByExamAndStudent(Exam exam, Student student) throws DAOException {
         for(ExamEnrollment e : examEnrollments){
-            if(e.getExam().equals(exam) && e.getStudent().equals(student)) {
+            if(e.getExam().equals(exam) && e.getStudent().equals(student)){
                 return e;
             }
         }
-        return DAOFactoryAbstract.getDAOFactory().getExamEnrollmentDAO().getExamEnrollmentByExamAndStudent(exam, student);
+        return DAOFactoryAbstract.getInstance().getExamEnrollmentDAO().getExamEnrollmentByExamAndStudent(exam, student);
     }
 
     public void saveExamResult(ExamEnrollment enrollment, ExamResult result) throws DAOException {
         enrollment.setExamResult(result);
-        DAOFactoryAbstract.getDAOFactory().getExamEnrollmentDAO().update(enrollment);
+        DAOFactoryAbstract.getInstance().getExamEnrollmentDAO().update(enrollment);
     }
 
     public void update (ExamEnrollment exam) throws DAOException {
-        DAOFactoryAbstract.getDAOFactory().getExamEnrollmentDAO().update(exam);
+        DAOFactoryAbstract.getInstance().getExamEnrollmentDAO().update(exam);
     }
 }

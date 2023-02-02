@@ -1,6 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.model.pending_events;
 
 import it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum;
+import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
 
@@ -9,9 +10,9 @@ import java.util.UUID;
 public class PendingEventSingle extends PendingEvent{
     private User user;
 
-    public PendingEventSingle() {
+    public PendingEventSingle(){
     }
-    public PendingEventSingle(User user, PendingEventTypeEnum type, Object object) {
+    public PendingEventSingle(User user, PendingEventTypeEnum type, Object object) throws DAOException {
         UUID generatedId;
         do{
             generatedId=UUID.randomUUID();
@@ -28,11 +29,11 @@ public class PendingEventSingle extends PendingEvent{
     public Boolean isForUser(User user){
         return (this.user == user);
     }
-    public User getUser() {
+    public User getUser(){
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(User user){
         this.user = user;
     }
 

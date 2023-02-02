@@ -9,33 +9,33 @@ public class SubjectCourseBean {
     private String name;
     private Year academicYear;
 
-    public SubjectCourseBean(SubjectCourseCodeEnum code, String name, Year academicYear) {
+    public SubjectCourseBean(SubjectCourseCodeEnum code, String name, Year academicYear){
         this.code = code;
         this.name = name;
         this.academicYear = academicYear;
     }
 
-    public SubjectCourseCodeEnum getCode() {
+    public SubjectCourseCodeEnum getCode(){
         return code;
     }
 
-    public void setCode(SubjectCourseCodeEnum code) {
+    public void setCode(SubjectCourseCodeEnum code){
         this.code = code;
     }
 
-    public String getName() {
+    public String getName(){
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name){
         this.name = name;
     }
 
-    public Year getAcademicYear() {
+    public Year getAcademicYear(){
         return academicYear;
     }
 
-    public void setAcademicYear(Year academicYear) {
+    public void setAcademicYear(Year academicYear){
         this.academicYear = academicYear;
     }
 }

@@ -7,16 +7,16 @@ import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
 public class Secretary extends AbstractRole {
     private DipartimentoEnum dipartimento;
-    public Secretary(User user, DipartimentoEnum dipartimento) {
+    public Secretary(User user, DipartimentoEnum dipartimento){
         super(user);
         this.dipartimento = dipartimento;
     }
 
-    public DipartimentoEnum getDipartimento() {
+    public DipartimentoEnum getDipartimento(){
         return dipartimento;
     }
 
-    public void setDipartimento(DipartimentoEnum dipartimento) {
+    public void setDipartimento(DipartimentoEnum dipartimento){
         this.dipartimento = dipartimento;
     }
 

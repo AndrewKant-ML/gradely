@@ -5,15 +5,15 @@ import java.util.List;
 public class ExamEnrollmentListBean {
     private List<ExamEnrollmentBean> examEnrollmentBeans;
 
-    public ExamEnrollmentListBean(List<ExamEnrollmentBean> examEnrollmentBeans) {
+    public ExamEnrollmentListBean(List<ExamEnrollmentBean> examEnrollmentBeans){
         this.examEnrollmentBeans = examEnrollmentBeans;
     }
 
-    public List<ExamEnrollmentBean> getExamEnrollmentBeans() {
+    public List<ExamEnrollmentBean> getExamEnrollmentBeans(){
         return examEnrollmentBeans;
     }
 
-    public void setExamEnrollmentBeans(List<ExamEnrollmentBean> examEnrollmentBeans) {
+    public void setExamEnrollmentBeans(List<ExamEnrollmentBean> examEnrollmentBeans){
         this.examEnrollmentBeans = examEnrollmentBeans;
     }
 }

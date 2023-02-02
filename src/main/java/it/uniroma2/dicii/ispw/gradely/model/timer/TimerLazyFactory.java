@@ -1,6 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.model.timer;
 
-import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactoryAbstract;
+import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
+import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.WrongTimerTypeException;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.test.Test;
@@ -18,23 +19,23 @@ public class TimerLazyFactory {
     }
 
 
-    public static TimerLazyFactory getInstance(){
-        if (instance == null) {
+    public static synchronized TimerLazyFactory getInstance(){
+        if (instance == null){
             instance = new TimerLazyFactory();
         }
         return instance;
     }
 
 
-    public AbstractTimer newExamConfirmationTimer(LocalDate expiration, Exam exam){
+    public AbstractTimer newExamConfirmationTimer(LocalDate expiration, Exam exam) throws DAOException {
         AbstractTimer newTimer = new ExamConfirmationTimer(expiration, exam);
-        DAOFactoryAbstract.getDAOFactory().getTimerDAO().insert(newTimer);
+        DAOFactoryAbstract.getInstance().getTimerDAO().insert(newTimer);
         activeTimers.add(newTimer);
         return newTimer;
     }
-    public AbstractTimer newTestResultTimer(LocalDate expiration, Test test){
+    public AbstractTimer newTestResultTimer(LocalDate expiration, Test test) throws DAOException {
         AbstractTimer newTimer = new TestResultTimer(expiration, test);
-        DAOFactoryAbstract.getDAOFactory().getTimerDAO().insert(newTimer);
+        DAOFactoryAbstract.getInstance().getTimerDAO().insert(newTimer);
         activeTimers.add(newTimer);
         return newTimer;
     }

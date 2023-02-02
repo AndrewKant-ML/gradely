@@ -1,6 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.model.subject_course.dao;
 
 import it.uniroma2.dicii.ispw.gradely.dao_interface.DAOInterface;
+import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 
 
@@ -10,6 +11,6 @@ public abstract class SubjectCourseDAOAbstract implements DAOInterface <SubjectC
 
     }
 
-    public abstract SubjectCourse getSubjectCourseByName(String name);
+    public abstract SubjectCourse getSubjectCourseByName(String name) throws DAOException;
 
 }

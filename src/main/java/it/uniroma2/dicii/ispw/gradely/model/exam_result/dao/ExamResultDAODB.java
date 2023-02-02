@@ -7,12 +7,12 @@ import java.util.List;
 
 public class ExamResultDAODB extends AbstractExamResultDAO {
 
-    private ExamResultDAODB(){ //TODO implementare costruttore vero
+    private ExamResultDAODB(){ 
 
     }
 
-    public static AbstractExamResultDAO getInstance(){
-        if (instance == null) {
+    public static synchronized AbstractExamResultDAO getInstance(){
+        if (instance == null){
             instance = new ExamResultDAODB();
         }
         return instance;

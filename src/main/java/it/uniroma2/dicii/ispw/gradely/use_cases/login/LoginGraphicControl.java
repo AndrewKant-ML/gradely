@@ -37,12 +37,21 @@ public class LoginGraphicControl implements Initializable {
     private LoginControl loginController;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle){
         loginController = new LoginControl();
+<<<<<<< HEAD
         loginButton.setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode().equals(KeyCode.ENTER))
                 login((Node) keyEvent.getSource());
         });
+=======
+        /*loginButton.setOnKeyPressed(new EventHandler<KeyEvent>(){
+            @Override
+            public void handle(KeyEvent keyEvent){
+                if (keyEvent.)
+            }
+        });*/
+>>>>>>> GVC
     }
 
     /**
@@ -50,6 +59,7 @@ public class LoginGraphicControl implements Initializable {
      *
      * @param event the mouse click event
      */
+<<<<<<< HEAD
     public void login(ActionEvent event) {
         login((Node) event.getSource());
     }
@@ -60,21 +70,34 @@ public class LoginGraphicControl implements Initializable {
      * @param node the JavaFX node where the event has been triggered
      */
     private void login(Node node) {
+=======
+    public void login(ActionEvent event){
+>>>>>>> GVC
         final String email = this.emailField.getText();
         final String password = this.passwordField.getText();
 
         try {
             //loginController.emailMatches(email);
             Token sessionToken = loginController.login(email, password);
+<<<<<<< HEAD
             goToMainPage((Stage) node.getScene().getWindow(), sessionToken);
         } /*catch (EmailFormatException efe) {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, "Login error", "Email format error", e);
+=======
+            goToMainPage((Stage) ((Node) (event.getSource())).getScene().getWindow(), sessionToken);
+        } /*catch (EmailFormatException efe){
+>>>>>>> GVC
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Login error");
             alert.setContentText(efe.getMessage());
             alert.show();
+<<<<<<< HEAD
         } */ catch (Exception e) { // TODO change exception type when changed on LoginControl
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, "Login error", "Wrong credentials", e);
+=======
+        } */catch (Exception e){ // TODO change exception type when changed on LoginControl
+            throw new RuntimeException(e);
+>>>>>>> GVC
         }
     }
 
@@ -84,7 +107,7 @@ public class LoginGraphicControl implements Initializable {
      * @param stage        the Stage object of the current application
      * @param sessionToken the session token generated after login
      */
-    private void goToMainPage(Stage stage, Token sessionToken) {
+    private void goToMainPage(Stage stage, Token sessionToken){
         FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(MainApplication.class.getResource("base_view.fxml")));
         try {
             Pane basePane = loader.load();
@@ -95,8 +118,13 @@ public class LoginGraphicControl implements Initializable {
 
             Scene scene = new Scene(basePane);
             stage.setScene(scene);
+<<<<<<< HEAD
         } catch (IOException e) {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, "Loading error", "Error while loading Homepage view");
+=======
+        } catch (IOException e){
+            throw new RuntimeException(e);
+>>>>>>> GVC
         }
     }
 }

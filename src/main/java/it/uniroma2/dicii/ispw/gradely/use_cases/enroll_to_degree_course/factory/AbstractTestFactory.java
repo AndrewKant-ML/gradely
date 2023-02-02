@@ -8,10 +8,10 @@ public abstract class AbstractTestFactory {
 
     private static AbstractTestFactory INSTANCE = null;
 
-    public static synchronized AbstractTestFactory getInstance(TestTypeEnum testTypeEnum) {
+    public static synchronized AbstractTestFactory getInstance(TestTypeEnum testTypeEnum){
         // TODO change to session factory
-        if (INSTANCE == null) {
-            switch (testTypeEnum) {
+        if (INSTANCE == null){
+            switch (testTypeEnum){
                 case ONLINE -> INSTANCE = new MoodleTestFactory();
                 case MUR -> INSTANCE = new MURTestFactory();
             }
@@ -19,7 +19,7 @@ public abstract class AbstractTestFactory {
         return INSTANCE;
     }
 
-    protected AbstractTestFactory() {}
+    protected AbstractTestFactory(){}
 
     public abstract AbstractTestBoundary createTestBoundary();
 

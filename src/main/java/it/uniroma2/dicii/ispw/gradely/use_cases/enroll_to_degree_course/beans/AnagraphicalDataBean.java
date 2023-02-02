@@ -9,16 +9,16 @@ public class AnagraphicalDataBean {
 
     private UserBean userBean;
 
-    public AnagraphicalDataBean(StudentBean studentBean, UserBean userBean) {
+    public AnagraphicalDataBean(StudentBean studentBean, UserBean userBean){
         this.studentBean = studentBean;
         this.userBean = userBean;
     }
 
-    public StudentBean getStudentBean() {
+    public StudentBean getStudentBean(){
         return studentBean;
     }
 
-    public UserBean getUserBean() {
+    public UserBean getUserBean(){
         return userBean;
     }
 }
