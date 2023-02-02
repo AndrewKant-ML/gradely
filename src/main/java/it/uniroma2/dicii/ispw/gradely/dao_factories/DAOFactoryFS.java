@@ -13,7 +13,7 @@ import it.uniroma2.dicii.ispw.gradely.model.degree_course.dao.DegreeCourseDAOFS;
 import it.uniroma2.dicii.ispw.gradely.model.exam.dao.AbstractExamDAO;
 import it.uniroma2.dicii.ispw.gradely.model.exam.dao.ExamDAOFS;
 import it.uniroma2.dicii.ispw.gradely.model.exam_result.dao.AbstractExamResultDAO;
-import it.uniroma2.dicii.ispw.gradely.model.exam_result.dao.ExamResultDAODB;
+import it.uniroma2.dicii.ispw.gradely.model.exam_result.dao.ExamResultDAOFS;
 import it.uniroma2.dicii.ispw.gradely.model.pending_events.dao.AbstractPendingEventDAO;
 import it.uniroma2.dicii.ispw.gradely.model.pending_events.dao.PendingEventDAOFS;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.dao.AbstractProfessorDAO;
@@ -30,48 +30,59 @@ import it.uniroma2.dicii.ispw.gradely.model.user.dao.UserDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.user.dao.UserDAOFS;
 
 public class DAOFactoryFS extends DAOFactoryAbstract {
+    @Override
     public AbstractCourseAssignmentDAO getCourseAssignmentDAO(){
         return CourseAssignmentDAOFS.getInstance();
     }
+    @Override
     public AbstractDegreeCourseEnrollmentDAO getDegreeCourseEnrollmentDAO(){
         return DegreeCourseEnrollmentDAOFS.getInstance();
     }
+    @Override
     public AbstractExamEnrollmentDAO getExamEnrollmentDAO(){
         return ExamEnrollmentDAOFS.getInstance();
     }
+    @Override
     public AbstractSubjectCourseEnrollmentDAO getSubjectCourseEnrollmentDAO(){
         return SubjectCourseEnrollmentDAOFS.getInstance();
     }
+    @Override
     public AbstractDegreeCourseDAO getDegreeCourseDAO(){
         return DegreeCourseDAOFS.getInstance();
     }
+    @Override
     public AbstractExamDAO getExamDAO(){
         return ExamDAOFS.getInstance();
     }
+    @Override
     public AbstractExamResultDAO getExamResultDAO() {
         return ExamResultDAOFS.getInstance();
     }
+    @Override
     public AbstractPendingEventDAO getPendingEventDAO(){
         return PendingEventDAOFS.getInstance();
     }
+    @Override
     public AbstractProfessorDAO getProfessorDAO(){
         return ProfessorDAOFS.getInstance();
     }
+    @Override
     public AbstractSecretaryDAO getSecretaryDAO(){
         return SecretaryDAOFS.getInstance();
     }
+    @Override
     public AbstractStudentDAO getStudentDAO(){
         return StudentDAOFS.getInstance();
     }
+    @Override
     public SubjectCourseDAOAbstract getSubjectCourseDAO(){
         return SubjectCourseDAOFS.getInstance();
     }
-
     @Override
     public TimerDAOAbstract getTimerDAO() {
         return TimerDAOFS.getInstance();
     }
-
+    @Override
     public UserDAOAbstract getUserDAO(){
         return UserDAOFS.getInstance();
     }

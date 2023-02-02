@@ -30,49 +30,59 @@ import it.uniroma2.dicii.ispw.gradely.model.user.dao.UserDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.user.dao.UserDAODB;
 
 public class DAOFactoryDB extends DAOFactoryAbstract {
+    @Override
     public AbstractCourseAssignmentDAO getCourseAssignmentDAO(){
         return CourseAssignmentDAODB.getInstance();
     }
+    @Override
     public AbstractDegreeCourseEnrollmentDAO getDegreeCourseEnrollmentDAO(){
         return DegreeCourseEnrollmentDAODB.getInstance();
     }
+    @Override
     public AbstractExamEnrollmentDAO getExamEnrollmentDAO(){
         return ExamEnrollmentDAODB.getInstance();
     }
+    @Override
     public AbstractSubjectCourseEnrollmentDAO getSubjectCourseEnrollmentDAO(){
         return SubjectCourseEnrollmentDAODB.getInstance();
     }
+    @Override
     public AbstractDegreeCourseDAO getDegreeCourseDAO(){
         return DegreeCourseDAODB.getInstance();
     }
+    @Override
     public AbstractExamDAO getExamDAO(){
         return ExamDAODB.getInstance();
     }
+    @Override
     public AbstractExamResultDAO getExamResultDAO() {
         return ExamResultDAODB.getInstance();
     }
-
+    @Override
     public AbstractPendingEventDAO getPendingEventDAO(){
         return PendingEventDAODB.getInstance();
     }
+    @Override
     public AbstractProfessorDAO getProfessorDAO(){
         return ProfessorDAODB.getInstance();
     }
+    @Override
     public AbstractSecretaryDAO getSecretaryDAO(){
         return SecretaryDAODB.getInstance();
     }
+    @Override
     public AbstractStudentDAO getStudentDAO(){
         return StudentDAODB.getInstance();
     }
+    @Override
     public SubjectCourseDAOAbstract getSubjectCourseDAO(){
         return SubjectCourseDAODB.getInstance();
     }
-
     @Override
     public TimerDAOAbstract getTimerDAO() {
         return TimerDAODB.getInstance();
     }
-
+    @Override
     public UserDAOAbstract getUserDAO(){
         return UserDAODB.getInstance();
     }

@@ -1,6 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.model.association_classes.course_assignment;
 
 import it.uniroma2.dicii.ispw.gradely.dao_factories.DAOFactoryAbstract;
+import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.Professor;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 
@@ -25,28 +26,28 @@ public class CourseAssignmentLazyFactory {
     public CourseAssignment getCourseAssignmentBySubjectCourse(SubjectCourse course) {
         for(CourseAssignment c : courseAssignments){
             if(c.getSubjectCourse().equals(course)) {
-                return c; //TODO implementare exception
+                return c;
             }
         }
         return DAOFactoryAbstract.getDAOFactory().getCourseAssignmentDAO().getCourseAssignmentBySubjectCourse(course); //TODO implementare exception
     }
 
-    public List<CourseAssignment> getCourseAssignmentsByProfessor(Professor professor) {
+    public List<CourseAssignment> getCourseAssignmentsByProfessor(Professor professor) throws DAOException {
         List<CourseAssignment> list = new ArrayList<>();
         for(CourseAssignment c : courseAssignments){
             if(c.getProfessor().equals(professor)) {
-                list.add(c); //TODO implementare exceptions
+                list.add(c);
             }
         }
-        List<CourseAssignment> daoList = DAOFactoryAbstract.getDAOFactory().getCourseAssignmentDAO().getCourseAssignmentsByProfessor(professor); //TODO implementare exception
+        List<CourseAssignment> daoList = DAOFactoryAbstract.getDAOFactory().getCourseAssignmentDAO().getCourseAssignmentsByProfessor(professor);
         for(CourseAssignment c : daoList){
             if(!list.contains(c)) {
-                list.add(c); //TODO implementare exceptions
+                list.add(c);
             }
         }
         return list;
     }
-    public List<SubjectCourse> getAssignedSubjectCoursesByProfessor(Professor professor) {
+    public List<SubjectCourse> getAssignedSubjectCoursesByProfessor(Professor professor) throws DAOException {
         List<SubjectCourse> list = new ArrayList<>();
         for(CourseAssignment c : courseAssignments){
             if(c.getProfessor().equals(professor)) {
