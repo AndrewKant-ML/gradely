@@ -22,17 +22,16 @@ public class DegreeCourseLazyFactory {
     }
 
     public DegreeCourse getDegreeCourseByName(String name) throws DAOException {
-        for (DegreeCourse d : degreeCourses){
-            if (d.getName().equals(name)){
-                return d; 
+        for (DegreeCourse d : degreeCourses) {
+            if (d.getName().equals(name)) {
+                return d;
             }
         }
         return DAOFactoryAbstract.getInstance().getDegreeCourseDAO().getDegreeCourseByName(name);
     }
 
-    public List<DegreeCourse> getDegreeCourses() throws DAOException {
-        // TODO implement correct query
-        this.degreeCourses = DAOFactoryAbstract.getInstance().getDegreeCourseDAO().getAllDegreeCourses();
+    public List<DegreeCourse> getAllDegreeCourses() throws DAOException {
+        this.degreeCourses.addAll(DAOFactoryAbstract.getInstance().getDegreeCourseDAO().getAllDegreeCourses(this.degreeCourses));
         return this.degreeCourses;
     }
 }

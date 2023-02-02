@@ -25,7 +25,7 @@ public class DegreeCourseDAOFS extends AbstractDegreeCourseDAO {
     }
 
     @Override
-    public List<DegreeCourse> getAllDegreeCourses() throws DAOException {
+    public List<DegreeCourse>getAllDegreeCourses(List<DegreeCourse> degreeCourses) throws DAOException {
         return null;
     }
 

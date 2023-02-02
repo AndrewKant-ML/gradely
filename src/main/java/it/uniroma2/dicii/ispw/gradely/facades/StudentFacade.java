@@ -11,7 +11,7 @@ public class StudentFacade {
     private EnrollToDegreeCourseStudentFacade enrollToDegreeCourse;
 
     public StudentFacade(Token token) throws MissingAuthorizationException{
-        SessionManager.getInstance().getSessionUserByToken(token).getRole().getStudentRole();
+        SessionManager.getInstance().getSessionUserByTokenKey(token).getRole().castToStudentRole();
     }
 
     public void insertStudentsGrades(Token token) throws MissingAuthorizationException{

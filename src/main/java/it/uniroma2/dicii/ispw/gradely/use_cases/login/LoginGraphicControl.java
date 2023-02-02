@@ -3,11 +3,9 @@ package it.uniroma2.dicii.ispw.gradely.use_cases.login;
 import it.uniroma2.dicii.ispw.gradely.BaseGraphicControl;
 import it.uniroma2.dicii.ispw.gradely.MainApplication;
 import it.uniroma2.dicii.ispw.gradely.PageNavigationController;
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.EmailFormatException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.UserNotFoundException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.WrongPasswordException;
-import it.uniroma2.dicii.ispw.gradely.session_manager.Token;
+import it.uniroma2.dicii.ispw.gradely.beans_general.LoginBean;
+import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,18 +41,10 @@ public class LoginGraphicControl implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
         loginController = new LoginControl();
-<<<<<<< HEAD
         loginButton.setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode().equals(KeyCode.ENTER))
                 login((Node) keyEvent.getSource());
         });
-=======
-        /*loginButton.setOnKeyPressed(new EventHandler<KeyEvent>(){
-            @Override
-            public void handle(KeyEvent keyEvent){
-                if (keyEvent.)
-            }
-        });*/
     }
 
     /**
@@ -77,16 +67,18 @@ public class LoginGraphicControl implements Initializable {
 
         try {
             loginController.emailMatches(email);
-            Token sessionToken = loginController.login(email, password);
-            goToMainPage((Stage) node.getScene().getWindow(), sessionToken);
-        } catch (EmailFormatException efe) {
-            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, "Login error", "Email format error", efe);
+            LoginBean loginBean = loginController.login(email, password);
+            goToMainPage((Stage) node.getScene().getWindow(), loginBean.getTokenKey());
+        } catch (EmailFormatException e) {
+            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, "Login error", ExceptionMessagesEnum.EMAIL_FORMAT.message, e);
         } catch (UserNotFoundException e) {
-            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, "Login error", "Wrong credentials", e);
+            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, "Login error", ExceptionMessagesEnum.USER_NOT_FOUND.message, e);
         } catch (DAOException e) {
-            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, "Login error", "Wrong credentials", e);
+            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, "Data retrieval error", ExceptionMessagesEnum.DAO.message, e);
         } catch (WrongPasswordException e) {
-            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, "Login error", "Wrong credentials", e);
+            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, "Login error", ExceptionMessagesEnum.WRONG_PASSWORD.message, e);
+        } catch (MissingAuthorizationException e) {
+            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, "Login error", ExceptionMessagesEnum.MISSING_AUTH.message, e);
         }
     }
 
@@ -96,14 +88,14 @@ public class LoginGraphicControl implements Initializable {
      * @param stage        the Stage object of the current application
      * @param sessionToken the session token generated after login
      */
-    private void goToMainPage(Stage stage, Token sessionToken){
+    private void goToMainPage(Stage stage, String tokenKey){
         FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(MainApplication.class.getResource("base_view.fxml")));
         try {
             Pane basePane = loader.load();
             BaseGraphicControl baseGraphicControl = loader.getController();
             PageNavigationController.getInstance().setBaseGraphicController(baseGraphicControl);
             PageNavigationController.getInstance().navigateTo("homepage");
-            PageNavigationController.getInstance().setSessionToken(sessionToken);
+            PageNavigationController.getInstance().setSessionTokenKey(tokenKey);
 
             Scene scene = new Scene(basePane);
             stage.setScene(scene);

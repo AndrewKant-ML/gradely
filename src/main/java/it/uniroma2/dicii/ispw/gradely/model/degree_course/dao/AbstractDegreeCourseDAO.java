@@ -16,6 +16,6 @@ public abstract class AbstractDegreeCourseDAO implements DAOInterface<DegreeCour
 
     public abstract DegreeCourse getDegreeCourseByName(String name) throws DAOException;
 
-    public abstract List<DegreeCourse> getAllDegreeCourses() throws DAOException ;
+    public abstract List<DegreeCourse> getAllDegreeCourses(List<DegreeCourse> degreeCourses) throws DAOException;
 
 }

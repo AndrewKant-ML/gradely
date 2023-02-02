@@ -24,41 +24,44 @@ public class SessionManager {
         }
         return instance;
     }
-    private Session getSession(User user){
-        for(Session s : activeSessions){
-            if(s.getUser().equals(user)){
+
+    private Session getSession(User user) {
+        for (Session s : activeSessions) {
+            if (s.getUser().equals(user)) {
                 return s;
             }
         }
         return null;
     }
 
-    private Session getSession(Token token){
-        for(Session s : activeSessions){
-            if(s.getToken().equals(token)){
+    private Session getSession(String tokenKey) {
+        for (Session s : activeSessions) {
+            if (s.getToken().getKey().equals(tokenKey)) {
                 return s;
             }
         }
         return null;
     }
-    public User getSessionUserByToken(Token token){
-        Session s = getSession(token);
-        if (s == null){
+
+    public User getSessionUserByTokenKey(String tokenKey) {
+        Session s = getSession(tokenKey);
+        if (s == null) {
             return null;
         }
         return s.getUser();
     }
-    public Token getSessionTokenByUser(User user){
+
+    public String getSessionTokenKeyByUser(User user) {
         Session s = getSession(user);
-        if (s == null){
-            s = new Session(user,JAVAFX);  //TODO implementare
+        if (s == null) {
+            s = new Session(user, JAVAFX);  //TODO implementare
             activeSessions.add(s);
         }
-        return s.getToken();
+        return s.getToken().getKey();
     }
 
     private void refreshPendingEvents(List<PendingEvent> pendingEvents) throws DAOException {
-        for (PendingEvent p : DAOFactoryAbstract.getInstance().getPendingEventDAO().refresh(pendingEvents)){
+        for (PendingEvent p : DAOFactoryAbstract.getInstance().getPendingEventDAO().refresh(pendingEvents)) {
             if (!pendingEvents.contains(p)){
                 pendingEvents.add(p);
             }
