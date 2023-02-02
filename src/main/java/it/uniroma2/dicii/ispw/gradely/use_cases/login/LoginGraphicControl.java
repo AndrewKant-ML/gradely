@@ -3,6 +3,10 @@ package it.uniroma2.dicii.ispw.gradely.use_cases.login;
 import it.uniroma2.dicii.ispw.gradely.BaseGraphicControl;
 import it.uniroma2.dicii.ispw.gradely.MainApplication;
 import it.uniroma2.dicii.ispw.gradely.PageNavigationController;
+import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.EmailFormatException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.UserNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.WrongPasswordException;
 import it.uniroma2.dicii.ispw.gradely.session_manager.Token;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -51,7 +55,6 @@ public class LoginGraphicControl implements Initializable {
                 if (keyEvent.)
             }
         });*/
->>>>>>> GVC
     }
 
     /**
@@ -59,7 +62,6 @@ public class LoginGraphicControl implements Initializable {
      *
      * @param event the mouse click event
      */
-<<<<<<< HEAD
     public void login(ActionEvent event) {
         login((Node) event.getSource());
     }
@@ -70,34 +72,21 @@ public class LoginGraphicControl implements Initializable {
      * @param node the JavaFX node where the event has been triggered
      */
     private void login(Node node) {
-=======
-    public void login(ActionEvent event){
->>>>>>> GVC
         final String email = this.emailField.getText();
         final String password = this.passwordField.getText();
 
         try {
-            //loginController.emailMatches(email);
+            loginController.emailMatches(email);
             Token sessionToken = loginController.login(email, password);
-<<<<<<< HEAD
             goToMainPage((Stage) node.getScene().getWindow(), sessionToken);
-        } /*catch (EmailFormatException efe) {
-            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, "Login error", "Email format error", e);
-=======
-            goToMainPage((Stage) ((Node) (event.getSource())).getScene().getWindow(), sessionToken);
-        } /*catch (EmailFormatException efe){
->>>>>>> GVC
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Login error");
-            alert.setContentText(efe.getMessage());
-            alert.show();
-<<<<<<< HEAD
-        } */ catch (Exception e) { // TODO change exception type when changed on LoginControl
+        } catch (EmailFormatException efe) {
+            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, "Login error", "Email format error", efe);
+        } catch (UserNotFoundException e) {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, "Login error", "Wrong credentials", e);
-=======
-        } */catch (Exception e){ // TODO change exception type when changed on LoginControl
-            throw new RuntimeException(e);
->>>>>>> GVC
+        } catch (DAOException e) {
+            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, "Login error", "Wrong credentials", e);
+        } catch (WrongPasswordException e) {
+            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, "Login error", "Wrong credentials", e);
         }
     }
 
@@ -118,13 +107,8 @@ public class LoginGraphicControl implements Initializable {
 
             Scene scene = new Scene(basePane);
             stage.setScene(scene);
-<<<<<<< HEAD
         } catch (IOException e) {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, "Loading error", "Error while loading Homepage view");
-=======
-        } catch (IOException e){
-            throw new RuntimeException(e);
->>>>>>> GVC
         }
     }
 }
