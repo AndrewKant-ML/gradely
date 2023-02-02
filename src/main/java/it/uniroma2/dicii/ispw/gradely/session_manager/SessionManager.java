@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static it.uniroma2.dicii.ispw.gradely.enums.FrontEndTypeEnum.JAVAFX;
-
 public class SessionManager {
     private static SessionManager instance;
     private List<Session> activeSessions;
@@ -36,8 +34,6 @@ public class SessionManager {
         }
         return null;
     }
-
-
     private Session getSession(String tokenKey) {
         for (Session s : activeSessions) {
             if (s.getToken().getKey().equals(tokenKey)) {
@@ -65,11 +61,11 @@ public class SessionManager {
         }
 
     private void refreshPendingEvents(List<PendingEvent> pendingEvents) throws DAOException {
-            for (PendingEvent p : DAOFactoryAbstract.getInstance().getPendingEventDAO().refresh(pendingEvents)) {
-                if (!pendingEvents.contains(p)) {
-                    pendingEvents.add(p);
-                }
+        for (PendingEvent p : DAOFactoryAbstract.getInstance().getPendingEventDAO().refresh(pendingEvents)) {
+            if (!pendingEvents.contains(p)) {
+                pendingEvents.add(p);
             }
+    }
 
     }
     public List<PendingEvent> getPendingEventsByUser(User user) throws DAOException {
