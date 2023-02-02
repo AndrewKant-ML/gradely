@@ -61,13 +61,13 @@ public class LoginGraphicControl implements Initializable {
         try {
             loginController.emailMatches(email);
             LoginBean loginBean = loginController.login(email, password);
-            PageNavigationController.getInstance().openMainPage((Stage) node.getScene().getWindow(), loginBean.getTokenKey(), loginBean.getUserRole());
+            PageNavigationController.getInstance().openMainPage((Stage) node.getScene().getWindow(), loginBean.getTokenKey(), loginBean.getUserBean());
         } catch (EmailFormatException e) {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.LOGIN_ERROR_TITLE.message, UserErrorMessagesEnum.MALFORMED_EMAIL_MSG.message, e);
         } catch (UserNotFoundException e) {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.LOGIN_ERROR_TITLE.message, UserErrorMessagesEnum.USER_NOT_FOUND_MSG.message, e);
         } catch (DAOException e) {
-            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.DATA_RETRIEVAL_TITLE.message, UserErrorMessagesEnum.DATA_RETRIEVAL_ERROR.message, e);
+            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.DATA_RETRIEVAL_TITLE.message, UserErrorMessagesEnum.DATA_RETRIEVAL_MSG.message, e);
         } catch (WrongPasswordException e) {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.LOGIN_ERROR_TITLE.message, UserErrorMessagesEnum.WRONG_PASSWORD_MSG.message, e);
         } catch (MissingAuthorizationException e) {

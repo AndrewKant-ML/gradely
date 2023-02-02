@@ -1,33 +1,70 @@
 package it.uniroma2.dicii.ispw.gradely.beans_general;
 
+import it.uniroma2.dicii.ispw.gradely.enums.UserRoleEnum;
+
 public class UserBean {
 
     private String name;
     private String surname;
     private String codiceFiscale;
-
     private String email;
+    private UserRoleEnum role;
+    private String matricola;
 
-    public UserBean(String name, String surname, String codiceFiscale, String email){
+    public UserBean(String name, String surname, String codiceFiscale, String email, UserRoleEnum role, String matricola) {
         this.name = name;
         this.surname = surname;
         this.codiceFiscale = codiceFiscale;
         this.email = email;
+        this.role = role;
+        this.matricola = matricola;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public String getSurname(){
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
         return surname;
     }
 
-    public String getCodiceFiscale(){
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getCodiceFiscale() {
         return codiceFiscale;
     }
 
-    public String getEmail(){
+    public void setCodiceFiscale(String codiceFiscale) {
+        this.codiceFiscale = codiceFiscale;
+    }
+
+    public String getEmail() {
         return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public UserRoleEnum getRole() {
+        return role;
+    }
+
+    public void setRole(UserRoleEnum role) {
+        this.role = role;
+    }
+
+    public String getMatricola() {
+        return matricola;
+    }
+
+    public void setMatricola(String matricola) {
+        this.matricola = matricola;
     }
 }

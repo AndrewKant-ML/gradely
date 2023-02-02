@@ -4,11 +4,15 @@ public class StudentBean {
 
     private String matricola;
 
-    public StudentBean(String matricola){
+    public StudentBean(String matricola) {
         this.matricola = matricola;
     }
 
-    public String getMatricola(){
+    public String getMatricola() {
         return matricola;
+    }
+
+    public void setMatricola(String matricola) {
+        this.matricola = matricola;
     }
 }

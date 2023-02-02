@@ -9,33 +9,32 @@ import java.util.List;
 
 public class UserLazyFactory {
     private static UserLazyFactory instance;
-    private List<User> registeredUsers;
+    private final List<User> registeredUsers;
 
-    private UserLazyFactory(){
+    private UserLazyFactory() {
         registeredUsers = new ArrayList<User>();
     }
 
-    public static synchronized UserLazyFactory getInstance(){
-        if (instance == null){
+    public static synchronized UserLazyFactory getInstance() {
+        if (instance == null) {
             instance = new UserLazyFactory();
         }
         return instance;
     }
 
     public User getUserByEmail(String email) throws DAOException, UserNotFoundException {
-        for(User u : registeredUsers){
-            if(u.getEmail().equals(email)){
-                return u; 
+        for (User u : registeredUsers) {
+            if (u.getEmail().equals(email)) {
+                return u;
             }
         }
         return DAOFactoryAbstract.getInstance().getUserDAO().getUserByEmail(email);
     }
 
     public User newUser(String name, String surname, String codiceFiscale, String email, String password) throws DAOException {
-        User newUser = new User(name, surname,codiceFiscale,email,password);
+        User newUser = new User(name, surname, codiceFiscale, email, password);
         DAOFactoryAbstract.getInstance().getUserDAO().insert(newUser);
         registeredUsers.add(newUser);
         return newUser;
     }
-
 }

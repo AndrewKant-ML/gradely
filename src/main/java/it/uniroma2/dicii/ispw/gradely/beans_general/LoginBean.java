@@ -3,11 +3,11 @@ package it.uniroma2.dicii.ispw.gradely.beans_general;
 public class LoginBean {
 
     private String tokenKey;
-    private Integer userRole;
+    private UserBean userBean;
 
-    public LoginBean(String tokenKey, Integer userRole) {
+    public LoginBean(String tokenKey, UserBean userBean) {
         this.tokenKey = tokenKey;
-        this.userRole = userRole;
+        this.userBean = userBean;
     }
 
     public String getTokenKey() {
@@ -18,11 +18,11 @@ public class LoginBean {
         this.tokenKey = tokenKey;
     }
 
-    public Integer getUserRole() {
-        return userRole;
+    public UserBean getUserBean() {
+        return userBean;
     }
 
-    public void setUserRole(Integer userRole) {
-        this.userRole = userRole;
+    public void setUserBean(UserBean userBean) {
+        this.userBean = userBean;
     }
 }

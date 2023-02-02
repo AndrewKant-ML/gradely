@@ -11,8 +11,7 @@ public class User {
     private String email;
     private String password;
     private AbstractRole role;
-
-
+    
     protected User(String name, String surname, String codiceFiscale, String email, String password){
         this.name = name;
         this.surname = surname;

@@ -1,5 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely;
 
+import it.uniroma2.dicii.ispw.gradely.beans_general.UserBean;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.UserErrorMessagesEnum;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +16,7 @@ public final class PageNavigationController {
     private static PageNavigationController instance;
     private BaseGraphicControl baseGraphicController;
     private String sessionTokenKey;
-
+    private UserBean userBean;
     private PageNavigationController() {
 
     }
@@ -26,21 +27,21 @@ public final class PageNavigationController {
         return instance;
     }
 
-    public void openMainPage(Stage stage, String sessionTokenKey, Integer userRole) {
+    public void openMainPage(Stage stage, String sessionTokenKey, UserBean userBean) {
         setSessionTokenKey(sessionTokenKey);
+        setUserBean(userBean);
         FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(MainApplication.class.getResource("base_view.fxml")));
         try {
             Pane basePane = loader.load();
             BaseGraphicControl baseGraphicControl = loader.getController();
             setBaseGraphicController(baseGraphicControl);
             String view_name = "";
-            switch (userRole) {
+            switch (userBean.getRole().type) {
                 case 0 -> view_name = "homepage_student";
                 case 1 -> view_name = "homepage_professor";
                 case 2 -> view_name = "homepage_secretary";
-                default -> {
-                    showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.ROLE_ERROR_TITLE.message, UserErrorMessagesEnum.ROLE_ERROR_MSG.message);
-                }
+                default ->
+                        showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.ROLE_ERROR_TITLE.message, UserErrorMessagesEnum.ROLE_ERROR_MSG.message);
             }
             navigateTo(view_name);
 
@@ -80,6 +81,14 @@ public final class PageNavigationController {
 
     public void setSessionTokenKey(String sessionTokenKey) {
         this.sessionTokenKey = sessionTokenKey;
+    }
+
+    public UserBean getUserBean() {
+        return userBean;
+    }
+
+    public void setUserBean(UserBean userBean) {
+        this.userBean = userBean;
     }
 
     // TODO implement user switch

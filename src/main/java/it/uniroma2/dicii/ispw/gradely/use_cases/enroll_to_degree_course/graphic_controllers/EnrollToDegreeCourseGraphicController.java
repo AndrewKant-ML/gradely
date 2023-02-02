@@ -3,6 +3,10 @@ package it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.graphic
 import it.uniroma2.dicii.ispw.gradely.PageNavigationController;
 import it.uniroma2.dicii.ispw.gradely.beans_general.DegreeCourseBean;
 import it.uniroma2.dicii.ispw.gradely.beans_general.TestInfoBean;
+import it.uniroma2.dicii.ispw.gradely.enums.TestTypeEnum;
+import it.uniroma2.dicii.ispw.gradely.enums.UserErrorMessagesEnum;
+import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.MissingAuthorizationException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.TestRetrivialException;
 import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.EnrollToDegreeCourseStudentFacade;
 import javafx.fxml.FXML;
@@ -42,9 +46,15 @@ public class EnrollToDegreeCourseGraphicController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        facade = new EnrollToDegreeCourseStudentFacade(PageNavigationController.getInstance().getSessionTokenKey());
-        firstStageController.setDegreeCoursesList(facade.getDegreeCourses());
-        currentStage = 1;
+        try {
+            facade = new EnrollToDegreeCourseStudentFacade(PageNavigationController.getInstance().getSessionTokenKey());
+            firstStageController.setDegreeCoursesList(facade.getDegreeCourses(PageNavigationController.getInstance().getSessionTokenKey()));
+            currentStage = 1;
+        } catch (MissingAuthorizationException e) {
+            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.AUTHORIZATION_TITLE.message, UserErrorMessagesEnum.MISSING_AUTHORIZATION_MSG.message, e);
+        } catch (DAOException e) {
+            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.DATA_RETRIEVAL_TITLE.message, UserErrorMessagesEnum.DATA_RETRIEVAL_MSG.message, e);
+        }
     }
 
     /**
@@ -83,7 +93,7 @@ public class EnrollToDegreeCourseGraphicController implements Initializable {
      */
     private void goToStageTwo(){
         selectedDegreeCourse = firstStageController.getSelectedDegreeCourse();
-        secondStageController.setAnagraphicalData(facade.getStudentBean(), facade.getUserBean());
+        secondStageController.setAnagraphicalData(PageNavigationController.getInstance().getUserBean());
         secondStage.setVisible(true);
         backButton.setVisible(true);
     }
@@ -93,21 +103,25 @@ public class EnrollToDegreeCourseGraphicController implements Initializable {
      */
     private void goToStageThree(){
         try {
-            this.testInfo = facade.getTestInfo(selectedDegreeCourse);
+            this.testInfo = facade.getTestInfo(PageNavigationController.getInstance().getSessionTokenKey(), selectedDegreeCourse);
             thirdStageController.setData(testInfo, selectedDegreeCourse);
-        } catch (TestRetrivialException e){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("External error");
-            alert.setContentText(e.getMessage());
-            alert.show();
+            nextButton.setText("Register");
+            thirdStage.setVisible(true);
+        } catch (TestRetrivialException e) {
+            String msg = selectedDegreeCourse.getTestType().equals(TestTypeEnum.MUR) ? UserErrorMessagesEnum.MUR_TEST_RETRIEVAL_MSG.message : UserErrorMessagesEnum.MOODLE_TEST_RETRIEVAL_MSG.message;
+            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.EXTERNAL_ERROR_TITLE.message, msg);
+        } catch (MissingAuthorizationException e) {
+            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.AUTHORIZATION_TITLE.message, UserErrorMessagesEnum.MISSING_AUTHORIZATION_MSG.message);
         }
-        nextButton.setText("Register");
-        thirdStage.setVisible(true);
     }
 
     private void goToStageFour(){
-        fourthStageController.setTestReservationCode(facade.reserveTest(testInfo).getReservationCode().toString());
-        nextButton.setText("Close");
-        fourthStage.setVisible(true);
+        try {
+            fourthStageController.setTestReservationCode(facade.reserveTest(PageNavigationController.getInstance().getSessionTokenKey(), testInfo).getReservationCode().toString());
+            nextButton.setText("Close");
+            fourthStage.setVisible(true);
+        } catch (MissingAuthorizationException e) {
+            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.AUTHORIZATION_TITLE.message, UserErrorMessagesEnum.MISSING_AUTHORIZATION_MSG.message);
+        }
     }
 }

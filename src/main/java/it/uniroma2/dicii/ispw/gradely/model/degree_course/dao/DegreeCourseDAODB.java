@@ -1,9 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.degree_course.dao;
 
-import it.uniroma2.dicii.ispw.gradely.enums.DegreeCourseTypeEnum;
-import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
-import it.uniroma2.dicii.ispw.gradely.enums.FacoltaEnum;
-import it.uniroma2.dicii.ispw.gradely.enums.TestTypeEnum;
+import it.uniroma2.dicii.ispw.gradely.enums.*;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 
@@ -33,7 +30,7 @@ public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
     public List<DegreeCourse> getAllDegreeCourses(List<DegreeCourse> degreeCourses) throws DAOException {
         // TODO implement correct query
         List<DegreeCourse> courses = new ArrayList<>();
-        courses.add(new DegreeCourse("Ingegneria informatica", FacoltaEnum.INGEGNERIA, DipartimentoEnum.DICII, DegreeCourseTypeEnum.TRIENNALE, TestTypeEnum.MUR, new ArrayList<>()));
+        courses.add(new DegreeCourse(DegreeCourseCodeEnum.L03, "Ingegneria informatica", FacoltaEnum.INGEGNERIA, DipartimentoEnum.DICII, DegreeCourseTypeEnum.TRIENNALE, TestTypeEnum.MUR, new ArrayList<>()));
         return courses;
     }
 

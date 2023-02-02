@@ -2,15 +2,22 @@ package it.uniroma2.dicii.ispw.gradely.enums;
 
 public enum UserErrorMessagesEnum {
 
+    /* === TITLES === */
     ROLE_ERROR_TITLE("Role error"),
-    ROLE_ERROR_MSG("The role associated with this user is not recognized."),
     LOGIN_ERROR_TITLE("Login error"),
+    DATA_RETRIEVAL_TITLE("Data retrieval error."),
+    AUTHORIZATION_TITLE("Authorization error"),
+    EXTERNAL_ERROR_TITLE("External error"),
+
+    /* === MESSAGES === */
+    ROLE_ERROR_MSG("The role associated with this user is not recognized."),
     WRONG_PASSWORD_MSG("Wrong password."),
     USER_NOT_FOUND_MSG("The user associated with this credentials does not exist."),
     MALFORMED_EMAIL_MSG("Please insert an email with the correct format."),
     MISSING_AUTHORIZATION_MSG("No role is associated with this user."),
-    DATA_RETRIEVAL_TITLE("Data retrieval error."),
-    DATA_RETRIEVAL_ERROR("An error occurred while retrieving user data."),
+    DATA_RETRIEVAL_MSG("An error occurred while retrieving user data."),
+    MUR_TEST_RETRIEVAL_MSG("An error occurred while retrieving test info from MUR platform."),
+    MOODLE_TEST_RETRIEVAL_MSG("An error occurred while retrieving test info from Moodle platform."),
     ;
 
     public final String message;
