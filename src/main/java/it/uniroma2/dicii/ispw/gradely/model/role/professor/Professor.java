@@ -2,26 +2,23 @@ package it.uniroma2.dicii.ispw.gradely.model.role.professor;
 
 import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.MissingAuthorizationException;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.course_assignment.CourseAssignment;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.SubjectCourseAssignment;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.role.AbstractRole;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class Professor extends AbstractRole {
     private String matricola;
-    private LocalDate registrationDate;
     private DipartimentoEnum dipartimento;
-    private List<CourseAssignment> courseAssignments;
-    private DegreeCourse coordinatedCourses;
+    private List<SubjectCourseAssignment> subjectCourseAssignments;
+    private DegreeCourse coordinatedCourse;
 
 
-    public Professor(User user, String matricola, LocalDate registrationDate){
+    public Professor(User user, String matricola){
         super(user);
         this.matricola = matricola;
-        this.registrationDate = registrationDate;
     }
 
     @Override
@@ -37,14 +34,6 @@ public class Professor extends AbstractRole {
         this.matricola = matricola;
     }
 
-    public LocalDate getRegistrationDate() {
-        return registrationDate;
-    }
-
-    public void setRegistrationDate(LocalDate registrationDate) {
-        this.registrationDate = registrationDate;
-    }
-
     public DipartimentoEnum getDipartimento() {
         return dipartimento;
     }
@@ -53,19 +42,19 @@ public class Professor extends AbstractRole {
         this.dipartimento = dipartimento;
     }
 
-    public List<CourseAssignment> getCourseAssignments() {
-        return courseAssignments;
+    public List<SubjectCourseAssignment> getCourseAssignments() {
+        return subjectCourseAssignments;
     }
 
-    public void setCourseAssignments(List<CourseAssignment> courseAssignments) {
-        this.courseAssignments = courseAssignments;
+    public void setCourseAssignments(List<SubjectCourseAssignment> subjectCourseAssignments) {
+        this.subjectCourseAssignments = subjectCourseAssignments;
     }
 
-    public DegreeCourse getCoordinatedCourses() {
-        return coordinatedCourses;
+    public DegreeCourse getCoordinatedCourse() {
+        return coordinatedCourse;
     }
 
-    public void setCoordinatedCourses(DegreeCourse coordinatedCourses) {
-        this.coordinatedCourses = coordinatedCourses;
+    public void setCoordinatedCourse(DegreeCourse coordinatedCourse) {
+        this.coordinatedCourse = coordinatedCourse;
     }
 }

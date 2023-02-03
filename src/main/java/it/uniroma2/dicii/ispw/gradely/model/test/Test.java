@@ -6,7 +6,6 @@ import java.net.URL;
 import java.time.LocalDate;
 
 public class Test {
-
     private DegreeCourse degreeCourse;
     private String ID;
     private LocalDate testDate;

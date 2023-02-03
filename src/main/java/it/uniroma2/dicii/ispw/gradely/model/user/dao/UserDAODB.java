@@ -23,7 +23,7 @@ public class UserDAODB extends UserDAOAbstract {
     }
 
     public User getUserByEmail(String email)  throws UserNotFoundException, DAOException {
-        Student student = StudentLazyFactory.getInstance().newStudent("Andrea", "Cantarini", "CNT", "email", "aaa", "0294136", LocalDate.now(), new ArrayList<>());
+        Student student = StudentLazyFactory.getInstance().newStudent("Andrea", "Cantarini", "CNT", email, "aaa", "0294136", LocalDate.now(), new ArrayList<>());
         return student.getUser();
     }
 

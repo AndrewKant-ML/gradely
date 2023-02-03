@@ -9,9 +9,9 @@
             fx:controller="it.uniroma2.dicii.ispw.gradely.use_cases.login.LoginGraphicControl"
             stylesheets="@styles/default.css, @styles/login-style.css"
             styleClass="background"
-            prefHeight="512" prefWidth="720">
+            prefHeight="430" prefWidth="650">
 
-    <VBox AnchorPane.topAnchor="60" AnchorPane.leftAnchor="200" AnchorPane.rightAnchor="200" spacing="20">
+    <VBox AnchorPane.topAnchor="37" AnchorPane.leftAnchor="165" AnchorPane.rightAnchor="165" spacing="20">
 
         <HBox alignment="CENTER">
             <ImageView>

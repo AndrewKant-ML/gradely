@@ -11,10 +11,10 @@ import java.util.UUID;
 
 public class PendingEventLazyFactory {
     private static PendingEventLazyFactory instance;
-    private List<PendingEvent> pendingEvents;
+    private List<AbstractPendingEvent> abstractPendingEvents;
 
     private PendingEventLazyFactory(){
-        pendingEvents = new ArrayList<PendingEvent>();
+        abstractPendingEvents = new ArrayList<AbstractPendingEvent>();
     }
 
     public static synchronized PendingEventLazyFactory getInstance(){
@@ -24,8 +24,8 @@ public class PendingEventLazyFactory {
         return instance;
     }
 
-    public PendingEvent getPendingEventById(UUID id) throws DAOException {
-        for(PendingEvent p : pendingEvents){
+    public AbstractPendingEvent getPendingEventById(UUID id) throws DAOException {
+        for(AbstractPendingEvent p : abstractPendingEvents){
             if(p.getId().equals(id)){
                 return p; 
             }
@@ -34,14 +34,14 @@ public class PendingEventLazyFactory {
     }
 
     public void createNewPendingEventSingle(User user, PendingEventTypeEnum type, Object object) throws DAOException {
-        PendingEvent p = new PendingEventSingle(user, type, object);
-        pendingEvents.add(p);
+        AbstractPendingEvent p = new PendingEventSingle(user, type, object);
+        abstractPendingEvents.add(p);
         DAOFactoryAbstract.getInstance().getPendingEventDAO().update(p);
     }
 
     public void createNewPendingEventGroup(List<User> users, PendingEventTypeEnum type, Object object) throws DAOException {
         PendingEventGroup p = new PendingEventGroup(users, type, object);
-        pendingEvents.add(p);
+        abstractPendingEvents.add(p);
         DAOFactoryAbstract.getInstance().getPendingEventDAO().update(p);
     }
 

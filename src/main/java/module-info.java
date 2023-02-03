@@ -35,5 +35,6 @@ module it.uniroma2.dicii.ispw.gradely {
     exports it.uniroma2.dicii.ispw.gradely.model.test_result;
     exports it.uniroma2.dicii.ispw.gradely.model.role;
     exports it.uniroma2.dicii.ispw.gradely.model.exam_result;
+    exports it.uniroma2.dicii.ispw.gradely.model.title;
 
 }

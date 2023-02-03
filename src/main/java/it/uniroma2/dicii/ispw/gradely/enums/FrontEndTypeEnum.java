@@ -1,8 +1,8 @@
 package it.uniroma2.dicii.ispw.gradely.enums;
 
 public enum FrontEndTypeEnum {
-    JAVAFX("javafx"),
-    CLI("cli");
+    JAVAFX("JAVAFX"),
+    CLI("CLI");
 
     public final String value;
 

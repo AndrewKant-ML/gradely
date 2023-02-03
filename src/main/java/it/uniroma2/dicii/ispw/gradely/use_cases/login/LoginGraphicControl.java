@@ -4,16 +4,13 @@ import it.uniroma2.dicii.ispw.gradely.PageNavigationController;
 import it.uniroma2.dicii.ispw.gradely.beans_general.LoginBean;
 import it.uniroma2.dicii.ispw.gradely.enums.UserErrorMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -36,32 +33,20 @@ public class LoginGraphicControl implements Initializable {
         loginController = new LoginControl();
         loginButton.setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode().equals(KeyCode.ENTER))
-                login((Node) keyEvent.getSource());
+                login();
         });
     }
 
     /**
-     * Executes login operations
-     *
-     * @param event the mouse click event
-     */
-    public void login(ActionEvent event) {
-        login((Node) event.getSource());
-    }
-
-    /**
      * Executes login graphical operation
-     *
-     * @param node the JavaFX node where the event has been triggered
      */
-    private void login(Node node) {
+    public void login() {
         final String email = this.emailField.getText();
         final String password = this.passwordField.getText();
-
         try {
             loginController.emailMatches(email);
             LoginBean loginBean = loginController.login(email, password);
-            PageNavigationController.getInstance().openMainPage((Stage) node.getScene().getWindow(), loginBean.getTokenKey(), loginBean.getUserBean());
+            PageNavigationController.getInstance().openMainPage(loginBean.getTokenKey(), loginBean.getUserBean());
         } catch (EmailFormatException e) {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.LOGIN_ERROR_TITLE.message, UserErrorMessagesEnum.MALFORMED_EMAIL_MSG.message, e);
         } catch (UserNotFoundException e) {

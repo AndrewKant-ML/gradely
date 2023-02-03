@@ -1,7 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.model.subject_course;
 
 import it.uniroma2.dicii.ispw.gradely.enums.SubjectCourseCodeEnum;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.course_assignment.CourseAssignment;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.SubjectCourseAssignment;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.SubjectCourseEnrollment;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
@@ -15,7 +15,7 @@ public class SubjectCourse extends AbstractSubjectCourse {
     private Integer cfu;
     private List<AbstractSubjectCourse> prerequisites;
     private List <DegreeCourse> degreeCourses;
-    private List <CourseAssignment> courseAssignments;
+    private List <SubjectCourseAssignment> subjectCourseAssignments;
     private List <Exam> exams;
     private List <SubjectCourseEnrollment> enrollments;
 
@@ -26,14 +26,14 @@ public class SubjectCourse extends AbstractSubjectCourse {
         this.cfu = cfu;
     }
 
-    protected SubjectCourse(SubjectCourseCodeEnum code, String name, Year academicYear, Integer cfu, List<AbstractSubjectCourse> prerequisites, List<DegreeCourse> degreeCourses, List<CourseAssignment> courseAssignments){
+    protected SubjectCourse(SubjectCourseCodeEnum code, String name, Year academicYear, Integer cfu, List<AbstractSubjectCourse> prerequisites, List<DegreeCourse> degreeCourses, List<SubjectCourseAssignment> subjectCourseAssignments){
         super(code);
         this.name = name;
         this.academicYear = academicYear;
         this.cfu = cfu;
         this.prerequisites = prerequisites;
         this.degreeCourses = degreeCourses;
-        this.courseAssignments = courseAssignments;
+        this.subjectCourseAssignments = subjectCourseAssignments;
     }
 
     @Override
@@ -86,12 +86,12 @@ public class SubjectCourse extends AbstractSubjectCourse {
         this.degreeCourses = degreeCourses;
     }
 
-    public List<CourseAssignment> getCourseAssignments(){
-        return courseAssignments;
+    public List<SubjectCourseAssignment> getCourseAssignments(){
+        return subjectCourseAssignments;
     }
 
-    public void setCourseAssignments(List<CourseAssignment> courseAssignments){
-        this.courseAssignments = courseAssignments;
+    public void setCourseAssignments(List<SubjectCourseAssignment> subjectCourseAssignments){
+        this.subjectCourseAssignments = subjectCourseAssignments;
     }
 
     public List<Exam> getExams(){

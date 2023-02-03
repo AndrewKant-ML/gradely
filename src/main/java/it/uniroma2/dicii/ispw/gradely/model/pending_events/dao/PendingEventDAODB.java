@@ -1,7 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.model.pending_events.dao;
 
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEvent;
+import it.uniroma2.dicii.ispw.gradely.model.pending_events.AbstractPendingEvent;
 
 import java.util.List;
 import java.util.UUID;
@@ -21,27 +21,27 @@ public class PendingEventDAODB extends AbstractPendingEventDAO {
     }
 
     @Override
-    public PendingEvent getPendingEventById(UUID id) throws DAOException {
+    public AbstractPendingEvent getPendingEventById(UUID id) throws DAOException {
         return null; 
     }
 
     @Override
-    public void insert(PendingEvent pendingEvent){
+    public void insert(AbstractPendingEvent abstractPendingEvent){
 
     }
 
     @Override
-    public void cancel(PendingEvent pendingEvent){
+    public void cancel(AbstractPendingEvent abstractPendingEvent){
 
     }
 
     @Override
-    public void update(PendingEvent pendingEvent){
+    public void update(AbstractPendingEvent abstractPendingEvent){
         System.out.println("Updated");
     }
 
     @Override
-    public List<PendingEvent> refresh(List<PendingEvent> pendingEvents){
+    public List<AbstractPendingEvent> refresh(List<AbstractPendingEvent> abstractPendingEvents){
         return null;
     }
 

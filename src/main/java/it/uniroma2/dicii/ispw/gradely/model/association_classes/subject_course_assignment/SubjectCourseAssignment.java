@@ -1,16 +1,15 @@
-package it.uniroma2.dicii.ispw.gradely.model.association_classes.course_assignment;
+package it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment;
 
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.Professor;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 
-public class CourseAssignment {
+public class SubjectCourseAssignment {
     private SubjectCourse subjectCourse;
     private Professor professor;
 
-
-    public CourseAssignment(){
+    public SubjectCourseAssignment(){
     }
-    public CourseAssignment(SubjectCourse subjectCourse, Professor professor){
+    public SubjectCourseAssignment(SubjectCourse subjectCourse, Professor professor){
         this.subjectCourse = subjectCourse;
         this.professor = professor;
     }

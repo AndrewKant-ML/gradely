@@ -20,8 +20,6 @@ public class SelectDegreeCourseGraphicController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
-        // TODO remove stub
-
         degreeCoursesList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
         degreeCoursesList.setOnMouseClicked(mouseEvent -> chosenDegreeCourse = degreeCoursesList.getSelectionModel().getSelectedItem());

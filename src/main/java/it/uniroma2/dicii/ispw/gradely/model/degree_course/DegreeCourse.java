@@ -15,7 +15,6 @@ public class DegreeCourse extends AbstractDegreeCourse {
     private Professor coordinatore;
     private List<DegreeCourseEnrollment> enrollments;
     private List<SubjectCourse> subjectCourses;
-
     private TestTypeEnum testType;
 
 

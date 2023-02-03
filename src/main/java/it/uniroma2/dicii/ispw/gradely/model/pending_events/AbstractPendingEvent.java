@@ -8,24 +8,20 @@ import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
 import java.util.Objects;
 import java.util.UUID;
 
-public abstract class PendingEvent {
+public abstract class AbstractPendingEvent {
     protected UUID id;
     protected PendingEventTypeEnum type;
-    protected String message;
     protected Boolean notified;
     protected Object object;
 
-    protected PendingEvent(){
-    }
-    protected PendingEvent(User user, PendingEventTypeEnum type, Object object) throws DAOException {
+    protected AbstractPendingEvent(PendingEventTypeEnum type, Object object) throws DAOException {
         UUID generatedId;
-        do{
-            generatedId=UUID.randomUUID();
-        }while(SessionManager.getInstance().checkUUID(generatedId));
+        do {
+            generatedId = UUID.randomUUID();
+        } while (SessionManager.getInstance().checkUUID(generatedId));
 
         this.id = generatedId;
         this.type = type;
-        this.message = type.message;
         this.notified = false;
         this.object = object;
     }
@@ -46,14 +42,6 @@ public abstract class PendingEvent {
 
     public void setType(PendingEventTypeEnum type){
         this.type = type;
-    }
-
-    public String getMessage(){
-        return message;
-    }
-
-    public void setMessage(String message){
-        this.message = message;
     }
 
     public Boolean getNotified(){

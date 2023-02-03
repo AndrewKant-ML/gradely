@@ -4,7 +4,7 @@ import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.AppelloEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.SessionEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.course_assignment.CourseAssignmentLazyFactory;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.SubjectCourseAssignmentLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.Professor;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 
@@ -37,7 +37,7 @@ public class ExamLazyFactory {
 
     public List<Exam> getGradableExams(Professor professor) throws DAOException {
         List<Exam> list = new ArrayList<>();
-        for(SubjectCourse c : CourseAssignmentLazyFactory.getInstance().getAssignedSubjectCoursesByProfessor(professor)){
+        for(SubjectCourse c : SubjectCourseAssignmentLazyFactory.getInstance().getAssignedSubjectCoursesByProfessor(professor)){
             for (Exam e : c.getExams()){
                 if (e.getGradable()){
                     list.add(e);

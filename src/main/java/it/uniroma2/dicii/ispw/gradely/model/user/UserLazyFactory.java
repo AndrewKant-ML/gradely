@@ -4,6 +4,7 @@ import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.UserNotFoundException;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,8 +32,8 @@ public class UserLazyFactory {
         return DAOFactoryAbstract.getInstance().getUserDAO().getUserByEmail(email);
     }
 
-    public User newUser(String name, String surname, String codiceFiscale, String email, String password) throws DAOException {
-        User newUser = new User(name, surname, codiceFiscale, email, password);
+    public User newUser(String name, String surname, String codiceFiscale, String email, String password, LocalDate registrationDate) throws DAOException {
+        User newUser = new User(name, surname, codiceFiscale, email, password, registrationDate);
         DAOFactoryAbstract.getInstance().getUserDAO().insert(newUser);
         registeredUsers.add(newUser);
         return newUser;

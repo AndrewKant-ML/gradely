@@ -1,13 +1,9 @@
 package it.uniroma2.dicii.ispw.gradely;
 
 import it.uniroma2.dicii.ispw.gradely.beans_general.UserBean;
-import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.UserErrorMessagesEnum;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -17,6 +13,7 @@ public final class PageNavigationController {
     private BaseGraphicControl baseGraphicController;
     private String sessionTokenKey;
     private UserBean userBean;
+
     private PageNavigationController() {
 
     }
@@ -27,28 +24,23 @@ public final class PageNavigationController {
         return instance;
     }
 
-    public void openMainPage(Stage stage, String sessionTokenKey, UserBean userBean) {
+    public void openMainPage(String sessionTokenKey, UserBean userBean) {
         setSessionTokenKey(sessionTokenKey);
         setUserBean(userBean);
-        FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(MainApplication.class.getResource("base_view.fxml")));
+        String viewName = "";
+        switch (userBean.getRole().type) {
+            case 0 -> viewName = "homepage_student";
+            case 1 -> viewName = "homepage_professor";
+            case 2 -> viewName = "homepage_secretary";
+            default ->
+                    showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.ROLE_ERROR_TITLE.message, UserErrorMessagesEnum.ROLE_ERROR_MSG.message);
+        }
+        viewName = viewName.concat(".fxml");
         try {
-            Pane basePane = loader.load();
-            BaseGraphicControl baseGraphicControl = loader.getController();
-            setBaseGraphicController(baseGraphicControl);
-            String view_name = "";
-            switch (userBean.getRole().type) {
-                case 0 -> view_name = "homepage_student";
-                case 1 -> view_name = "homepage_professor";
-                case 2 -> view_name = "homepage_secretary";
-                default ->
-                        showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.ROLE_ERROR_TITLE.message, UserErrorMessagesEnum.ROLE_ERROR_MSG.message);
-            }
-            navigateTo(view_name);
-
-            Scene scene = new Scene(basePane);
-            stage.setScene(scene);
+            baseGraphicController.openMainPage(
+                    FXMLLoader.load(Objects.requireNonNull(MainApplication.class.getResource(viewName))));
         } catch (IOException e) {
-            showAlert(Alert.AlertType.ERROR, "Loading error", ExceptionMessagesEnum.HOMEPAGE_LOAD_ERROR.message);
+            showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.RESOURCE_LOADING_TITLE.message, UserErrorMessagesEnum.RESOURCE_LOADING_MSG.message, e);
         }
     }
 
@@ -67,7 +59,7 @@ public final class PageNavigationController {
             baseGraphicController.switchTo(
                     FXMLLoader.load(Objects.requireNonNull(MainApplication.class.getResource(pageName))));
         } catch (IOException e) {
-            showAlert(Alert.AlertType.ERROR, "Loading error", "");
+            showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.RESOURCE_LOADING_TITLE.message, UserErrorMessagesEnum.RESOURCE_LOADING_MSG.message, e);
         }
     }
 
@@ -120,7 +112,8 @@ public final class PageNavigationController {
      * @param e         the Exception which caused the Alert to be shown
      */
     public void showAlert(Alert.AlertType alertType, String title, String message, Exception e) {
-        Logger.printErr(String.format(message + ". Error message: %s", e.getMessage()));
-        showAlert(alertType, title, String.format(message + ". Error message: %s", e.getMessage()));
+        e.printStackTrace();
+        //Logger.printErr(String.format("Error message: %s", e.getMessage()));
+        showAlert(alertType, title, message);
     }
 }

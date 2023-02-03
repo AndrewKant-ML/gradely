@@ -7,22 +7,23 @@ import it.uniroma2.dicii.ispw.gradely.model.role.AbstractRole;
 import it.uniroma2.dicii.ispw.gradely.model.title.Title;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Student extends AbstractRole {
     private String matricola;
-    private LocalDate registrationDate;
     private List<Title> titles;
     private List<DegreeCourseEnrollment> degreeCourseEnrollments;
     private List<SubjectCourseEnrollment> subjectCourseEnrollments;
     private List<ExamEnrollment> examEnrollments;
 
-    protected Student(User user, String matricola, LocalDate registrationDate, List<Title> titoli) {
+    protected Student(User user, String matricola, List<Title> titoli) {
         super(user);
         this.matricola = matricola;
-        this.registrationDate = registrationDate;
         this.titles = titoli;
+        degreeCourseEnrollments = new ArrayList<>();
+        subjectCourseEnrollments = new ArrayList<>();
+        examEnrollments = new ArrayList<>();
     }
 
     @Override
@@ -44,14 +45,6 @@ public class Student extends AbstractRole {
 
     public void setDegreeCourseEnrollments(List<DegreeCourseEnrollment> degreeCourseEnrollments) {
         this.degreeCourseEnrollments = degreeCourseEnrollments;
-    }
-
-    public LocalDate getRegistrationDate() {
-        return registrationDate;
-    }
-
-    public void setRegistrationDate(LocalDate registrationDate) {
-        this.registrationDate = registrationDate;
     }
 
     public List<Title> getTitles() {

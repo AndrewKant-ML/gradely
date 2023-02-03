@@ -39,7 +39,7 @@ public class BaseGraphicControl implements Initializable {
      */
     public void switchTo(Node node){
         content.getChildren().add(node);
-        if (content.getChildren().size() == 2)
+        if (content.getChildren().size() >= 2)
             backButton.setVisible(true);
     }
 
@@ -47,8 +47,18 @@ public class BaseGraphicControl implements Initializable {
      * Returns to the main page by removing all the
      * levels stacked while navigating
      */
-    public void returnToMainPage(){
+    public void returnToMainPage() {
         while (content.getChildren().size() > 1)
             goBack();
+    }
+
+    /**
+     * Opens the application main page
+     *
+     * @param node the node containing the main page
+     */
+    public void openMainPage(Node node) {
+        content.getChildren().clear();
+        content.getChildren().add(node);
     }
 }

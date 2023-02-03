@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -7,90 +6,17 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <GridPane alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea"
-          hgap="40" vgap="30" prefWidth="650" prefHeight="430" stylesheets="@../styles/home-card-style.css"
-          fx:controller="it.uniroma2.dicii.ispw.gradely.HomepageGraphicControl">
+          hgap="40" vgap="30" prefWidth="650" prefHeight="430" stylesheets="@styles/home-card-style.css"
+          fx:controller="it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.graphic_controllers.ProfessorHomepageGraphicController">
 
+    <!-- Exams card -->
     <AnchorPane prefHeight="200" prefWidth="190"
                 styleClass="card"
                 GridPane.columnIndex="0" GridPane.rowIndex="0">
 
         <ImageView preserveRatio="true" fitWidth="190" fitHeight="135"
                    AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0">
-            <Image url="@../images/taxes.png"/>
-        </ImageView>
-
-        <AnchorPane prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
-                    AnchorPane.bottomAnchor="0">
-            <HBox prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
-                  AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" alignment="CENTER">
-                <padding>
-                    <Insets topRightBottomLeft="10"/>
-                </padding>
-                <VBox HBox.hgrow="ALWAYS" maxWidth="Infinity">
-                    <Label text="Taxes" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" styleClass="card-title"/>
-                    <Text text="Manage your taxes payment" wrappingWidth="140" AnchorPane.leftAnchor="0"
-                          AnchorPane.bottomAnchor="0"
-                          styleClass="card-description"/>
-                </VBox>
-                <Button HBox.hgrow="NEVER" maxWidth="Infinity" styleClass="card-button" onAction="#openTaxesPage">
-                    <shape>
-                        <Circle radius="15"/>
-                    </shape>
-                    <graphic>
-                        <ImageView preserveRatio="true">
-                            <Image url="@../images/right_arrow.png" requestedWidth="20" requestedHeight="20"/>
-                        </ImageView>
-                    </graphic>
-                </Button>
-            </HBox>
-        </AnchorPane>
-
-    </AnchorPane>
-
-    <AnchorPane prefHeight="200" prefWidth="190"
-                styleClass="card"
-                GridPane.columnIndex="1" GridPane.rowIndex="0">
-
-        <ImageView preserveRatio="true" fitWidth="190" fitHeight="135"
-                   AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0">
-            <Image url="@../images/courses.png"/>
-        </ImageView>
-
-        <AnchorPane prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
-                    AnchorPane.bottomAnchor="0">
-            <HBox prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
-                  AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" alignment="CENTER">
-                <padding>
-                    <Insets topRightBottomLeft="10"/>
-                </padding>
-                <VBox HBox.hgrow="ALWAYS" maxWidth="Infinity">
-                    <Label text="Courses" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" styleClass="card-title"/>
-                    <Text text="Subscribe to single subject courses" wrappingWidth="140" AnchorPane.leftAnchor="0"
-                          AnchorPane.bottomAnchor="0"
-                          styleClass="card-description"/>
-                </VBox>
-                <Button HBox.hgrow="NEVER" maxWidth="Infinity" styleClass="card-button" onAction="#openCoursesPage">
-                    <shape>
-                        <Circle radius="15"/>
-                    </shape>
-                    <graphic>
-                        <ImageView preserveRatio="true">
-                            <Image url="@../images/right_arrow.png" requestedWidth="20" requestedHeight="20"/>
-                        </ImageView>
-                    </graphic>
-                </Button>
-            </HBox>
-        </AnchorPane>
-
-    </AnchorPane>
-
-    <AnchorPane prefHeight="200" prefWidth="190"
-                styleClass="card"
-                GridPane.columnIndex="2" GridPane.rowIndex="0">
-
-        <ImageView preserveRatio="true" fitWidth="190" fitHeight="135"
-                   AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0">
-            <Image url="@../images/exams.png"/>
+            <Image url="@images/exams.png"/>
         </ImageView>
 
         <AnchorPane prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
@@ -102,7 +28,7 @@
                 </padding>
                 <VBox HBox.hgrow="ALWAYS" maxWidth="Infinity">
                     <Label text="Exams" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" styleClass="card-title"/>
-                    <Text text="Reserve to an exam" wrappingWidth="140" AnchorPane.leftAnchor="0"
+                    <Text text="Manage exams subscriptions and grades" wrappingWidth="140" AnchorPane.leftAnchor="0"
                           AnchorPane.bottomAnchor="0"
                           styleClass="card-description"/>
                 </VBox>
@@ -112,7 +38,7 @@
                     </shape>
                     <graphic>
                         <ImageView preserveRatio="true">
-                            <Image url="@../images/right_arrow.png" requestedWidth="20" requestedHeight="20"/>
+                            <Image url="@images/right_arrow.png" requestedWidth="20" requestedHeight="20"/>
                         </ImageView>
                     </graphic>
                 </Button>
@@ -121,13 +47,91 @@
 
     </AnchorPane>
 
+    <!-- Courses card -->
+    <AnchorPane prefHeight="200" prefWidth="190"
+                styleClass="card"
+                GridPane.columnIndex="1" GridPane.rowIndex="0">
+
+        <ImageView preserveRatio="true" fitWidth="190" fitHeight="135"
+                   AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0">
+            <Image url="@images/courses.png"/>
+        </ImageView>
+
+        <AnchorPane prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+                    AnchorPane.bottomAnchor="0">
+            <HBox prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+                  AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" alignment="CENTER">
+                <padding>
+                    <Insets topRightBottomLeft="10"/>
+                </padding>
+                <VBox HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                    <Label text="Courses" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" styleClass="card-title"/>
+                    <Text text="Manage subscriptions to your courses" wrappingWidth="140" AnchorPane.leftAnchor="0"
+                          AnchorPane.bottomAnchor="0"
+                          styleClass="card-description"/>
+                </VBox>
+                <Button HBox.hgrow="NEVER" maxWidth="Infinity" styleClass="card-button" onAction="#openCoursesPage">
+                    <shape>
+                        <Circle radius="15"/>
+                    </shape>
+                    <graphic>
+                        <ImageView preserveRatio="true">
+                            <Image url="@images/right_arrow.png" requestedWidth="20" requestedHeight="20"/>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </HBox>
+        </AnchorPane>
+
+    </AnchorPane>
+
+    <!-- Receptions card -->
+    <AnchorPane prefHeight="200" prefWidth="190"
+                styleClass="card"
+                GridPane.columnIndex="2" GridPane.rowIndex="0">
+
+        <ImageView preserveRatio="true" fitWidth="190" fitHeight="135"
+                   AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0">
+            <Image url="@images/exams.png"/> <!--TODO find reception image-->
+        </ImageView>
+
+        <AnchorPane prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+                    AnchorPane.bottomAnchor="0">
+            <HBox prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+                  AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" alignment="CENTER">
+                <padding>
+                    <Insets topRightBottomLeft="10"/>
+                </padding>
+                <VBox HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                    <Label text="Receptions" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0"
+                           styleClass="card-title"/>
+                    <Text text="View and manage receptions requests" wrappingWidth="140" AnchorPane.leftAnchor="0"
+                          AnchorPane.bottomAnchor="0"
+                          styleClass="card-description"/>
+                </VBox>
+                <Button HBox.hgrow="NEVER" maxWidth="Infinity" styleClass="card-button" onAction="#openReceptionsPage">
+                    <shape>
+                        <Circle radius="15"/>
+                    </shape>
+                    <graphic>
+                        <ImageView preserveRatio="true">
+                            <Image url="@images/right_arrow.png" requestedWidth="20" requestedHeight="20"/>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </HBox>
+        </AnchorPane>
+
+    </AnchorPane>
+
+    <!-- Career card -->
     <AnchorPane prefHeight="200" prefWidth="190"
                 styleClass="card"
                 GridPane.columnIndex="0" GridPane.rowIndex="1">
 
         <ImageView preserveRatio="true" fitWidth="190" fitHeight="135"
                    AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0">
-            <Image url="@../images/career.png"/>
+            <Image url="@images/career.png"/>
         </ImageView>
 
         <AnchorPane prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
@@ -149,7 +153,7 @@
                     </shape>
                     <graphic>
                         <ImageView preserveRatio="true">
-                            <Image url="@../images/right_arrow.png" requestedWidth="20" requestedHeight="20"/>
+                            <Image url="@images/right_arrow.png" requestedWidth="20" requestedHeight="20"/>
                         </ImageView>
                     </graphic>
                 </Button>
@@ -158,13 +162,14 @@
 
     </AnchorPane>
 
+    <!-- Services card -->
     <AnchorPane prefHeight="200" prefWidth="190"
                 styleClass="card"
                 GridPane.columnIndex="1" GridPane.rowIndex="1">
 
         <ImageView preserveRatio="true" fitWidth="190" fitHeight="135"
                    AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0">
-            <Image url="@../images/services.png"/>
+            <Image url="@images/services.png"/>
         </ImageView>
 
         <AnchorPane prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
@@ -186,7 +191,7 @@
                     </shape>
                     <graphic>
                         <ImageView preserveRatio="true">
-                            <Image url="@../images/right_arrow.png" requestedWidth="20" requestedHeight="20"/>
+                            <Image url="@images/right_arrow.png" requestedWidth="20" requestedHeight="20"/>
                         </ImageView>
                     </graphic>
                 </Button>
@@ -201,7 +206,7 @@
 
         <ImageView preserveRatio="true" fitWidth="190" fitHeight="135"
                    AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0">
-            <Image url="@../images/personal_data.png"/>
+            <Image url="@images/personal_data.png"/>
         </ImageView>
 
         <AnchorPane prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
@@ -225,7 +230,7 @@
                     </shape>
                     <graphic>
                         <ImageView preserveRatio="true">
-                            <Image url="@../images/right_arrow.png" requestedWidth="20" requestedHeight="20"/>
+                            <Image url="@images/right_arrow.png" requestedWidth="20" requestedHeight="20"/>
                         </ImageView>
                     </graphic>
                 </Button>
@@ -235,3 +240,4 @@
     </AnchorPane>
 
 </GridPane>
+

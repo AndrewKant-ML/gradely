@@ -8,7 +8,7 @@ import it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.MissingAuthorizationException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.WrongTimerTypeException;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.course_assignment.CourseAssignment;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.SubjectCourseAssignment;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.ExamEnrollment;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.ExamEnrollmentLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
@@ -109,7 +109,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
      */
     private void checkExamProfessor(Exam exam, Professor professor) throws MissingAuthorizationException{
         Boolean check = false;
-        for (CourseAssignment c : exam.getSubjectCourse().getCourseAssignments()){
+        for (SubjectCourseAssignment c : exam.getSubjectCourse().getCourseAssignments()){
             if (c.getProfessor().equals(professor)){
                 check = true;
                 break;
@@ -260,7 +260,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
         for (ExamEnrollment e : exam.getEnrollments()){
             users.add(e.getStudent().getUser());
         }
-        for (CourseAssignment c : exam.getSubjectCourse().getCourseAssignments()){
+        for (SubjectCourseAssignment c : exam.getSubjectCourse().getCourseAssignments()){
             users.add(c.getProfessor().getUser());
         }
         PendingEventLazyFactory.getInstance().createNewPendingEventGroup(users,PendingEventTypeEnum.EVENT_4,exam);
