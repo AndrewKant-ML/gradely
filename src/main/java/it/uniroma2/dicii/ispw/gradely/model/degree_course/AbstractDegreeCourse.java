@@ -5,7 +5,6 @@ import it.uniroma2.dicii.ispw.gradely.enums.DegreeCourseTypeEnum;
 
 public abstract class AbstractDegreeCourse {
     protected DegreeCourseCodeEnum code;
-
     protected DegreeCourseTypeEnum type;
 
     public AbstractDegreeCourse(DegreeCourseCodeEnum code, DegreeCourseTypeEnum type) {
