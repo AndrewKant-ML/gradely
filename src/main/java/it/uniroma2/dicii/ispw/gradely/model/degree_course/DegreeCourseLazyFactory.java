@@ -1,6 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.model.degree_course;
 
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
+import it.uniroma2.dicii.ispw.gradely.enums.DegreeCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 
 import java.util.ArrayList;
@@ -10,15 +11,19 @@ public class DegreeCourseLazyFactory {
     private static DegreeCourseLazyFactory instance;
     private List<DegreeCourse> degreeCourses;
 
-    private DegreeCourseLazyFactory(){
+    private DegreeCourseLazyFactory() {
         degreeCourses = new ArrayList<DegreeCourse>();
     }
 
-    public static synchronized DegreeCourseLazyFactory getInstance(){
-        if (instance == null){
+    public static synchronized DegreeCourseLazyFactory getInstance() {
+        if (instance == null) {
             instance = new DegreeCourseLazyFactory();
         }
         return instance;
+    }
+
+    public List<DegreeCourse> getDegreeCourseByDegreeCourseCodeList(List<DegreeCourseCodeEnum> codes) {
+
     }
 
     public DegreeCourse getDegreeCourseByName(String name) throws DAOException {
