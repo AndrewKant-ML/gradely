@@ -12,7 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LoginControl {
-    public LoginBean login(String email, String password) throws UserNotFoundException, WrongPasswordException, DAOException, MissingAuthorizationException {
+    public LoginBean login(String email, String password) throws UserNotFoundException, WrongPasswordException, DAOException, MissingAuthorizationException, PropertyException, ResourceNotFoundException {
         User user = UserLazyFactory.getInstance().getUserByEmail(email);
         user.checkPassword(password);
         String matricola;

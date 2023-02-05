@@ -1,7 +1,10 @@
 package it.uniroma2.dicii.ispw.gradely.model.timer;
 
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
+import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.WrongTimerTypeException;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.test.Test;
@@ -29,13 +32,21 @@ public class TimerLazyFactory {
 
     public AbstractTimer newExamConfirmationTimer(LocalDate expiration, Exam exam) throws DAOException {
         AbstractTimer newTimer = new ExamConfirmationTimer(expiration, exam);
-        DAOFactoryAbstract.getInstance().getTimerDAO().insert(newTimer);
+        try {
+            DAOFactoryAbstract.getInstance().getTimerDAO().insert(newTimer);
+        } catch (ResourceNotFoundException | PropertyException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
         activeTimers.add(newTimer);
         return newTimer;
     }
     public AbstractTimer newTestResultTimer(LocalDate expiration, Test test) throws DAOException {
         AbstractTimer newTimer = new TestResultTimer(expiration, test);
-        DAOFactoryAbstract.getInstance().getTimerDAO().insert(newTimer);
+        try {
+            DAOFactoryAbstract.getInstance().getTimerDAO().insert(newTimer);
+        } catch (ResourceNotFoundException | PropertyException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
         activeTimers.add(newTimer);
         return newTimer;
     }

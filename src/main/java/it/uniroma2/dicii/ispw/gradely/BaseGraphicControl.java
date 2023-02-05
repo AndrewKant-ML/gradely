@@ -17,15 +17,18 @@ public class BaseGraphicControl implements Initializable {
     @FXML
     private Button backButton;
 
+    @FXML
+    private Button accountButton;
+
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle){
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         backButton.setVisible(false);
     }
 
     /**
      * Removes last stacked element from StackPane content
      */
-    public void goBack(){
+    public void goBack() {
         content.getChildren().remove(content.getChildren().size() - 1);
         if (content.getChildren().size() == 1)
             backButton.setVisible(false);
@@ -56,9 +59,12 @@ public class BaseGraphicControl implements Initializable {
      * Opens the application main page
      *
      * @param node the node containing the main page
+     * @param name the name to be shown in the account button
      */
-    public void openMainPage(Node node) {
+    public void openMainPage(Node node, String name) {
         content.getChildren().clear();
         content.getChildren().add(node);
+        accountButton.setText(name);
+        accountButton.setVisible(true);
     }
 }

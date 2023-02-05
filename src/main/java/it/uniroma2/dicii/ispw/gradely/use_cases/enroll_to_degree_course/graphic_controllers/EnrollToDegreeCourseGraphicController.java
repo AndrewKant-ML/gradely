@@ -93,7 +93,7 @@ public class EnrollToDegreeCourseGraphicController implements Initializable {
      */
     private void goToStageTwo(){
         selectedDegreeCourse = firstStageController.getSelectedDegreeCourse();
-        secondStageController.setAnagraphicalData(PageNavigationController.getInstance().getUserBean());
+        secondStageController.setAnagraphicalData(PageNavigationController.getInstance().getUserData());
         secondStage.setVisible(true);
         backButton.setVisible(true);
     }

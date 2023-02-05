@@ -1,7 +1,10 @@
 package it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment;
 
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
+import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.exam_result.ExamResult;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
@@ -11,7 +14,7 @@ import java.util.List;
 
 public class ExamEnrollmentLazyFactory {
     private static ExamEnrollmentLazyFactory instance;
-    private List<ExamEnrollment> examEnrollments;
+    private final List<ExamEnrollment> examEnrollments;
 
     private ExamEnrollmentLazyFactory(){
         examEnrollments = new ArrayList<ExamEnrollment>();
@@ -31,11 +34,15 @@ public class ExamEnrollmentLazyFactory {
                 list.add(e);
             }
         }
-        List<ExamEnrollment> daoList = DAOFactoryAbstract.getInstance().getExamEnrollmentDAO().getExamEnrollmentsByExam(exam);
-        for(ExamEnrollment e : daoList){
-            if(!list.contains(e)){
-                list.add(e);
+        try {
+            List<ExamEnrollment> daoList = DAOFactoryAbstract.getInstance().getExamEnrollmentDAO().getExamEnrollmentsByExam(exam);
+            for (ExamEnrollment e : daoList) {
+                if (!list.contains(e)) {
+                    list.add(e);
+                }
             }
+        } catch (PropertyException | ResourceNotFoundException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
         return list;
     }
@@ -47,11 +54,15 @@ public class ExamEnrollmentLazyFactory {
                 list.add(e);
             }
         }
-        List<ExamEnrollment> daoList = DAOFactoryAbstract.getInstance().getExamEnrollmentDAO().getExamEnrollmentsByStudent(student);
-        for(ExamEnrollment e : daoList){
-            if(!list.contains(e)){
-                list.add(e);
+        try {
+            List<ExamEnrollment> daoList = DAOFactoryAbstract.getInstance().getExamEnrollmentDAO().getExamEnrollmentsByStudent(student);
+            for (ExamEnrollment e : daoList) {
+                if (!list.contains(e)) {
+                    list.add(e);
+                }
             }
+        } catch (PropertyException | ResourceNotFoundException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
         return list;
     }
@@ -62,15 +73,27 @@ public class ExamEnrollmentLazyFactory {
                 return e;
             }
         }
-        return DAOFactoryAbstract.getInstance().getExamEnrollmentDAO().getExamEnrollmentByExamAndStudent(exam, student);
+        try {
+            return DAOFactoryAbstract.getInstance().getExamEnrollmentDAO().getExamEnrollmentByExamAndStudent(exam, student);
+        } catch (ResourceNotFoundException | PropertyException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
     }
 
     public void saveExamResult(ExamEnrollment enrollment, ExamResult result) throws DAOException {
         enrollment.setExamResult(result);
-        DAOFactoryAbstract.getInstance().getExamEnrollmentDAO().update(enrollment);
+        try {
+            DAOFactoryAbstract.getInstance().getExamEnrollmentDAO().update(enrollment);
+        } catch (ResourceNotFoundException | PropertyException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
     }
 
     public void update (ExamEnrollment exam) throws DAOException {
-        DAOFactoryAbstract.getInstance().getExamEnrollmentDAO().update(exam);
+        try {
+            DAOFactoryAbstract.getInstance().getExamEnrollmentDAO().update(exam);
+        } catch (ResourceNotFoundException | PropertyException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
     }
 }

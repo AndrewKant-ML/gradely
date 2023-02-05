@@ -25,7 +25,6 @@ module it.uniroma2.dicii.ispw.gradely {
     exports it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.graphic_controllers;
     exports it.uniroma2.dicii.ispw.gradely.model.timer;
     exports it.uniroma2.dicii.ispw.gradely.model.user;
-    exports it.uniroma2.dicii.ispw.gradely.model.user.dao;
     exports it.uniroma2.dicii.ispw.gradely.model.test;
     exports it.uniroma2.dicii.ispw.gradely.model.subject_course;
     exports it.uniroma2.dicii.ispw.gradely.model.role.student;
@@ -37,5 +36,6 @@ module it.uniroma2.dicii.ispw.gradely {
     exports it.uniroma2.dicii.ispw.gradely.model.role;
     exports it.uniroma2.dicii.ispw.gradely.model.exam_result;
     exports it.uniroma2.dicii.ispw.gradely.model.title;
+    exports it.uniroma2.dicii.ispw.gradely.model.pending_events;
 
 }

@@ -5,9 +5,7 @@ import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.ExamResultConfirmationEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum;
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.MissingAuthorizationException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.WrongTimerTypeException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.SubjectCourseAssignment;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.ExamEnrollment;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.ExamEnrollmentLazyFactory;
@@ -286,10 +284,14 @@ public class InsertStudentsGradesControl implements TimerObserver {
             }
         }
         List<User> list = new ArrayList<>();
-        for (DegreeCourse d : concreteTimer.getObject().getSubjectCourse().getDegreeCourses()){
-            for (Secretary s : DAOFactoryAbstract.getInstance().getSecretaryDAO().getSecretariesByDipartimento(d.getDipartimento())){
-                list.add(s.getUser());
+        try {
+            for (DegreeCourse d : concreteTimer.getObject().getSubjectCourse().getDegreeCourses()) {
+                for (Secretary s : DAOFactoryAbstract.getInstance().getSecretaryDAO().getSecretariesByDipartimento(d.getDipartimento())) {
+                    list.add(s.getUser());
+                }
             }
+        } catch (PropertyException | ResourceNotFoundException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
         PendingEventLazyFactory.getInstance().createNewPendingEventGroup(list,PendingEventTypeEnum.EVENT_3, concreteTimer.getObject());
     }

@@ -1,7 +1,10 @@
 package it.uniroma2.dicii.ispw.gradely.model.user;
 
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
+import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.UserNotFoundException;
 
 import java.time.LocalDate;
@@ -29,13 +32,21 @@ public class UserLazyFactory {
                 return u;
             }
         }
-        return DAOFactoryAbstract.getInstance().getUserDAO().getUserByEmail(email);
+        try {
+            return DAOFactoryAbstract.getInstance().getUserDAO().getUserByEmail(email);
+        } catch (PropertyException | ResourceNotFoundException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
     }
 
     public User newUser(String name, String surname, String codiceFiscale, String email, String password, LocalDate registrationDate) throws DAOException {
         User newUser = new User(name, surname, codiceFiscale, email, password, registrationDate);
-        DAOFactoryAbstract.getInstance().getUserDAO().insert(newUser);
-        registeredUsers.add(newUser);
-        return newUser;
+        try {
+            DAOFactoryAbstract.getInstance().getUserDAO().insert(newUser);
+            registeredUsers.add(newUser);
+            return newUser;
+        } catch (PropertyException | ResourceNotFoundException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
     }
 }

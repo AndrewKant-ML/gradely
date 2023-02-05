@@ -26,8 +26,8 @@ import it.uniroma2.dicii.ispw.gradely.model.subject_course.dao.SubjectCourseDAOA
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.dao.SubjectCourseDAODB;
 import it.uniroma2.dicii.ispw.gradely.model.timer.dao.TimerDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.timer.dao.TimerDAODB;
-import it.uniroma2.dicii.ispw.gradely.model.user.dao.UserDAOAbstract;
-import it.uniroma2.dicii.ispw.gradely.model.user.dao.UserDAODB;
+import it.uniroma2.dicii.ispw.gradely.model.user.UserDAOAbstract;
+import it.uniroma2.dicii.ispw.gradely.model.user.UserDAODB;
 
 public class DAOFactoryDB extends DAOFactoryAbstract {
     @Override

@@ -21,7 +21,7 @@
         </ImageView>
 
         <AnchorPane prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
-                    AnchorPane.bottomAnchor="0">
+                    AnchorPane.topAnchor="135">
             <HBox prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
                   AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" alignment="CENTER">
                 <padding>
@@ -59,7 +59,7 @@
         </ImageView>
 
         <AnchorPane prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
-                    AnchorPane.bottomAnchor="0">
+                    AnchorPane.topAnchor="135">
             <HBox prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
                   AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" alignment="CENTER">
                 <padding>
@@ -97,7 +97,7 @@
         </ImageView>
 
         <AnchorPane prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
-                    AnchorPane.bottomAnchor="0">
+                    AnchorPane.topAnchor="135">
             <HBox prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
                   AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" alignment="CENTER">
                 <padding>
@@ -135,7 +135,7 @@
         </ImageView>
 
         <AnchorPane prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
-                    AnchorPane.bottomAnchor="0">
+                    AnchorPane.topAnchor="135">
             <HBox prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
                   AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" alignment="CENTER">
                 <padding>
@@ -173,7 +173,7 @@
         </ImageView>
 
         <AnchorPane prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
-                    AnchorPane.bottomAnchor="0">
+                    AnchorPane.topAnchor="135">
             <HBox prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
                   AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" alignment="CENTER">
                 <padding>
@@ -211,7 +211,7 @@
         </ImageView>
 
         <AnchorPane prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
-                    AnchorPane.bottomAnchor="0">
+                    AnchorPane.topAnchor="135">
             <HBox prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
                   AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" alignment="CENTER">
                 <padding>

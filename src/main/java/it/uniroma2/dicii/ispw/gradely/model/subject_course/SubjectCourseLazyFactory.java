@@ -1,14 +1,17 @@
 package it.uniroma2.dicii.ispw.gradely.model.subject_course;
 
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
+import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SubjectCourseLazyFactory {
     private static SubjectCourseLazyFactory instance;
-    private List<SubjectCourse> subjectCourses;
+    private final List<SubjectCourse> subjectCourses;
 
     private SubjectCourseLazyFactory(){
         subjectCourses = new ArrayList<SubjectCourse>();
@@ -27,6 +30,10 @@ public class SubjectCourseLazyFactory {
                 return s;
             }
         }
-        return DAOFactoryAbstract.getInstance().getSubjectCourseDAO().getSubjectCourseByName(name);
+        try {
+            return DAOFactoryAbstract.getInstance().getSubjectCourseDAO().getSubjectCourseByName(name);
+        } catch (ResourceNotFoundException | PropertyException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
     }
 }

@@ -1,5 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.model.role.professor;
 
+import it.uniroma2.dicii.ispw.gradely.model.user.User;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,4 +20,7 @@ public class ProfessorLazyFactory {
         return instance;
     }
 
+    public Professor getProfessorByUser(User user) {
+        return null;
+    }
 }
