@@ -1,14 +1,27 @@
 package it.uniroma2.dicii.ispw.gradely.enums;
 
 public enum DegreeCourseCodeEnum {
-    L01,
-    L02,
-    L03,
-    L04,
-    L05,
-    LM01,
-    LM02,
-    LM03,
-    LM04,
-    LM05;
+    L01(0),
+    L02(1),
+    L03(2),
+    L04(3),
+    L05(4),
+    LM01(5),
+    LM02(6),
+    LM03(7),
+    LM04(8),
+    LM05(9);
+
+    public final int value;
+
+    DegreeCourseCodeEnum(int value) {
+        this.value = value;
+    }
+
+    public static DegreeCourseCodeEnum getDegreeCourseCodeByValue(int value) {
+        for (DegreeCourseCodeEnum code: values())
+            if (code.value == value)
+                return code;
+        return null;
+    }
 }

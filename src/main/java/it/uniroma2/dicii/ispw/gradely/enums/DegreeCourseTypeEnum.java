@@ -5,4 +5,5 @@ public enum DegreeCourseTypeEnum {
     MAGISTRALE,
     MASTER,
     DOTTORATO;
+
 }

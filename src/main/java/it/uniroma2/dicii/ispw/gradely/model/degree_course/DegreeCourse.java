@@ -17,15 +17,13 @@ public class DegreeCourse extends AbstractDegreeCourse {
     private List<SubjectCourse> subjectCourses;
     private TestTypeEnum testType;
 
-
-    public DegreeCourse(DegreeCourseCodeEnum code, String name, FacoltaEnum facolta, DipartimentoEnum dipartimento, DegreeCourseTypeEnum type, TestTypeEnum testType, List<AbstractDegreeCourse> prerequisites) {
+    public DegreeCourse(DegreeCourseCodeEnum code, String name, FacoltaEnum facolta, DipartimentoEnum dipartimento, DegreeCourseTypeEnum type, TestTypeEnum testType) {
         super(code, type);
         this.name = name;
         this.facolta = facolta;
         this.dipartimento = dipartimento;
         this.type = type;
         this.testType = testType;
-        this.prerequisites = prerequisites;
     }
 
     public String getName() {
