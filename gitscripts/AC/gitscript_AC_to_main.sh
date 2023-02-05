@@ -1,11 +1,19 @@
 #!/bin/bash
 echo "(START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT)"
-git switch main
+echo "->EXECUTING git switch AC"
+git switch AC
+echo "->EXECUTING git commit -am \"$1  ($(date))\""
 git commit -am "$1  ($(date))"
-git push -u origin main
-git switch GVC
-git pull
-git merge main
-git push -u origin GVC
+echo "->EXECUTING git push -u origin AC"
+git push -u origin AC
+echo "->EXECUTING git switch main"
 git switch main
+echo "->EXECUTING git pull"
+git pull
+echo "->EXECUTING git merge AC"
+git merge AC
+echo "->EXECUTING git push -u origin main"
+git push -u origin main
+echo "->EXECUTING git switch AC"
+git switch AC
 echo "(END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT)"
