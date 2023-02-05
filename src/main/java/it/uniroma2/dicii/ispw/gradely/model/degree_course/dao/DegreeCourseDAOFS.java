@@ -1,6 +1,8 @@
 package it.uniroma2.dicii.ispw.gradely.model.degree_course.dao;
 
+import it.uniroma2.dicii.ispw.gradely.enums.DegreeCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
+import it.uniroma2.dicii.ispw.gradely.model.degree_course.AbstractDegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 
 import java.util.List;
@@ -26,6 +28,11 @@ public class DegreeCourseDAOFS extends AbstractDegreeCourseDAO {
 
     @Override
     public List<DegreeCourse>getAllDegreeCourses(List<DegreeCourse> degreeCourses) throws DAOException {
+        return null;
+    }
+
+    @Override
+    public List<AbstractDegreeCourse> getDegreeCoursesByDegreeCourseCodeList(List<DegreeCourseCodeEnum> codes) throws DAOException {
         return null;
     }
 

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class DegreeCourseLazyFactory {
     private static DegreeCourseLazyFactory instance;
-    private List<DegreeCourse> degreeCourses;
+    private final List<DegreeCourse> degreeCourses;
 
     private DegreeCourseLazyFactory() {
         degreeCourses = new ArrayList<DegreeCourse>();
@@ -22,8 +22,8 @@ public class DegreeCourseLazyFactory {
         return instance;
     }
 
-    public List<DegreeCourse> getDegreeCourseByDegreeCourseCodeList(List<DegreeCourseCodeEnum> codes) {
-
+    public List<AbstractDegreeCourse> getDegreeCourseByDegreeCourseCodeList(List<DegreeCourseCodeEnum> codes) throws DAOException {
+        return DAOFactoryAbstract.getInstance().getDegreeCourseDAO().getDegreeCoursesByDegreeCourseCodeList(codes);
     }
 
     public DegreeCourse getDegreeCourseByName(String name) throws DAOException {
