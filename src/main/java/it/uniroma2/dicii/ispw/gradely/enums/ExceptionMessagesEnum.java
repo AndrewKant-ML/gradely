@@ -10,8 +10,10 @@ public enum ExceptionMessagesEnum {
     TEST_RETRIVAL_MUR("Error occurred while retrieving test info on MUR platform"),
     USER_NOT_FOUND("No user has benn found with this credentials"),
     WRONG_PASSWORD("Inserted email or password is incorrect"),
-    WRONG_TIMER_TYPE("");
-
+    WRONG_TIMER_TYPE(""),
+    UNEXPECTED_PROPERTY_NAME("Unexpected property name"),
+    RESOURCE_NOT_FOUND("The requested resource has not been found")
+    ;
 
     public final String message;
 

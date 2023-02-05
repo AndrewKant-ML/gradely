@@ -7,8 +7,12 @@ import javafx.scene.control.Alert;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public final class PageNavigationController {
+
+    private static final Logger LOGGER = Logger.getLogger(PageNavigationController.class.getName());
     private static PageNavigationController instance;
     private BaseGraphicControl baseGraphicController;
     private String sessionTokenKey;
@@ -112,8 +116,7 @@ public final class PageNavigationController {
      * @param e         the Exception which caused the Alert to be shown
      */
     public void showAlert(Alert.AlertType alertType, String title, String message, Exception e) {
-        e.printStackTrace();
-        //Logger.printErr(String.format("Error message: %s", e.getMessage()));
+        LOGGER.log(Level.SEVERE, e.toString(), e);
         showAlert(alertType, title, message);
     }
 }

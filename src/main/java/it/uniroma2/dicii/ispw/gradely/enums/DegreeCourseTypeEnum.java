@@ -6,7 +6,7 @@ public enum DegreeCourseTypeEnum {
     MASTER(2),
     DOTTORATO(3);
 
-    public int value;
+    public final int value;
 
     DegreeCourseTypeEnum(int value) {
         this.value = value;
