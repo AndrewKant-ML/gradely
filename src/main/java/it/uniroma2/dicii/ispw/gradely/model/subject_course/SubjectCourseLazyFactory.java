@@ -2,10 +2,12 @@ package it.uniroma2.dicii.ispw.gradely.model.subject_course;
 
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
+import it.uniroma2.dicii.ispw.gradely.enums.SubjectCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,16 +26,14 @@ public class SubjectCourseLazyFactory {
         return instance;
     }
 
-    public SubjectCourse getSubjectCourseByName(String name) throws DAOException {
+    public SubjectCourse getSubjectCourseByCodeNameCfuAndAcademicYear(SubjectCourseCodeEnum code, String name, Integer cfu, Year academicYear) throws DAOException, PropertyException, ResourceNotFoundException {
         for(SubjectCourse s : subjectCourses){
-            if(s.getName().equals(name)){
+            if(s.getCode().equals(code)&&s.getName().equals(name)&&s.getCfu().equals(cfu)&&s.getAcademicYear().equals(academicYear)){
                 return s;
             }
         }
-        try {
-            return DAOFactoryAbstract.getInstance().getSubjectCourseDAO().getSubjectCourseByName(name);
-        } catch (ResourceNotFoundException | PropertyException e) {
-            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }
+        SubjectCourse DAOCourse = DAOFactoryAbstract.getInstance().getSubjectCourseDAO().getSubjectCourseByName(name);
+        subjectCourses.add(DAOCourse);
+        return DAOCourse;
     }
 }

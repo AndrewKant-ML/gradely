@@ -3,6 +3,8 @@ package it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades;
 import it.uniroma2.dicii.ispw.gradely.beans_general.ProtocolBean;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.MissingAuthorizationException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
 
 public class InsertStudentsGradesSecretaryFacade {
@@ -14,7 +16,7 @@ public class InsertStudentsGradesSecretaryFacade {
         controller = new InsertStudentsGradesControl();
     }
 
-    public void confirmExamVerbaleProtocolization(String tokenKey, ProtocolBean bean) throws MissingAuthorizationException, DAOException {
+    public void confirmExamVerbaleProtocolization(String tokenKey, ProtocolBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException {
         controller = new InsertStudentsGradesControl();
         controller.confirmExamVerbaleProtocolization(tokenKey,bean);
     }

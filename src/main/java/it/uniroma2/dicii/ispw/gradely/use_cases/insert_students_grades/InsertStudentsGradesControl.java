@@ -84,7 +84,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @param bean
      * @return
      */
-    ExamEnrollmentListBean getExamEnrollments(String tokenKey, ExamBean bean) throws MissingAuthorizationException, DAOException {
+    ExamEnrollmentListBean getExamEnrollments(String tokenKey, ExamBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException {
         Professor professor = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToProfessorRole();
         Exam exam = getExamByBean(bean);
         checkExamProfessor(exam, professor);
@@ -125,7 +125,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @param bean
      * @return exam
      */
-    private Exam getExamByBean(ExamBean bean) throws DAOException {
+    private Exam getExamByBean(ExamBean bean) throws DAOException, PropertyException, ResourceNotFoundException {
         return ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(bean.getAppello(), getSubjectCourseByBean(bean.getCourse()),bean.getSessione());
     }
 
@@ -138,8 +138,8 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @param bean
      * @return subjectCourse
      */
-    private SubjectCourse getSubjectCourseByBean(SubjectCourseBean bean) throws DAOException {
-        return SubjectCourseLazyFactory.getInstance().getSubjectCourseByName(bean.getName());
+    private SubjectCourse getSubjectCourseByBean(SubjectCourseBean bean) throws DAOException, PropertyException, ResourceNotFoundException {
+        return SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(bean.getCode(), bean.getName(), bean.getCfu() , bean.getAcademicYear());
     }
 
     /**
@@ -213,9 +213,9 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @param bean
      * @throws MissingAuthorizationException
      */
-    void confirmExamVerbaleProtocolization(String tokenKey, ProtocolBean bean) throws MissingAuthorizationException, DAOException {
+    void confirmExamVerbaleProtocolization(String tokenKey, ProtocolBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException {
         Secretary secretary = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToSecretaryRole();
-        Exam e = ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(bean.getExamBean().getAppello(), SubjectCourseLazyFactory.getInstance().getSubjectCourseByName(bean.getExamBean().getCourse().getName()), bean.getExamBean().getSessione());
+        Exam e = ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(bean.getExamBean().getAppello(), SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(bean.getExamBean().getCourse().getCode(), bean.getExamBean().getCourse().getName(), bean.getExamBean().getCourse().getCfu(), bean.getExamBean().getCourse().getAcademicYear()), bean.getExamBean().getSessione());
         checkExamSecretary(e, secretary);
         e.setVerbalizable(false);
         e.setVerbaleDate(bean.getVerbaleDate());
