@@ -19,7 +19,7 @@ git push -u copy main
 echo "->EXECUTING git switch AC"
 git switch AC
 echo "->EXECUTING git pull"
-git pull
+git pull origin
 echo "->EXECUTING git merge main"
 git merge main
 echo "->EXECUTING git push -u origin AC"
