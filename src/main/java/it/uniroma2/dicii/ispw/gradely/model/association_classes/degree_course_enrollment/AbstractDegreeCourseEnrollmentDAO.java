@@ -2,6 +2,8 @@ package it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_e
 
 import it.uniroma2.dicii.ispw.gradely.dao_interface.DAOInterface;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 
@@ -14,8 +16,8 @@ public abstract class AbstractDegreeCourseEnrollmentDAO implements DAOInterface<
     }
 
 
-    public abstract List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByDegreeCourse(DegreeCourse course) throws DAOException;
+    public abstract List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByDegreeCourse(DegreeCourse course) throws DAOException, PropertyException, ResourceNotFoundException;
 
-    public abstract List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByStudent(Student student) throws DAOException;
+    public abstract List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByStudent(Student student) throws DAOException, PropertyException, ResourceNotFoundException;
 
 }

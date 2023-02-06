@@ -4,6 +4,8 @@ import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ObjectNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
@@ -30,7 +32,7 @@ public class DegreeCourseEnrollmentDAODB extends AbstractDegreeCourseEnrollmentD
     }
 
     @Override
-    public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByDegreeCourse(DegreeCourse degreeCourse) throws DAOException {
+    public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByDegreeCourse(DegreeCourse degreeCourse) throws DAOException, PropertyException, ResourceNotFoundException {
         String query = "select * from DEGREE_COURSE_ENROLLMENT DCE join STUDENT S on DCE.student=S.codice_fiscale join USER U on S.codice_fiscale = U.codice_fiscale where DCE.degree_course_code=%d and DCE.degree_course_name='%s';";
         query = String.format(query, degreeCourse.getCode().value, degreeCourse.getName());
         try {
@@ -58,7 +60,7 @@ public class DegreeCourseEnrollmentDAODB extends AbstractDegreeCourseEnrollmentD
      * @throws DAOException thrown if errors occur while retrieving data from persistence layer
      */
     @Override
-    public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByStudent(Student student) throws DAOException {
+    public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByStudent(Student student) throws DAOException, PropertyException, ResourceNotFoundException {
         String query = "select degree_course_name as name, enrollment_date from DEGREE_COURSE_ENROLLMENT DCE where DCE.student='%s'";
         query = String.format(query, student.getUser().getCodiceFiscale());
         try {

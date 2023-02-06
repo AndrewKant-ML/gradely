@@ -7,6 +7,7 @@ import java.time.Year;
 public class SubjectCourseBean {
     private SubjectCourseCodeEnum code;
     private String name;
+    private Integer cfu;
     private Year academicYear;
 
     public SubjectCourseBean(SubjectCourseCodeEnum code, String name, Year academicYear){
@@ -29,6 +30,14 @@ public class SubjectCourseBean {
 
     public void setName(String name){
         this.name = name;
+    }
+
+    public Integer getCfu() {
+        return cfu;
+    }
+
+    public void setCfu(Integer cfu) {
+        this.cfu = cfu;
     }
 
     public Year getAcademicYear(){
