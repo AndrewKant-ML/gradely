@@ -3,9 +3,7 @@ package it.uniroma2.dicii.ispw.gradely.model.role.professor;
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
 import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.ObjectNotFoundException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.UserNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.SubjectCourseAssignmentLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
@@ -39,7 +37,7 @@ public class ProfessorDAODB extends AbstractProfessorDAO {
      * @throws UserNotFoundException thrown if the given User has not a Professor role
      */
     @Override
-    public Professor getProfessorByUser(User user) throws DAOException, UserNotFoundException {
+    public Professor getProfessorByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException {
         String query = "select matricola, dipartimento from PROFESSOR P where codice_fiscale='%s';";
         query = String.format(query, user.getCodiceFiscale());
         try {

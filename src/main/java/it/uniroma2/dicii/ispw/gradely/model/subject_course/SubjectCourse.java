@@ -14,19 +14,19 @@ public class SubjectCourse extends AbstractSubjectCourse {
     private Year academicYear;
     private Integer cfu;
     private List<AbstractSubjectCourse> prerequisites;
-    private List <DegreeCourse> degreeCourses;
-    private List <SubjectCourseAssignment> subjectCourseAssignments;
-    private List <Exam> exams;
-    private List <SubjectCourseEnrollment> enrollments;
+    private List<DegreeCourse> degreeCourses;
+    private List<SubjectCourseAssignment> subjectCourseAssignments;
+    private List<Exam> exams;
+    private List<SubjectCourseEnrollment> enrollments;
 
-    protected SubjectCourse(SubjectCourseCodeEnum code, String name, Year academicYear, Integer cfu){
+    protected SubjectCourse(SubjectCourseCodeEnum code, String name, Year academicYear, Integer cfu) {
         super(code);
         this.name = name;
         this.academicYear = academicYear;
         this.cfu = cfu;
     }
 
-    protected SubjectCourse(SubjectCourseCodeEnum code, String name, Year academicYear, Integer cfu, List<AbstractSubjectCourse> prerequisites, List<DegreeCourse> degreeCourses, List<SubjectCourseAssignment> subjectCourseAssignments){
+    protected SubjectCourse(SubjectCourseCodeEnum code, String name, Year academicYear, Integer cfu, List<AbstractSubjectCourse> prerequisites, List<DegreeCourse> degreeCourses, List<SubjectCourseAssignment> subjectCourseAssignments) {
         super(code);
         this.name = name;
         this.academicYear = academicYear;

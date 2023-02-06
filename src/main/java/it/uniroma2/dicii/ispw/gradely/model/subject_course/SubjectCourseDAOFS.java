@@ -1,8 +1,9 @@
-package it.uniroma2.dicii.ispw.gradely.model.subject_course.dao;
+package it.uniroma2.dicii.ispw.gradely.model.subject_course;
 
+import it.uniroma2.dicii.ispw.gradely.enums.SubjectCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 
+import java.time.Year;
 import java.util.List;
 
 
@@ -20,7 +21,7 @@ public class SubjectCourseDAOFS extends SubjectCourseDAOAbstract {
     }
 
     @Override
-    public SubjectCourse getSubjectCourseByName(String name) throws DAOException {
+    public SubjectCourse getSubjectCourseByNameCodeCfuAndAcademicYear(String name, SubjectCourseCodeEnum code, Integer cfu, Year academicYear) throws DAOException {
         return null; 
     }
 
