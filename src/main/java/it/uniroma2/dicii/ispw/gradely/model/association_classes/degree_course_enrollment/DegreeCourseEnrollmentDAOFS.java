@@ -1,6 +1,5 @@
-package it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.dao;
+package it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment;
 
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.DegreeCourseEnrollment;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 

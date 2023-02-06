@@ -44,7 +44,7 @@ public class StudentLazyFactory {
 
     public Student newStudent(String name, String surname, String codiceFiscale, String email, String password, String matricola, LocalDate registrationDate, List<Title> titles) throws DAOException {
         User user = UserLazyFactory.getInstance().newUser(name, surname, codiceFiscale, email, password, registrationDate);
-        Student student = new Student(user, matricola, titles);
+        Student student = new Student(user, matricola);
         user.setRole(student);
         try {
             DAOFactoryAbstract.getInstance().getStudentDAO().insert(student);

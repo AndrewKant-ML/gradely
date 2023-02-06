@@ -2,8 +2,8 @@ package it.uniroma2.dicii.ispw.gradely.dao_manager;
 
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.dao.AbstractSubjectCourseAssignmentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.dao.SubjectCourseAssignmentDAODB;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.dao.AbstractDegreeCourseEnrollmentDAO;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.dao.DegreeCourseEnrollmentDAODB;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.AbstractDegreeCourseEnrollmentDAO;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.DegreeCourseEnrollmentDAODB;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.dao.AbstractExamEnrollmentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.dao.ExamEnrollmentDAODB;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.dao.AbstractSubjectCourseEnrollmentDAO;
@@ -20,8 +20,8 @@ import it.uniroma2.dicii.ispw.gradely.model.role.professor.dao.AbstractProfessor
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.dao.ProfessorDAODB;
 import it.uniroma2.dicii.ispw.gradely.model.role.secretary.dao.AbstractSecretaryDAO;
 import it.uniroma2.dicii.ispw.gradely.model.role.secretary.dao.SecretaryDAODB;
-import it.uniroma2.dicii.ispw.gradely.model.role.student.dao.AbstractStudentDAO;
-import it.uniroma2.dicii.ispw.gradely.model.role.student.dao.StudentDAODB;
+import it.uniroma2.dicii.ispw.gradely.model.role.student.AbstractStudentDAO;
+import it.uniroma2.dicii.ispw.gradely.model.role.student.StudentDAODB;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.dao.SubjectCourseDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.dao.SubjectCourseDAODB;
 import it.uniroma2.dicii.ispw.gradely.model.timer.dao.TimerDAOAbstract;

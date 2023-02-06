@@ -17,10 +17,9 @@ public class Student extends AbstractRole {
     private List<SubjectCourseEnrollment> subjectCourseEnrollments;
     private List<ExamEnrollment> examEnrollments;
 
-    protected Student(User user, String matricola, List<Title> titoli) {
+    protected Student(User user, String matricola) {
         super(user);
         this.matricola = matricola;
-        this.titles = titoli;
         degreeCourseEnrollments = new ArrayList<>();
         subjectCourseEnrollments = new ArrayList<>();
         examEnrollments = new ArrayList<>();
