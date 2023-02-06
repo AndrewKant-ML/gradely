@@ -5,10 +5,10 @@ git switch AC
 echo "->EXECUTING git commit -am \"$1  ($(date))\""
 git commit -am "$1  ($(date))"
 echo "->EXECUTING git push -u origin AC"
-git push -u origin AC
-echo "->EXECUTING git push -u copy AC"
 git push -u copy AC
 echo "->EXECUTING git switch main"
+git push -u origin AC
+echo "->EXECUTING git push -u copy AC"
 git switch main
 echo "->EXECUTING git commit -am \"$1  ($(date))\""
 git commit -am "$1  ($(date))"
