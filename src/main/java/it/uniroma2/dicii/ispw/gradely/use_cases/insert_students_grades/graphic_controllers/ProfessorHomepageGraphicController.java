@@ -18,22 +18,22 @@ public class ProfessorHomepageGraphicController implements Initializable {
     }
 
     public void openCoursesPage() {
-        PageNavigationController.getInstance().navigateTo("courses-view");
+        PageNavigationController.getInstance().navigateTo("under_construction");
     }
 
     public void openReceptionsPage() {
-        PageNavigationController.getInstance().navigateTo("receptions-view");
+        PageNavigationController.getInstance().navigateTo("under_construction");
     }
 
     public void openCareerPage() {
-        PageNavigationController.getInstance().navigateTo("career-view");
+        PageNavigationController.getInstance().navigateTo("under_construction");
     }
 
     public void openServicesPage() {
-        PageNavigationController.getInstance().navigateTo("services-view");
+        PageNavigationController.getInstance().navigateTo("under_construction");
     }
 
     public void openPersonalDataPage() {
-        PageNavigationController.getInstance().navigateTo("data-view");
+        PageNavigationController.getInstance().navigateTo("under_construction");
     }
 }

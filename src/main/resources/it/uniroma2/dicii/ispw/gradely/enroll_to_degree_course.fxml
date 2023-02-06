@@ -5,8 +5,8 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.graphic_controllers.EnrollToDegreeCourseGraphicController"
-            prefWidth="650" prefHeight="430" stylesheets="@styles/invisible-view.css, @styles/default.css"
-            styleClass="no-background">
+            prefWidth="650" prefHeight="453" stylesheets="@styles/invisible-view.css, @styles/default.css"
+            styleClass="background">
 
     <StackPane AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" prefWidth="650"
                prefHeight="400">

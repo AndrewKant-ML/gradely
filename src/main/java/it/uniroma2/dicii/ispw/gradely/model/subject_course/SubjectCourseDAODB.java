@@ -43,13 +43,13 @@ public class SubjectCourseDAODB extends SubjectCourseDAOAbstract {
     private SubjectCourse querySingleSubjectCourseData(String query) throws ObjectNotFoundException, DAOException, PropertyException, ResourceNotFoundException {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
-            try (PreparedStatement stmt = connection.prepareStatement(query);
+            try (PreparedStatement stmt = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                  ResultSet rs = stmt.executeQuery()) {
                 if (rs.first()) {
                     return new SubjectCourse(
                             SubjectCourseCodeEnum.getSubjectCourseCodeByValue(rs.getInt("code")),
                             rs.getString("name"),
-                            Year.of(rs.getDate("year").toLocalDate().getYear()),
+                            Year.of(rs.getDate("aa").toLocalDate().getYear()),
                             rs.getInt("cfu")
                     );
                 } else
@@ -75,7 +75,7 @@ public class SubjectCourseDAODB extends SubjectCourseDAOAbstract {
      */
     @Override
     public SubjectCourse getSubjectCourseByNameCodeCfuAndAcademicYear(String name, SubjectCourseCodeEnum code, Integer cfu, Year academicYear) throws ObjectNotFoundException, DAOException, PropertyException, ResourceNotFoundException {
-        String query = "select * from SUBJECT_COURSE SC where SC.code=%d and SC.name=%s and SC.cfu=%d and SC.ss=%d;";
+        String query = "select * from SUBJECT_COURSE SC where SC.code=%d and SC.name='%s' and SC.cfu=%d and SC.aa=%d;";
         query = String.format(query, code.value, name, cfu, academicYear.getValue());
         return querySingleSubjectCourseData(query);
     }

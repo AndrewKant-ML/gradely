@@ -81,6 +81,7 @@ public class EnrollToDegreeCourseGraphicController implements Initializable {
             }
             case 3 -> thirdStage.setVisible(false);
             case 4 -> {
+                backButton.setVisible(true);
                 nextButton.setText("Next");
                 fourthStage.setVisible(false);
             }
@@ -91,11 +92,14 @@ public class EnrollToDegreeCourseGraphicController implements Initializable {
     /**
      * Opens second use case stage
      */
-    private void goToStageTwo(){
+    private void goToStageTwo() {
         selectedDegreeCourse = firstStageController.getSelectedDegreeCourse();
-        secondStageController.setAnagraphicalData(PageNavigationController.getInstance().getUserData());
-        secondStage.setVisible(true);
-        backButton.setVisible(true);
+        if (selectedDegreeCourse != null) {
+            secondStageController.setAnagraphicalData(PageNavigationController.getInstance().getUserData());
+            secondStage.setVisible(true);
+            backButton.setVisible(true);
+        } else
+            PageNavigationController.getInstance().showAlert(Alert.AlertType.WARNING, UserErrorMessagesEnum.MISSING_VALUE.message, UserErrorMessagesEnum.SELECT_A_DEGREE_COURSE_MSG.message);
     }
 
     /**
@@ -118,6 +122,7 @@ public class EnrollToDegreeCourseGraphicController implements Initializable {
     private void goToStageFour(){
         try {
             fourthStageController.setTestReservationCode(facade.reserveTest(PageNavigationController.getInstance().getSessionTokenKey(), testInfo).getReservationCode().toString());
+            backButton.setVisible(false);
             nextButton.setText("Close");
             fourthStage.setVisible(true);
         } catch (MissingAuthorizationException e) {

@@ -80,6 +80,7 @@ public class EnrollToDegreeCourseController implements TimerObserver {
      */
     public TestInfoBean getTestInfo(String tokenKey, DegreeCourseBean degreeCourseBean) throws TestRetrivialException, MissingAuthorizationException {
         SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToStudentRole();
+        // TODO save degree course test type and pass reservation code to boundary for test results
         this.testBoundary = AbstractTestFactory.getInstance(degreeCourseBean.getTestType()).createTestBoundary();
         return testBoundary.getTestInfo();
     }

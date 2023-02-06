@@ -6,9 +6,9 @@ import it.uniroma2.dicii.ispw.gradely.enums.ExamResultConfirmationEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.SubjectCourseAssignment;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.ExamEnrollment;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.ExamEnrollmentLazyFactory;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.SubjectCourseAssignment;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.exam.ExamLazyFactory;
@@ -50,7 +50,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @return gradable exam list
      * @throws MissingAuthorizationException
      */
-    ExamListBean getGradableExams(String tokenKey) throws MissingAuthorizationException, DAOException {
+    ExamListBean getGradableExams(String tokenKey) throws MissingAuthorizationException, DAOException, UserNotFoundException, ObjectNotFoundException {
         Professor professor = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToProfessorRole();
         return new ExamListBean(createExamBeanList(ExamLazyFactory.getInstance().getGradableExams(professor)));
     }
@@ -84,7 +84,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @param bean
      * @return
      */
-    ExamEnrollmentListBean getExamEnrollments(String tokenKey, ExamBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException {
+    ExamEnrollmentListBean getExamEnrollments(String tokenKey, ExamBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException {
         Professor professor = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToProfessorRole();
         Exam exam = getExamByBean(bean);
         checkExamProfessor(exam, professor);
@@ -125,8 +125,8 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @param bean
      * @return exam
      */
-    private Exam getExamByBean(ExamBean bean) throws DAOException, PropertyException, ResourceNotFoundException {
-        return ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(bean.getAppello(), getSubjectCourseByBean(bean.getCourse()),bean.getSessione());
+    private Exam getExamByBean(ExamBean bean) throws DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException {
+        return ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(bean.getAppello(), getSubjectCourseByBean(bean.getCourse()), bean.getSessione());
     }
 
     /**
@@ -138,8 +138,8 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @param bean
      * @return subjectCourse
      */
-    private SubjectCourse getSubjectCourseByBean(SubjectCourseBean bean) throws DAOException, PropertyException, ResourceNotFoundException {
-        return SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(bean.getCode(), bean.getName(), bean.getCfu() , bean.getAcademicYear());
+    private SubjectCourse getSubjectCourseByBean(SubjectCourseBean bean) throws DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException {
+        return SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(bean.getCode(), bean.getName(), bean.getCfu(), bean.getAcademicYear());
     }
 
     /**
@@ -213,7 +213,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @param bean
      * @throws MissingAuthorizationException
      */
-    void confirmExamVerbaleProtocolization(String tokenKey, ProtocolBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException {
+    void confirmExamVerbaleProtocolization(String tokenKey, ProtocolBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException {
         Secretary secretary = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToSecretaryRole();
         Exam e = ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(bean.getExamBean().getAppello(), SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(bean.getExamBean().getCourse().getCode(), bean.getExamBean().getCourse().getName(), bean.getExamBean().getCourse().getCfu(), bean.getExamBean().getCourse().getAcademicYear()), bean.getExamBean().getSessione());
         checkExamSecretary(e, secretary);
@@ -275,28 +275,22 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @throws WrongTimerTypeException
      */
     @Override
-    public void timeIsUp(AbstractTimer timer) throws WrongTimerTypeException, DAOException {
+    public void timeIsUp(AbstractTimer timer) throws WrongTimerTypeException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, ObjectNotFoundException {
         ExamConfirmationTimer concreteTimer = timer.castToExamConfirmationTimer();
-        for (ExamEnrollment e : concreteTimer.getObject().getEnrollments()){
-            if (e.getExamResult().getConfirmed()==ExamResultConfirmationEnum.NULL){
+        for (ExamEnrollment e : concreteTimer.getObject().getEnrollments()) {
+            if (e.getExamResult().getConfirmed() == ExamResultConfirmationEnum.NULL) {
                 e.getExamResult().setConfirmed(ExamResultConfirmationEnum.ACCEPTED);
                 PendingEventLazyFactory.getInstance().createNewPendingEventSingle(e.getStudent().getUser(), PendingEventTypeEnum.EVENT_2, e);
             }
         }
         List<User> list = new ArrayList<>();
-        try {
-            for (DegreeCourse d : concreteTimer.getObject().getSubjectCourse().getDegreeCourses()) {
-                // TODO fix GVC (call from SecretaryLazyFactory)
-                for (Secretary s : DAOFactoryAbstract.getInstance().getSecretaryDAO().getSecretariesByDipartimento(d.getDipartimento(), new ArrayList<>())) {
-                    list.add(s.getUser());
-                }
+        for (DegreeCourse d : concreteTimer.getObject().getSubjectCourse().getDegreeCourses()) {
+            // TODO fix GVC (call from SecretaryLazyFactory)
+            for (Secretary s : DAOFactoryAbstract.getInstance().getSecretaryDAO().getSecretariesByDipartimento(d.getDipartimento(), new ArrayList<>())) {
+                list.add(s.getUser());
             }
-        } catch (PropertyException | ResourceNotFoundException e) {
-            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        } catch (UserNotFoundException e) {
-            throw new RuntimeException(e);
         }
-        PendingEventLazyFactory.getInstance().createNewPendingEventGroup(list,PendingEventTypeEnum.EVENT_3, concreteTimer.getObject());
+        PendingEventLazyFactory.getInstance().createNewPendingEventGroup(list, PendingEventTypeEnum.EVENT_3, concreteTimer.getObject());
     }
 }
 

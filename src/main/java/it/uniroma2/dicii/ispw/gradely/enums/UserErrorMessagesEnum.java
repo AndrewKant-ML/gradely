@@ -10,6 +10,7 @@ public enum UserErrorMessagesEnum {
     EXTERNAL_ERROR_TITLE("External error"),
     RESOURCE_LOADING_TITLE("Resource loading error"),
     PROPERTY_VALUE_TITLE("Property value error"),
+    MISSING_VALUE("Missing value"),
 
     /* === MESSAGES === */
     ROLE_ERROR_MSG("The role associated with this user is not recognized."),
@@ -21,7 +22,8 @@ public enum UserErrorMessagesEnum {
     MUR_TEST_RETRIEVAL_MSG("An error occurred while retrieving test info from MUR platform."),
     MOODLE_TEST_RETRIEVAL_MSG("An error occurred while retrieving test info from Moodle platform."),
     RESOURCE_LOADING_MSG("An error occurred while loading view resource."),
-    PROPERTY_VALUE_MSG("Unexpected value of property name. Please check your configuration file.");
+    PROPERTY_VALUE_MSG("Unexpected value of property name. Please check your configuration file."),
+    SELECT_A_DEGREE_COURSE_MSG("Please select a degree course.");
 
     public final String message;
 

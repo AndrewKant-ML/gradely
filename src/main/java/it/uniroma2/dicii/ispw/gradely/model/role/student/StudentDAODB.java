@@ -38,7 +38,7 @@ public class StudentDAODB extends AbstractStudentDAO {
      * @throws UserNotFoundException thrown if the given User has not a Student role
      */
     @Override
-    public Student getStudentByUser(User user) throws DAOException, UserNotFoundException {
+    public Student getStudentByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException {
         String query = "select matricola from STUDENT where codice_fiscale='%s';";
         query = String.format(query, user.getCodiceFiscale());
         try {

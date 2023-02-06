@@ -9,7 +9,8 @@
 <?import javafx.scene.shape.Circle?>
 <VBox xmlns:fx="http://javafx.com/fxml"
       fx:controller="it.uniroma2.dicii.ispw.gradely.BaseGraphicControl"
-      stylesheets="@styles/base-style.css">
+      stylesheets="@styles/base-style.css, @styles/default.css"
+      styleClass="background">
 
     <HBox styleClass="header" prefHeight="35" alignment="CENTER_LEFT">
         <padding>

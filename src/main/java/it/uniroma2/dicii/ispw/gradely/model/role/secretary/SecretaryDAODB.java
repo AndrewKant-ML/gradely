@@ -3,9 +3,7 @@ package it.uniroma2.dicii.ispw.gradely.model.role.secretary;
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
 import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.MissingAuthorizationException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.UserNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 import it.uniroma2.dicii.ispw.gradely.model.user.UserLazyFactory;
 
@@ -39,7 +37,7 @@ public class SecretaryDAODB extends AbstractSecretaryDAO {
      * @throws UserNotFoundException thrown if the given User has not a Student role
      */
     @Override
-    public Secretary getSecretaryByUser(User user) throws DAOException, UserNotFoundException {
+    public Secretary getSecretaryByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException {
         String query = "select * from SECRETARY S where S.codice_fiscale='%s';";
         query = String.format(query, user.getCodiceFiscale());
         try {
@@ -69,7 +67,7 @@ public class SecretaryDAODB extends AbstractSecretaryDAO {
      * @throws UserNotFoundException thrown if the given User has not a Secretary role
      */
     @Override
-    public List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento, List<Secretary> secretaryList) throws DAOException, UserNotFoundException, MissingAuthorizationException {
+    public List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento, List<Secretary> secretaryList) throws DAOException, UserNotFoundException, MissingAuthorizationException, PropertyException, ResourceNotFoundException, ObjectNotFoundException {
         String baseQuery = "select * from SECRETARY S where S.dipartimento=%d";
         String query;
         if (secretaryList.size() == 0)

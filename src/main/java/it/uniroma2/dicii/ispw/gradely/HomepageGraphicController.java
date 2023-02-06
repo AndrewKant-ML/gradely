@@ -15,4 +15,24 @@ public class HomepageGraphicController implements Initializable {
     public void openCareerPage() {
         PageNavigationController.getInstance().navigateTo("enroll_to_degree_course");
     }
+
+    public void openTaxesPage() {
+        PageNavigationController.getInstance().navigateTo("under_construction");
+    }
+
+    public void openCoursesPage() {
+        PageNavigationController.getInstance().navigateTo("under_construction");
+    }
+
+    public void openExamsPage() {
+        PageNavigationController.getInstance().navigateTo("under_construction");
+    }
+
+    public void openServicesPage() {
+        PageNavigationController.getInstance().navigateTo("under_construction");
+    }
+
+    public void openPersonalDataPage() {
+        PageNavigationController.getInstance().navigateTo("under_construction");
+    }
 }

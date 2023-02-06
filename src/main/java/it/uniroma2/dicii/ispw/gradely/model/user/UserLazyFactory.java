@@ -2,10 +2,7 @@ package it.uniroma2.dicii.ispw.gradely.model.user;
 
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.UserNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -45,7 +42,7 @@ public class UserLazyFactory {
         return DAOUser;
     }
 
-    public User getUserByCodiceFiscale(String codiceFiscale) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException {
+    public User getUserByCodiceFiscale(String codiceFiscale) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, ObjectNotFoundException {
         for (User u : registeredUsers)
             if (u.getCodiceFiscale().equals(codiceFiscale))
                 return u;

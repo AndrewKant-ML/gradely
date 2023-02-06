@@ -55,7 +55,11 @@ public class ProfessorDAODB extends AbstractProfessorDAO {
                     } catch (ObjectNotFoundException e) {
                         professor.setCoordinatedCourse(null);
                     }
-                    professor.setCourseAssignments(SubjectCourseAssignmentLazyFactory.getInstance().getCourseAssignmentsByProfessor(professor));
+                    try {
+                        professor.setCourseAssignments(SubjectCourseAssignmentLazyFactory.getInstance().getCourseAssignmentsByProfessor(professor));
+                    } catch (ObjectNotFoundException e) {
+                        professor.setCourseAssignments(null);
+                    }
                     return professor;
                 } else
                     throw new UserNotFoundException(ExceptionMessagesEnum.PROFESSOR_NOT_FOUND.message);

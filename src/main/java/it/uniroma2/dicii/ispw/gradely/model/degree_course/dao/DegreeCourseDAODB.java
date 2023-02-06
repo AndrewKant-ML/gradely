@@ -4,6 +4,8 @@ import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
 import it.uniroma2.dicii.ispw.gradely.enums.*;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ObjectNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.AbstractDegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseLazyFactory;
@@ -39,7 +41,7 @@ public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
      * @throws ObjectNotFoundException thrown if the DegreeCourse cannot be found
      * @throws DAOException            thrown if errors occur while retrieving data from persistence layer
      */
-    private DegreeCourse querySingleDegreeCourseData(String query) throws DAOException, ObjectNotFoundException {
+    private DegreeCourse querySingleDegreeCourseData(String query) throws DAOException, ObjectNotFoundException, PropertyException, ResourceNotFoundException {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             try (PreparedStatement stmt = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE); ResultSet rs = stmt.executeQuery()) {
@@ -62,7 +64,7 @@ public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
      * @return a DegreeCourse object
      * @throws DAOException thrown if errors occur while retrieving data from persistence layer
      */
-    private List<DegreeCourse> queryMultipleDegreeCourseData(String query) throws DAOException {
+    private List<DegreeCourse> queryMultipleDegreeCourseData(String query) throws DAOException, PropertyException, ResourceNotFoundException {
         List<DegreeCourse> degreeCourses = new ArrayList<>();
         try {
             Connection connection = DBConnection.getInstance().getConnection();
@@ -74,7 +76,7 @@ public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
                             rs.getString("name"),
                             FacoltaEnum.getFacoltaByValue(rs.getInt("facolta")),
                             DipartimentoEnum.getDipartimentoByValue(rs.getInt("dipartimento")),
-                            DegreeCourseTypeEnum.valueOf(rs.getString("type")),
+                            DegreeCourseTypeEnum.getDegreeCourseTypeByValue(rs.getInt("type")),
                             TestTypeEnum.getTestTypeByValue(rs.getInt("test_type"))
                     ));
                 }
@@ -95,7 +97,7 @@ public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
      * @throws DAOException thrown if error occurs while executing DB operations
      */
     @Override
-    public DegreeCourse getDegreeCourseByName(String name) throws DAOException, ObjectNotFoundException {
+    public DegreeCourse getDegreeCourseByName(String name) throws DAOException, ObjectNotFoundException, PropertyException, ResourceNotFoundException {
         String query = "select DC.code as code,name,facolta,dipartimento,type,test_type from DEGREE_COURSE DC join ABSTRACT_DEGREE_COURSE ADC on DC.code=ADC.code where DC.name='%s';";
         query = String.format(query, name);
         return querySingleDegreeCourseData(query);
@@ -109,7 +111,7 @@ public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
      * @throws DAOException thrown if error occurs while executing DB operations
      */
     @Override
-    public List<DegreeCourse> getAllDegreeCourses(List<DegreeCourse> degreeCourses) throws DAOException {
+    public List<DegreeCourse> getAllDegreeCourses(List<DegreeCourse> degreeCourses) throws DAOException, PropertyException, ResourceNotFoundException {
         String query = "select DC.code as code,name,facolta,dipartimento,type,test_type from DEGREE_COURSE DC join ABSTRACT_DEGREE_COURSE ADC on DC.code = ADC.code";
         if (degreeCourses.size() > 0) {
             query = query.concat(" where ADC.code not in (%s);");
@@ -123,7 +125,7 @@ public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
     }
 
     @Override
-    public DegreeCourse getDegreeCourseByCoordinatore(Professor professor) throws DAOException, ObjectNotFoundException {
+    public DegreeCourse getDegreeCourseByCoordinatore(Professor professor) throws DAOException, ObjectNotFoundException, PropertyException, ResourceNotFoundException {
         String query = "select DC.code as code,name,facolta,dipartimento,type,test_type from DEGREE_COURSE DC join ABSTRACT_DEGREE_COURSE ADC on DC.code=ADC.code where DC.coordinatore='%s';";
         query = String.format(query, professor.getUser().getCodiceFiscale());
         return querySingleDegreeCourseData(query);
@@ -136,7 +138,7 @@ public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
      * @return a list of DegreeCourseCodeEnum
      * @throws DAOException thrown if error occurs while executing DB operations
      */
-    private List<DegreeCourseCodeEnum> getPrerequisitesCodesByDegreeCourseCode(int code) throws DAOException {
+    private List<DegreeCourseCodeEnum> getPrerequisitesCodesByDegreeCourseCode(int code) throws DAOException, PropertyException, ResourceNotFoundException {
         String query = "select abstract_degree_course as code from DEGREE_COURSE_PREREQUISITE where degree_course_code=%d;";
         query = String.format(query, code);
         try {
@@ -153,7 +155,7 @@ public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
         }
     }
 
-    public List<AbstractDegreeCourse> getDegreeCoursesByDegreeCourseCodeList(List<DegreeCourseCodeEnum> codes) throws DAOException {
+    public List<AbstractDegreeCourse> getDegreeCoursesByDegreeCourseCodeList(List<DegreeCourseCodeEnum> codes) throws DAOException, PropertyException, ResourceNotFoundException {
         if (codes.size() == 0)
             return new ArrayList<>();
         String query = "select DC.code as code,name,facolta,dipartimento,type,test_type from DEGREE_COURSE DC join ABSTRACT_DEGREE_COURSE ADC on DC.code = ADC.code where ADC.code in (%s);";

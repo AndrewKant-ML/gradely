@@ -1,6 +1,8 @@
 package it.uniroma2.dicii.ispw.gradely.model.user;
 
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.UserNotFoundException;
 
 import java.util.List;
@@ -20,6 +22,11 @@ public class UserDAOFS extends UserDAOAbstract {
 
     User getUserByEmail(String email)  throws UserNotFoundException, DAOException {
         //TODO implementare query
+        return null;
+    }
+
+    @Override
+    User getUserByCodiceFiscale(String codiceFiscale) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException {
         return null;
     }
 

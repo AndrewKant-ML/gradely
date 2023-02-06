@@ -2,9 +2,7 @@ package it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_
 
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.Professor;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 
@@ -15,34 +13,37 @@ public class SubjectCourseAssignmentLazyFactory {
     private static SubjectCourseAssignmentLazyFactory instance;
     private final List<SubjectCourseAssignment> subjectCourseAssignments;
 
-    private SubjectCourseAssignmentLazyFactory(){
+    private SubjectCourseAssignmentLazyFactory() {
         subjectCourseAssignments = new ArrayList<SubjectCourseAssignment>();
     }
 
-    public static synchronized SubjectCourseAssignmentLazyFactory getInstance(){
-        if (instance == null){
+    public static synchronized SubjectCourseAssignmentLazyFactory getInstance() {
+        if (instance == null) {
             instance = new SubjectCourseAssignmentLazyFactory();
         }
         return instance;
     }
 
-    public SubjectCourseAssignment getCourseAssignmentBySubjectCourse(SubjectCourse course) throws DAOException {
-        for(SubjectCourseAssignment c : subjectCourseAssignments){
-            if(c.getSubjectCourse().equals(course)){
-                return c;
+    public List<SubjectCourseAssignment> getCourseAssignmentsBySubjectCourse(SubjectCourse course) throws DAOException, UserNotFoundException, ObjectNotFoundException {
+        List<SubjectCourseAssignment> assignments = new ArrayList<>();
+        for (SubjectCourseAssignment c : subjectCourseAssignments) {
+            if (c.getSubjectCourse().equals(course)) {
+                assignments.add(c);
             }
         }
         try {
-            return DAOFactoryAbstract.getInstance().getCourseAssignmentDAO().getCourseAssignmentsBySubjectCourse(course);
+            // TODO fix: assignments list argument to avoid redundancy
+            assignments.addAll(DAOFactoryAbstract.getInstance().getCourseAssignmentDAO().getCourseAssignmentsBySubjectCourse(course));
+            return assignments;
         } catch (ResourceNotFoundException | PropertyException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }
 
-    public List<SubjectCourseAssignment> getCourseAssignmentsByProfessor(Professor professor) throws DAOException {
+    public List<SubjectCourseAssignment> getCourseAssignmentsByProfessor(Professor professor) throws DAOException, UserNotFoundException, ObjectNotFoundException {
         List<SubjectCourseAssignment> list = new ArrayList<>();
-        for(SubjectCourseAssignment c : subjectCourseAssignments){
-            if(c.getProfessor().equals(professor)){
+        for (SubjectCourseAssignment c : subjectCourseAssignments) {
+            if (c.getProfessor().equals(professor)) {
                 list.add(c);
             }
         }
@@ -58,11 +59,12 @@ public class SubjectCourseAssignmentLazyFactory {
         }
         return list;
     }
-    public List<SubjectCourse> getAssignedSubjectCoursesByProfessor(Professor professor) throws DAOException {
+
+    public List<SubjectCourse> getAssignedSubjectCoursesByProfessor(Professor professor) throws DAOException, UserNotFoundException, ObjectNotFoundException {
         List<SubjectCourse> list = new ArrayList<>();
-        for(SubjectCourseAssignment c : subjectCourseAssignments){
-            if(c.getProfessor().equals(professor)){
-                list.add(c.getSubjectCourse()); 
+        for (SubjectCourseAssignment c : subjectCourseAssignments) {
+            if (c.getProfessor().equals(professor)) {
+                list.add(c.getSubjectCourse());
             }
         }
         try {

@@ -1,7 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.timer;
 
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.WrongTimerTypeException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -44,7 +43,7 @@ public abstract class AbstractTimer <T, O extends TimerObserver>{
     public void detach(O observer){
         this.observers.remove(observer);
     }
-    public void notifyTimerExpiration() throws WrongTimerTypeException, DAOException {
+    public void notifyTimerExpiration() throws WrongTimerTypeException, DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, ObjectNotFoundException {
         for (O o : observers){
             o.timeIsUp(this);
         }
