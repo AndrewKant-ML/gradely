@@ -11,4 +11,6 @@ public abstract class UserDAOAbstract implements DAOInterface <User> {
     }
 
     abstract User getUserByEmail(String email) throws UserNotFoundException, DAOException;
+
+    abstract User getUserByCodiceFiscale(String codiceFiscale) throws UserNotFoundException, DAOException;
 }

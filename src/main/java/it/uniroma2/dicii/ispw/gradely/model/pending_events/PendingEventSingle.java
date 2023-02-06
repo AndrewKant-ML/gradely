@@ -5,7 +5,7 @@ import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
 public class PendingEventSingle extends AbstractPendingEvent {
-    private User user;
+    private User user; // TODO collapse User to codice fiscale
 
     public PendingEventSingle(User user, PendingEventTypeEnum type, Object object) throws DAOException {
         super(type, object);

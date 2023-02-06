@@ -33,7 +33,7 @@ public class SubjectCourseAssignmentLazyFactory {
             }
         }
         try {
-            return DAOFactoryAbstract.getInstance().getCourseAssignmentDAO().getCourseAssignmentBySubjectCourse(course);
+            return DAOFactoryAbstract.getInstance().getCourseAssignmentDAO().getCourseAssignmentsBySubjectCourse(course);
         } catch (ResourceNotFoundException | PropertyException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }

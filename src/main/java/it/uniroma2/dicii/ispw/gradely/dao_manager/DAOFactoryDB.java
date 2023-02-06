@@ -16,10 +16,10 @@ import it.uniroma2.dicii.ispw.gradely.model.exam_result.dao.AbstractExamResultDA
 import it.uniroma2.dicii.ispw.gradely.model.exam_result.dao.ExamResultDAODB;
 import it.uniroma2.dicii.ispw.gradely.model.pending_events.dao.AbstractPendingEventDAO;
 import it.uniroma2.dicii.ispw.gradely.model.pending_events.dao.PendingEventDAODB;
-import it.uniroma2.dicii.ispw.gradely.model.role.professor.dao.AbstractProfessorDAO;
-import it.uniroma2.dicii.ispw.gradely.model.role.professor.dao.ProfessorDAODB;
-import it.uniroma2.dicii.ispw.gradely.model.role.secretary.dao.AbstractSecretaryDAO;
-import it.uniroma2.dicii.ispw.gradely.model.role.secretary.dao.SecretaryDAODB;
+import it.uniroma2.dicii.ispw.gradely.model.role.professor.AbstractProfessorDAO;
+import it.uniroma2.dicii.ispw.gradely.model.role.professor.ProfessorDAODB;
+import it.uniroma2.dicii.ispw.gradely.model.role.secretary.AbstractSecretaryDAO;
+import it.uniroma2.dicii.ispw.gradely.model.role.secretary.SecretaryDAODB;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.AbstractStudentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.StudentDAODB;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.dao.SubjectCourseDAOAbstract;

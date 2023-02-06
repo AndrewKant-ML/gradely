@@ -6,6 +6,7 @@ import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.UserNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.model.title.Title;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 import it.uniroma2.dicii.ispw.gradely.model.user.UserLazyFactory;
@@ -29,7 +30,7 @@ public class StudentLazyFactory {
         return instance;
     }
 
-    public Student getStudentByUser(User user) throws DAOException {
+    public Student getStudentByUser(User user) throws DAOException, UserNotFoundException {
         for (Student s : students) {
             if (s.getUser().equals(user)) {
                 return s;

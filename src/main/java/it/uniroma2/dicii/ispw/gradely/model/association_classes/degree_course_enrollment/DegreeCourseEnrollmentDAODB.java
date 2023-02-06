@@ -3,6 +3,7 @@ package it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_e
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.ObjectNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
@@ -74,6 +75,8 @@ public class DegreeCourseEnrollmentDAODB extends AbstractDegreeCourseEnrollmentD
             }
         } catch (SQLException | IOException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        } catch (ObjectNotFoundException e) { // TODO handle this
+            throw new RuntimeException(e);
         }
     }
 

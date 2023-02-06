@@ -7,7 +7,7 @@ import it.uniroma2.dicii.ispw.gradely.model.user.User;
 import java.util.List;
 
 public class PendingEventGroup extends AbstractPendingEvent {
-    private List<User> users;
+    private List<User> users; // TODO collapse User to codice fiscale
 
     public PendingEventGroup(List<User> users, PendingEventTypeEnum type, Object object) throws DAOException {
         super(type, object);

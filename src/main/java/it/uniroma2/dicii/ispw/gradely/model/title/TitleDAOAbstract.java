@@ -16,5 +16,5 @@ public abstract class TitleDAOAbstract implements DAOInterface <Title> {
     protected TitleDAOAbstract(){
     }
 
-    abstract List<Title> getTitlesByStudent(Student student, List<Title> list) throws UserNotFoundException, PropertyException, ResourceNotFoundException, DAOException;
+    abstract List<Title> getTitlesByStudent(Student student, List<Title> list) throws PropertyException, ResourceNotFoundException, DAOException;
 }
