@@ -11,7 +11,7 @@ git push -u copy AC
 echo "----->EXECUTING git switch main"
 git switch main
 echo "----->EXECUTING git pull"
-git pull
+git pull origin main
 echo "----->EXECUTING git commit -am \"$1 - before merging main to AC - ($(date))\""
 git commit -am "$1 - before merging main to AC - ($(date))"
 echo "----->EXECUTING git push -u origin main"
