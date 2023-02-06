@@ -138,13 +138,8 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @param bean
      * @return subjectCourse
      */
-<<<<<<< HEAD
     private SubjectCourse getSubjectCourseByBean(SubjectCourseBean bean) throws DAOException, PropertyException, ResourceNotFoundException {
         return SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(bean.getCode(), bean.getName(), bean.getCfu() , bean.getAcademicYear());
-=======
-    private SubjectCourse getSubjectCourseByBean(SubjectCourseBean bean) throws DAOException {
-        return SubjectCourseLazyFactory.getInstance().getSubjectCourseByNameCodeCfuAy(bean.getName(), , , );
->>>>>>> d4ec7c2 (  (lun 6 feb 2023, 17:12:07, CET))
     }
 
     /**
@@ -220,11 +215,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
      */
     void confirmExamVerbaleProtocolization(String tokenKey, ProtocolBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException {
         Secretary secretary = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToSecretaryRole();
-<<<<<<< HEAD
         Exam e = ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(bean.getExamBean().getAppello(), SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(bean.getExamBean().getCourse().getCode(), bean.getExamBean().getCourse().getName(), bean.getExamBean().getCourse().getCfu(), bean.getExamBean().getCourse().getAcademicYear()), bean.getExamBean().getSessione());
-=======
-        Exam e = ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(bean.getExamBean().getAppello(), SubjectCourseLazyFactory.getInstance().getSubjectCourseByNameCodeCfuAy(bean.getExamBean().getCourse().getName(), , , ), bean.getExamBean().getSessione());
->>>>>>> d4ec7c2 (  (lun 6 feb 2023, 17:12:07, CET))
         checkExamSecretary(e, secretary);
         e.setVerbalizable(false);
         e.setVerbaleDate(bean.getVerbaleDate());
