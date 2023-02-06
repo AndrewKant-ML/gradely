@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.graphic_controllers;
 
-import it.uniroma2.dicii.ispw.gradely.beans_general.UserBean;
+import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.beans.UserData;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
@@ -18,11 +18,11 @@ public class ConfirmAnagraphicalDataGraphicController implements Initializable {
 
     }
 
-    public void setAnagraphicalData(UserBean userBean) {
-        this.matricola.setText(userBean.getMatricola());
-        this.name.setText(userBean.getName());
-        this.surname.setText(userBean.getSurname());
-        this.email.setText(userBean.getEmail());
-        this.codiceFiscale.setText(userBean.getCodiceFiscale());
+    public void setAnagraphicalData(UserData userData) {
+        this.matricola.setText(userData.getUserMatricola());
+        this.name.setText(userData.getUserName());
+        this.surname.setText(userData.getUserSurname());
+        this.email.setText(userData.getUserEmail());
+        this.codiceFiscale.setText(userData.getUserCodiceFiscale());
     }
 }

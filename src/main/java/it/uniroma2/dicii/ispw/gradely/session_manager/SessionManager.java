@@ -1,8 +1,12 @@
 package it.uniroma2.dicii.ispw.gradely.session_manager;
 
+import it.uniroma2.dicii.ispw.gradely.PropertiesHandler;
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
+import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.FrontEndTypeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.model.pending_events.AbstractPendingEvent;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
@@ -12,11 +16,11 @@ import java.util.UUID;
 
 public class SessionManager {
     private static SessionManager instance;
-    private List<Session> activeSessions;
+    private final List<Session> activeSessions;
     private List<AbstractPendingEvent> abstractPendingEvents;
 
     private SessionManager() {
-        activeSessions = new ArrayList<Session>();
+        activeSessions = new ArrayList<>();
     }
 
     public static synchronized SessionManager getInstance() {
@@ -51,22 +55,26 @@ public class SessionManager {
         return s.getUser();
     }
 
-    public String getSessionTokenKeyByUser(User user) {
+    public String getSessionTokenKeyByUser(User user) throws ResourceNotFoundException, PropertyException {
         Session s = getSession(user);
         if (s == null) {
-            String fe = System.getProperty("gradely.front_end_type");
-            s = new Session(user, FrontEndTypeEnum.valueOf(fe));  //TODO implementare
-                activeSessions.add(s);
-            }
+            FrontEndTypeEnum frontEndType = FrontEndTypeEnum.getFrontEndTypeByValue(PropertiesHandler.getInstance().getProperty("front_end_type"));
+            s = new Session(user, frontEndType);  //TODO implementare
+            activeSessions.add(s);
+        }
             return s.getToken().getKey();
         }
 
     private void refreshPendingEvents(List<AbstractPendingEvent> abstractPendingEvents) throws DAOException {
-        for (AbstractPendingEvent p : DAOFactoryAbstract.getInstance().getPendingEventDAO().refresh(abstractPendingEvents)) {
-            if (!abstractPendingEvents.contains(p)) {
-                abstractPendingEvents.add(p);
+        try {
+            for (AbstractPendingEvent p : DAOFactoryAbstract.getInstance().getPendingEventDAO().refresh(abstractPendingEvents)) {
+                if (!abstractPendingEvents.contains(p)) {
+                    abstractPendingEvents.add(p);
+                }
             }
-    }
+        } catch (ResourceNotFoundException | PropertyException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
 
     }
     public List<AbstractPendingEvent> getPendingEventsByUser(User user) throws DAOException {

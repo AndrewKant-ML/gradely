@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 
 public class MainApplication extends Application {
 
-    private static final Logger LOGGER = Logger.getLogger(PageNavigationController.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(MainApplication.class.getName());
 
     @Override
     public void start(Stage stage) throws IOException {

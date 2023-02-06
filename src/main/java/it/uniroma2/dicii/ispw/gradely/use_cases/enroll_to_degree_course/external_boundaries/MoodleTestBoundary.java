@@ -5,15 +5,29 @@ import it.uniroma2.dicii.ispw.gradely.beans_general.TestResultsBean;
 import it.uniroma2.dicii.ispw.gradely.exceptions.TestRetrivialException;
 import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.beans.TestReservationBean;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.time.LocalDate;
+
 public class MoodleTestBoundary extends AbstractTestBoundary {
     @Override
     public TestInfoBean getTestInfo() throws TestRetrivialException {
-        return null;
+        try {
+            return new TestInfoBean(
+                    "MOODLE-test",
+                    LocalDate.of(2023, 7, 4),
+                    new URL("https://moodle.org/?lang=it"),
+                    new URL("https://moodle.org/?lang=itb"),
+                    "Facoltà di ingegneria, Tor Vergata"
+            );
+        } catch (MalformedURLException e){
+            throw new TestRetrivialException("Error occurred while retrieving test info on MUR platform", e);
+        }
     }
 
     @Override
     public TestReservationBean reserveTest(String testId){
-        return null;
+        return new TestReservationBean(testId);
     }
 
     @Override

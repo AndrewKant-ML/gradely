@@ -26,16 +26,16 @@
         <Region HBox.hgrow="ALWAYS"/>
         <Label text="gradely" styleClass="app-name"/>
         <Region HBox.hgrow="ALWAYS"/>
-        <Button fx:id="accountButton" text="menu" styleClass="account-button">
+        <Button fx:id="accountButton" styleClass="account-button" visible="false">
             <shape>
-                <Circle radius="12"/>
+                <Circle radius="14"/>
             </shape>
         </Button>
     </HBox>
 
     <AnchorPane VBox.vgrow="ALWAYS">
-        <StackPane fx:id="content" AnchorPane.topAnchor="23" AnchorPane.rightAnchor="35" AnchorPane.leftAnchor="35"
-                   AnchorPane.bottomAnchor="24">
+        <StackPane fx:id="content" AnchorPane.topAnchor="12" AnchorPane.rightAnchor="35" AnchorPane.leftAnchor="35"
+                   AnchorPane.bottomAnchor="12">
         </StackPane>
     </AnchorPane>
 </VBox>

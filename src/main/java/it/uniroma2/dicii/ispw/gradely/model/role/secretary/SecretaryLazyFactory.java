@@ -2,7 +2,10 @@ package it.uniroma2.dicii.ispw.gradely.model.role.secretary;
 
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
+import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
 import java.util.ArrayList;
@@ -29,7 +32,11 @@ public class SecretaryLazyFactory {
                 return s; 
             }
         }
-        return DAOFactoryAbstract.getInstance().getSecretaryDAO().getSecretaryByUser(user);
+        try {
+            return DAOFactoryAbstract.getInstance().getSecretaryDAO().getSecretaryByUser(user);
+        } catch (PropertyException | ResourceNotFoundException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
     }
 
 
@@ -41,11 +48,15 @@ public class SecretaryLazyFactory {
                 list.add(s); 
             }
         }
-        List<Secretary> daoList = DAOFactoryAbstract.getInstance().getSecretaryDAO().getSecretariesByDipartimento(dipartimento);
-        for(Secretary s : daoList){
-            if(s.getDipartimento().equals(dipartimento)){
-                list.add(s); 
+        try {
+            List<Secretary> daoList = DAOFactoryAbstract.getInstance().getSecretaryDAO().getSecretariesByDipartimento(dipartimento);
+            for (Secretary s : daoList) {
+                if (s.getDipartimento().equals(dipartimento)) {
+                    list.add(s);
+                }
             }
+        } catch (PropertyException | ResourceNotFoundException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
         return list;
     }

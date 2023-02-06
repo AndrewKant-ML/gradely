@@ -1,8 +1,11 @@
 package it.uniroma2.dicii.ispw.gradely.model.pending_events;
 
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
+import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
 import java.util.ArrayList;
@@ -11,7 +14,7 @@ import java.util.UUID;
 
 public class PendingEventLazyFactory {
     private static PendingEventLazyFactory instance;
-    private List<AbstractPendingEvent> abstractPendingEvents;
+    private final List<AbstractPendingEvent> abstractPendingEvents;
 
     private PendingEventLazyFactory(){
         abstractPendingEvents = new ArrayList<AbstractPendingEvent>();
@@ -30,19 +33,31 @@ public class PendingEventLazyFactory {
                 return p; 
             }
         }
-        return DAOFactoryAbstract.getInstance().getPendingEventDAO().getPendingEventById(id);
+        try {
+            return DAOFactoryAbstract.getInstance().getPendingEventDAO().getPendingEventById(id);
+        } catch (ResourceNotFoundException | PropertyException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
     }
 
     public void createNewPendingEventSingle(User user, PendingEventTypeEnum type, Object object) throws DAOException {
         AbstractPendingEvent p = new PendingEventSingle(user, type, object);
         abstractPendingEvents.add(p);
-        DAOFactoryAbstract.getInstance().getPendingEventDAO().update(p);
+        try {
+            DAOFactoryAbstract.getInstance().getPendingEventDAO().update(p);
+        } catch (ResourceNotFoundException | PropertyException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
     }
 
     public void createNewPendingEventGroup(List<User> users, PendingEventTypeEnum type, Object object) throws DAOException {
         PendingEventGroup p = new PendingEventGroup(users, type, object);
         abstractPendingEvents.add(p);
-        DAOFactoryAbstract.getInstance().getPendingEventDAO().update(p);
+        try {
+            DAOFactoryAbstract.getInstance().getPendingEventDAO().update(p);
+        } catch (ResourceNotFoundException | PropertyException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
     }
 
 }

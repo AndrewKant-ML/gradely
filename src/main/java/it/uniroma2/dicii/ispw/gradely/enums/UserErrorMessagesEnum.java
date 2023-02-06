@@ -9,6 +9,7 @@ public enum UserErrorMessagesEnum {
     AUTHORIZATION_TITLE("Authorization error"),
     EXTERNAL_ERROR_TITLE("External error"),
     RESOURCE_LOADING_TITLE("Resource loading error"),
+    PROPERTY_VALUE_TITLE("Property value error"),
 
     /* === MESSAGES === */
     ROLE_ERROR_MSG("The role associated with this user is not recognized."),
@@ -19,12 +20,12 @@ public enum UserErrorMessagesEnum {
     DATA_RETRIEVAL_MSG("An error occurred while retrieving user data."),
     MUR_TEST_RETRIEVAL_MSG("An error occurred while retrieving test info from MUR platform."),
     MOODLE_TEST_RETRIEVAL_MSG("An error occurred while retrieving test info from Moodle platform."),
-    RESOURCE_LOADING_MSG("An error occurred while loading view resource.")
-    ;
+    RESOURCE_LOADING_MSG("An error occurred while loading view resource."),
+    PROPERTY_VALUE_MSG("Unexpected value of property name. Please check your configuration file.");
 
     public final String message;
 
-    private UserErrorMessagesEnum(String message) {
+    UserErrorMessagesEnum(String message) {
         this.message = message;
     }
 }

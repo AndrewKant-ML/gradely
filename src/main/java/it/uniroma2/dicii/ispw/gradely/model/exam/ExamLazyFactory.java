@@ -2,8 +2,11 @@ package it.uniroma2.dicii.ispw.gradely.model.exam;
 
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.AppelloEnum;
+import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.SessionEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.SubjectCourseAssignmentLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.Professor;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
@@ -13,10 +16,10 @@ import java.util.List;
 
 public class ExamLazyFactory {
     private static ExamLazyFactory instance;
-    private List<Exam> exams;
+    private final List<Exam> exams;
 
     private ExamLazyFactory(){
-        exams = new ArrayList<Exam>();
+        exams = new ArrayList<>();
     }
 
     public static synchronized ExamLazyFactory getInstance(){
@@ -32,7 +35,11 @@ public class ExamLazyFactory {
                 return e;
             }
         }
-        return DAOFactoryAbstract.getInstance().getExamDAO().getExamByAppelloAndSubjectCourseAndSession(appello, course, session);
+        try {
+            return DAOFactoryAbstract.getInstance().getExamDAO().getExamByAppelloAndSubjectCourseAndSession(appello, course, session);
+        } catch (ResourceNotFoundException | PropertyException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
     }
 
     public List<Exam> getGradableExams(Professor professor) throws DAOException {
@@ -48,6 +55,10 @@ public class ExamLazyFactory {
     }
 
     public void update (Exam exam) throws DAOException {
-        DAOFactoryAbstract.getInstance().getExamDAO().update(exam);
+        try {
+            DAOFactoryAbstract.getInstance().getExamDAO().update(exam);
+        } catch (ResourceNotFoundException | PropertyException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
     }
 }

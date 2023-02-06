@@ -84,12 +84,15 @@ public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
      */
     @Override
     public List<DegreeCourse> getAllDegreeCourses(List<DegreeCourse> degreeCourses) throws DAOException {
-        String query = "select DC.code as code,name,facolta,dipartimento,type,test_type from DEGREE_COURSE DC join ABSTRACT_DEGREE_COURSE ADC on DC.code = ADC.code where ADC.code not in (%s);";
-        StringBuilder builder = new StringBuilder();
-        for (DegreeCourse degreeCourse : degreeCourses)
-            builder.append(degreeCourse.getCode().value).append(",");
-        builder.deleteCharAt(builder.length() - 1);
-        query = String.format(query, builder);
+        String query = "select DC.code as code,name,facolta,dipartimento,type,test_type from DEGREE_COURSE DC join ABSTRACT_DEGREE_COURSE ADC on DC.code = ADC.code";
+        if (degreeCourses.size() > 0) {
+            query = query.concat(" where ADC.code not in (%s);");
+            StringBuilder builder = new StringBuilder();
+            for (DegreeCourse degreeCourse : degreeCourses)
+                builder.append(degreeCourse.getCode().value).append(",");
+            builder.deleteCharAt(builder.length() - 1);
+            query = String.format(query, builder);
+        }
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             try (PreparedStatement stmt = connection.prepareStatement(query);
@@ -117,7 +120,7 @@ public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
      * @throws DAOException thrown if error occurs while executing DB operations
      */
     private List<DegreeCourseCodeEnum> getPrerequisitesCodesByDegreeCourseCode(int code) throws DAOException {
-        String query = "select abstract_degree_course as code from DEGREE_COURSE_PREREQUISITE where degree_course=%d;";
+        String query = "select abstract_degree_course as code from DEGREE_COURSE_PREREQUISITE where degree_course_code=%d;";
         query = String.format(query, code);
         try {
             Connection connection = DBConnection.getInstance().getConnection();
@@ -134,6 +137,8 @@ public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
     }
 
     public List<AbstractDegreeCourse> getDegreeCoursesByDegreeCourseCodeList(List<DegreeCourseCodeEnum> codes) throws DAOException {
+        if (codes.size() == 0)
+            return new ArrayList<>();
         String query = "select DC.code as code,name,facolta,dipartimento,type,test_type from DEGREE_COURSE DC join ABSTRACT_DEGREE_COURSE ADC on DC.code = ADC.code where ADC.code in (%s);";
         StringBuilder builder = new StringBuilder();
         for (DegreeCourseCodeEnum code : codes)

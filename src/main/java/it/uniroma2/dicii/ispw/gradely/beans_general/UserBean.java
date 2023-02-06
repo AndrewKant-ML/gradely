@@ -3,7 +3,6 @@ package it.uniroma2.dicii.ispw.gradely.beans_general;
 import it.uniroma2.dicii.ispw.gradely.enums.UserRoleEnum;
 
 public class UserBean {
-
     private String name;
     private String surname;
     private String codiceFiscale;
@@ -52,8 +51,8 @@ public class UserBean {
         this.email = email;
     }
 
-    public UserRoleEnum getRole() {
-        return role;
+    public Integer getRole() {
+        return this.role.type;
     }
 
     public void setRole(UserRoleEnum role) {

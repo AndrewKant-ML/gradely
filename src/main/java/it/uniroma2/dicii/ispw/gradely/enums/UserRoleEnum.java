@@ -13,4 +13,11 @@ public enum UserRoleEnum {
     UserRoleEnum(int type) {
         this.type = type;
     }
+
+    public static UserRoleEnum getUserRoleByType(int type) {
+        for (UserRoleEnum userRole : values())
+            if (userRole.type == type)
+                return userRole;
+        return null;
+    }
 }

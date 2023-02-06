@@ -2,6 +2,7 @@ package it.uniroma2.dicii.ispw.gradely;
 
 import it.uniroma2.dicii.ispw.gradely.beans_general.UserBean;
 import it.uniroma2.dicii.ispw.gradely.enums.UserErrorMessagesEnum;
+import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.beans.UserData;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 
@@ -16,7 +17,7 @@ public final class PageNavigationController {
     private static PageNavigationController instance;
     private BaseGraphicControl baseGraphicController;
     private String sessionTokenKey;
-    private UserBean userBean;
+    private UserData userData;
 
     private PageNavigationController() {
 
@@ -29,10 +30,11 @@ public final class PageNavigationController {
     }
 
     public void openMainPage(String sessionTokenKey, UserBean userBean) {
+        setUserData(userBean);
         setSessionTokenKey(sessionTokenKey);
-        setUserBean(userBean);
+        setUserData(userBean);
         String viewName = "";
-        switch (userBean.getRole().type) {
+        switch (userBean.getRole()) {
             case 0 -> viewName = "homepage_student";
             case 1 -> viewName = "homepage_professor";
             case 2 -> viewName = "homepage_secretary";
@@ -42,14 +44,11 @@ public final class PageNavigationController {
         viewName = viewName.concat(".fxml");
         try {
             baseGraphicController.openMainPage(
-                    FXMLLoader.load(Objects.requireNonNull(MainApplication.class.getResource(viewName))));
+                    FXMLLoader.load(Objects.requireNonNull(PageNavigationController.class.getResource(viewName))),
+                    String.format("%c%c", this.userData.getUserName().toUpperCase().charAt(0), this.userData.getUserSurname().toUpperCase().charAt(0)));
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.RESOURCE_LOADING_TITLE.message, UserErrorMessagesEnum.RESOURCE_LOADING_MSG.message, e);
         }
-    }
-
-    public void setBaseGraphicController(BaseGraphicControl baseGraphicController) {
-        this.baseGraphicController = baseGraphicController;
     }
 
     /**
@@ -61,10 +60,14 @@ public final class PageNavigationController {
         pageName = pageName.concat(".fxml");
         try {
             baseGraphicController.switchTo(
-                    FXMLLoader.load(Objects.requireNonNull(MainApplication.class.getResource(pageName))));
+                    FXMLLoader.load(Objects.requireNonNull(PageNavigationController.class.getResource(pageName))));
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.RESOURCE_LOADING_TITLE.message, UserErrorMessagesEnum.RESOURCE_LOADING_MSG.message, e);
         }
+    }
+
+    public void setBaseGraphicController(BaseGraphicControl baseGraphicController) {
+        this.baseGraphicController = baseGraphicController;
     }
 
     public void returnToMainPage() {
@@ -79,12 +82,24 @@ public final class PageNavigationController {
         this.sessionTokenKey = sessionTokenKey;
     }
 
-    public UserBean getUserBean() {
-        return userBean;
+    public UserData getUserData() {
+        return this.userData;
     }
 
-    public void setUserBean(UserBean userBean) {
-        this.userBean = userBean;
+    /**
+     * Saves User data
+     *
+     * @param userBean a bean containing the User data
+     */
+    private void setUserData(UserBean userBean) {
+        this.userData = new UserData(
+                userBean.getName(),
+                userBean.getSurname(),
+                userBean.getEmail(),
+                userBean.getCodiceFiscale(),
+                userBean.getMatricola(),
+                userBean.getRole()
+        );
     }
 
     // TODO implement user switch
