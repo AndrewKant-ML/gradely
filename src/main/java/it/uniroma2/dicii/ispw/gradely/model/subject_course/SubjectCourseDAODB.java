@@ -30,6 +30,16 @@ public class SubjectCourseDAODB extends SubjectCourseDAOAbstract {
         return instance;
     }
 
+    /**
+     * Retrieves data of a single SubjectCourse, executing a given query
+     *
+     * @param query the query to be executed
+     * @return a SubjectCourse object
+     * @throws ObjectNotFoundException   thrown if the query produces no results
+     * @throws DAOException              thrown if errors occur while retrieving data from persistence layer
+     * @throws PropertyException         thrown if errors occur while loading db connection properties
+     * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
+     */
     private SubjectCourse querySingleSubjectCourseData(String query) throws ObjectNotFoundException, DAOException, PropertyException, ResourceNotFoundException {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
@@ -50,6 +60,19 @@ public class SubjectCourseDAODB extends SubjectCourseDAOAbstract {
         }
     }
 
+    /**
+     * Retrieve a SubjectCourse from given code, name, cfu and academic year
+     *
+     * @param name         the SubjectCourse's name
+     * @param code         the SubjectCourse's code
+     * @param cfu          the SubjectCourse's cfu
+     * @param academicYear the SubjectCourse's academic year
+     * @return a SubjectCourse object
+     * @throws ObjectNotFoundException   thrown if the query produces no results
+     * @throws DAOException              thrown if errors occur while retrieving data from persistence layer
+     * @throws PropertyException         thrown if errors occur while loading db connection properties
+     * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
+     */
     @Override
     public SubjectCourse getSubjectCourseByNameCodeCfuAndAcademicYear(String name, SubjectCourseCodeEnum code, Integer cfu, Year academicYear) throws ObjectNotFoundException, DAOException, PropertyException, ResourceNotFoundException {
         String query = "select * from SUBJECT_COURSE SC where SC.code=%d and SC.name=%s and SC.cfu=%d and SC.ss=%d;";

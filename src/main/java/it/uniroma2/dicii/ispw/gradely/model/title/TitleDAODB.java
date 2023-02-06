@@ -4,6 +4,8 @@ import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
 import it.uniroma2.dicii.ispw.gradely.enums.DegreeCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 
@@ -35,10 +37,12 @@ public class TitleDAODB extends TitleDAOAbstract {
      * @param student   the Student whose titles have to be found
      * @param titleList the titles already loaded in memory
      * @return a List of Title objects
-     * @throws DAOException thrown if errors occur while retrieving data from persistence layer
+     * @throws DAOException              thrown if errors occur while retrieving data from persistence layer
+     * @throws PropertyException         thrown if errors occur while loading db connection properties
+     * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
     @Override
-    List<Title> getTitlesByStudent(Student student, List<Title> titleList) throws DAOException {
+    List<Title> getTitlesByStudent(Student student, List<Title> titleList) throws DAOException, PropertyException, ResourceNotFoundException {
         String query;
         if (titleList.size() == 0)
             query = String.format("select * from TITLE T where T.student='%s';", student.getUser().getCodiceFiscale());

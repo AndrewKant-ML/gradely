@@ -10,7 +10,7 @@ import java.util.Properties;
 public class PropertiesHandler {
 
     private static PropertiesHandler instance = null;
-    private Properties properties = null;
+    private Properties properties;
 
     private PropertiesHandler() throws ResourceNotFoundException {
         try {
@@ -27,7 +27,7 @@ public class PropertiesHandler {
         return instance;
     }
 
-    public String getProperty(String propertyName) throws PropertyException, ResourceNotFoundException {
+    public String getProperty(String propertyName) throws PropertyException {
         String propertyValue = properties.getProperty(propertyName);
         if (propertyValue != null)
             return propertyValue;

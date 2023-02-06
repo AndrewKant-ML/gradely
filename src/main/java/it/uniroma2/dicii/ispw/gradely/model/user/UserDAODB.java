@@ -3,9 +3,7 @@ package it.uniroma2.dicii.ispw.gradely.model.user;
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.UserRoleEnum;
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.UnrecognizedRoleException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.UserNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.ProfessorLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.secretary.SecretaryLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.StudentLazyFactory;
@@ -38,7 +36,7 @@ public class UserDAODB extends UserDAOAbstract {
      * @throws UserNotFoundException thrown if the User cannot be found
      * @throws DAOException          thrown if errors occur while retrieving data from persistence layer
      */
-    User getUserByEmail(String email) throws UserNotFoundException, DAOException {
+    User getUserByEmail(String email) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException {
         String query = "select codice_fiscale,name,surname,email,password,registration_date,role from USER where email='%s'";
         query = String.format(query, email);
         return queryUserData(query);
@@ -53,7 +51,7 @@ public class UserDAODB extends UserDAOAbstract {
      * @throws DAOException          thrown if errors occur while retrieving data from persistence layer
      */
     @Override
-    User getUserByCodiceFiscale(String codiceFiscale) throws UserNotFoundException, DAOException {
+    User getUserByCodiceFiscale(String codiceFiscale) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException {
         String query = "select codice_fiscale, name, surname, password, registration_date, email, role from USER U where U.codice_fiscale='%s';";
         query = String.format(query, codiceFiscale);
         return queryUserData(query);
@@ -67,7 +65,7 @@ public class UserDAODB extends UserDAOAbstract {
      * @throws UserNotFoundException thrown if the User cannot be found
      * @throws DAOException          thrown if errors occur while retrieving data from persistence layer
      */
-    private User queryUserData(String query) throws UserNotFoundException, DAOException {
+    private User queryUserData(String query) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             try (PreparedStatement stmt = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
