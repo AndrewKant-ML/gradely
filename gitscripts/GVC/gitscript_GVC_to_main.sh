@@ -2,8 +2,8 @@
 echo "(START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT) (START OF SCRIPT)"
 echo "----->EXECUTING git switch GVC"
 git switch GVC
-echo "----->EXECUTING git commit -am \"$1  ($(date))\""
-git commit -am "$1  ($(date))"
+echo "----->EXECUTING git commit -am \"$1 - before merging GVC to main - ($(date))\""
+git commit -am "$1 - before merging GVC to main - ($(date))"
 echo "----->EXECUTING git push -u origin GVC"
 git push -u origin GVC
 echo "----->EXECUTING git switch main"
