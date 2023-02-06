@@ -1,6 +1,8 @@
 package it.uniroma2.dicii.ispw.gradely.model.title;
 
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.UserNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
@@ -13,10 +15,6 @@ public class TitleDAOFS extends TitleDAOAbstract {
         super();
     }
 
-    @Override
-    List<Title> getTitlesByStudent(Student student, List<Title> list) throws UserNotFoundException, DAOException {
-        return null;
-    }
 
     public static synchronized TitleDAOAbstract getInstance(){
         if (instance == null){
@@ -25,6 +23,10 @@ public class TitleDAOFS extends TitleDAOAbstract {
         return instance;
     }
 
+    @Override
+    List<Title> getTitlesByStudent(Student student, List<Title> list) throws UserNotFoundException, PropertyException, ResourceNotFoundException, DAOException {
+        return null;
+    }
 
     @Override
     public void insert(Title title) throws DAOException {

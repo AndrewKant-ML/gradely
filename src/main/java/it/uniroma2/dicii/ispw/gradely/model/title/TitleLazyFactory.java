@@ -28,20 +28,16 @@ public class TitleLazyFactory {
         return instance;
     }
 
-    List<Title> getTitlesByStudent(Student student) throws UserNotFoundException, DAOException{
+    List<Title> getTitlesByStudent(Student student) throws UserNotFoundException, PropertyException, ResourceNotFoundException, DAOException{
         List<Title> list = new ArrayList<>();
         for (Title t : titles) {
             if (t.getStudent().equals(student)) {
                 list.add(t);
             }
         }
-        try {
-            List<Title> DAOList = DAOFactoryAbstract.getInstance().getTitleDAO().getTitlesByStudent(student, list);
-            titles.addAll(DAOList);
-            list.addAll(DAOList);
-        } catch (PropertyException | ResourceNotFoundException e) {
-            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }
+        List<Title> DAOList = DAOFactoryAbstract.getInstance().getTitleDAO().getTitlesByStudent(student, list);
+        titles.addAll(DAOList);
+        list.addAll(DAOList);
         return list;
     }
 
