@@ -26,17 +26,15 @@ public class UserLazyFactory {
         return instance;
     }
 
-    public User getUserByEmail(String email) throws DAOException, UserNotFoundException {
+    public User getUserByEmail(String email) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException {
         for (User u : registeredUsers) {
             if (u.getEmail().equals(email)) {
                 return u;
             }
         }
-        try {
-            return DAOFactoryAbstract.getInstance().getUserDAO().getUserByEmail(email);
-        } catch (PropertyException | ResourceNotFoundException e) {
-            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }
+        User DAOUser = DAOFactoryAbstract.getInstance().getUserDAO().getUserByEmail(email);
+        registeredUsers.add(DAOUser);
+        return DAOUser;
     }
 
     public User newUser(String name, String surname, String codiceFiscale, String email, String password, LocalDate registrationDate) throws DAOException {
