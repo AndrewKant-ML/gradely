@@ -15,7 +15,7 @@ public abstract class AbstractSubjectCourseAssignmentDAO implements DAOInterface
     protected AbstractSubjectCourseAssignmentDAO(){
     }
 
-    public abstract SubjectCourseAssignment getCourseAssignmentBySubjectCourse(SubjectCourse course) throws DAOException;
+    public abstract List<SubjectCourseAssignment> getCourseAssignmentsBySubjectCourse(SubjectCourse course) throws DAOException;
 
     public abstract List<SubjectCourseAssignment> getCourseAssignmentsByProfessor(Professor professor) throws DAOException ;
 

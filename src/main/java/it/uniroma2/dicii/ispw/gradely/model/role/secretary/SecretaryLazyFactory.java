@@ -3,9 +3,7 @@ package it.uniroma2.dicii.ispw.gradely.model.role.secretary;
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
 import java.util.ArrayList;
@@ -26,10 +24,10 @@ public class SecretaryLazyFactory {
         return instance;
     }
 
-    public Secretary getSecretaryByUser(User user) throws DAOException {
+    public Secretary getSecretaryByUser(User user) throws DAOException, UserNotFoundException {
         for(Secretary s : secretaries){
             if(s.getUser().equals(user)){
-                return s; 
+                return s;
             }
         }
         try {
@@ -41,7 +39,7 @@ public class SecretaryLazyFactory {
 
 
 
-    public List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento) throws DAOException {
+    public List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento) throws DAOException, MissingAuthorizationException {
         List<Secretary> list = new ArrayList<>();
         for(Secretary s : secretaries){
             if(s.getDipartimento().equals(dipartimento)){
@@ -49,7 +47,7 @@ public class SecretaryLazyFactory {
             }
         }
         try {
-            List<Secretary> daoList = DAOFactoryAbstract.getInstance().getSecretaryDAO().getSecretariesByDipartimento(dipartimento);
+            List<Secretary> daoList = DAOFactoryAbstract.getInstance().getSecretaryDAO().getSecretariesByDipartimento(dipartimento, list);
             for (Secretary s : daoList) {
                 if (s.getDipartimento().equals(dipartimento)) {
                     list.add(s);
@@ -57,6 +55,8 @@ public class SecretaryLazyFactory {
             }
         } catch (PropertyException | ResourceNotFoundException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        } catch (UserNotFoundException e) {
+            throw new RuntimeException(e);
         }
         return list;
     }

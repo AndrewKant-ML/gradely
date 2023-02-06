@@ -9,19 +9,23 @@ import java.util.List;
 
 
 public class SubjectCourseAssignmentDAODB extends AbstractSubjectCourseAssignmentDAO {
-    private SubjectCourseAssignmentDAODB(){
+    private SubjectCourseAssignmentDAODB() {
 
     }
 
-    public static synchronized AbstractSubjectCourseAssignmentDAO getInstance(){
-        if (instance == null){
+    public static synchronized AbstractSubjectCourseAssignmentDAO getInstance() {
+        if (instance == null) {
             instance = new SubjectCourseAssignmentDAODB();
         }
         return instance;
     }
 
+    private List<SubjectCourseAssignment> queryMultipleSubjectCourseAssignmentData(String query) {
+
+    }
+
     @Override
-    public SubjectCourseAssignment getCourseAssignmentBySubjectCourse(SubjectCourse course) throws DAOException {
+    public List<SubjectCourseAssignment> getCourseAssignmentsBySubjectCourse(SubjectCourse course) throws DAOException {
         return null;
     }
 

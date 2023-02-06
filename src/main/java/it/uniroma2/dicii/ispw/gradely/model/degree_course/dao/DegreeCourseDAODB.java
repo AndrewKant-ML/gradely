@@ -3,9 +3,11 @@ package it.uniroma2.dicii.ispw.gradely.model.degree_course.dao;
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
 import it.uniroma2.dicii.ispw.gradely.enums.*;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.ObjectNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.AbstractDegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseLazyFactory;
+import it.uniroma2.dicii.ispw.gradely.model.role.professor.Professor;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -30,21 +32,59 @@ public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
     }
 
     /**
-     * Creates a DegreeCourse instance by retrieving data from a ResultSet object
+     * Retrieves DegreeCourse data by executing a given query
      *
-     * @param rs the ResultSet from which retrieving data
-     * @return an instance of DegreeCourse
-     * @throws SQLException thrown if error occurs while reading data from ResultSet
+     * @param query the query to be executed
+     * @return a DegreeCourse object
+     * @throws ObjectNotFoundException thrown if the DegreeCourse cannot be found
+     * @throws DAOException            thrown if errors occur while retrieving data from persistence layer
      */
-    private DegreeCourse createDegreeCourseFromResultSet(ResultSet rs) throws SQLException {
-        return new DegreeCourse(
-                DegreeCourseCodeEnum.getDegreeCourseCodeByValue(rs.getInt("code")),
-                rs.getString("name"),
-                FacoltaEnum.getFacoltaByValue(rs.getInt("facolta")),
-                DipartimentoEnum.getDipartimentoByValue(rs.getInt("dipartimento")),
-                DegreeCourseTypeEnum.getDegreeCourseTypeByValue(rs.getInt("type")),
-                TestTypeEnum.getTestTypeByValue(rs.getInt("test_type"))
-        );
+    private DegreeCourse querySingleDegreeCourseData(String query) throws DAOException, ObjectNotFoundException {
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            try (PreparedStatement stmt = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE); ResultSet rs = stmt.executeQuery()) {
+                if (rs.first()) {
+                    int code = rs.getInt("code");
+                    DegreeCourse degreeCourse = new DegreeCourse(DegreeCourseCodeEnum.getDegreeCourseCodeByValue(code), rs.getString("name"), FacoltaEnum.getFacoltaByValue(rs.getInt("facolta")), DipartimentoEnum.getDipartimentoByValue(rs.getInt("dipartimento")), DegreeCourseTypeEnum.getDegreeCourseTypeByValue(rs.getInt("type")), TestTypeEnum.getTestTypeByValue(rs.getInt("test_type")));
+                    degreeCourse.setPrerequisites(DegreeCourseLazyFactory.getInstance().getDegreeCourseByDegreeCourseCodeList(getPrerequisitesCodesByDegreeCourseCode(code)));
+                    return degreeCourse;
+                } else throw new ObjectNotFoundException(ExceptionMessagesEnum.OBJ_NOT_FOUND.message);
+            }
+        } catch (SQLException | IOException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
+    }
+
+    /**
+     * Retrieves DegreeCourse data by executing a given query
+     *
+     * @param query the query to be executed
+     * @return a DegreeCourse object
+     * @throws DAOException thrown if errors occur while retrieving data from persistence layer
+     */
+    private List<DegreeCourse> queryMultipleDegreeCourseData(String query) throws DAOException {
+        List<DegreeCourse> degreeCourses = new ArrayList<>();
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            try (PreparedStatement stmt = connection.prepareStatement(query);
+                 ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    degreeCourses.add(new DegreeCourse(
+                            DegreeCourseCodeEnum.getDegreeCourseCodeByValue(rs.getInt("code")),
+                            rs.getString("name"),
+                            FacoltaEnum.getFacoltaByValue(rs.getInt("facolta")),
+                            DipartimentoEnum.getDipartimentoByValue(rs.getInt("dipartimento")),
+                            DegreeCourseTypeEnum.valueOf(rs.getString("type")),
+                            TestTypeEnum.getTestTypeByValue(rs.getInt("test_type"))
+                    ));
+                }
+                return degreeCourses;
+            } catch (SQLException e) {
+                throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+            }
+        } catch (IOException | SQLException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
     }
 
     /**
@@ -55,24 +95,10 @@ public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
      * @throws DAOException thrown if error occurs while executing DB operations
      */
     @Override
-    public DegreeCourse getDegreeCourseByName(String name) throws DAOException {
+    public DegreeCourse getDegreeCourseByName(String name) throws DAOException, ObjectNotFoundException {
         String query = "select DC.code as code,name,facolta,dipartimento,type,test_type from DEGREE_COURSE DC join ABSTRACT_DEGREE_COURSE ADC on DC.code=ADC.code where DC.name='%s';";
         query = String.format(query, name);
-        try {
-            Connection connection = DBConnection.getInstance().getConnection();
-            try (PreparedStatement stmt = connection.prepareStatement(query);
-                 ResultSet rs = stmt.executeQuery()) {
-                DegreeCourse degreeCourse;
-                if (rs.first()) {
-                    int code = rs.getInt("code");
-                    degreeCourse = createDegreeCourseFromResultSet(rs);
-                    degreeCourse.setPrerequisites(DegreeCourseLazyFactory.getInstance().getDegreeCourseByDegreeCourseCodeList(getPrerequisitesCodesByDegreeCourseCode(code)));
-                }
-            }
-        } catch (SQLException | IOException e) {
-            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }
-        return null;
+        return querySingleDegreeCourseData(query);
     }
 
     /**
@@ -93,23 +119,14 @@ public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
             builder.deleteCharAt(builder.length() - 1);
             query = String.format(query, builder);
         }
-        try {
-            Connection connection = DBConnection.getInstance().getConnection();
-            try (PreparedStatement stmt = connection.prepareStatement(query);
-                 ResultSet rs = stmt.executeQuery()) {
-                List<DegreeCourse> courses = new ArrayList<>();
-                DegreeCourse degreeCourse;
-                while (rs.next()) {
-                    int code = rs.getInt("code");
-                    degreeCourse = createDegreeCourseFromResultSet(rs);
-                    degreeCourse.setPrerequisites(DegreeCourseLazyFactory.getInstance().getDegreeCourseByDegreeCourseCodeList(getPrerequisitesCodesByDegreeCourseCode(code)));
-                    courses.add(degreeCourse);
-                }
-                return courses;
-            }
-        } catch (IOException | SQLException e) {
-            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }
+        return queryMultipleDegreeCourseData(query);
+    }
+
+    @Override
+    public DegreeCourse getDegreeCourseByCoordinatore(Professor professor) throws DAOException, ObjectNotFoundException {
+        String query = "select DC.code as code,name,facolta,dipartimento,type,test_type from DEGREE_COURSE DC join ABSTRACT_DEGREE_COURSE ADC on DC.code=ADC.code where DC.coordinatore='%s';";
+        query = String.format(query, professor.getUser().getCodiceFiscale());
+        return querySingleDegreeCourseData(query);
     }
 
     /**
@@ -145,28 +162,7 @@ public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
             builder.append(code.value + ',');
         builder.deleteCharAt(builder.length() - 1);
         query = String.format(query, builder);
-        List<AbstractDegreeCourse> degreeCourses = new ArrayList<>();
-        try {
-            Connection connection = DBConnection.getInstance().getConnection();
-            try (PreparedStatement stmt = connection.prepareStatement(query);
-                 ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    degreeCourses.add(new DegreeCourse(
-                            DegreeCourseCodeEnum.getDegreeCourseCodeByValue(rs.getInt("code")),
-                            rs.getString("name"),
-                            FacoltaEnum.getFacoltaByValue(rs.getInt("facolta")),
-                            DipartimentoEnum.getDipartimentoByValue(rs.getInt("dipartimento")),
-                            DegreeCourseTypeEnum.valueOf(rs.getString("type")),
-                            TestTypeEnum.getTestTypeByValue(rs.getInt("test_type"))
-                    ));
-                }
-                return degreeCourses;
-            } catch (SQLException e) {
-                throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-            }
-        } catch (IOException | SQLException e) {
-            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }
+        return new ArrayList<>(queryMultipleDegreeCourseData(query));
     }
 
     @Override

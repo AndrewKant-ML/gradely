@@ -4,8 +4,10 @@ import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.DegreeCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.ObjectNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.model.role.professor.Professor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +35,7 @@ public class DegreeCourseLazyFactory {
         }
     }
 
-    public DegreeCourse getDegreeCourseByName(String name) throws DAOException {
+    public DegreeCourse getDegreeCourseByName(String name) throws DAOException, ObjectNotFoundException {
         for (DegreeCourse d : degreeCourses) {
             if (d.getName().equals(name)) {
                 return d;
@@ -41,6 +43,17 @@ public class DegreeCourseLazyFactory {
         }
         try {
             return DAOFactoryAbstract.getInstance().getDegreeCourseDAO().getDegreeCourseByName(name);
+        } catch (ResourceNotFoundException | PropertyException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
+    }
+
+    public DegreeCourse getDegreeCourseByCoordinatore(Professor professor) throws DAOException, ObjectNotFoundException {
+        for (DegreeCourse d : this.degreeCourses)
+            if (d.getCoordinatore().equals(professor))
+                return d;
+        try {
+            return DAOFactoryAbstract.getInstance().getDegreeCourseDAO().getDegreeCourseByCoordinatore(professor);
         } catch (ResourceNotFoundException | PropertyException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }

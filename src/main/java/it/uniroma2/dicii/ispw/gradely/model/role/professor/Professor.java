@@ -15,10 +15,10 @@ public class Professor extends AbstractRole {
     private List<SubjectCourseAssignment> subjectCourseAssignments;
     private DegreeCourse coordinatedCourse;
 
-
-    public Professor(User user, String matricola){
+    public Professor(User user, String matricola, DipartimentoEnum dipartimento) {
         super(user);
         this.matricola = matricola;
+        this.dipartimento = dipartimento;
     }
 
     @Override

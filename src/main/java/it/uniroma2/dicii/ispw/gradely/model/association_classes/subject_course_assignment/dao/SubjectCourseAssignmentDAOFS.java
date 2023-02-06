@@ -21,7 +21,7 @@ public class SubjectCourseAssignmentDAOFS extends AbstractSubjectCourseAssignmen
     }
 
     @Override
-    public SubjectCourseAssignment getCourseAssignmentBySubjectCourse(SubjectCourse course) throws DAOException {
+    public List<SubjectCourseAssignment> getCourseAssignmentsBySubjectCourse(SubjectCourse course) throws DAOException {
         return null; 
     }
 

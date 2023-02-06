@@ -286,12 +286,15 @@ public class InsertStudentsGradesControl implements TimerObserver {
         List<User> list = new ArrayList<>();
         try {
             for (DegreeCourse d : concreteTimer.getObject().getSubjectCourse().getDegreeCourses()) {
-                for (Secretary s : DAOFactoryAbstract.getInstance().getSecretaryDAO().getSecretariesByDipartimento(d.getDipartimento())) {
+                // TODO fix GVC (call from SecretaryLazyFactory)
+                for (Secretary s : DAOFactoryAbstract.getInstance().getSecretaryDAO().getSecretariesByDipartimento(d.getDipartimento(), new ArrayList<>())) {
                     list.add(s.getUser());
                 }
             }
         } catch (PropertyException | ResourceNotFoundException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        } catch (UserNotFoundException e) {
+            throw new RuntimeException(e);
         }
         PendingEventLazyFactory.getInstance().createNewPendingEventGroup(list,PendingEventTypeEnum.EVENT_3, concreteTimer.getObject());
     }

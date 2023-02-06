@@ -59,7 +59,7 @@ public class SessionManager {
         Session s = getSession(user);
         if (s == null) {
             FrontEndTypeEnum frontEndType = FrontEndTypeEnum.getFrontEndTypeByValue(PropertiesHandler.getInstance().getProperty("front_end_type"));
-            s = new Session(user, frontEndType);  //TODO implementare
+            s = new Session(user, frontEndType);
             activeSessions.add(s);
         }
             return s.getToken().getKey();

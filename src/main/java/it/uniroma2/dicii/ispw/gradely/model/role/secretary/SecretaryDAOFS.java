@@ -1,8 +1,8 @@
-package it.uniroma2.dicii.ispw.gradely.model.role.secretary.dao;
+package it.uniroma2.dicii.ispw.gradely.model.role.secretary;
 
 import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.model.role.secretary.Secretary;
+import it.uniroma2.dicii.ispw.gradely.exceptions.UserNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class SecretaryDAOFS extends AbstractSecretaryDAO {
     }
 
     @Override
-    public List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento){
+    public List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento, List<Secretary> secretaryList) throws DAOException, UserNotFoundException {
         return null;
     }
 

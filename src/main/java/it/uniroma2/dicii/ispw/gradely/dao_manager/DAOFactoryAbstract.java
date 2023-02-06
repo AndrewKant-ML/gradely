@@ -13,8 +13,8 @@ import it.uniroma2.dicii.ispw.gradely.model.degree_course.dao.AbstractDegreeCour
 import it.uniroma2.dicii.ispw.gradely.model.exam.dao.AbstractExamDAO;
 import it.uniroma2.dicii.ispw.gradely.model.exam_result.dao.AbstractExamResultDAO;
 import it.uniroma2.dicii.ispw.gradely.model.pending_events.dao.AbstractPendingEventDAO;
-import it.uniroma2.dicii.ispw.gradely.model.role.professor.dao.AbstractProfessorDAO;
-import it.uniroma2.dicii.ispw.gradely.model.role.secretary.dao.AbstractSecretaryDAO;
+import it.uniroma2.dicii.ispw.gradely.model.role.professor.AbstractProfessorDAO;
+import it.uniroma2.dicii.ispw.gradely.model.role.secretary.AbstractSecretaryDAO;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.AbstractStudentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.dao.SubjectCourseDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.timer.dao.TimerDAOAbstract;

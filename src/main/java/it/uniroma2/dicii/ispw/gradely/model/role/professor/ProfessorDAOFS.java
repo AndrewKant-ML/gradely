@@ -1,20 +1,18 @@
-package it.uniroma2.dicii.ispw.gradely.model.role.professor.dao;
+package it.uniroma2.dicii.ispw.gradely.model.role.professor;
 
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.model.role.professor.Professor;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
 import java.util.List;
 
-public class ProfessorDAODB extends AbstractProfessorDAO {
+public class ProfessorDAOFS extends AbstractProfessorDAO {
 
-    private ProfessorDAODB(){ 
-
-    }
+    private ProfessorDAOFS(){ 
+}
 
     public static synchronized AbstractProfessorDAO getInstance(){
         if (instance == null){
-            instance = new ProfessorDAODB();
+            instance = new ProfessorDAOFS();
         }
         return instance;
     }
