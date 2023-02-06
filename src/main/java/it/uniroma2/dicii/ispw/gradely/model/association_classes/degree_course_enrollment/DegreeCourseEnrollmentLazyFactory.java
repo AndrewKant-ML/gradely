@@ -13,7 +13,7 @@ import java.util.List;
 
 public class DegreeCourseEnrollmentLazyFactory {
     private static DegreeCourseEnrollmentLazyFactory instance;
-    private List<DegreeCourseEnrollment> degreeCourseEnrollments;
+    private final List<DegreeCourseEnrollment> degreeCourseEnrollments;
 
     private DegreeCourseEnrollmentLazyFactory(){
         degreeCourseEnrollments = new ArrayList<DegreeCourseEnrollment>();
@@ -46,6 +46,14 @@ public class DegreeCourseEnrollmentLazyFactory {
         return list;
     }
 
+    /**
+     * Retrieves all the DegreeCourseEnrollment of a given Student,
+     * first by searching in the loaded list, then by querying the persistence layer
+     *
+     * @param student the Student whose DegreeCourseEnrollment have to be retrieved
+     * @return a List of DegreeCourseEnrollment objects
+     * @throws DAOException thrown if errors occur while retrieving data from persistence layer
+     */
     public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByStudent(Student student) throws DAOException {
         List<DegreeCourseEnrollment> list = new ArrayList<>();
         for (DegreeCourseEnrollment e : degreeCourseEnrollments) {

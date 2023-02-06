@@ -1,19 +1,19 @@
-package it.uniroma2.dicii.ispw.gradely.model.role.student.dao;
+package it.uniroma2.dicii.ispw.gradely.model.role.student;
 
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
 import java.util.List;
 
-public class StudentDAODB extends AbstractStudentDAO {
+public class StudentDAOFS extends AbstractStudentDAO {
 
-    public StudentDAODB(){
+    private StudentDAOFS(){ 
+
     }
 
     public static synchronized AbstractStudentDAO getInstance(){
         if (instance == null){
-            instance = new StudentDAODB();
+            instance = new StudentDAOFS();
         }
         return instance;
     }
