@@ -139,7 +139,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @return subjectCourse
      */
     private SubjectCourse getSubjectCourseByBean(SubjectCourseBean bean) throws DAOException {
-        return SubjectCourseLazyFactory.getInstance().getSubjectCourseByName(bean.getName());
+        return SubjectCourseLazyFactory.getInstance().getSubjectCourseByNameCodeCfuAy(bean.getName(), , , );
     }
 
     /**
@@ -215,7 +215,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
      */
     void confirmExamVerbaleProtocolization(String tokenKey, ProtocolBean bean) throws MissingAuthorizationException, DAOException {
         Secretary secretary = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToSecretaryRole();
-        Exam e = ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(bean.getExamBean().getAppello(), SubjectCourseLazyFactory.getInstance().getSubjectCourseByName(bean.getExamBean().getCourse().getName()), bean.getExamBean().getSessione());
+        Exam e = ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(bean.getExamBean().getAppello(), SubjectCourseLazyFactory.getInstance().getSubjectCourseByNameCodeCfuAy(bean.getExamBean().getCourse().getName(), , , ), bean.getExamBean().getSessione());
         checkExamSecretary(e, secretary);
         e.setVerbalizable(false);
         e.setVerbaleDate(bean.getVerbaleDate());

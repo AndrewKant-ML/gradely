@@ -6,6 +6,7 @@ import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ObjectNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.UserNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.SubjectCourseAssignmentLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
@@ -56,7 +57,7 @@ public class ProfessorDAODB extends AbstractProfessorDAO {
                     } catch (ObjectNotFoundException e) {
                         professor.setCoordinatedCourse(null);
                     }
-                    //professor.setCourseAssignments();
+                    professor.setCourseAssignments(SubjectCourseAssignmentLazyFactory.getInstance().getCourseAssignmentsByProfessor(professor));
                     return professor;
                 } else
                     throw new UserNotFoundException(ExceptionMessagesEnum.PROFESSOR_NOT_FOUND.message);
