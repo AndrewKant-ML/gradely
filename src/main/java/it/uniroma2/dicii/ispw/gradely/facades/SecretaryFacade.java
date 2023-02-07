@@ -12,7 +12,7 @@ public class SecretaryFacade {
         SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToSecretaryRole();
     }
 
-    public void InsertStudentsGrades(String tokenKey) throws MissingAuthorizationException{
+    public void insertStudentsGrades(String tokenKey) throws MissingAuthorizationException{
         insertStudentsGrades = new InsertStudentsGradesSecretaryFacade(tokenKey);
     }
 }

@@ -12,7 +12,7 @@ public class MoodleTestFactory extends AbstractTestFactory{
     }
 
     @Override
-    public AbstractTestResult createTestResult(){
-        return new MoodleTestResult();
+    public AbstractTestResult createTestResult(Boolean testResult, Integer grade, String message){
+        return new MoodleTestResult(testResult, grade, message);
     }
 }

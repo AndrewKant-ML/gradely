@@ -12,7 +12,7 @@ public enum SubjectCourseCodeEnum {
     C09(8),
     C10(9);
 
-    public int value;
+    public final int value;
 
     SubjectCourseCodeEnum(int value) {
         this.value = value;

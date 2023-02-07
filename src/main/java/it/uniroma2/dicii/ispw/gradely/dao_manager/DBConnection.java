@@ -20,7 +20,7 @@ public class DBConnection {
         this.connection = DriverManager.getConnection(url, username, password);
     }
 
-    public static synchronized DBConnection getInstance() throws IOException, SQLException, ResourceNotFoundException, PropertyException {
+    public static synchronized DBConnection getInstance() throws SQLException, ResourceNotFoundException, PropertyException {
         if (instance == null) {
             instance = new DBConnection();
         }

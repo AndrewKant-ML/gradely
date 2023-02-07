@@ -12,7 +12,7 @@ public class MURTestFactory extends AbstractTestFactory {
     }
 
     @Override
-    public AbstractTestResult createTestResult(){
-        return new MURTestResult();
+    public AbstractTestResult createTestResult(Boolean testResult, Integer grade, String message){
+        return new MURTestResult(testResult, grade, message);
     }
 }
