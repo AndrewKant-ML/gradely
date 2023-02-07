@@ -50,7 +50,7 @@ public class BaseGraphicControl implements Initializable {
      * Returns to the main page by removing all the
      * levels stacked while navigating
      */
-    public void returnToMainPage() {
+    void returnToMainPage() {
         while (content.getChildren().size() > 1)
             goBack();
     }
@@ -61,10 +61,16 @@ public class BaseGraphicControl implements Initializable {
      * @param node the node containing the main page
      * @param name the name to be shown in the account button
      */
-    public void openMainPage(Node node, String name) {
+    void openMainPage(Node node, String name) {
         content.getChildren().clear();
         content.getChildren().add(node);
         accountButton.setText(name);
         accountButton.setVisible(true);
+        showPendingEvents();
+    }
+
+
+    void showPendingEvents() {
+
     }
 }

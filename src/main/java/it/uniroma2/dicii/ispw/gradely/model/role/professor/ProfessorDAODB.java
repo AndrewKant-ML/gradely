@@ -28,16 +28,6 @@ public class ProfessorDAODB extends AbstractProfessorDAO {
         return instance;
     }
 
-    /**
-     * Retrieve all Professor's data of a given User
-     *
-     * @param user the User whose Professor's data have to be retrieved
-     * @return a Professor object
-     * @throws DAOException              thrown if errors occur while retrieving data from persistence layer
-     * @throws UserNotFoundException     thrown if the given User has not a Professor role
-     * @throws PropertyException         thrown if errors occur while loading db connection properties
-     * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
-     */
     @Override
     public Professor getProfessorByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException {
         String query = "select matricola, dipartimento from PROFESSOR P where codice_fiscale='%s';";
@@ -52,21 +42,12 @@ public class ProfessorDAODB extends AbstractProfessorDAO {
                             rs.getString("matricola"),
                             DipartimentoEnum.getDipartimentoByValue(rs.getInt("dipartimento"))
                     );
-                    try {
-                        professor.setCoordinatedCourse(DegreeCourseLazyFactory.getInstance().getDegreeCourseByCoordinatore(professor));
-                    } catch (ObjectNotFoundException e) {
-                        professor.setCoordinatedCourse(null);
-                    }
-                    try {
-                        professor.setCourseAssignments(SubjectCourseAssignmentLazyFactory.getInstance().getCourseAssignmentsByProfessor(professor));
-                    } catch (ObjectNotFoundException e) {
-                        professor.setCourseAssignments(null);
-                    }
+                    setProfessorData(professor);
                     return professor;
                 } else
                     throw new UserNotFoundException(ExceptionMessagesEnum.PROFESSOR_NOT_FOUND.message);
             }
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }
