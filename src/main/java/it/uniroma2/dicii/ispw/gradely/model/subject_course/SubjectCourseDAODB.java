@@ -78,30 +78,13 @@ public class SubjectCourseDAODB extends SubjectCourseDAOAbstract {
 
     @Override
     public void insert(SubjectCourse subjectCourse) throws PropertyException, ResourceNotFoundException, DAOException {
-        String query = "insert into SUBJECT_COURSE (code, name, cfu, aa) values (?, ?, ?, ?)";
-        try{
-            Connection connection = DBConnection.getInstance().getConnection();
-            try(PreparedStatement stmt = connection.prepareStatement(query)){
-                setQueryParameters(stmt, subjectCourse);
-                stmt.executeUpdate();
-            }
-        } catch (SQLException e) {
-            throw new DAOException(ExceptionMessagesEnum.DAO.message,e);
-        }
+        insertQuery("SUBJECT_COURSE", List.of("code", "name", "cfu", "aa"),subjectCourse);
+
     }
 
     @Override
     public void cancel(SubjectCourse subjectCourse) throws PropertyException, ResourceNotFoundException, DAOException {
-        String query = "delete from SUBJECT_COURSE where code = ? and name = ? and cfu = ? and aa = ?";
-        try{
-            Connection connection = DBConnection.getInstance().getConnection();
-            try(PreparedStatement stmt = connection.prepareStatement(query)){
-                setQueryParameters(stmt, subjectCourse);
-                stmt.executeUpdate();
-            }
-        } catch (SQLException e) {
-            throw new DAOException(ExceptionMessagesEnum.DAO.message,e);
-        }
+        cancelQuery("SUBJECT_COURSE",List.of("code", "name", "cfu", "aa"), List.of(subjectCourse.getCode().toString(),subjectCourse.getName(),subjectCourse.getCfu().toString(),subjectCourse.getAcademicYear().toString()),subjectCourse);
     }
 
     @Override
@@ -110,7 +93,7 @@ public class SubjectCourseDAODB extends SubjectCourseDAOAbstract {
         insert(subjectCourse);
     }
 
-    private void setQueryParameters(PreparedStatement stmt, SubjectCourse subjectCourse) throws SQLException {
+    void setQueryParameters(PreparedStatement stmt, SubjectCourse subjectCourse) throws SQLException {
         stmt.setInt(1,subjectCourse.getCode().value);
         stmt.setString(2, subjectCourse.getName());
         stmt.setInt(3, subjectCourse.getCfu());
