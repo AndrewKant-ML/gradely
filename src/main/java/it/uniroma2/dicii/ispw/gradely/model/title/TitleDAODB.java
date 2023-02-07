@@ -70,7 +70,7 @@ public class TitleDAODB extends TitleDAOAbstract {
                 }
                 return newTitles;
             }
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }

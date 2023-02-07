@@ -52,7 +52,7 @@ public class SubjectCourseAssignmentDAODB extends AbstractSubjectCourseAssignmen
                 }
                 return assignments;
             }
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }

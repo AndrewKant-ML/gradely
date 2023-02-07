@@ -79,7 +79,7 @@ public class TestDAODB extends TestDAOAbstract {
             try (PreparedStatement stmt = connection.prepareStatement(query)) {
                 stmt.executeUpdate();
             }
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }

@@ -66,7 +66,7 @@ public class ProfessorDAODB extends AbstractProfessorDAO {
                 } else
                     throw new UserNotFoundException(ExceptionMessagesEnum.PROFESSOR_NOT_FOUND.message);
             }
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }
