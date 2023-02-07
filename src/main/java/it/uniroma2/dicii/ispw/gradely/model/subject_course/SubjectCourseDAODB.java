@@ -3,18 +3,14 @@ package it.uniroma2.dicii.ispw.gradely.model.subject_course;
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.SubjectCourseCodeEnum;
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.ObjectNotFoundException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
+import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.Year;
 import java.util.List;
+import java.util.logging.Level;
 
 
 public class SubjectCourseDAODB extends SubjectCourseDAOAbstract {
@@ -81,20 +77,45 @@ public class SubjectCourseDAODB extends SubjectCourseDAOAbstract {
     }
 
     @Override
-    public void insert(SubjectCourse subjectCourse) {
-
+    public void insert(SubjectCourse subjectCourse) throws PropertyException, ResourceNotFoundException, DAOException {
+        String query = "insert into SUBJECT_COURSE (code, name, cfu, aa) values (?, ?, ?, ?)";
+        try{
+            Connection connection = DBConnection.getInstance().getConnection();
+            try(PreparedStatement stmt = connection.prepareStatement(query)){
+                setQueryParameters(stmt, subjectCourse);
+                stmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message,e);
+        }
     }
 
     @Override
-    public void cancel(SubjectCourse subjectCourse) {
-
+    public void cancel(SubjectCourse subjectCourse) throws PropertyException, ResourceNotFoundException, DAOException {
+        String query = "delete from SUBJECT_COURSE where code = ? and name = ? and cfu = ? and aa = ?";
+        try{
+            Connection connection = DBConnection.getInstance().getConnection();
+            try(PreparedStatement stmt = connection.prepareStatement(query)){
+                setQueryParameters(stmt, subjectCourse);
+                stmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message,e);
+        }
     }
 
     @Override
-    public void update(SubjectCourse subjectCourse) {
-
+    public void update(SubjectCourse subjectCourse) throws DAOException, PropertyException, ResourceNotFoundException {
+        //TODO can't update because all primary keys
+        insert(subjectCourse);
     }
 
+    private void setQueryParameters(PreparedStatement stmt, SubjectCourse subjectCourse) throws SQLException {
+        stmt.setInt(1,subjectCourse.getCode().value);
+        stmt.setString(2, subjectCourse.getName());
+        stmt.setInt(3, subjectCourse.getCfu());
+        stmt.setDate(4, Date.valueOf(subjectCourse.getAcademicYear().atDay(0))); //TODO fix year
+    }
 
 
 }

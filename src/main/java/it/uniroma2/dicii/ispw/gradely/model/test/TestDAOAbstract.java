@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.test;
 
-import it.uniroma2.dicii.ispw.gradely.dao_interface.DAOInterface;
+import it.uniroma2.dicii.ispw.gradely.dao_interface.DAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ObjectNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
@@ -8,7 +8,7 @@ import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 
 import java.time.format.DateTimeFormatter;
 
-public abstract class TestDAOAbstract implements DAOInterface<Test> {
+public abstract class TestDAOAbstract implements DAOAbstract<Test> {
 
     protected final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     protected static TestDAOAbstract instance;

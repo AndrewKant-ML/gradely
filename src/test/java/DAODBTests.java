@@ -4,7 +4,10 @@ import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ObjectNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
+import it.uniroma2.dicii.ispw.gradely.model.role.student.StudentLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
+import it.uniroma2.dicii.ispw.gradely.model.user.UserLazyFactory;
 import org.junit.jupiter.api.Test;
 
 import java.time.Year;

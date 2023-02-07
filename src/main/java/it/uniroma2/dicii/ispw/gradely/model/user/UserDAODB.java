@@ -9,6 +9,7 @@ import it.uniroma2.dicii.ispw.gradely.model.role.secretary.SecretaryLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.StudentLazyFactory;
 
 import java.sql.*;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -112,16 +113,7 @@ public class UserDAODB extends UserDAOAbstract {
 
     @Override
     public void insert(User user) throws DAOException, PropertyException, ResourceNotFoundException {
-        String query = "insert into USER (codice_fiscale, name, surname, password, registration_date, email, role) values (?, ?, ?, ?, ?, ?, ?)";
-        try{
-            Connection connection = DBConnection.getInstance().getConnection();
-            try(PreparedStatement stmt = connection.prepareStatement(query)){
-                setQueryParameters(stmt, user);
-                stmt.executeUpdate();
-            }
-        } catch (SQLException e) {
-            throw new DAOException(ExceptionMessagesEnum.DAO.message,e);
-        }
+        insertQuery("USER", List.of("codice_fiscale", "name", "surname", "password", "registration_date", "email", "role"), user);
     }
 
     @Override
@@ -141,6 +133,7 @@ public class UserDAODB extends UserDAOAbstract {
     @Override
     public void update(User user) throws PropertyException, ResourceNotFoundException, DAOException {
         String query = "update USER set codice_fiscale = ?, name = ?, surname = ?, password = ?, registration_date = ?, email = ?, role = ? where codice_fiscale = ?";
+        //        updateQuery("USER", List.of("codice_fiscale", "name", "surname", "password", "registration_date", "email", "role"), List.of("codice_fiscale"), user);
         try{
             Connection connection = DBConnection.getInstance().getConnection();
             try(PreparedStatement stmt = connection.prepareStatement(query)){

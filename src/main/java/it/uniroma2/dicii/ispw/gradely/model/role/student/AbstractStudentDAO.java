@@ -1,18 +1,27 @@
 package it.uniroma2.dicii.ispw.gradely.model.role.student;
 
-import it.uniroma2.dicii.ispw.gradely.dao_interface.DAOInterface;
+import it.uniroma2.dicii.ispw.gradely.dao_interface.DAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.UserNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
-public abstract class AbstractStudentDAO implements DAOInterface<Student> {
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
+
+public abstract class AbstractStudentDAO extends DAOAbstract<Student> {
     protected static AbstractStudentDAO instance;
 
     protected AbstractStudentDAO(){
 
     }
+    abstract void insert(Student student) throws DAOException, PropertyException, ResourceNotFoundException;
+    abstract void cancel(Student student) throws DAOException, PropertyException, ResourceNotFoundException;
+    abstract void update(Student student) throws DAOException, PropertyException, ResourceNotFoundException;
+
+    abstract void setQueryParameters(PreparedStatement stmt, Student student) throws SQLException;
 
     public abstract Student getStudentByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException;
 

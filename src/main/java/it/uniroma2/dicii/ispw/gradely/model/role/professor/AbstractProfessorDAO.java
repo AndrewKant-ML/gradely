@@ -1,12 +1,12 @@
 package it.uniroma2.dicii.ispw.gradely.model.role.professor;
 
-import it.uniroma2.dicii.ispw.gradely.dao_interface.DAOInterface;
+import it.uniroma2.dicii.ispw.gradely.dao_interface.DAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.SubjectCourseAssignmentLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
-public abstract class AbstractProfessorDAO implements DAOInterface<Professor> {
+public abstract class AbstractProfessorDAO implements DAOAbstract<Professor> {
     protected static AbstractProfessorDAO instance;
 
     protected AbstractProfessorDAO() {

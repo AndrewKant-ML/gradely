@@ -12,7 +12,7 @@ public class UserLazyFactory {
     private final List<User> registeredUsers;
 
     private UserLazyFactory() {
-        registeredUsers = new ArrayList<User>();
+        registeredUsers = new ArrayList<>();
     }
 
     public static synchronized UserLazyFactory getInstance() {

@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.degree_course.dao;
 
-import it.uniroma2.dicii.ispw.gradely.dao_interface.DAOInterface;
+import it.uniroma2.dicii.ispw.gradely.dao_interface.DAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.DegreeCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ObjectNotFoundException;
@@ -13,7 +13,7 @@ import it.uniroma2.dicii.ispw.gradely.model.role.professor.Professor;
 import java.util.List;
 
 
-public abstract class AbstractDegreeCourseDAO implements DAOInterface<DegreeCourse> {
+public abstract class AbstractDegreeCourseDAO implements DAOAbstract<DegreeCourse> {
     protected static AbstractDegreeCourseDAO instance;
 
     protected AbstractDegreeCourseDAO(){
