@@ -57,8 +57,4 @@ public class DegreeCourseDAOFS extends AbstractDegreeCourseDAO {
 
     }
 
-    @Override
-    public List<DegreeCourse> refresh(List<DegreeCourse> degreeCourses){
-        return null;
-    }
 }

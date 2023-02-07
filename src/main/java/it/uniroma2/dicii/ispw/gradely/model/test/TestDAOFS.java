@@ -43,9 +43,4 @@ public class TestDAOFS extends TestDAOAbstract {
     public void update(Test test){
 
     }
-
-    @Override
-    public List<Test> refresh(List<Test> tests){
-        return null;
-    }
 }

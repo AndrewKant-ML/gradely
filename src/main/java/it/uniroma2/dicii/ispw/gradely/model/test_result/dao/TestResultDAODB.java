@@ -31,8 +31,4 @@ public class TestResultDAODB extends TestResultDAOAbstract {
 
     }
 
-    @Override
-    public List<AbstractTestResult> refresh(List<AbstractTestResult> abstractTestResults){
-        return null;
-    }
 }

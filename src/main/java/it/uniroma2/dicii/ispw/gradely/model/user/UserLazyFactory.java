@@ -47,7 +47,9 @@ public class UserLazyFactory {
         for (User u : registeredUsers)
             if (u.getCodiceFiscale().equals(codiceFiscale))
                 return u;
-        return DAOFactoryAbstract.getInstance().getUserDAO().getUserByCodiceFiscale(codiceFiscale);
+        User daoUser = DAOFactoryAbstract.getInstance().getUserDAO().getUserByCodiceFiscale(codiceFiscale);
+        registeredUsers.add(daoUser);
+        return daoUser;
     }
 
     public User newUser(String name, String surname, String codiceFiscale, String email, String password, LocalDate registrationDate) throws DAOException, PropertyException, ResourceNotFoundException {

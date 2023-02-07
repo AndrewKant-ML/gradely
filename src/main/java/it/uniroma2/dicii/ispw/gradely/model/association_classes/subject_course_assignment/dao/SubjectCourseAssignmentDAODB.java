@@ -86,10 +86,6 @@ public class SubjectCourseAssignmentDAODB extends AbstractSubjectCourseAssignmen
 
     }
 
-    @Override
-    public List<SubjectCourseAssignment> refresh(List<SubjectCourseAssignment> subjectCourseAssignments){
-        return null;
-    }
 
 
 }

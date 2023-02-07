@@ -95,10 +95,6 @@ public class SubjectCourseDAODB extends SubjectCourseDAOAbstract {
 
     }
 
-    @Override
-    public List<SubjectCourse> refresh(List<SubjectCourse> subjectCourses) {
-        return null;
-    }
 
 
 }

@@ -3,30 +3,34 @@ package it.uniroma2.dicii.ispw.gradely.model.pending_events;
 import it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
-import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-public abstract class AbstractPendingEvent {
+public class PendingEvent {
     protected UUID id;
     protected PendingEventTypeEnum type;
+    private List<String> recipients;
     protected Boolean notified;
     protected Object object;
 
-    protected AbstractPendingEvent(PendingEventTypeEnum type, Object object) throws DAOException {
+    protected PendingEvent(List<String> recipients, PendingEventTypeEnum type, Boolean notified, Object object) throws DAOException {
         UUID generatedId;
         do {
             generatedId = UUID.randomUUID();
-        } while (!Boolean.TRUE.equals(SessionManager.getInstance().checkUUID(generatedId)));
+        } while (!Boolean.TRUE.equals(PendingEventLazyFactory.getInstance().checkUUID(generatedId)));
 
         this.id = generatedId;
         this.type = type;
+        this.recipients = recipients;
         this.notified = false;
         this.object = object;
     }
 
-    public abstract Boolean isForUser(User user);
+    public Boolean isForUser(User user){
+        return (this.recipients.contains(user.getCodiceFiscale()));
+    }
 
     public UUID getId(){
         return id;
@@ -42,6 +46,18 @@ public abstract class AbstractPendingEvent {
 
     public void setType(PendingEventTypeEnum type){
         this.type = type;
+    }
+
+    public List<String> getRecipients() {
+        return recipients;
+    }
+
+    public void setRecipients(List<String> recipients) {
+        this.recipients = recipients;
+    }
+
+    public void setObject(Object object) {
+        this.object = object;
     }
 
     public Boolean getNotified(){

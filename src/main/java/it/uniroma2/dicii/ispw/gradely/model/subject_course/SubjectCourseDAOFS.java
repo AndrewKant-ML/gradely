@@ -40,10 +40,6 @@ public class SubjectCourseDAOFS extends SubjectCourseDAOAbstract {
 
     }
 
-    @Override
-    public List<SubjectCourse> refresh(List<SubjectCourse> subjectCourses){
-        return null;
-    }
 
 
 }

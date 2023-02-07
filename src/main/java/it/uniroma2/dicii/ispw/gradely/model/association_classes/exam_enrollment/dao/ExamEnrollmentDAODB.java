@@ -49,9 +49,5 @@ public class ExamEnrollmentDAODB extends AbstractExamEnrollmentDAO {
         System.out.println("Updated");
     }
 
-    @Override
-    public List<ExamEnrollment> refresh(List<ExamEnrollment> examEnrollments){
-        return null;
-    }
 
 }

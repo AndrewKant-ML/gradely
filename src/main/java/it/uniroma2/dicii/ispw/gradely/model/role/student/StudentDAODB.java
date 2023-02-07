@@ -75,8 +75,4 @@ public class StudentDAODB extends AbstractStudentDAO {
 
     }
 
-    @Override
-    public List<Student> refresh(List<Student> students){
-        return null;
-    }
 }
