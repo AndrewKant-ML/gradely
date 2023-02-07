@@ -2,6 +2,7 @@ package it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.externa
 
 import it.uniroma2.dicii.ispw.gradely.beans_general.TestInfoBean;
 import it.uniroma2.dicii.ispw.gradely.beans_general.TestResultsBean;
+import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.TestRetrivialException;
 import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.beans.TestReservationBean;
 
@@ -17,11 +18,12 @@ public class MoodleTestBoundary extends AbstractTestBoundary {
                     "MOODLE-test",
                     LocalDate.of(2023, 7, 4),
                     new URL("https://moodle.org/?lang=it"),
+                    LocalDate.of(2023, 8, 4),
                     new URL("https://moodle.org/?lang=itb"),
                     "Facoltà di ingegneria, Tor Vergata"
             );
         } catch (MalformedURLException e){
-            throw new TestRetrivialException("Error occurred while retrieving test info on MUR platform", e);
+            throw new TestRetrivialException(ExceptionMessagesEnum.TEST_RETRIEVAL_MOODLE.message, e);
         }
     }
 

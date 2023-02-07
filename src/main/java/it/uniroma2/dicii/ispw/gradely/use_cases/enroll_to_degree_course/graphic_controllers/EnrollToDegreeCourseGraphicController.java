@@ -5,9 +5,7 @@ import it.uniroma2.dicii.ispw.gradely.beans_general.DegreeCourseBean;
 import it.uniroma2.dicii.ispw.gradely.beans_general.TestInfoBean;
 import it.uniroma2.dicii.ispw.gradely.enums.TestTypeEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.UserErrorMessagesEnum;
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.MissingAuthorizationException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.TestRetrivialException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.EnrollToDegreeCourseStudentFacade;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -113,9 +111,15 @@ public class EnrollToDegreeCourseGraphicController implements Initializable {
             thirdStage.setVisible(true);
         } catch (TestRetrivialException e) {
             String msg = selectedDegreeCourse.getTestType().equals(TestTypeEnum.MUR) ? UserErrorMessagesEnum.MUR_TEST_RETRIEVAL_MSG.message : UserErrorMessagesEnum.MOODLE_TEST_RETRIEVAL_MSG.message;
-            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.EXTERNAL_ERROR_TITLE.message, msg);
+            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.EXTERNAL_ERROR_TITLE.message, msg, e);
         } catch (MissingAuthorizationException e) {
-            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.AUTHORIZATION_TITLE.message, UserErrorMessagesEnum.MISSING_AUTHORIZATION_MSG.message);
+            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.AUTHORIZATION_TITLE.message, UserErrorMessagesEnum.MISSING_AUTHORIZATION_MSG.message, e);
+        } catch (DAOException e) {
+            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.DATA_RETRIEVAL_TITLE.message, UserErrorMessagesEnum.DATA_RETRIEVAL_MSG.message, e);
+        } catch (PropertyException e) {
+            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.PROPERTY_VALUE_TITLE.message, UserErrorMessagesEnum.PROPERTY_VALUE_MSG.message, e);
+        } catch (ResourceNotFoundException e) {
+            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.RESOURCE_LOADING_TITLE.message, UserErrorMessagesEnum.RESOURCE_LOADING_MSG.message);
         }
     }
 
@@ -127,6 +131,14 @@ public class EnrollToDegreeCourseGraphicController implements Initializable {
             fourthStage.setVisible(true);
         } catch (MissingAuthorizationException e) {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.AUTHORIZATION_TITLE.message, UserErrorMessagesEnum.MISSING_AUTHORIZATION_MSG.message);
+        } catch (DAOException e) {
+            throw new RuntimeException(e);
+        } catch (PropertyException e) {
+            throw new RuntimeException(e);
+        } catch (ObjectNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (ResourceNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 }

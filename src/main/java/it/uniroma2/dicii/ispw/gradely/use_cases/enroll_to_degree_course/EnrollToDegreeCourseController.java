@@ -2,12 +2,14 @@ package it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course;
 
 import it.uniroma2.dicii.ispw.gradely.beans_general.DegreeCourseBean;
 import it.uniroma2.dicii.ispw.gradely.beans_general.TestInfoBean;
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.MissingAuthorizationException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.TestRetrivialException;
+import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
+import it.uniroma2.dicii.ispw.gradely.enums.TestTypeEnum;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.test_reservation.TestReservationLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
+import it.uniroma2.dicii.ispw.gradely.model.test.TestLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.timer.AbstractTimer;
 import it.uniroma2.dicii.ispw.gradely.model.timer.TimerObserver;
 import it.uniroma2.dicii.ispw.gradely.model.title.Title;
@@ -18,10 +20,12 @@ import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.factory.
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class EnrollToDegreeCourseController implements TimerObserver {
 
-    private AbstractTestBoundary testBoundary;
+    private final Logger LOGGER = Logger.getLogger(EnrollToDegreeCourseController.class.getName());
 
     public EnrollToDegreeCourseController() {
 
@@ -78,16 +82,47 @@ public class EnrollToDegreeCourseController implements TimerObserver {
      * @param degreeCourseBean the degree course referred from the test
      * @return the test info
      */
-    public TestInfoBean getTestInfo(String tokenKey, DegreeCourseBean degreeCourseBean) throws TestRetrivialException, MissingAuthorizationException {
+    public TestInfoBean getTestInfo(String tokenKey, DegreeCourseBean degreeCourseBean) throws TestRetrivialException, MissingAuthorizationException, PropertyException, ResourceNotFoundException, DAOException {
         SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToStudentRole();
-        // TODO save degree course test type and pass reservation code to boundary for test results
-        this.testBoundary = AbstractTestFactory.getInstance(degreeCourseBean.getTestType()).createTestBoundary();
-        return testBoundary.getTestInfo();
+        AbstractTestBoundary testBoundary = AbstractTestFactory.getInstance(degreeCourseBean.getTestType()).createTestBoundary();
+        TestInfoBean testInfo = testBoundary.getTestInfo();
+        try {
+            TestLazyFactory.getInstance().saveTestData(
+                    DAOFactoryAbstract.getInstance().getDegreeCourseDAO().getDegreeCourseByName(degreeCourseBean.getName()),
+                    testInfo.getId(),
+                    testInfo.getTestDate(),
+                    testInfo.getTestReservationLink(),
+                    testInfo.getResultsDate(),
+                    testInfo.getInfoLink(),
+                    testInfo.getPlace()
+            );
+        } catch (ObjectNotFoundException e) {
+            LOGGER.log(Level.SEVERE, String.format("Error: degree course with name %s does not exists", degreeCourseBean.getName()));
+            System.exit(1);
+        }
+        testInfo.setTestType(degreeCourseBean.getTestType().value);
+        return testInfo;
     }
 
-    public TestReservationBean reserveTest(String tokenKey, TestInfoBean testInfo) throws MissingAuthorizationException {
-        SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToStudentRole();
-        return this.testBoundary.reserveTest(testInfo.getId());
+    /**
+     * Reserves to a given test
+     *
+     * @param tokenKey the token key used to grant operation authorization
+     * @param testInfo the test to reserve to
+     * @return a TestReservationBean containing all the reservation info
+     * @throws MissingAuthorizationException thrown if the token-relative User has no authorization to execute this operation
+     */
+    public TestReservationBean reserveTest(String tokenKey, TestInfoBean testInfo) throws MissingAuthorizationException, DAOException, PropertyException, ObjectNotFoundException, ResourceNotFoundException {
+        Student student = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToStudentRole();
+        AbstractTestBoundary testBoundary = AbstractTestFactory.getInstance(TestTypeEnum.getTestTypeByValue(testInfo.getTestType())).createTestBoundary();
+        TestReservationBean testReservation = testBoundary.reserveTest(testInfo.getId());
+        try {
+            TestReservationLazyFactory.getInstance().reserveTest(student, TestLazyFactory.getInstance().getTestById(testInfo.getId()));
+        } catch (ObjectNotFoundException e) {
+            LOGGER.log(Level.SEVERE, String.format("Error: test with id %s does not exists", testInfo.getId()));
+            System.exit(1);
+        }
+        return testReservation;
     }
 
     @Override
