@@ -6,4 +6,6 @@ echo "----->EXECUTING git commit -am \"$1  ($(date))\""
 git commit -am "$1  ($(date))"
 echo "----->EXECUTING git push -u origin GVC"
 git push -u origin GVC
+echo "----->EXECUTING git push -u copy GVC"
+git push -u copy GVC
 echo "(END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT)"
