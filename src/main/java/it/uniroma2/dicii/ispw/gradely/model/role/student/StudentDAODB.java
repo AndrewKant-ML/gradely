@@ -19,7 +19,7 @@ import java.util.List;
 
 public class StudentDAODB extends AbstractStudentDAO {
 
-    public StudentDAODB() {
+    private StudentDAODB() {
     }
 
     public static synchronized AbstractStudentDAO getInstance() {
@@ -56,7 +56,7 @@ public class StudentDAODB extends AbstractStudentDAO {
             } catch (PropertyException | ResourceNotFoundException e) {
                 throw new RuntimeException(e);
             }
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }

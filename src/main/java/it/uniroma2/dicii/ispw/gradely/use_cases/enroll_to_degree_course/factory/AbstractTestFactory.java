@@ -23,5 +23,6 @@ public abstract class AbstractTestFactory {
 
     public abstract AbstractTestBoundary createTestBoundary();
 
-    public abstract AbstractTestResult createTestResult();
+    public abstract AbstractTestResult createTestResult(Boolean testResult, Integer grade, String message);
+    //TODO rivedere forse ci vuole un bean e non un test result model object
 }

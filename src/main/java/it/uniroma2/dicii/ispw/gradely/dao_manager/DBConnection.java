@@ -4,7 +4,6 @@ import it.uniroma2.dicii.ispw.gradely.PropertiesHandler;
 import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -20,7 +19,7 @@ public class DBConnection {
         this.connection = DriverManager.getConnection(url, username, password);
     }
 
-    public static synchronized DBConnection getInstance() throws IOException, SQLException, ResourceNotFoundException, PropertyException {
+    public static synchronized DBConnection getInstance() throws SQLException, ResourceNotFoundException, PropertyException {
         if (instance == null) {
             instance = new DBConnection();
         }

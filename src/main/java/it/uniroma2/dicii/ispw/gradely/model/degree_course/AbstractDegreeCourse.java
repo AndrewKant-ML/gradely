@@ -7,7 +7,7 @@ public abstract class AbstractDegreeCourse {
     protected DegreeCourseCodeEnum code;
     protected DegreeCourseTypeEnum type;
 
-    public AbstractDegreeCourse(DegreeCourseCodeEnum code, DegreeCourseTypeEnum type) {
+    protected AbstractDegreeCourse(DegreeCourseCodeEnum code, DegreeCourseTypeEnum type) {
         this.code = code;
         this.type = type;
     }

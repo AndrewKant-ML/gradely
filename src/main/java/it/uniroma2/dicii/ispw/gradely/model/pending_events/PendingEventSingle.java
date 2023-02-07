@@ -5,24 +5,24 @@ import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
 public class PendingEventSingle extends AbstractPendingEvent {
-    private User user; // TODO collapse User to codice fiscale
+    private String codiceFiscale;
 
-    public PendingEventSingle(User user, PendingEventTypeEnum type, Object object) throws DAOException {
+    public PendingEventSingle(String codiceFiscale, PendingEventTypeEnum type, Object object) throws DAOException {
         super(type, object);
-        this.user = user;
+        this.codiceFiscale = codiceFiscale;
         this.notified = false;
     }
 
     @Override
     public Boolean isForUser(User user) {
-        return (this.user == user);
+        return (this.codiceFiscale.equals(user.getCodiceFiscale()));
     }
-    public User getUser(){
-        return user;
+    public String getUserCodiceFiscale(){
+        return codiceFiscale;
     }
 
-    public void setUser(User user){
-        this.user = user;
+    public void setUserCodiceFiscale(String codiceFiscale){
+        this.codiceFiscale = codiceFiscale;
     }
 
 }

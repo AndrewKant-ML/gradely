@@ -2,6 +2,7 @@ package it.uniroma2.dicii.ispw.gradely.enums;
 
 public enum ExceptionMessagesEnum {
     HOMEPAGE_LOAD_ERROR("Error while loading Homepage view"),
+    BEAN_FORMAT("Incorrect bean argument syntax"),
     DAO("An error occurred during data retrieval from the persistence layer"),
     EMAIL_FORMAT("Email address provided doesn't match with correct email format"),
     MISSING_AUTH("User doesn't have the authorization to execute the requested action"),

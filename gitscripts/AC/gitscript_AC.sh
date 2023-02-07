@@ -4,8 +4,8 @@ echo "----->EXECUTING git switch AC"
 git switch AC
 echo "----->EXECUTING git commit -am \"$1  ($(date))\""
 git commit -am "$1  ($(date))"
-echo "----->EXECUTING git push -u origin AC"
-git push -u origin AC
-echo "----->EXECUTING git push -u copy AC"
-git push -u copy AC
+echo "----->EXECUTING git push -u repoGVC AC"
+git push -u repoGVC AC
+echo "----->EXECUTING git push -u repoAC AC"
+git push -u repoAC AC
 echo "(END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT) (END OF SCRIPT)"
