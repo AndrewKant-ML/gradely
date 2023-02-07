@@ -52,7 +52,7 @@ public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
                     return degreeCourse;
                 } else throw new ObjectNotFoundException(ExceptionMessagesEnum.OBJ_NOT_FOUND.message);
             }
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }
@@ -84,7 +84,7 @@ public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
             } catch (SQLException e) {
                 throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
             }
-        } catch (IOException | SQLException e) {
+        } catch (SQLException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }
@@ -113,7 +113,7 @@ public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
     @Override
     public List<DegreeCourse> getAllDegreeCourses(List<DegreeCourse> degreeCourses) throws DAOException, PropertyException, ResourceNotFoundException {
         String query = "select DC.code as code,name,facolta,dipartimento,type,test_type from DEGREE_COURSE DC join ABSTRACT_DEGREE_COURSE ADC on DC.code = ADC.code";
-        if (degreeCourses.size() > 0) {
+        if (!degreeCourses.isEmpty()) {
             query = query.concat(" where ADC.code not in (%s);");
             StringBuilder builder = new StringBuilder();
             for (DegreeCourse degreeCourse : degreeCourses)
@@ -139,7 +139,7 @@ public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
      * @throws DAOException thrown if error occurs while executing DB operations
      */
     private List<DegreeCourseCodeEnum> getPrerequisitesCodesByDegreeCourseCode(int code) throws DAOException, PropertyException, ResourceNotFoundException {
-        String query = "select abstract_degree_course as code from DEGREE_COURSE_PREREQUISITE where degree_course_code=%d;";
+        String query = "select abstract_degree_course as code from DEGREE_COURSE_PREREQUISITE where degree_course=%d;";
         query = String.format(query, code);
         try {
             Connection connection = DBConnection.getInstance().getConnection();
@@ -150,13 +150,13 @@ public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
                     codes.add(DegreeCourseCodeEnum.getDegreeCourseCodeByValue(rs.getInt("code")));
                 return codes;
             }
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }
 
     public List<AbstractDegreeCourse> getDegreeCoursesByDegreeCourseCodeList(List<DegreeCourseCodeEnum> codes) throws DAOException, PropertyException, ResourceNotFoundException {
-        if (codes.size() == 0)
+        if (codes.isEmpty())
             return new ArrayList<>();
         String query = "select DC.code as code,name,facolta,dipartimento,type,test_type from DEGREE_COURSE DC join ABSTRACT_DEGREE_COURSE ADC on DC.code = ADC.code where ADC.code in (%s);";
         StringBuilder builder = new StringBuilder();

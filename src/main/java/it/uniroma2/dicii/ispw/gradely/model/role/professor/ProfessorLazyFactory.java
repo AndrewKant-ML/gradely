@@ -1,5 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.role.professor;
 
+import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryDB;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
@@ -27,7 +28,7 @@ public class ProfessorLazyFactory {
             if (p.getUser().equals(user))
                 return p;
         try {
-            return DAOFactoryDB.getInstance().getProfessorDAO().getProfessorByUser(user);
+            return DAOFactoryAbstract.getInstance().getProfessorDAO().getProfessorByUser(user);
         } catch (PropertyException | ResourceNotFoundException e) {
             throw new RuntimeException(e);
         }

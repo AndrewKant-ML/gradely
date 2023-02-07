@@ -163,7 +163,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
         checkExamProfessor(exam, professor);
         for (StudentGradeBean g : list.getGrades()) {
             saveExamResult(g);
-            PendingEventLazyFactory.getInstance().createNewPendingEventSingle(g.getEnrollmentBean().getStudent().getUser(), PendingEventTypeEnum.EVENT_1, g.getEnrollmentBean().getExam());
+            PendingEventLazyFactory.getInstance().createNewPendingEventSingle(g.getEnrollmentBean().getStudent().getUser().getCodiceFiscale(), PendingEventTypeEnum.EVENT_1, g.getEnrollmentBean().getExam());
         }
         TimerLazyFactory.getInstance().newExamConfirmationTimer(LocalDate.now().plusDays(7L), list.getExam());
     }
@@ -254,12 +254,12 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @param exam
      */
     private void notifyExamProtocolization(Exam exam) throws DAOException {
-        List<User> users = new ArrayList<>();
+        List<String> users = new ArrayList<>();
         for (ExamEnrollment e : exam.getEnrollments()){
-            users.add(e.getStudent().getUser());
+            users.add(e.getStudent().getUser().getCodiceFiscale());
         }
         for (SubjectCourseAssignment c : exam.getSubjectCourse().getCourseAssignments()){
-            users.add(c.getProfessor().getUser());
+            users.add(c.getProfessor().getUser().getCodiceFiscale());
         }
         PendingEventLazyFactory.getInstance().createNewPendingEventGroup(users,PendingEventTypeEnum.EVENT_4,exam);
     }
@@ -280,14 +280,14 @@ public class InsertStudentsGradesControl implements TimerObserver {
         for (ExamEnrollment e : concreteTimer.getObject().getEnrollments()) {
             if (e.getExamResult().getConfirmed() == ExamResultConfirmationEnum.NULL) {
                 e.getExamResult().setConfirmed(ExamResultConfirmationEnum.ACCEPTED);
-                PendingEventLazyFactory.getInstance().createNewPendingEventSingle(e.getStudent().getUser(), PendingEventTypeEnum.EVENT_2, e);
+                PendingEventLazyFactory.getInstance().createNewPendingEventSingle(e.getStudent().getUser().getCodiceFiscale(), PendingEventTypeEnum.EVENT_2, e);
             }
         }
-        List<User> list = new ArrayList<>();
+        List<String> list = new ArrayList<>();
         for (DegreeCourse d : concreteTimer.getObject().getSubjectCourse().getDegreeCourses()) {
             // TODO fix GVC (call from SecretaryLazyFactory)
             for (Secretary s : DAOFactoryAbstract.getInstance().getSecretaryDAO().getSecretariesByDipartimento(d.getDipartimento(), new ArrayList<>())) {
-                list.add(s.getUser());
+                list.add(s.getUser().getCodiceFiscale());
             }
         }
         PendingEventLazyFactory.getInstance().createNewPendingEventGroup(list, PendingEventTypeEnum.EVENT_3, concreteTimer.getObject());

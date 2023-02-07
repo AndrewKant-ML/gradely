@@ -44,7 +44,7 @@ public class ExamLazyFactory {
         List<Exam> list = new ArrayList<>();
         for(SubjectCourse c : SubjectCourseAssignmentLazyFactory.getInstance().getAssignedSubjectCoursesByProfessor(professor)){
             for (Exam e : c.getExams()){
-                if (e.getGradable()){
+                if (Boolean.TRUE.equals(e.getGradable())){
                     list.add(e);
                 }
             }

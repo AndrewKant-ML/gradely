@@ -40,8 +40,8 @@ public class PendingEventLazyFactory {
         }
     }
 
-    public void createNewPendingEventSingle(User user, PendingEventTypeEnum type, Object object) throws DAOException {
-        AbstractPendingEvent p = new PendingEventSingle(user, type, object);
+    public void createNewPendingEventSingle(String codiceFiscale, PendingEventTypeEnum type, Object object) throws DAOException {
+        AbstractPendingEvent p = new PendingEventSingle(codiceFiscale, type, object);
         abstractPendingEvents.add(p);
         try {
             DAOFactoryAbstract.getInstance().getPendingEventDAO().update(p);
@@ -50,8 +50,8 @@ public class PendingEventLazyFactory {
         }
     }
 
-    public void createNewPendingEventGroup(List<User> users, PendingEventTypeEnum type, Object object) throws DAOException {
-        PendingEventGroup p = new PendingEventGroup(users, type, object);
+    public void createNewPendingEventGroup(List<String> codiceFiscales, PendingEventTypeEnum type, Object object) throws DAOException {
+        PendingEventGroup p = new PendingEventGroup(codiceFiscales, type, object);
         abstractPendingEvents.add(p);
         try {
             DAOFactoryAbstract.getInstance().getPendingEventDAO().update(p);

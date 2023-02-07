@@ -52,7 +52,7 @@ public class SecretaryDAODB extends AbstractSecretaryDAO {
                 } else
                     throw new UserNotFoundException(ExceptionMessagesEnum.SECRETARY_NOT_FOUND.message);
             }
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }
@@ -70,7 +70,7 @@ public class SecretaryDAODB extends AbstractSecretaryDAO {
     public List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento, List<Secretary> secretaryList) throws DAOException, UserNotFoundException, MissingAuthorizationException, PropertyException, ResourceNotFoundException, ObjectNotFoundException {
         String baseQuery = "select * from SECRETARY S where S.dipartimento=%d";
         String query;
-        if (secretaryList.size() == 0)
+        if (secretaryList.isEmpty())
             query = String.format(baseQuery, dipartimento.value);
         else {
             StringBuilder builder = new StringBuilder();
@@ -91,7 +91,7 @@ public class SecretaryDAODB extends AbstractSecretaryDAO {
                 }
                 return newSecretaries;
             }
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }

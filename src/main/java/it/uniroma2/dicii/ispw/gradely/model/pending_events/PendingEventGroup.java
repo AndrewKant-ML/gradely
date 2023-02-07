@@ -7,25 +7,25 @@ import it.uniroma2.dicii.ispw.gradely.model.user.User;
 import java.util.List;
 
 public class PendingEventGroup extends AbstractPendingEvent {
-    private List<User> users; // TODO collapse User to codice fiscale
+    private List<String> codiceFiscales;
 
-    public PendingEventGroup(List<User> users, PendingEventTypeEnum type, Object object) throws DAOException {
+    public PendingEventGroup(List<String> codiceFiscales, PendingEventTypeEnum type, Object object) throws DAOException {
         super(type, object);
-        this.users = users;
+        this.codiceFiscales = codiceFiscales;
         super.notified = false;
     }
 
     @Override
     public Boolean isForUser(User user){
-        return (this.users.contains(user));
+        return (this.codiceFiscales.contains(user.getCodiceFiscale()));
     }
 
-    public List<User> getUsers(){
-        return users;
+    public List<String> getUsersCodiceFiscales(){
+        return codiceFiscales;
     }
 
-    public void setUsers(List<User> users){
-        this.users = users;
+    public void setUsersCodiceFiscales(List<String> codiceFiscales){
+        this.codiceFiscales = codiceFiscales;
     }
 
 }
