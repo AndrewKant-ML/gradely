@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 
 public class EnrollToDegreeCourseController implements TimerObserver {
 
-    private final Logger LOGGER = Logger.getLogger(EnrollToDegreeCourseController.class.getName());
+    private final Logger logger = Logger.getLogger(EnrollToDegreeCourseController.class.getName());
 
     public EnrollToDegreeCourseController() {
 
@@ -97,7 +97,7 @@ public class EnrollToDegreeCourseController implements TimerObserver {
                     testInfo.getPlace()
             );
         } catch (ObjectNotFoundException e) {
-            LOGGER.log(Level.SEVERE, String.format("Error: degree course with name %s does not exists", degreeCourseBean.getName()));
+            logger.log(Level.SEVERE, String.format("Error: degree course with name %s does not exists", degreeCourseBean.getName()));
             System.exit(1);
         }
         testInfo.setTestType(degreeCourseBean.getTestType().value);
@@ -119,7 +119,7 @@ public class EnrollToDegreeCourseController implements TimerObserver {
         try {
             TestReservationLazyFactory.getInstance().reserveTest(student, TestLazyFactory.getInstance().getTestById(testInfo.getId()));
         } catch (ObjectNotFoundException e) {
-            LOGGER.log(Level.SEVERE, String.format("Error: test with id %s does not exists", testInfo.getId()));
+            logger.log(Level.SEVERE, String.format("Error: test with id %s does not exists", testInfo.getId()));
             System.exit(1);
         }
         return testReservation;

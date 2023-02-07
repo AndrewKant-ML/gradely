@@ -2,6 +2,7 @@ module it.uniroma2.dicii.ispw.gradely {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
+    requires com.opencsv;
 
     opens it.uniroma2.dicii.ispw.gradely to javafx.fxml;
     exports it.uniroma2.dicii.ispw.gradely;
