@@ -55,7 +55,7 @@ public class SubjectCourseDAODB extends SubjectCourseDAOAbstract {
                 } else
                     throw new ObjectNotFoundException(ExceptionMessagesEnum.OBJ_NOT_FOUND.message);
             }
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }

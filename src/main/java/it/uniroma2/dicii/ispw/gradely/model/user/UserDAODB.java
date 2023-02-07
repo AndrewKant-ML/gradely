@@ -88,7 +88,7 @@ public class UserDAODB extends UserDAOAbstract {
                 } else
                     throw new UserNotFoundException(ExceptionMessagesEnum.USER_NOT_FOUND.message);
             }
-        } catch (SQLException | IOException | UnrecognizedRoleException e) {
+        } catch (SQLException | UnrecognizedRoleException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }

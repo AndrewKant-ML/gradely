@@ -14,9 +14,9 @@ import java.util.logging.Logger;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class DAOTests {
+public class DAODBTests {
 
-    private static final Logger LOGGER = Logger.getLogger(DAOTests.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(DAODBTests.class.getName());
 
     @Test
     void testSubjectCourseDAO() {

@@ -47,7 +47,7 @@ public class DegreeCourseEnrollmentDAODB extends AbstractDegreeCourseEnrollmentD
                 }
                 return enrollments;
             }
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }
@@ -75,7 +75,7 @@ public class DegreeCourseEnrollmentDAODB extends AbstractDegreeCourseEnrollmentD
                 }
                 return enrollments;
             }
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         } catch (ObjectNotFoundException e) { // TODO handle this
             throw new RuntimeException(e);

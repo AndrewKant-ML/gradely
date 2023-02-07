@@ -5,6 +5,7 @@ import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TitleDAOFS extends TitleDAOAbstract {
@@ -23,6 +24,7 @@ public class TitleDAOFS extends TitleDAOAbstract {
 
     @Override
     List<Title> getTitlesByStudent(Student student, List<Title> list) throws PropertyException, ResourceNotFoundException, DAOException {
+        List<Title> titles = new ArrayList<>();
         return null;
     }
 
