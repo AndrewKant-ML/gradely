@@ -1,8 +1,5 @@
 package it.uniroma2.dicii.ispw.gradely.beans_general;
 
-import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
-import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
-
 import java.time.LocalDate;
 
 public class DegreeCourseEnrollmentBean {

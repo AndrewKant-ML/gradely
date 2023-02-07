@@ -1,9 +1,5 @@
 package it.uniroma2.dicii.ispw.gradely.beans_general;
 
-import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.SubjectCourseAssignment;
-import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
-
 import java.util.List;
 
 public class ProfessorBean {

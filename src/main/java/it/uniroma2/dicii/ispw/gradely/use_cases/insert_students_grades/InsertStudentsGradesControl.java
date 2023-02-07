@@ -23,7 +23,6 @@ import it.uniroma2.dicii.ispw.gradely.model.timer.AbstractTimer;
 import it.uniroma2.dicii.ispw.gradely.model.timer.ExamConfirmationTimer;
 import it.uniroma2.dicii.ispw.gradely.model.timer.TimerLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.timer.TimerObserver;
-import it.uniroma2.dicii.ispw.gradely.model.user.User;
 import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
 import it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.beans.StudentGradeBean;
 import it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.beans.StudentGradeListBean;
