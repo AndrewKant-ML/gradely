@@ -43,7 +43,7 @@ public class StudentLazyFactory {
         }
     }
 
-    public Student newStudent(String name, String surname, String codiceFiscale, String email, String password, String matricola, LocalDate registrationDate, List<Title> titles) throws DAOException {
+    public Student newStudent(String name, String surname, String codiceFiscale, String email, String password, String matricola, LocalDate registrationDate, List<Title> titles) throws DAOException, PropertyException, ResourceNotFoundException {
         User user = UserLazyFactory.getInstance().newUser(name, surname, codiceFiscale, email, password, registrationDate);
         Student student = new Student(user, matricola);
         user.setRole(student);

@@ -28,7 +28,9 @@ public class UserLazyFactory {
      *
      * @param email the User's email
      * @return a User object
-     * @throws DAOException          thrown if errors occur while retrieving data from persistence layer
+     * @throws DAOException              thrown if errors occur while retrieving data from persistence layer
+     * @throws PropertyException         thrown if errors occur while loading db connection properties
+     * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      * @throws UserNotFoundException thrown if the email does not match any User
      */
     public User getUserByEmail(String email) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException {
@@ -49,14 +51,10 @@ public class UserLazyFactory {
         return DAOFactoryAbstract.getInstance().getUserDAO().getUserByCodiceFiscale(codiceFiscale);
     }
 
-    public User newUser(String name, String surname, String codiceFiscale, String email, String password, LocalDate registrationDate) throws DAOException {
+    public User newUser(String name, String surname, String codiceFiscale, String email, String password, LocalDate registrationDate) throws DAOException, PropertyException, ResourceNotFoundException {
         User newUser = new User(name, surname, codiceFiscale, email, password, registrationDate);
-        try {
             DAOFactoryAbstract.getInstance().getUserDAO().insert(newUser);
             registeredUsers.add(newUser);
             return newUser;
-        } catch (PropertyException | ResourceNotFoundException e) {
-            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
-    }
 }

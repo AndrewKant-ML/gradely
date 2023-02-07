@@ -9,7 +9,6 @@ public class DegreeCourseBean {
     private String name;
     private FacoltaEnum facolta;
     private DegreeCourseTypeEnum type;
-
     private TestTypeEnum testType;
 
     public DegreeCourseBean(String name, FacoltaEnum facolta, DegreeCourseTypeEnum type, TestTypeEnum testType){

@@ -8,6 +8,8 @@ import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.dao.ExamEnrollmentDAODB;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.dao.AbstractSubjectCourseEnrollmentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.dao.SubjectCourseEnrollmentDAODB;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.test_reservation.TestReservationDAOAbstract;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.test_reservation.TestReservationDAODB;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.dao.AbstractDegreeCourseDAO;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.dao.DegreeCourseDAODB;
 import it.uniroma2.dicii.ispw.gradely.model.exam.dao.AbstractExamDAO;
@@ -24,6 +26,8 @@ import it.uniroma2.dicii.ispw.gradely.model.role.student.AbstractStudentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.StudentDAODB;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourseDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourseDAODB;
+import it.uniroma2.dicii.ispw.gradely.model.test.TestDAOAbstract;
+import it.uniroma2.dicii.ispw.gradely.model.test.TestDAODB;
 import it.uniroma2.dicii.ispw.gradely.model.timer.dao.TimerDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.timer.dao.TimerDAODB;
 import it.uniroma2.dicii.ispw.gradely.model.title.TitleDAOAbstract;
@@ -92,5 +96,15 @@ public class DAOFactoryDB extends DAOFactoryAbstract {
     @Override
     public UserDAOAbstract getUserDAO(){
         return UserDAODB.getInstance();
+    }
+
+    @Override
+    public TestDAOAbstract getTestDAO() {
+        return TestDAODB.getInstance();
+    }
+
+    @Override
+    public TestReservationDAOAbstract getTestReservationDAO() {
+        return TestReservationDAODB.getInstance();
     }
 }

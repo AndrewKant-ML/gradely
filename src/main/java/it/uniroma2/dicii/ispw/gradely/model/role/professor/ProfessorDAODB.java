@@ -33,8 +33,10 @@ public class ProfessorDAODB extends AbstractProfessorDAO {
      *
      * @param user the User whose Professor's data have to be retrieved
      * @return a Professor object
-     * @throws DAOException          thrown if errors occur while retrieving data from persistence layer
-     * @throws UserNotFoundException thrown if the given User has not a Professor role
+     * @throws DAOException              thrown if errors occur while retrieving data from persistence layer
+     * @throws UserNotFoundException     thrown if the given User has not a Professor role
+     * @throws PropertyException         thrown if errors occur while loading db connection properties
+     * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
     @Override
     public Professor getProfessorByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException {

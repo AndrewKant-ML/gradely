@@ -9,6 +9,7 @@ import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_en
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.dao.AbstractExamEnrollmentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.dao.AbstractSubjectCourseAssignmentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.dao.AbstractSubjectCourseEnrollmentDAO;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.test_reservation.TestReservationDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.dao.AbstractDegreeCourseDAO;
 import it.uniroma2.dicii.ispw.gradely.model.exam.dao.AbstractExamDAO;
 import it.uniroma2.dicii.ispw.gradely.model.exam_result.dao.AbstractExamResultDAO;
@@ -17,6 +18,7 @@ import it.uniroma2.dicii.ispw.gradely.model.role.professor.AbstractProfessorDAO;
 import it.uniroma2.dicii.ispw.gradely.model.role.secretary.AbstractSecretaryDAO;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.AbstractStudentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourseDAOAbstract;
+import it.uniroma2.dicii.ispw.gradely.model.test.TestDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.timer.dao.TimerDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.title.TitleDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.user.UserDAOAbstract;
@@ -62,5 +64,6 @@ public abstract class DAOFactoryAbstract {
     public abstract TimerDAOAbstract getTimerDAO();
     public abstract TitleDAOAbstract getTitleDAO();
     public abstract UserDAOAbstract getUserDAO();
-
+    public abstract TestDAOAbstract getTestDAO();
+    public abstract TestReservationDAOAbstract getTestReservationDAO();
 }
