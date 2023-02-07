@@ -10,7 +10,6 @@ import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_en
 import it.uniroma2.dicii.ispw.gradely.model.title.TitleLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

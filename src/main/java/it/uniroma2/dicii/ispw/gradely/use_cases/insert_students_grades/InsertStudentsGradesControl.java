@@ -112,7 +112,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
                 break;
             }
         }
-        if (!check) throw new MissingAuthorizationException(ExceptionMessagesEnum.MISSING_AUTH.message);
+        if (Boolean.FALSE.equals(check)) throw new MissingAuthorizationException(ExceptionMessagesEnum.MISSING_AUTH.message);
     }
 
     /**
@@ -241,7 +241,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
                 break;
             }
         }
-        if (!check) throw new MissingAuthorizationException(ExceptionMessagesEnum.MISSING_AUTH.message);
+        if (Boolean.FALSE.equals(check)) throw new MissingAuthorizationException(ExceptionMessagesEnum.MISSING_AUTH.message);
     }
 
     /**

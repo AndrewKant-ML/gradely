@@ -81,7 +81,7 @@ public class SessionManager {
         refreshPendingEvents(abstractPendingEvents);
         List<AbstractPendingEvent> list = new ArrayList<>();
         for (AbstractPendingEvent p : abstractPendingEvents){
-            if (p.isForUser(user)){
+            if (Boolean.TRUE.equals(p.isForUser(user))){
                 list.add(p);
             }
         }
@@ -96,10 +96,10 @@ public class SessionManager {
         refreshPendingEvents(abstractPendingEvents);
         for(AbstractPendingEvent event : abstractPendingEvents){
             if(id.equals(event.getId())){
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
 }

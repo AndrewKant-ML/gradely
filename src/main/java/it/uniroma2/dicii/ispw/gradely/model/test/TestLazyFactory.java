@@ -38,7 +38,7 @@ public class TestLazyFactory {
 
     public Test getTestById(String id) throws PropertyException, ResourceNotFoundException, ObjectNotFoundException, DAOException {
         for (Test test : tests)
-            if (test.getID().equals(id))
+            if (test.getId().equals(id))
                 return test;
         return DAOFactoryAbstract.getInstance().getTestDAO().getTestById(id);
     }

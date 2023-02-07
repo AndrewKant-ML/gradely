@@ -6,17 +6,17 @@ import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.external
 
 public abstract class AbstractTestFactory {
 
-    private static AbstractTestFactory INSTANCE = null;
+    private static AbstractTestFactory instance = null;
 
     public static synchronized AbstractTestFactory getInstance(TestTypeEnum testTypeEnum){
         // TODO change to session factory
-        if (INSTANCE == null){
+        if (instance == null){
             switch (testTypeEnum){
-                case ONLINE -> INSTANCE = new MoodleTestFactory();
-                case MUR -> INSTANCE = new MURTestFactory();
+                case ONLINE -> instance = new MoodleTestFactory();
+                case MUR -> instance = new MURTestFactory();
             }
         }
-        return INSTANCE;
+        return instance;
     }
 
     protected AbstractTestFactory(){}

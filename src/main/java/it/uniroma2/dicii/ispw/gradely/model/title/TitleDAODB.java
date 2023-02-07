@@ -44,7 +44,7 @@ public class TitleDAODB extends TitleDAOAbstract {
     @Override
     List<Title> getTitlesByStudent(Student student, List<Title> titleList) throws DAOException, PropertyException, ResourceNotFoundException {
         String query;
-        if (titleList.size() == 0)
+        if (titleList.isEmpty())
             query = String.format("select * from TITLE T where T.student='%s';", student.getUser().getCodiceFiscale());
         else {
             StringBuilder builder = new StringBuilder();
@@ -70,7 +70,7 @@ public class TitleDAODB extends TitleDAOAbstract {
                 }
                 return newTitles;
             }
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }

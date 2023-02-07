@@ -73,7 +73,7 @@ public class TestDAODB extends TestDAOAbstract {
     @Override
     void saveTestInfo(Test test) throws PropertyException, ResourceNotFoundException, DAOException {
         String query = "insert into TEST (id, test_date, result_date, reservation_link, info_link, place, degree_course_code, degree_course_name) values('%s','%s','%s','%s','%s','%s',%d,'%s');";
-        query = String.format(query, test.getID(), test.getTestDate().format(FORMATTER), test.getResultsDate().format(FORMATTER), test.getTestReservationLink().toString(), test.getInfoLink().toString(), test.getPlace(), test.getDegreeCourse().getCode().value, test.getDegreeCourse().getName());
+        query = String.format(query, test.getId(), test.getTestDate().format(formatter), test.getResultsDate().format(formatter), test.getTestReservationLink().toString(), test.getInfoLink().toString(), test.getPlace(), test.getDegreeCourse().getCode().value, test.getDegreeCourse().getName());
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             try (PreparedStatement stmt = connection.prepareStatement(query)) {

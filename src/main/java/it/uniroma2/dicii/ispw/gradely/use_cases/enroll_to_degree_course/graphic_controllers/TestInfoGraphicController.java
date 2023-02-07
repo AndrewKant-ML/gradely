@@ -15,7 +15,10 @@ public class TestInfoGraphicController implements Initializable {
 
 
     @FXML
-    private Label degreeCourseName, testID, testDate, testPlace;
+    private Label degreeCourseName;
+    private Label testID;
+    private Label testDate;
+    private Label testPlace;
 
     @FXML
     private Hyperlink testInfoUrl;

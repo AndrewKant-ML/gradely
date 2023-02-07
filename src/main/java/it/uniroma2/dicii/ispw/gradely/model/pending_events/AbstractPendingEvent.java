@@ -18,7 +18,7 @@ public abstract class AbstractPendingEvent {
         UUID generatedId;
         do {
             generatedId = UUID.randomUUID();
-        } while (SessionManager.getInstance().checkUUID(generatedId));
+        } while (!Boolean.TRUE.equals(SessionManager.getInstance().checkUUID(generatedId)));
 
         this.id = generatedId;
         this.type = type;

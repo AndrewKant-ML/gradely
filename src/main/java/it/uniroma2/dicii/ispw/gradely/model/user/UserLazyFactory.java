@@ -38,12 +38,12 @@ public class UserLazyFactory {
                 return u;
             }
         }
-        User DAOUser = DAOFactoryAbstract.getInstance().getUserDAO().getUserByEmail(email);
-        registeredUsers.add(DAOUser);
-        return DAOUser;
+        User daoUser = DAOFactoryAbstract.getInstance().getUserDAO().getUserByEmail(email);
+        registeredUsers.add(daoUser);
+        return daoUser;
     }
 
-    public User getUserByCodiceFiscale(String codiceFiscale) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, ObjectNotFoundException {
+    public User getUserByCodiceFiscale(String codiceFiscale) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException {
         for (User u : registeredUsers)
             if (u.getCodiceFiscale().equals(codiceFiscale))
                 return u;
@@ -55,5 +55,5 @@ public class UserLazyFactory {
             DAOFactoryAbstract.getInstance().getUserDAO().insert(newUser);
             registeredUsers.add(newUser);
             return newUser;
-        }
+    }
 }

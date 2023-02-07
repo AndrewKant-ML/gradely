@@ -11,7 +11,11 @@ import java.util.ResourceBundle;
 public class ConfirmAnagraphicalDataGraphicController implements Initializable {
 
     @FXML
-    private TextField matricola, name, surname, email, codiceFiscale;
+    private TextField matricola;
+    private TextField name;
+    private TextField surname;
+    private TextField email;
+    private TextField codiceFiscale;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

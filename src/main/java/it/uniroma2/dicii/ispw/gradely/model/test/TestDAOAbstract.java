@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 
 public abstract class TestDAOAbstract implements DAOInterface<Test> {
 
-    protected final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    protected final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     protected static TestDAOAbstract instance;
 
     protected TestDAOAbstract(){

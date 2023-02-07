@@ -7,16 +7,16 @@ import java.time.LocalDate;
 
 public class Test {
     private DegreeCourse degreeCourse;
-    private String ID;
+    private String id;
     private LocalDate testDate;
     private URL testReservationLink;
     private LocalDate resultsDate;
     private URL infoLink;
     private String place;
 
-    protected Test(DegreeCourse degreeCourse, String ID, LocalDate testDate, URL testReservationLink, LocalDate resultsDate, URL infoLink, String place){
+    protected Test(DegreeCourse degreeCourse, String id, LocalDate testDate, URL testReservationLink, LocalDate resultsDate, URL infoLink, String place){
         this.degreeCourse = degreeCourse;
-        this.ID = ID;
+        this.id = id;
         this.testDate = testDate;
         this.testReservationLink = testReservationLink;
         this.resultsDate = resultsDate;
@@ -32,12 +32,12 @@ public class Test {
         this.degreeCourse = degreeCourse;
     }
 
-    public String getID(){
-        return ID;
+    public String getId(){
+        return id;
     }
 
-    public void setID(String ID){
-        this.ID = ID;
+    public void setId(String id){
+        this.id = id;
     }
 
     public LocalDate getTestDate(){

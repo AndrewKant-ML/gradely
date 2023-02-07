@@ -34,9 +34,9 @@ public class TitleLazyFactory {
                 list.add(t);
             }
         }
-        List<Title> DAOList = DAOFactoryAbstract.getInstance().getTitleDAO().getTitlesByStudent(student, list);
-        titles.addAll(DAOList);
-        list.addAll(DAOList);
+        List<Title> daoList = DAOFactoryAbstract.getInstance().getTitleDAO().getTitlesByStudent(student, list);
+        titles.addAll(daoList);
+        list.addAll(daoList);
         return list;
     }
 
