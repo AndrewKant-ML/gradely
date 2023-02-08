@@ -90,12 +90,12 @@ public class SecretaryDAODB extends AbstractSecretaryDAO {
         updateQuery("SECRETARY",List.of("dipartimento"),List.of("codice_fiscale"),List.of(secretary.getUser().getCodiceFiscale()),secretary);
     }
 
-    void setInsertQueryParameters(PreparedStatement stmt, Secretary secretary) throws SQLException {
+    void setInsertQueryParametersValue(PreparedStatement stmt, Secretary secretary) throws SQLException {
         stmt.setString(1,secretary.getUser().getCodiceFiscale());
         stmt.setInt(2, secretary.getDipartimento().value);
     }
 
-    void setUpdateQueryParameters(PreparedStatement stmt, Secretary secretary) throws SQLException{
+    void setUpdateQueryParametersValue(PreparedStatement stmt, Secretary secretary) throws SQLException{
         stmt.setInt(1, secretary.getDipartimento().value);
     }
 

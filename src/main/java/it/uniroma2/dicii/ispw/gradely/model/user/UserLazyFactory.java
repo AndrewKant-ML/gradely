@@ -28,7 +28,7 @@ public class UserLazyFactory {
      * @param email the User's email
      * @return a User object
      * @throws DAOException              thrown if errors occur while retrieving data from persistence layer
-     * @throws PropertyException         thrown if errors occur while loading db connection properties
+     * @throws PropertyException thrown if errors occur while loading db connection properties OR thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      * @throws UserNotFoundException thrown if the email does not match any User
      */

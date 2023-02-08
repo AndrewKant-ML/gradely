@@ -36,7 +36,7 @@ public class TestDAODB extends TestDAOAbstract {
      * @return a Test object
      * @throws ObjectNotFoundException   thrown if the query produces no results
      * @throws DAOException              thrown if errors occur while retrieving data from persistence layer
-     * @throws PropertyException         thrown if errors occur while loading db connection properties
+     * @throws PropertyException thrown if errors occur while loading db connection properties OR thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
     private Test querySingleTestData(String query) throws DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException {
@@ -67,7 +67,7 @@ public class TestDAODB extends TestDAOAbstract {
      *
      * @param test the Test whose data have to be saved
      * @throws DAOException              thrown if errors occur while retrieving data from persistence layer
-     * @throws PropertyException         thrown if errors occur while loading db connection properties
+     * @throws PropertyException thrown if errors occur while loading db connection properties OR thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
     @Override

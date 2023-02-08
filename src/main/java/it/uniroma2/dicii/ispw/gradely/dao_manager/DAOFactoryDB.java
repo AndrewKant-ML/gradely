@@ -32,7 +32,7 @@ import it.uniroma2.dicii.ispw.gradely.model.timer.dao.TimerDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.timer.dao.TimerDAODB;
 import it.uniroma2.dicii.ispw.gradely.model.title.TitleDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.title.TitleDAODB;
-import it.uniroma2.dicii.ispw.gradely.model.user.UserDAOAbstract;
+import it.uniroma2.dicii.ispw.gradely.model.user.UserDAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.user.UserDAODB;
 
 public class DAOFactoryDB extends DAOFactoryAbstract {
@@ -94,7 +94,7 @@ public class DAOFactoryDB extends DAOFactoryAbstract {
     }
 
     @Override
-    public UserDAOAbstract getUserDAO(){
+    public UserDAOInterface getUserDAO(){
         return UserDAODB.getInstance();
     }
 

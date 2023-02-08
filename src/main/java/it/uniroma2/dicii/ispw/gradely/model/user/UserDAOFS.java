@@ -1,6 +1,5 @@
 package it.uniroma2.dicii.ispw.gradely.model.user;
 
-import com.opencsv.exceptions.CsvException;
 import it.uniroma2.dicii.ispw.gradely.CSVParser;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.UserRoleEnum;
@@ -9,7 +8,7 @@ import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import java.time.LocalDate;
 import java.util.List;
 
-public class UserDAOFS extends UserDAOAbstract {
+public class UserDAOFS extends UserDAOInterface {
 
     private final String fileName = "user";
 
@@ -17,7 +16,7 @@ public class UserDAOFS extends UserDAOAbstract {
         super();
     }
 
-    public static synchronized UserDAOAbstract getInstance() {
+    public static synchronized UserDAOInterface getInstance() {
         if (instance == null) {
             instance = new UserDAOFS();
         }
@@ -43,7 +42,7 @@ public class UserDAOFS extends UserDAOAbstract {
         return user;
     }
 
-    User getUserByEmail(String email) throws UserNotFoundException, DAOException, ResourceNotFoundException {
+    public User getUserByEmail(String email) throws UserNotFoundException, DAOException, ResourceNotFoundException {
         try {
             List<List<String>> lines = new CSVParser().readAllLines(fileName);
             for (List<String> line : lines) {

@@ -45,7 +45,7 @@ public class EnrollToDegreeCourseController implements TimerObserver {
      *
      * @param tokenKey the student-relative token
      * @return a list of student-joinable degree courses
-     * @throws MissingAuthorizationException thrown when the requesting user is not a student
+     * @throws MissingAuthorizationException thrown if the User has no authorization to execute the requested operation OR thrown when the requesting user is not a student
      * @throws DAOException                  thrown when problems occur while retrieving data from persistence
      */
     public List<DegreeCourseBean> getJoinableDegreeCourses(String tokenKey) throws MissingAuthorizationException, DAOException {
@@ -110,7 +110,7 @@ public class EnrollToDegreeCourseController implements TimerObserver {
      * @param tokenKey the token key used to grant operation authorization
      * @param testInfo the test to reserve to
      * @return a TestReservationBean containing all the reservation info
-     * @throws MissingAuthorizationException thrown if the token-relative User has no authorization to execute this operation
+     * @throws MissingAuthorizationException thrown if the User has no authorization to execute the requested operation OR thrown if the token-relative User has no authorization to execute this operation
      */
     public TestReservationBean reserveTest(String tokenKey, TestInfoBean testInfo) throws MissingAuthorizationException, DAOException, PropertyException, ObjectNotFoundException, ResourceNotFoundException {
         Student student = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToStudentRole();

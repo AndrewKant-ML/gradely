@@ -33,7 +33,7 @@ public class SubjectCourseDAODB extends SubjectCourseDAOAbstract {
      * @return a SubjectCourse object
      * @throws ObjectNotFoundException   thrown if the query produces no results
      * @throws DAOException              thrown if errors occur while retrieving data from persistence layer
-     * @throws PropertyException         thrown if errors occur while loading db connection properties
+     * @throws PropertyException thrown if errors occur while loading db connection properties OR thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
     private SubjectCourse querySingleSubjectCourseData(String query) throws ObjectNotFoundException, DAOException, PropertyException, ResourceNotFoundException {
@@ -66,7 +66,7 @@ public class SubjectCourseDAODB extends SubjectCourseDAOAbstract {
      * @return a SubjectCourse object
      * @throws ObjectNotFoundException   thrown if the query produces no results
      * @throws DAOException              thrown if errors occur while retrieving data from persistence layer
-     * @throws PropertyException         thrown if errors occur while loading db connection properties
+     * @throws PropertyException thrown if errors occur while loading db connection properties OR thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
     @Override

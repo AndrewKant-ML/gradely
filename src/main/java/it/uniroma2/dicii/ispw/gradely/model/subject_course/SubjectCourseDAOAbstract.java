@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.subject_course;
 
-import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAOAbstract;
+import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.SubjectCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ObjectNotFoundException;
@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.time.Year;
 
 
-public abstract class SubjectCourseDAOAbstract extends DAOAbstract<SubjectCourse> {
+public abstract class SubjectCourseDAOAbstract extends DAODBAbstract<SubjectCourse> {
     protected static SubjectCourseDAOAbstract instance;
     protected SubjectCourseDAOAbstract(){
 

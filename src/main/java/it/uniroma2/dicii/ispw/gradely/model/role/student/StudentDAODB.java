@@ -50,12 +50,12 @@ public class StudentDAODB extends AbstractStudentDAO {
         updateQuery("STUDENT", List.of("matricola"), List.of("codice_fiscale"), List.of(student.getUser().getCodiceFiscale()),student);
     }
 
-    void setInsertQueryParameters(PreparedStatement stmt, Student student) throws SQLException {
+    void setInsertQueryParametersValue(PreparedStatement stmt, Student student) throws SQLException {
         stmt.setString(1,student.getUser().getCodiceFiscale());
         stmt.setString(2, student.getMatricola());
     }
 
-    void setUpdateQueryParameters(PreparedStatement stmt, Student student) throws SQLException{
+    void setUpdateQueryParametersValue(PreparedStatement stmt, Student student) throws SQLException{
         stmt.setString(1, student.getMatricola());
     }
 

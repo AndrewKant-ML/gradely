@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment;
 
-import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAOAbstract;
+import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
@@ -9,7 +9,7 @@ import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 
 import java.util.List;
 
-public abstract class AbstractDegreeCourseEnrollmentDAO implements DAOAbstract<DegreeCourseEnrollment> {
+public abstract class AbstractDegreeCourseEnrollmentDAO implements DAODBAbstract<DegreeCourseEnrollment> {
     protected static AbstractDegreeCourseEnrollmentDAO instance;
 
     protected AbstractDegreeCourseEnrollmentDAO(){

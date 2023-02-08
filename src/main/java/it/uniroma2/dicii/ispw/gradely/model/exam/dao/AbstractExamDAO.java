@@ -1,13 +1,13 @@
 package it.uniroma2.dicii.ispw.gradely.model.exam.dao;
 
-import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAOAbstract;
+import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.AppelloEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.SessionEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 
-public abstract class AbstractExamDAO implements DAOAbstract<Exam> {
+public abstract class AbstractExamDAO implements DAODBAbstract<Exam> {
     protected static AbstractExamDAO instance;
 
     protected AbstractExamDAO(){

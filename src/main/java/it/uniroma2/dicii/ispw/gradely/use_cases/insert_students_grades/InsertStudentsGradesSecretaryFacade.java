@@ -14,7 +14,6 @@ public class InsertStudentsGradesSecretaryFacade {
     }
 
     public void confirmExamVerbaleProtocolization(String tokenKey, ProtocolBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException {
-        controller = new InsertStudentsGradesControl();
         controller.confirmExamVerbaleProtocolization(tokenKey,bean);
     }
 }

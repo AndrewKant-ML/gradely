@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.pending_events.dao;
 
-import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAOAbstract;
+import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEvent;
 
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 
-public abstract class AbstractPendingEventDAO implements DAOAbstract<PendingEvent> {
+public abstract class AbstractPendingEventDAO implements DAODBAbstract<PendingEvent> {
     protected static AbstractPendingEventDAO instance;
 
     protected AbstractPendingEventDAO(){

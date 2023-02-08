@@ -35,7 +35,7 @@ public class TitleDAODB extends TitleDAOAbstract {
      * @param oldTitles the titles already loaded in memory
      * @return a List of Title objects
      * @throws DAOException              thrown if errors occur while retrieving data from persistence layer
-     * @throws PropertyException         thrown if errors occur while loading db connection properties
+     * @throws PropertyException thrown if errors occur while loading db connection properties OR thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
     @Override

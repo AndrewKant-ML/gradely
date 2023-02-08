@@ -21,7 +21,7 @@ import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourseDAOAbstr
 import it.uniroma2.dicii.ispw.gradely.model.test.TestDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.timer.dao.TimerDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.title.TitleDAOAbstract;
-import it.uniroma2.dicii.ispw.gradely.model.user.UserDAOAbstract;
+import it.uniroma2.dicii.ispw.gradely.model.user.UserDAOInterface;
 
 public abstract class DAOFactoryAbstract {
 
@@ -63,7 +63,7 @@ public abstract class DAOFactoryAbstract {
     public abstract SubjectCourseDAOAbstract getSubjectCourseDAO();
     public abstract TimerDAOAbstract getTimerDAO();
     public abstract TitleDAOAbstract getTitleDAO();
-    public abstract UserDAOAbstract getUserDAO();
+    public abstract UserDAOInterface getUserDAO();
     public abstract TestDAOAbstract getTestDAO();
     public abstract TestReservationDAOAbstract getTestReservationDAO();
 }
