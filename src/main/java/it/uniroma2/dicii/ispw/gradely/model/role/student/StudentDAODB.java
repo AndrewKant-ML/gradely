@@ -32,16 +32,7 @@ public class StudentDAODB extends AbstractStudentDAO {
      */
     @Override
     public Student getStudentByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException {
-        return getQuery("STUDENTI", List.of("matricola"), List.of("codice_fiscale"), List.of(user.getCodiceFiscale()), List.of(user));
-    }
-
-    Student getQueryObjectBuilder(ResultSet rs, List<User> user) throws SQLException, DAOException, PropertyException, ResourceNotFoundException {
-        Student student = new Student(user.get(0), rs.getString("matricola"));
-        student.setDegreeCourseEnrollments(DegreeCourseEnrollmentLazyFactory.getInstance().getDegreeCourseEnrollmentsByStudent(student));
-        student.setTitles(TitleLazyFactory.getInstance().getTitlesByStudent(student));
-        student.setExamEnrollments(ExamEnrollmentLazyFactory.getInstance().getExamEnrollmentsByStudent(student));
-        student.setSubjectCourseEnrollments(SubjectCourseEnrollmentLazyFactory.getInstance().getSubjectCourseEnrollmentsByStudent(student));
-        return student;
+        return getQuery("STUDENT", List.of("matricola"), List.of("codice_fiscale"), List.of(user.getCodiceFiscale()), List.of(user));
     }
 
     @Override
@@ -71,7 +62,14 @@ public class StudentDAODB extends AbstractStudentDAO {
     void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> values) throws SQLException{
         stmt.setString(1, (String) values.get(0));
     }
-
+    Student getQueryObjectBuilder(ResultSet rs, List<User> user) throws SQLException, DAOException, PropertyException, ResourceNotFoundException {
+        Student student = new Student(user.get(0), rs.getString("matricola"));
+        student.setDegreeCourseEnrollments(DegreeCourseEnrollmentLazyFactory.getInstance().getDegreeCourseEnrollmentsByStudent(student));
+        student.setTitles(TitleLazyFactory.getInstance().getTitlesByStudent(student));
+        student.setExamEnrollments(ExamEnrollmentLazyFactory.getInstance().getExamEnrollmentsByStudent(student));
+        student.setSubjectCourseEnrollments(SubjectCourseEnrollmentLazyFactory.getInstance().getSubjectCourseEnrollmentsByStudent(student));
+        return student;
+    }
 
 
 }
