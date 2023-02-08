@@ -42,7 +42,7 @@ public class StudentDAODB extends AbstractStudentDAO {
 
     @Override
     public void cancel(Student student) throws DAOException, PropertyException, ResourceNotFoundException {
-        cancelQuery("STUDENT",List.of("codice_fiscale"), List.of(student.getUser().getCodiceFiscale()),student);
+        cancelQuery("STUDENT",List.of("codice_fiscale"), List.of(student.getUser().getCodiceFiscale()));
     }
 
     @Override
