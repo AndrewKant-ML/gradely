@@ -25,4 +25,15 @@ public class Secretary extends AbstractRole {
     public Secretary castToSecretaryRole() throws MissingAuthorizationException {
         return this;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this)
+            return true;
+
+        if (!(obj instanceof Secretary secretary))
+            return false;
+
+        return secretary.getDipartimento().equals(dipartimento) && secretary.getUser().equals(user);
+    }
 }

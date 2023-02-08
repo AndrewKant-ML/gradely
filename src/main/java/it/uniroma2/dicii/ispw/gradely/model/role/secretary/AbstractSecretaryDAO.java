@@ -16,4 +16,9 @@ public abstract class AbstractSecretaryDAO implements DAOAbstract<Secretary> {
     public abstract Secretary getSecretaryByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException;
     public abstract List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento, List<Secretary> secretaryList) throws DAOException, UserNotFoundException, MissingAuthorizationException, PropertyException, ResourceNotFoundException, ObjectNotFoundException;
 
+    public abstract void insert(Secretary secretary);
+
+    public abstract void cancel(Secretary secretary);
+
+    public abstract void update(Secretary secretary);
 }

@@ -66,7 +66,7 @@ public class SecretaryDAODB extends AbstractSecretaryDAO {
      * @throws UserNotFoundException thrown if the given User has not a Secretary role
      */
     @Override
-    public List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento, List<Secretary> secretaryList) throws DAOException, UserNotFoundException, MissingAuthorizationException, PropertyException, ResourceNotFoundException, ObjectNotFoundException {
+    public List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento, List<Secretary> secretaryList) throws DAOException, UserNotFoundException, MissingAuthorizationException, PropertyException, ResourceNotFoundException {
         String baseQuery = "select * from SECRETARY S where S.dipartimento=%d";
         String query;
         if (secretaryList.isEmpty())

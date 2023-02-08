@@ -1,7 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.role.professor;
 
-import com.opencsv.CSVReaderHeaderAware;
-import com.opencsv.exceptions.CsvValidationException;
+import com.opencsv.exceptions.CsvException;
 import it.uniroma2.dicii.ispw.gradely.CSVParser;
 import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
@@ -11,10 +10,7 @@ import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.UserNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 public class ProfessorDAOFS extends AbstractProfessorDAO {
 
@@ -31,21 +27,21 @@ public class ProfessorDAOFS extends AbstractProfessorDAO {
     }
 
     @Override
-    public Professor getProfessorByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException {
+    public Professor getProfessorByUser(User user) throws DAOException, UserNotFoundException, ResourceNotFoundException {
         try {
-            Map<String, String> lineValues;
-            CSVReaderHeaderAware csvReader = new CSVReaderHeaderAware(new CSVParser().buildResourceReader(fileName));
-            do
-                lineValues = csvReader.readMap();
-            while (!lineValues.get("codice_fiscale").equals(user.getCodiceFiscale()));
-            Professor professor = new Professor(
-                    user,
-                    lineValues.get("matricola"),
-                    DipartimentoEnum.getDipartimentoByValue(Integer.parseInt(lineValues.get("dipartimento")))
-            );
-            setProfessorData(professor);
-            return professor;
-        } catch (IOException | CsvValidationException e) {
+            List<List<String>> lines = new CSVParser().readAllLines(fileName);
+            for (List<String> line : lines)
+                if (line.get(0).equals(user.getCodiceFiscale())) {
+                    Professor professor = new Professor(
+                            user,
+                            line.get(1),
+                            DipartimentoEnum.getDipartimentoByValue(Integer.parseInt(line.get(2)))
+                    );
+                    setProfessorData(professor);
+                    return professor;
+                }
+            throw new UserNotFoundException(ExceptionMessagesEnum.USER_NOT_FOUND.message);
+        } catch (CsvException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }

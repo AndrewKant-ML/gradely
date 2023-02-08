@@ -4,18 +4,15 @@ import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
 import it.uniroma2.dicii.ispw.gradely.enums.DegreeCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.MissingAuthorizationException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.ObjectNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
-import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 public class TitleDAODB extends TitleDAOAbstract {
 
@@ -58,19 +55,19 @@ public class TitleDAODB extends TitleDAOAbstract {
             try (PreparedStatement stmt = connection.prepareStatement(query);
                  ResultSet rs = stmt.executeQuery()) {
                 List<Title> newTitles = new ArrayList<>();
-                List<DegreeCourseCodeEnum> coursesCodes;
                 while (rs.next()) {
-                    coursesCodes = new ArrayList<>();
-                    coursesCodes.add(DegreeCourseCodeEnum.getDegreeCourseCodeByValue(rs.getInt("abstract_degree_course")));
+                    DegreeCourseCodeEnum code = DegreeCourseCodeEnum.getDegreeCourseCodeByValue(rs.getInt("abstract_degree_course"));
+                    if (code == null)
+                        throw new ObjectNotFoundException(ExceptionMessagesEnum.OBJ_NOT_FOUND.message);
                     newTitles.add(new Title(
-                            DegreeCourseLazyFactory.getInstance().getDegreeCourseByDegreeCourseCodeList(coursesCodes).get(0),
+                            DegreeCourseLazyFactory.getInstance().getDegreeCourseByDegreeCourseCodeList(List.of(code)).get(0),
                             student,
                             rs.getDate("achievement_date").toLocalDate()
                     ));
                 }
                 return newTitles;
             }
-        } catch (SQLException e) {
+        } catch (SQLException | ObjectNotFoundException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }
