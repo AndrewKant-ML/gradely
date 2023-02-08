@@ -29,16 +29,4 @@ public abstract class AbstractSecretaryDAO extends DAOAbstract<Secretary, User> 
     abstract void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> values) throws SQLException;
     abstract Secretary getListQueryObjectBuilder(ResultSet rs) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException;
     abstract String getListQueryIdentifierValues(Secretary secretary, int valueNumber) throws Exception;
-
-<<<<<<< HEAD
-=======
-    public abstract void cancel(Secretary secretary);
-
-    public abstract void update(Secretary secretary);
-<<<<<<< HEAD
->>>>>>> AC
-=======
->>>>>>> 7de853d (  (mer 8 feb 2023, 17:15:08, CET))
->>>>>>> e4ba9d8 ( - before merging main to AC - (mer 8 feb 2023, 17:15:30, CET))
->>>>>>> fe57fc9 ( - before merging main to AC - (mer 8 feb 2023, 17:18:32, CET))
 }
