@@ -38,5 +38,9 @@ module it.uniroma2.dicii.ispw.gradely {
     exports it.uniroma2.dicii.ispw.gradely.model.exam_result;
     exports it.uniroma2.dicii.ispw.gradely.model.title;
     exports it.uniroma2.dicii.ispw.gradely.model.pending_events;
+    exports it.uniroma2.dicii.ispw.gradely.graphic_controllers_general;
+    opens it.uniroma2.dicii.ispw.gradely.graphic_controllers_general to javafx.fxml;
+    exports it.uniroma2.dicii.ispw.gradely.graphic_controllers_general.homepages;
+    opens it.uniroma2.dicii.ispw.gradely.graphic_controllers_general.homepages to javafx.fxml;
 
 }
