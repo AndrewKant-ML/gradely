@@ -1,4 +1,4 @@
-package it.uniroma2.dicii.ispw.gradely.dao_interface;
+package it.uniroma2.dicii.ispw.gradely.dao_abstract;
 
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
@@ -6,7 +6,6 @@ import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.UserNotFoundException;
-import it.uniroma2.dicii.ispw.gradely.model.role.secretary.Secretary;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

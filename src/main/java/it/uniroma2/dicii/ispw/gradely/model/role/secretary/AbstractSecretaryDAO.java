@@ -1,9 +1,8 @@
 package it.uniroma2.dicii.ispw.gradely.model.role.secretary;
 
-import it.uniroma2.dicii.ispw.gradely.dao_interface.DAOAbstract;
+import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
-import it.uniroma2.dicii.ispw.gradely.model.role.secretary.Secretary;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
 import java.sql.PreparedStatement;
