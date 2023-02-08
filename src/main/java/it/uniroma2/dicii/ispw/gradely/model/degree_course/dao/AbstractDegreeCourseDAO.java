@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.degree_course.dao;
 
-import it.uniroma2.dicii.ispw.gradely.dao_interface.DAOAbstract;
+import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.DegreeCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ObjectNotFoundException;

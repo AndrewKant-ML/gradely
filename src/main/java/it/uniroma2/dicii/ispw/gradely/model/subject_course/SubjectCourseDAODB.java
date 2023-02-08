@@ -84,7 +84,7 @@ public class SubjectCourseDAODB extends SubjectCourseDAOAbstract {
 
     @Override
     public void cancel(SubjectCourse subjectCourse) throws PropertyException, ResourceNotFoundException, DAOException {
-        cancelQuery("SUBJECT_COURSE",List.of("code", "name", "cfu", "aa"), List.of(subjectCourse.getCode().toString(),subjectCourse.getName(),subjectCourse.getCfu().toString(),subjectCourse.getAcademicYear().toString()),subjectCourse);
+        cancelQuery("SUBJECT_COURSE",List.of("code", "name", "cfu", "aa"), List.of(subjectCourse.getCode().toString(),subjectCourse.getName(),subjectCourse.getCfu().toString(),subjectCourse.getAcademicYear().toString()));
     }
 
     @Override

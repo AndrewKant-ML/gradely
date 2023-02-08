@@ -1,9 +1,8 @@
 package it.uniroma2.dicii.ispw.gradely.model.role.secretary;
 
-import it.uniroma2.dicii.ispw.gradely.dao_interface.DAOAbstract;
+import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
-import it.uniroma2.dicii.ispw.gradely.model.role.secretary.Secretary;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
 import java.sql.PreparedStatement;
@@ -30,4 +29,5 @@ public abstract class AbstractSecretaryDAO extends DAOAbstract<Secretary, User> 
     abstract void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> values) throws SQLException;
     abstract Secretary getListQueryObjectBuilder(ResultSet rs) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException;
     abstract String getListQueryIdentifierValues(Secretary secretary, int valueNumber) throws Exception;
+
 }

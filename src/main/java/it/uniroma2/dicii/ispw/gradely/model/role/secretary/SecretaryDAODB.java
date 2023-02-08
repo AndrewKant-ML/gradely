@@ -82,7 +82,7 @@ public class SecretaryDAODB extends AbstractSecretaryDAO {
 
     @Override
     public void cancel(Secretary secretary) throws DAOException, PropertyException, ResourceNotFoundException {
-        cancelQuery("SECRETARY",List.of("codice_fiscale","dipartimento"), List.of(secretary.getUser().getCodiceFiscale(), secretary.getDipartimento().value),secretary);
+        cancelQuery("SECRETARY",List.of("codice_fiscale","dipartimento"), List.of(secretary.getUser().getCodiceFiscale(), secretary.getDipartimento().value));
     }
 
     @Override

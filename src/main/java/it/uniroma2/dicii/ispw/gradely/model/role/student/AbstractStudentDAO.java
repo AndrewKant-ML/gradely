@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.role.student;
 
-import it.uniroma2.dicii.ispw.gradely.dao_interface.DAOAbstract;
+import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
@@ -29,4 +29,6 @@ public abstract class AbstractStudentDAO extends DAOAbstract<Student, User> {
     abstract void setInsertQueryParameters(PreparedStatement stmt, Student student) throws SQLException;
     abstract void setUpdateQueryParameters(PreparedStatement stmt, Student student) throws SQLException;
     abstract void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> values) throws SQLException;
+
+
 }
