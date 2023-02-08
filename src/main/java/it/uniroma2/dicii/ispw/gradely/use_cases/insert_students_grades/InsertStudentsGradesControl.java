@@ -30,8 +30,12 @@ import it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.beans.Stu
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class InsertStudentsGradesControl implements TimerObserver {
+
+    private static final Logger logger = Logger.getLogger(InsertStudentsGradesControl.class.getName());
 
     InsertStudentsGradesControl() {
 
@@ -49,9 +53,16 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @return gradable exam list
      * @throws MissingAuthorizationException
      */
-    ExamListBean getGradableExams(String tokenKey) throws MissingAuthorizationException, DAOException, UserNotFoundException, ObjectNotFoundException {
+    ExamListBean getGradableExams(String tokenKey) throws MissingAuthorizationException, DAOException, UserNotFoundException {
         Professor professor = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToProfessorRole();
-        return new ExamListBean(createExamBeanList(ExamLazyFactory.getInstance().getGradableExams(professor)));
+        try {
+            return new ExamListBean(createExamBeanList(ExamLazyFactory.getInstance().getGradableExams(professor)));
+        } catch (ObjectNotFoundException e) {
+            // This can only happen if DB is corrupted, so the application must stop
+            logger.log(Level.SEVERE, String.format("Error: professor with codice_fiscale %s does not exists", professor.getUser().getCodiceFiscale()));
+            System.exit(1);
+        }
+        return null;
     }
 
     /**
@@ -66,7 +77,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
     private List<ExamBean> createExamBeanList(List<Exam> inList){
         List<ExamBean> outList = new ArrayList<>();
         for (Exam e : inList){
-            outList.add(new ExamBean(new SubjectCourseBean(e.getSubjectCourse().getCode(),e.getSubjectCourse().getName(),e.getSubjectCourse().getAcademicYear()),e.getAppello(),e.getSession()));
+            outList.add(new ExamBean(new SubjectCourseBean(e.getSubjectCourse().getCode(),e.getSubjectCourse().getName(),e.getSubjectCourse().getAcademicYear()),e.getAppello(),e.getSession(),e.getExaminationDate()));
         }
         return outList;
     }

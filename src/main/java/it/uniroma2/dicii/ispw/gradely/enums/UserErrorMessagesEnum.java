@@ -23,7 +23,8 @@ public enum UserErrorMessagesEnum {
     MOODLE_TEST_RETRIEVAL_MSG("An error occurred while retrieving test info from Moodle platform."),
     RESOURCE_LOADING_MSG("An error occurred while loading view resource."),
     PROPERTY_VALUE_MSG("Unexpected value of property name. Please check your configuration file."),
-    SELECT_A_DEGREE_COURSE_MSG("Please select a degree course.");
+    SELECT_A_DEGREE_COURSE_MSG("Please select a degree course."),
+    SELECT_AN_EXAM_MSG("Please select an exam.");
 
     public final String message;
 

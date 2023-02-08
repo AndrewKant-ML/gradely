@@ -16,7 +16,7 @@ public class InsertStudentsGradesProfessorFacade {
         controller = new InsertStudentsGradesControl();
     }
 
-    public ExamListBean getGradableExams(String tokenKey) throws MissingAuthorizationException, DAOException, UserNotFoundException, ObjectNotFoundException {
+    public ExamListBean getGradableExams(String tokenKey) throws MissingAuthorizationException, DAOException, UserNotFoundException {
         return controller.getGradableExams(tokenKey);
     }
     public ExamEnrollmentListBean getExamEnrollments(String tokenKey, ExamBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException {

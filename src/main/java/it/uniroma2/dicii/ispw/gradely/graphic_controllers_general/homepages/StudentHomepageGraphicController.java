@@ -1,4 +1,4 @@
-package it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.graphic_controllers;
+package it.uniroma2.dicii.ispw.gradely.graphic_controllers_general.homepages;
 
 import it.uniroma2.dicii.ispw.gradely.PageNavigationController;
 import javafx.fxml.Initializable;
@@ -6,26 +6,26 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ProfessorHomepageGraphicController implements Initializable {
+public class StudentHomepageGraphicController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        // Called by FxmlLoader::load() after loading homepage view
     }
 
-    public void openExamsPage() {
-        PageNavigationController.getInstance().navigateTo("exams-view");
+    public void openCareerPage() {
+        PageNavigationController.getInstance().navigateTo("enroll_to_degree_course");
+    }
+
+    public void openTaxesPage() {
+        PageNavigationController.getInstance().navigateTo("under_construction");
     }
 
     public void openCoursesPage() {
         PageNavigationController.getInstance().navigateTo("under_construction");
     }
 
-    public void openReceptionsPage() {
-        PageNavigationController.getInstance().navigateTo("under_construction");
-    }
-
-    public void openCareerPage() {
+    public void openExamsPage() {
         PageNavigationController.getInstance().navigateTo("under_construction");
     }
 

@@ -7,6 +7,13 @@ public class ExamListBean {
 
     public ExamListBean(List<ExamBean> exams){
         this.exams = exams;
+    }
 
+    public List<ExamBean> getExams() {
+        return exams;
+    }
+
+    public void setExams(List<ExamBean> exams) {
+        this.exams = exams;
     }
 }

@@ -10,6 +10,7 @@ public abstract class AbstractTestFactory {
 
     public static synchronized AbstractTestFactory getInstance(TestTypeEnum testTypeEnum){
         // TODO change to session factory
+        // TODO not singleton
         if (instance == null){
             switch (testTypeEnum){
                 case ONLINE -> instance = new MoodleTestFactory();

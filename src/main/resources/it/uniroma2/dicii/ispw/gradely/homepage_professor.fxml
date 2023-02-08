@@ -7,7 +7,7 @@
 <?import javafx.scene.text.*?>
 <GridPane alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea"
           hgap="40" vgap="30" prefWidth="650" prefHeight="430" stylesheets="@styles/home-card-style.css"
-          fx:controller="it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.graphic_controllers.ProfessorHomepageGraphicController">
+          fx:controller="it.uniroma2.dicii.ispw.gradely.graphic_controllers_general.homepages.ProfessorHomepageGraphicController">
 
     <!-- Exams card -->
     <AnchorPane prefHeight="200" prefWidth="190"

@@ -12,9 +12,13 @@ public class ConfirmAnagraphicalDataGraphicController implements Initializable {
 
     @FXML
     private TextField matricola;
+    @FXML
     private TextField name;
+    @FXML
     private TextField surname;
+    @FXML
     private TextField email;
+    @FXML
     private TextField codiceFiscale;
 
     @Override
