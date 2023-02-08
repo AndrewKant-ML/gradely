@@ -23,7 +23,7 @@ public class StudentDAODB extends AbstractStudentDAO {
     }
 
     /**
-     * Retrieve all Student's data of a given User
+     * Returns the Student object correlated a given User
      *
      * @param user the User whose Student's data have to be retrieved
      * @return a Student object
@@ -47,7 +47,7 @@ public class StudentDAODB extends AbstractStudentDAO {
 
     @Override
     public void update(Student student) throws PropertyException, ResourceNotFoundException, DAOException {
-        updateQuery("STUDENT", List.of("matricola"), List.of(student.getMatricola()), List.of("codice_fiscale"), List.of(student.getUser().getCodiceFiscale()),student);
+        updateQuery("STUDENT", List.of("matricola"), List.of("codice_fiscale"), List.of(student.getUser().getCodiceFiscale()),student);
     }
 
     void setInsertQueryParameters(PreparedStatement stmt, Student student) throws SQLException {
@@ -62,8 +62,8 @@ public class StudentDAODB extends AbstractStudentDAO {
     void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> values) throws SQLException{
         stmt.setString(1, (String) values.get(0));
     }
-    Student getQueryObjectBuilder(ResultSet rs, List<User> user) throws SQLException, DAOException, PropertyException, ResourceNotFoundException {
-        Student student = new Student(user.get(0), rs.getString("matricola"));
+    Student getQueryObjectBuilder(ResultSet rs, List<User> users) throws SQLException, DAOException, PropertyException, ResourceNotFoundException {
+        Student student = new Student(users.get(0), rs.getString("matricola"));
         student.setDegreeCourseEnrollments(DegreeCourseEnrollmentLazyFactory.getInstance().getDegreeCourseEnrollmentsByStudent(student));
         student.setTitles(TitleLazyFactory.getInstance().getTitlesByStudent(student));
         student.setExamEnrollments(ExamEnrollmentLazyFactory.getInstance().getExamEnrollmentsByStudent(student));

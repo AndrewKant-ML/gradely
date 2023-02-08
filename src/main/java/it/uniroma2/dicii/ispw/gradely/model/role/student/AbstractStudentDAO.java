@@ -18,6 +18,9 @@ public abstract class AbstractStudentDAO extends DAOAbstract<Student, User> {
     protected AbstractStudentDAO(){
 
     }
+
+    public abstract Student getStudentByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException;
+
     abstract void insert(Student student) throws DAOException, PropertyException, ResourceNotFoundException;
     abstract void cancel(Student student) throws DAOException, PropertyException, ResourceNotFoundException;
     abstract void update(Student student) throws DAOException, PropertyException, ResourceNotFoundException;
@@ -26,7 +29,5 @@ public abstract class AbstractStudentDAO extends DAOAbstract<Student, User> {
     abstract void setInsertQueryParameters(PreparedStatement stmt, Student student) throws SQLException;
     abstract void setUpdateQueryParameters(PreparedStatement stmt, Student student) throws SQLException;
     abstract void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> values) throws SQLException;
-
-    public abstract Student getStudentByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException;
 
 }

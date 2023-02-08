@@ -133,7 +133,7 @@ public class UserDAODB extends UserDAOAbstract {
     @Override
     public void update(User user) throws PropertyException, ResourceNotFoundException, DAOException, MissingAuthorizationException {
         //String query = "update USER set codice_fiscale = ?, name = ?, surname = ?, password = ?, registration_date = ?, email = ?, role = ? where codice_fiscale = ?";
-        updateQuery("USER", List.of("codice_fiscale", "name", "surname", "password", "registration_date", "email", "role"), List.of(user.getCodiceFiscale(), user.getName(), user.getSurname(), user.getPassword(), Date.valueOf(user.getRegistrationDate()).toString(), user.getEmail(), String.valueOf(user.getRole().getRoleEnumType().type)),List.of("codice_fiscale"), List.of(user.getCodiceFiscale()), user);
+        updateQuery("USER", List.of("codice_fiscale", "name", "surname", "password", "registration_date", "email", "role"),List.of("codice_fiscale"), List.of(user.getCodiceFiscale()), user);
         /*try{
             Connection connection = DBConnection.getInstance().getConnection();
             try(PreparedStatement stmt = connection.prepareStatement(query)){
