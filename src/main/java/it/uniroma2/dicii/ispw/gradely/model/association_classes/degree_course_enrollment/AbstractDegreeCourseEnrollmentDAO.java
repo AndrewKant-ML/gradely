@@ -20,4 +20,9 @@ public abstract class AbstractDegreeCourseEnrollmentDAO implements DAOAbstract<D
 
     public abstract List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByStudent(Student student) throws DAOException, PropertyException, ResourceNotFoundException;
 
+    public abstract void insert(DegreeCourseEnrollment degreeCourseEnrollment);
+
+    public abstract void cancel(DegreeCourseEnrollment degreeCourseEnrollment);
+
+    public abstract void update(DegreeCourseEnrollment degreeCourseEnrollment);
 }

@@ -17,6 +17,7 @@ public class DegreeCourse extends AbstractDegreeCourse {
     private List<SubjectCourse> subjectCourses;
     private TestTypeEnum testType;
 
+    // TODO make package protected
     public DegreeCourse(DegreeCourseCodeEnum code, String name, FacoltaEnum facolta, DipartimentoEnum dipartimento, DegreeCourseTypeEnum type, TestTypeEnum testType) {
         super(code, type);
         this.name = name;

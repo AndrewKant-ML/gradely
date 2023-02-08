@@ -93,24 +93,6 @@ public class UserDAODB extends UserDAOAbstract {
         }
     }
 
-    /**
-     * Set the user role by a given role value
-     *
-     * @param user the User whose role has to be set
-     * @param role the role to be set ot the User
-     * @throws UnrecognizedRoleException thrown if the role value cannot be cast to any enum value
-     * @throws DAOException              thrown if errors occur while retrieving data from persistence layer
-     * @throws UserNotFoundException     thrown if the given User cannot be found
-     */
-    private void setUserRoleByRoleEnum(User user, UserRoleEnum role) throws UnrecognizedRoleException, DAOException, UserNotFoundException {
-        switch (role) {
-            case STUDENT -> user.setRole(StudentLazyFactory.getInstance().getStudentByUser(user));
-            case PROFESSOR -> user.setRole(ProfessorLazyFactory.getInstance().getProfessorByUser(user));
-            case SECRETARY -> user.setRole(SecretaryLazyFactory.getInstance().getSecretaryByUser(user));
-            default -> throw new UnrecognizedRoleException(ExceptionMessagesEnum.UNRECOGNIZED_ROLE.message);
-        }
-    }
-
     @Override
     void insert(User user) throws DAOException, PropertyException, ResourceNotFoundException {
         insertQuery("USER", List.of("codice_fiscale", "name", "surname", "password", "registration_date", "email", "role"), user);

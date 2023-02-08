@@ -32,6 +32,13 @@ public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
         return instance;
     }
 
+    private DegreeCourse parseResultSet(ResultSet rs) throws SQLException, DAOException, PropertyException, ResourceNotFoundException {
+        int code = rs.getInt("code");
+        DegreeCourse degreeCourse = new DegreeCourse(DegreeCourseCodeEnum.getDegreeCourseCodeByValue(code), rs.getString("name"), FacoltaEnum.getFacoltaByValue(rs.getInt("facolta")), DipartimentoEnum.getDipartimentoByValue(rs.getInt("dipartimento")), DegreeCourseTypeEnum.getDegreeCourseTypeByValue(rs.getInt("type")), TestTypeEnum.getTestTypeByValue(rs.getInt("test_type")));
+        degreeCourse.setPrerequisites(DegreeCourseLazyFactory.getInstance().getDegreeCourseByDegreeCourseCodeList(getPrerequisitesCodesByDegreeCourseCode(code)));
+        return degreeCourse;
+    }
+
     /**
      * Retrieves DegreeCourse data by executing a given query
      *
@@ -45,10 +52,7 @@ public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
             Connection connection = DBConnection.getInstance().getConnection();
             try (PreparedStatement stmt = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE); ResultSet rs = stmt.executeQuery()) {
                 if (rs.first()) {
-                    int code = rs.getInt("code");
-                    DegreeCourse degreeCourse = new DegreeCourse(DegreeCourseCodeEnum.getDegreeCourseCodeByValue(code), rs.getString("name"), FacoltaEnum.getFacoltaByValue(rs.getInt("facolta")), DipartimentoEnum.getDipartimentoByValue(rs.getInt("dipartimento")), DegreeCourseTypeEnum.getDegreeCourseTypeByValue(rs.getInt("type")), TestTypeEnum.getTestTypeByValue(rs.getInt("test_type")));
-                    degreeCourse.setPrerequisites(DegreeCourseLazyFactory.getInstance().getDegreeCourseByDegreeCourseCodeList(getPrerequisitesCodesByDegreeCourseCode(code)));
-                    return degreeCourse;
+                    return parseResultSet(rs);
                 } else throw new ObjectNotFoundException(ExceptionMessagesEnum.OBJ_NOT_FOUND.message);
             }
         } catch (SQLException e) {
@@ -70,14 +74,7 @@ public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
             try (PreparedStatement stmt = connection.prepareStatement(query);
                  ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    degreeCourses.add(new DegreeCourse(
-                            DegreeCourseCodeEnum.getDegreeCourseCodeByValue(rs.getInt("code")),
-                            rs.getString("name"),
-                            FacoltaEnum.getFacoltaByValue(rs.getInt("facolta")),
-                            DipartimentoEnum.getDipartimentoByValue(rs.getInt("dipartimento")),
-                            DegreeCourseTypeEnum.getDegreeCourseTypeByValue(rs.getInt("type")),
-                            TestTypeEnum.getTestTypeByValue(rs.getInt("test_type"))
-                    ));
+                    degreeCourses.add(parseResultSet(rs));
                 }
                 return degreeCourses;
             } catch (SQLException e) {

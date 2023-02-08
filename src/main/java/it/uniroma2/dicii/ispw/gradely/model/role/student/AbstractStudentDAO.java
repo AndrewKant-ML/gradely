@@ -29,5 +29,9 @@ public abstract class AbstractStudentDAO extends DAOAbstract<Student, User> {
     abstract void setInsertQueryParameters(PreparedStatement stmt, Student student) throws SQLException;
     abstract void setUpdateQueryParameters(PreparedStatement stmt, Student student) throws SQLException;
     abstract void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> values) throws SQLException;
+<<<<<<< HEAD
+=======
+    public abstract Student getStudentByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException;
+>>>>>>> AC
 
 }
