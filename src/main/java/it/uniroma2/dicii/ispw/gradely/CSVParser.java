@@ -7,6 +7,7 @@ import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CSVParser {
@@ -19,10 +20,15 @@ public class CSVParser {
      * @throws ResourceNotFoundException thrown if the file cannot be found
      * @throws DAOException              thrown if errors occur while reading file content
      */
-    public List<String[]> readAllLines(String filename) throws ResourceNotFoundException, DAOException, CsvException {
+    public List<List<String>> readAllLines(String filename) throws ResourceNotFoundException, DAOException, CsvException {
         try (Reader reader = buildResourceReader(filename)) {
             try (CSVReader csvReader = new CSVReader(reader)) {
-                return csvReader.readAll();
+                List<List<String>> fileContent = new ArrayList<>();
+                String[] nextLine;
+                while ((nextLine = csvReader.readNext()) != null) {
+                    fileContent.add(List.of(nextLine));
+                }
+                return fileContent;
             }
         } catch (CsvException | IOException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);

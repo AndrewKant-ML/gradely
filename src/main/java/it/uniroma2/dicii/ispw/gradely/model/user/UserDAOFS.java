@@ -1,6 +1,5 @@
 package it.uniroma2.dicii.ispw.gradely.model.user;
 
-import com.opencsv.CSVReaderHeaderAware;
 import com.opencsv.exceptions.CsvException;
 import it.uniroma2.dicii.ispw.gradely.CSVParser;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
@@ -9,15 +8,12 @@ import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.UserNotFoundException;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 public class UserDAOFS extends UserDAOAbstract {
 
-    private final String fileName = "student";
+    private final String fileName = "user";
 
     private UserDAOFS() {
         super();
@@ -30,28 +26,46 @@ public class UserDAOFS extends UserDAOAbstract {
         return instance;
     }
 
-    User getUserByEmail(String email) throws UserNotFoundException, DAOException {
-        //TODO implementare query
-        return null;
+    /**
+     * Creates a User from a given csv file line
+     *
+     * @param line the csv file line
+     * @return a User instance
+     */
+    private User getUserByLine(List<String> line) {
+        return new User(
+                line.get(1),
+                line.get(2),
+                line.get(0),
+                line.get(3),
+                line.get(4),
+                LocalDate.parse(line.get(5))
+        );
+    }
+
+    User getUserByEmail(String email) throws UserNotFoundException, DAOException, ResourceNotFoundException {
+        try {
+            List<List<String>> lines = new CSVParser().readAllLines(fileName);
+            for (List<String> line : lines) {
+                if (line.get(3).equals(email))
+                    return getUserByLine(line);
+            }
+            throw new UserNotFoundException(ExceptionMessagesEnum.USER_NOT_FOUND.message);
+        } catch (CsvException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
     }
 
     @Override
     User getUserByCodiceFiscale(String codiceFiscale) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException {
         try {
-            Map<String, String> lineValues;
-            CSVReaderHeaderAware csvReader = new CSVReaderHeaderAware(new CSVParser().buildResourceReader(fileName));
-            do
-                lineValues = csvReader.readMap();
-            while (!lineValues.get("codice_fiscale").equals(codiceFiscale));
-            return new User(
-                    lineValues.get("name"),
-                    lineValues.get("surname"),
-                    codiceFiscale,
-                    lineValues.get("email"),
-                    lineValues.get("password"),
-                    LocalDate.parse(lineValues.get("registration_date"))
-            );
-        } catch (CsvException | IOException e) {
+            List<List<String>> lines = new CSVParser().readAllLines(fileName);
+            for (List<String> line : lines) {
+                if (line.get(0).equals(codiceFiscale))
+                    return getUserByLine(line);
+            }
+            throw new UserNotFoundException(ExceptionMessagesEnum.USER_NOT_FOUND.message);
+        } catch (CsvException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }
