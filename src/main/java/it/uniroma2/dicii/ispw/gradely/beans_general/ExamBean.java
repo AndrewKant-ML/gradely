@@ -3,15 +3,19 @@ package it.uniroma2.dicii.ispw.gradely.beans_general;
 import it.uniroma2.dicii.ispw.gradely.enums.AppelloEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.SessionEnum;
 
+import java.time.LocalDate;
+
 public class ExamBean {
     private SubjectCourseBean course;
     private AppelloEnum appello;
     private SessionEnum sessione;
+    private LocalDate date;
 
-    public ExamBean(SubjectCourseBean course, AppelloEnum appello, SessionEnum sessione){
+    public ExamBean(SubjectCourseBean course, AppelloEnum appello, SessionEnum sessione, LocalDate date) {
         this.course = course;
         this.appello = appello;
         this.sessione = sessione;
+        this.date = date;
     }
 
     public SubjectCourseBean getCourse(){
@@ -36,5 +40,13 @@ public class ExamBean {
 
     public void setSessione(SessionEnum sessione){
         this.sessione = sessione;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }

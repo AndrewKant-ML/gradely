@@ -9,7 +9,7 @@ import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.beans.Te
 import java.util.List;
 
 public class EnrollToDegreeCourseStudentFacade {
-    private EnrollToDegreeCourseController controller;
+    private final EnrollToDegreeCourseController controller;
 
     public EnrollToDegreeCourseStudentFacade(String tokenKey) throws MissingAuthorizationException {
         SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToStudentRole();
@@ -17,6 +17,7 @@ public class EnrollToDegreeCourseStudentFacade {
     }
 
     public List<DegreeCourseBean> getDegreeCourses(String tokenKey) throws MissingAuthorizationException, DAOException {
+        SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToStudentRole();
         return controller.getJoinableDegreeCourses(tokenKey);
     }
 
@@ -25,7 +26,7 @@ public class EnrollToDegreeCourseStudentFacade {
         return controller.getTestInfo(tokenKey, degreeCourseBean);
     }
 
-    public TestReservationBean reserveTest(String tokenKey, TestInfoBean testInfo) throws MissingAuthorizationException, DAOException, PropertyException, ObjectNotFoundException, ResourceNotFoundException {
+    public TestReservationBean reserveTest(String tokenKey, TestInfoBean testInfo) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException {
         SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToStudentRole();
         return controller.reserveTest(tokenKey, testInfo);
     }

@@ -51,9 +51,11 @@ public class EnrollToDegreeCourseController implements TimerObserver {
     public List<DegreeCourseBean> getJoinableDegreeCourses(String tokenKey) throws MissingAuthorizationException, DAOException {
         Student student = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToStudentRole();
         List<DegreeCourse> degreeCourses = DegreeCourseLazyFactory.getInstance().getAllDegreeCourses();
+        // Removes degree courses already enrolled to by the student
         student.getDegreeCourseEnrollments().forEach(
                 degreeCourseEnrollment -> degreeCourses.remove(degreeCourseEnrollment.getDegreeCourse())
         );
+        // Removes degree courses if student has already achieved that title
         degreeCourses.removeIf(
                 degreeCourse -> {
                     for (Title title : student.getTitles())
@@ -62,6 +64,7 @@ public class EnrollToDegreeCourseController implements TimerObserver {
                     return false;
                 }
         );
+        // TODO check prerequisites
         List<DegreeCourseBean> beans = new ArrayList<>();
         for (DegreeCourse degreeCourse : degreeCourses) {
             beans.add(
@@ -88,7 +91,7 @@ public class EnrollToDegreeCourseController implements TimerObserver {
         TestInfoBean testInfo = testBoundary.getTestInfo();
         try {
             TestLazyFactory.getInstance().saveTestData(
-                    DAOFactoryAbstract.getInstance().getDegreeCourseDAO().getDegreeCourseByName(degreeCourseBean.getName()),
+                    DegreeCourseLazyFactory.getInstance().getDegreeCourseByName(degreeCourseBean.getName()),
                     testInfo.getId(),
                     testInfo.getTestDate(),
                     testInfo.getTestReservationLink(),
@@ -97,6 +100,7 @@ public class EnrollToDegreeCourseController implements TimerObserver {
                     testInfo.getPlace()
             );
         } catch (ObjectNotFoundException e) {
+            // This can only happen if DB is corrupted, so the application must stop
             logger.log(Level.SEVERE, String.format("Error: degree course with name %s does not exists", degreeCourseBean.getName()));
             System.exit(1);
         }
@@ -112,13 +116,14 @@ public class EnrollToDegreeCourseController implements TimerObserver {
      * @return a TestReservationBean containing all the reservation info
      * @throws MissingAuthorizationException thrown if the User has no authorization to execute the requested operation OR thrown if the token-relative User has no authorization to execute this operation
      */
-    public TestReservationBean reserveTest(String tokenKey, TestInfoBean testInfo) throws MissingAuthorizationException, DAOException, PropertyException, ObjectNotFoundException, ResourceNotFoundException {
+    public TestReservationBean reserveTest(String tokenKey, TestInfoBean testInfo) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException {
         Student student = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToStudentRole();
         AbstractTestBoundary testBoundary = AbstractTestFactory.getInstance(TestTypeEnum.getTestTypeByValue(testInfo.getTestType())).createTestBoundary();
         TestReservationBean testReservation = testBoundary.reserveTest(testInfo.getId());
         try {
             TestReservationLazyFactory.getInstance().reserveTest(student, TestLazyFactory.getInstance().getTestById(testInfo.getId()));
         } catch (ObjectNotFoundException e) {
+            // This can only happen if DB is corrupted, so the application must stop
             logger.log(Level.SEVERE, String.format("Error: test with id %s does not exists", testInfo.getId()));
             System.exit(1);
         }
@@ -127,6 +132,6 @@ public class EnrollToDegreeCourseController implements TimerObserver {
 
     @Override
     public void timeIsUp(AbstractTimer timer) {
-
+        // TODO implement
     }
 }
