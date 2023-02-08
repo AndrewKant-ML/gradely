@@ -19,8 +19,6 @@ public abstract class AbstractSecretaryDAO extends DAOAbstract<Secretary, User> 
 
     public abstract Secretary getSecretaryByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException;
     public abstract List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento, List<Secretary> secretaryList) throws DAOException, UserNotFoundException, MissingAuthorizationException, PropertyException, ResourceNotFoundException, ObjectNotFoundException;
-
-<<<<<<< HEAD
     abstract void insert(Secretary secretary) throws DAOException, PropertyException, ResourceNotFoundException;
     abstract void cancel(Secretary secretary) throws DAOException, PropertyException, ResourceNotFoundException;
     abstract void update(Secretary secretary) throws DAOException, PropertyException, ResourceNotFoundException;
@@ -31,15 +29,5 @@ public abstract class AbstractSecretaryDAO extends DAOAbstract<Secretary, User> 
     abstract void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> values) throws SQLException;
     abstract Secretary getListQueryObjectBuilder(ResultSet rs) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException;
     abstract String getListQueryIdentifierValues(Secretary secretary, int valueNumber) throws Exception;
-=======
-    public abstract void insert(Secretary secretary);
 
-    public abstract void cancel(Secretary secretary);
-
-    public abstract void update(Secretary secretary);
-<<<<<<< HEAD
->>>>>>> AC
-=======
->>>>>>> 7de853d (  (mer 8 feb 2023, 17:15:08, CET))
->>>>>>> e4ba9d8 ( - before merging main to AC - (mer 8 feb 2023, 17:15:30, CET))
 }
