@@ -32,6 +32,10 @@ public abstract class AbstractStudentDAO extends DAOAbstract<Student, User> {
 <<<<<<< HEAD
 =======
     public abstract Student getStudentByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException;
+<<<<<<< HEAD
 >>>>>>> AC
+=======
+>>>>>>> 7de853d (  (mer 8 feb 2023, 17:15:08, CET))
+>>>>>>> e4ba9d8 ( - before merging main to AC - (mer 8 feb 2023, 17:15:30, CET))
 
 }

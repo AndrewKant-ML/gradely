@@ -102,7 +102,11 @@ public class SecretaryDAODB extends AbstractSecretaryDAO {
         } catch (SQLException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
+<<<<<<< HEAD
 >>>>>>> AC
+=======
+>>>>>>> 7de853d (  (mer 8 feb 2023, 17:15:08, CET))
+>>>>>>> e4ba9d8 ( - before merging main to AC - (mer 8 feb 2023, 17:15:30, CET))
     }
 
     @Override

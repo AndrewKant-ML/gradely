@@ -37,5 +37,9 @@ public abstract class AbstractSecretaryDAO extends DAOAbstract<Secretary, User> 
     public abstract void cancel(Secretary secretary);
 
     public abstract void update(Secretary secretary);
+<<<<<<< HEAD
 >>>>>>> AC
+=======
+>>>>>>> 7de853d (  (mer 8 feb 2023, 17:15:08, CET))
+>>>>>>> e4ba9d8 ( - before merging main to AC - (mer 8 feb 2023, 17:15:30, CET))
 }
