@@ -67,8 +67,4 @@ public class ProfessorDAODB extends AbstractProfessorDAO {
 
     }
 
-    @Override
-    public List<Professor> refresh(List<Professor> professors) throws DAOException {
-        return null;
-    }
 }

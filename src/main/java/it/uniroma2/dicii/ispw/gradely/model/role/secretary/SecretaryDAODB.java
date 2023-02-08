@@ -110,8 +110,4 @@ public class SecretaryDAODB extends AbstractSecretaryDAO {
 
     }
 
-    @Override
-    public List<Secretary> refresh(List<Secretary> secretaries){
-        return null;
-    }
 }

@@ -43,8 +43,4 @@ public class TitleDAOFS extends TitleDAOAbstract {
 
     }
 
-    @Override
-    public List<Title> refresh(List<Title> titles) throws DAOException {
-        return null;
-    }
 }

@@ -4,8 +4,10 @@ import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 public abstract class AbstractTimer <T, O extends TimerObserver>{
+    protected UUID id;
     protected LocalDate expiration;
     protected T object;
     protected List<O> observers; //can a timer have multiple observers? Snd multiple types?

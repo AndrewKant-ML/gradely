@@ -34,13 +34,15 @@ public class StudentLazyFactory {
             }
         }
         try {
-            return DAOFactoryAbstract.getInstance().getStudentDAO().getStudentByUser(user);
+            Student daoStudent = DAOFactoryAbstract.getInstance().getStudentDAO().getStudentByUser(user);
+            students.add(daoStudent);
+            return daoStudent;
         } catch (PropertyException | ResourceNotFoundException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }
 
-    public Student newStudent(User user, String matricola, List<Title> titles) throws DAOException, PropertyException, ResourceNotFoundException {
+    public Student newStudent(User user, String matricola, List<Title> titles) throws DAOException {
         Student student = new Student(user, matricola);
         user.setRole(student);
         if (titles != null){

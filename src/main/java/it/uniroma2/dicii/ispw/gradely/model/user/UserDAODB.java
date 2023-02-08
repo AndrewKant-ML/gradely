@@ -8,14 +8,14 @@ import it.uniroma2.dicii.ispw.gradely.model.role.professor.ProfessorLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.secretary.SecretaryLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.StudentLazyFactory;
 
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UserDAODB extends UserDAOAbstract {
+
+    private static final Logger logger = Logger.getLogger(UserDAODB.class.getName());
 
     private UserDAODB() {
         super();
@@ -39,7 +39,7 @@ public class UserDAODB extends UserDAOAbstract {
     User getUserByEmail(String email) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException {
         String query = "select codice_fiscale,name,surname,email,password,registration_date,role from USER where email='%s'";
         query = String.format(query, email);
-        return queryUserData(query);
+        return getQuery(query);
     }
 
     /**
@@ -52,9 +52,9 @@ public class UserDAODB extends UserDAOAbstract {
      */
     @Override
     User getUserByCodiceFiscale(String codiceFiscale) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException {
-        String query = "select codice_fiscale, name, surname, password, registration_date, email, role from USER U where U.codice_fiscale='%s';";
+        String query = "select codice_fiscale, name, surname, password, registration_date, email, role from USER where codice_fiscale='%s';";
         query = String.format(query, codiceFiscale);
-        return queryUserData(query);
+        return getQuery(query);
     }
 
     /**
@@ -65,7 +65,7 @@ public class UserDAODB extends UserDAOAbstract {
      * @throws UserNotFoundException thrown if the User cannot be found
      * @throws DAOException          thrown if errors occur while retrieving data from persistence layer
      */
-    private User queryUserData(String query) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException {
+    private User getQuery(String query) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             try (PreparedStatement stmt = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -112,24 +112,51 @@ public class UserDAODB extends UserDAOAbstract {
     }
 
     @Override
-    public void insert(User user) {
-
+    void insert(User user) throws DAOException, PropertyException, ResourceNotFoundException {
+        insertQuery("USER", List.of("codice_fiscale", "name", "surname", "password", "registration_date", "email", "role"), user);
     }
 
     @Override
-    public void cancel(User user) {
-
+    void cancel(User user) throws DAOException, PropertyException, ResourceNotFoundException {
+        String query = "delete from USER where codice_fiscale = ?";
+        try{
+            Connection connection = DBConnection.getInstance().getConnection();
+            try(PreparedStatement stmt = connection.prepareStatement(query)){
+                stmt.setString(1,user.getCodiceFiscale());
+                stmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message,e);
+        }
     }
 
     @Override
-    public void update(User user){
-
+    public void update(User user) throws PropertyException, ResourceNotFoundException, DAOException, MissingAuthorizationException {
+        //String query = "update USER set codice_fiscale = ?, name = ?, surname = ?, password = ?, registration_date = ?, email = ?, role = ? where codice_fiscale = ?";
+        updateQuery("USER", List.of("codice_fiscale", "name", "surname", "password", "registration_date", "email", "role"), List.of(user.getCodiceFiscale(), user.getName(), user.getSurname(), user.getPassword(), Date.valueOf(user.getRegistrationDate()).toString(), user.getEmail(), String.valueOf(user.getRole().getRoleEnumType().type)),List.of("codice_fiscale"), List.of(user.getCodiceFiscale()), user);
+        /*try{
+            Connection connection = DBConnection.getInstance().getConnection();
+            try(PreparedStatement stmt = connection.prepareStatement(query)){
+                setQueryParameters(stmt, user);
+                stmt.setString(8,user.getCodiceFiscale());
+                stmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message,e);
+        }*/
     }
 
-    @Override
-    public List<User> refresh(List<User> users){
-        return null;
+    void setQueryParameters(PreparedStatement stmt, User user) throws SQLException {
+        stmt.setString(1,user.getCodiceFiscale());
+        stmt.setString(2, user.getName());
+        stmt.setString(3, user.getSurname());
+        stmt.setString(4, user.getPassword());
+        stmt.setDate(5, Date.valueOf(user.getRegistrationDate()));
+        stmt.setString(6, user.getEmail());
+        try{
+            stmt.setInt(7, user.getRole().getRoleEnumType().type);
+        }catch (MissingAuthorizationException e){
+            logger.log(Level.SEVERE, "User with no role");
+        }
     }
-
-
 }

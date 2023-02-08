@@ -85,11 +85,4 @@ public class UserDAOFS extends UserDAOAbstract {
         //TODO implementare query
     }
 
-    @Override
-    public List<User> refresh(List<User> users) throws DAOException {
-        //TODO implementare query
-        return null;
-    }
-
-
 }

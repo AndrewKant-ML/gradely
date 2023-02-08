@@ -181,8 +181,4 @@ public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
 
     }
 
-    @Override
-    public List<DegreeCourse> refresh(List<DegreeCourse> degreeCourses) {
-        return null;
-    }
 }

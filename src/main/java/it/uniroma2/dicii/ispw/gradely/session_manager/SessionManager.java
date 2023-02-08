@@ -7,7 +7,7 @@ import it.uniroma2.dicii.ispw.gradely.enums.FrontEndTypeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
-import it.uniroma2.dicii.ispw.gradely.model.pending_events.AbstractPendingEvent;
+import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEvent;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
 import java.util.ArrayList;
@@ -17,7 +17,6 @@ import java.util.UUID;
 public class SessionManager {
     private static SessionManager instance;
     private final List<Session> activeSessions;
-    private List<AbstractPendingEvent> abstractPendingEvents;
 
     private SessionManager() {
         activeSessions = new ArrayList<>();
@@ -64,42 +63,4 @@ public class SessionManager {
         }
             return s.getToken().getKey();
         }
-
-    private void refreshPendingEvents(List<AbstractPendingEvent> abstractPendingEvents) throws DAOException {
-        try {
-            for (AbstractPendingEvent p : DAOFactoryAbstract.getInstance().getPendingEventDAO().refresh(abstractPendingEvents)) {
-                if (!abstractPendingEvents.contains(p)) {
-                    abstractPendingEvents.add(p);
-                }
-            }
-        } catch (ResourceNotFoundException | PropertyException e) {
-            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }
-
-    }
-    public List<AbstractPendingEvent> getPendingEventsByUser(User user) throws DAOException {
-        refreshPendingEvents(abstractPendingEvents);
-        List<AbstractPendingEvent> list = new ArrayList<>();
-        for (AbstractPendingEvent p : abstractPendingEvents){
-            if (Boolean.TRUE.equals(p.isForUser(user))){
-                list.add(p);
-            }
-        }
-        return list;
-    }
-
-    public void setPendingEvents(List<AbstractPendingEvent> abstractPendingEvents){
-        this.abstractPendingEvents = abstractPendingEvents;
-    }
-
-    public Boolean checkUUID(UUID id) throws DAOException {
-        refreshPendingEvents(abstractPendingEvents);
-        for(AbstractPendingEvent event : abstractPendingEvents){
-            if(id.equals(event.getId())){
-                return false;
-            }
-        }
-        return true;
-    }
-
 }

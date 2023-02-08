@@ -45,10 +45,6 @@ public class SubjectCourseAssignmentDAOFS extends AbstractSubjectCourseAssignmen
 
     }
 
-    @Override
-    public List<SubjectCourseAssignment> refresh(List<SubjectCourseAssignment> subjectCourseAssignments){
-        return null;
-    }
 
 
 }

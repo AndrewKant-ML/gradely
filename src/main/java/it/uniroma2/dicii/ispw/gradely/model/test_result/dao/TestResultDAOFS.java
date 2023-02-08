@@ -32,8 +32,4 @@ public class TestResultDAOFS extends TestResultDAOAbstract {
 
     }
 
-    @Override
-    public List<AbstractTestResult> refresh(List<AbstractTestResult> abstractTestResults){
-        return null;
-    }
 }

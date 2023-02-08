@@ -33,10 +33,4 @@ public class TimerDAOFS extends TimerDAOAbstract {
 
     }
 
-    @Override
-    public List<AbstractTimer> refresh(List<AbstractTimer> timers){
-        return null;
-    }
-
-
 }

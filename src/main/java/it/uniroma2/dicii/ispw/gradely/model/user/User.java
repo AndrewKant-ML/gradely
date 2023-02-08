@@ -90,4 +90,11 @@ public class User extends CsvBaseBean {
             this.password = newPass;
         } else throw new WrongPasswordException(ExceptionMessagesEnum.WRONG_PASSWORD.message);
     }
+
+    String getPassword(){
+        return this.password;
+    }
+    void setPassword(String password){
+        this.password = password;
+    }
 }

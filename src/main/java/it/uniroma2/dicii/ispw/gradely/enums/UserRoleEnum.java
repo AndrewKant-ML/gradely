@@ -1,5 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.enums;
 
+import it.uniroma2.dicii.ispw.gradely.exceptions.UnrecognizedRoleException;
+
 public enum UserRoleEnum {
 
     STUDENT(0),
@@ -14,10 +16,10 @@ public enum UserRoleEnum {
         this.type = type;
     }
 
-    public static UserRoleEnum getUserRoleByType(int type) {
+    public static UserRoleEnum getUserRoleByType(int type) throws UnrecognizedRoleException {
         for (UserRoleEnum userRole : values())
             if (userRole.type == type)
                 return userRole;
-        return null;
+        throw new UnrecognizedRoleException(ExceptionMessagesEnum.UNRECOGNIZED_ROLE.message);
     }
 }

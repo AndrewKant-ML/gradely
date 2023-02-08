@@ -106,8 +106,4 @@ public class TestDAODB extends TestDAOAbstract {
 
     }
 
-    @Override
-    public List<Test> refresh(List<Test> tests) {
-        return null;
-    }
 }

@@ -162,7 +162,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
         checkExamProfessor(exam, professor);
         for (StudentGradeBean g : list.getGrades()) {
             saveExamResult(g);
-            PendingEventLazyFactory.getInstance().createNewPendingEventSingle(g.getEnrollmentBean().getStudent().getUser().getCodiceFiscale(), PendingEventTypeEnum.EVENT_1, g.getEnrollmentBean().getExam());
+            PendingEventLazyFactory.getInstance().createNewPendingEvent(List.of(g.getEnrollmentBean().getStudent().getUser().getCodiceFiscale()), PendingEventTypeEnum.EVENT_1, g.getEnrollmentBean().getExam());
         }
         TimerLazyFactory.getInstance().newExamConfirmationTimer(LocalDate.now().plusDays(7L), list.getExam());
     }
@@ -260,7 +260,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
         for (SubjectCourseAssignment c : exam.getSubjectCourse().getCourseAssignments()){
             users.add(c.getProfessor().getUser().getCodiceFiscale());
         }
-        PendingEventLazyFactory.getInstance().createNewPendingEventGroup(users,PendingEventTypeEnum.EVENT_4,exam);
+        PendingEventLazyFactory.getInstance().createNewPendingEvent(users,PendingEventTypeEnum.EVENT_4,false, exam);
     }
 
     /**
@@ -289,7 +289,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
                 list.add(s.getUser().getCodiceFiscale());
             }
         }
-        PendingEventLazyFactory.getInstance().createNewPendingEventGroup(list, PendingEventTypeEnum.EVENT_3, concreteTimer.getObject());
+        PendingEventLazyFactory.getInstance().createNewPendingEvent(list, PendingEventTypeEnum.EVENT_3, concreteTimer.getObject());
     }
 }
 

@@ -32,8 +32,8 @@ public class SubjectCourseLazyFactory {
                 return s;
             }
         }
-        SubjectCourse course = DAOFactoryAbstract.getInstance().getSubjectCourseDAO().getSubjectCourseByNameCodeCfuAndAcademicYear(name, code, cfu, academicYear);
-        subjectCourses.add(course);
-        return course;
+        SubjectCourse daoCourse = DAOFactoryAbstract.getInstance().getSubjectCourseDAO().getSubjectCourseByNameCodeCfuAndAcademicYear(name, code, cfu, academicYear);
+        subjectCourses.add(daoCourse);
+        return daoCourse;
     }
 }

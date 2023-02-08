@@ -34,8 +34,4 @@ public class ExamResultDAOFS extends AbstractExamResultDAO {
 
     }
 
-    @Override
-    public List<ExamResult> refresh(List<ExamResult> examResults) throws DAOException {
-        return null;
-    }
 }

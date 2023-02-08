@@ -1,13 +1,13 @@
 package it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.dao;
 
-import it.uniroma2.dicii.ispw.gradely.dao_interface.DAOInterface;
+import it.uniroma2.dicii.ispw.gradely.dao_interface.DAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.ExamEnrollment;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 
 import java.util.List;
 
-public abstract class AbstractExamEnrollmentDAO implements DAOInterface<ExamEnrollment> {
+public abstract class AbstractExamEnrollmentDAO implements DAOAbstract<ExamEnrollment> {
     protected static AbstractExamEnrollmentDAO instance;
 
     protected AbstractExamEnrollmentDAO(){

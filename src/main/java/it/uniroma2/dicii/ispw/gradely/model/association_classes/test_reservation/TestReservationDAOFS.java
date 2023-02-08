@@ -40,8 +40,4 @@ public class TestReservationDAOFS extends TestReservationDAOAbstract {
 
     }
 
-    @Override
-    public List<Test> refresh(List<Test> tests){
-        return null;
-    }
 }

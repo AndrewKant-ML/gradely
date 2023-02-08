@@ -40,10 +40,6 @@ public class ExamDAODB extends AbstractExamDAO {
         System.out.println("Updated");
     }
 
-    @Override
-    public List<Exam> refresh(List<Exam> exams){
-        return null;
-    }
 
 
 }
