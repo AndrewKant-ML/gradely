@@ -19,6 +19,7 @@ public abstract class AbstractSecretaryDAO extends DAOAbstract<Secretary, User> 
 
     public abstract Secretary getSecretaryByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException;
     public abstract List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento, List<Secretary> secretaryList) throws DAOException, UserNotFoundException, MissingAuthorizationException, PropertyException, ResourceNotFoundException, ObjectNotFoundException;
+
     abstract void insert(Secretary secretary) throws DAOException, PropertyException, ResourceNotFoundException;
     abstract void cancel(Secretary secretary) throws DAOException, PropertyException, ResourceNotFoundException;
     abstract void update(Secretary secretary) throws DAOException, PropertyException, ResourceNotFoundException;
