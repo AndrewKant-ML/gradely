@@ -1,7 +1,5 @@
 package it.uniroma2.dicii.ispw.gradely.model.role.student;
 
-import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
-import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.DegreeCourseEnrollmentLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.ExamEnrollmentLazyFactory;
@@ -11,7 +9,6 @@ import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
 import java.sql.*;
 import java.util.List;
-import java.util.logging.Level;
 
 public class StudentDAODB extends AbstractStudentDAO {
 
@@ -35,27 +32,16 @@ public class StudentDAODB extends AbstractStudentDAO {
      */
     @Override
     public Student getStudentByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException {
-        String query = "select matricola from STUDENT where codice_fiscale='%s';";
-        query = String.format(query, user.getCodiceFiscale());
-        try {
-            Connection connection = DBConnection.getInstance().getConnection();
-            try (PreparedStatement stmt = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                 ResultSet rs = stmt.executeQuery()) {
-                if (rs.first()) {
-                    Student student = new Student(user, rs.getString("matricola"));
-                    student.setDegreeCourseEnrollments(DegreeCourseEnrollmentLazyFactory.getInstance().getDegreeCourseEnrollmentsByStudent(student));
-                    student.setTitles(TitleLazyFactory.getInstance().getTitlesByStudent(student));
-                    student.setExamEnrollments(ExamEnrollmentLazyFactory.getInstance().getExamEnrollmentsByStudent(student));
-                    student.setSubjectCourseEnrollments(SubjectCourseEnrollmentLazyFactory.getInstance().getSubjectCourseEnrollmentsByStudent(student));
-                    return student;
-                } else
-                    throw new UserNotFoundException(ExceptionMessagesEnum.STUDENT_NOT_FOUND.message);
-            } catch (PropertyException | ResourceNotFoundException e) {
-                throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-            }
-        } catch (SQLException e) {
-            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }
+        return getQuery("STUDENTI", List.of("matricola"), List.of("codice_fiscale"), List.of(user.getCodiceFiscale()), List.of(user));
+    }
+
+    Student getQueryObjectBuilder(ResultSet rs, List<User> user) throws SQLException, DAOException, PropertyException, ResourceNotFoundException {
+        Student student = new Student(user.get(0), rs.getString("matricola"));
+        student.setDegreeCourseEnrollments(DegreeCourseEnrollmentLazyFactory.getInstance().getDegreeCourseEnrollmentsByStudent(student));
+        student.setTitles(TitleLazyFactory.getInstance().getTitlesByStudent(student));
+        student.setExamEnrollments(ExamEnrollmentLazyFactory.getInstance().getExamEnrollmentsByStudent(student));
+        student.setSubjectCourseEnrollments(SubjectCourseEnrollmentLazyFactory.getInstance().getSubjectCourseEnrollmentsByStudent(student));
+        return student;
     }
 
     @Override
@@ -66,16 +52,6 @@ public class StudentDAODB extends AbstractStudentDAO {
     @Override
     public void cancel(Student student) throws DAOException, PropertyException, ResourceNotFoundException {
         cancelQuery("STUDENT",List.of("codice_fiscale"), List.of(student.getUser().getCodiceFiscale()),student);
-        /*String query = "delete from USER where codice_fiscale = ?";
-        try{
-            Connection connection = DBConnection.getInstance().getConnection();
-            try(PreparedStatement stmt = connection.prepareStatement(query)){
-                stmt.setString(1,user.getCodiceFiscale());
-                stmt.executeUpdate();
-            }
-        } catch (SQLException e) {
-            throw new DAOException(ExceptionMessagesEnum.DAO.message,e);
-        }*/
     }
 
     @Override
@@ -83,9 +59,17 @@ public class StudentDAODB extends AbstractStudentDAO {
         updateQuery("STUDENT", List.of("matricola"), List.of(student.getMatricola()), List.of("codice_fiscale"), List.of(student.getUser().getCodiceFiscale()),student);
     }
 
-    void setQueryParameters(PreparedStatement stmt, Student student) throws SQLException {
+    void setInsertQueryParameters(PreparedStatement stmt, Student student) throws SQLException {
         stmt.setString(1,student.getUser().getCodiceFiscale());
         stmt.setString(2, student.getMatricola());
+    }
+
+    void setUpdateQueryParameters(PreparedStatement stmt, Student student) throws SQLException{
+        stmt.setString(1, student.getMatricola());
+    }
+
+    void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> values) throws SQLException{
+        stmt.setString(1, (String) values.get(0));
     }
 
 

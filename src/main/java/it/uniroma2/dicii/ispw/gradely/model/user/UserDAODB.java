@@ -39,7 +39,7 @@ public class UserDAODB extends UserDAOAbstract {
     User getUserByEmail(String email) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException {
         String query = "select codice_fiscale,name,surname,email,password,registration_date,role from USER where email='%s'";
         query = String.format(query, email);
-        return getUserFromQuery(query);
+        return getQuery(query);
     }
 
     /**
@@ -54,7 +54,7 @@ public class UserDAODB extends UserDAOAbstract {
     User getUserByCodiceFiscale(String codiceFiscale) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException {
         String query = "select codice_fiscale, name, surname, password, registration_date, email, role from USER where codice_fiscale='%s';";
         query = String.format(query, codiceFiscale);
-        return getUserFromQuery(query);
+        return getQuery(query);
     }
 
     /**
@@ -65,7 +65,7 @@ public class UserDAODB extends UserDAOAbstract {
      * @throws UserNotFoundException thrown if the User cannot be found
      * @throws DAOException          thrown if errors occur while retrieving data from persistence layer
      */
-    private User getUserFromQuery(String query) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException {
+    private User getQuery(String query) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             try (PreparedStatement stmt = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -112,12 +112,12 @@ public class UserDAODB extends UserDAOAbstract {
     }
 
     @Override
-    public void insert(User user) throws DAOException, PropertyException, ResourceNotFoundException {
+    void insert(User user) throws DAOException, PropertyException, ResourceNotFoundException {
         insertQuery("USER", List.of("codice_fiscale", "name", "surname", "password", "registration_date", "email", "role"), user);
     }
 
     @Override
-    public void cancel(User user) throws DAOException, PropertyException, ResourceNotFoundException {
+    void cancel(User user) throws DAOException, PropertyException, ResourceNotFoundException {
         String query = "delete from USER where codice_fiscale = ?";
         try{
             Connection connection = DBConnection.getInstance().getConnection();
@@ -131,10 +131,10 @@ public class UserDAODB extends UserDAOAbstract {
     }
 
     @Override
-    public void update(User user) throws PropertyException, ResourceNotFoundException, DAOException {
-        String query = "update USER set codice_fiscale = ?, name = ?, surname = ?, password = ?, registration_date = ?, email = ?, role = ? where codice_fiscale = ?";
-        //        updateQuery("USER", List.of("codice_fiscale", "name", "surname", "password", "registration_date", "email", "role"), List.of("codice_fiscale"), user);
-        try{
+    public void update(User user) throws PropertyException, ResourceNotFoundException, DAOException, MissingAuthorizationException {
+        //String query = "update USER set codice_fiscale = ?, name = ?, surname = ?, password = ?, registration_date = ?, email = ?, role = ? where codice_fiscale = ?";
+        updateQuery("USER", List.of("codice_fiscale", "name", "surname", "password", "registration_date", "email", "role"), List.of(user.getCodiceFiscale(), user.getName(), user.getSurname(), user.getPassword(), Date.valueOf(user.getRegistrationDate()).toString(), user.getEmail(), String.valueOf(user.getRole().getRoleEnumType().type)),List.of("codice_fiscale"), List.of(user.getCodiceFiscale()), user);
+        /*try{
             Connection connection = DBConnection.getInstance().getConnection();
             try(PreparedStatement stmt = connection.prepareStatement(query)){
                 setQueryParameters(stmt, user);
@@ -143,10 +143,10 @@ public class UserDAODB extends UserDAOAbstract {
             }
         } catch (SQLException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message,e);
-        }
+        }*/
     }
 
-    private void setQueryParameters(PreparedStatement stmt, User user) throws SQLException {
+    void setQueryParameters(PreparedStatement stmt, User user) throws SQLException {
         stmt.setString(1,user.getCodiceFiscale());
         stmt.setString(2, user.getName());
         stmt.setString(3, user.getSurname());
