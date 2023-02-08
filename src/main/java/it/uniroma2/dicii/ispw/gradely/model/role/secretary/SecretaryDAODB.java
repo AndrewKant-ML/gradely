@@ -71,38 +71,8 @@ public class SecretaryDAODB extends AbstractSecretaryDAO {
      * @throws UserNotFoundException thrown if the given User has not a Secretary role
      */
     @Override
-<<<<<<< HEAD
     public List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento, List<Secretary> excludedList) throws DAOException, UserNotFoundException, MissingAuthorizationException, PropertyException, ResourceNotFoundException, ObjectNotFoundException {
         return getListQuery("SECRETARY",List.of("dipartimento"),List.of(dipartimento.value), excludedList);
-=======
-    public List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento, List<Secretary> secretaryList) throws DAOException, UserNotFoundException, MissingAuthorizationException, PropertyException, ResourceNotFoundException {
-        String baseQuery = "select * from SECRETARY S where S.dipartimento=%d";
-        String query;
-        if (secretaryList.isEmpty())
-            query = String.format(baseQuery, dipartimento.value);
-        else {
-            StringBuilder builder = new StringBuilder();
-            for (Secretary secretary : secretaryList)
-                builder.append(secretary.getUser().getCodiceFiscale()).append(',');
-            builder.deleteCharAt(builder.length() - 1);
-            query = String.format(baseQuery.concat("and S.codice_fiscale not in (%s);"), dipartimento.value, builder);
-        }
-        query = String.format(query, dipartimento.value);
-        try {
-            Connection connection = DBConnection.getInstance().getConnection();
-            try (PreparedStatement stmt = connection.prepareStatement(query);
-                 ResultSet rs = stmt.executeQuery()) {
-                List<Secretary> newSecretaries = new ArrayList<>();
-                while (rs.next()) {
-                    User user = UserLazyFactory.getInstance().getUserByCodiceFiscale(rs.getString("codice_fiscale"));
-                    newSecretaries.add(user.getRole().castToSecretaryRole());
-                }
-                return newSecretaries;
-            }
-        } catch (SQLException e) {
-            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }
->>>>>>> AC
     }
 
     @Override
