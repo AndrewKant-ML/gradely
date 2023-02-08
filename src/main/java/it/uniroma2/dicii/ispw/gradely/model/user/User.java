@@ -91,10 +91,27 @@ public class User extends CsvBaseBean {
         } else throw new WrongPasswordException(ExceptionMessagesEnum.WRONG_PASSWORD.message);
     }
 
-    String getPassword(){
+    String getPassword() {
         return this.password;
     }
-    void setPassword(String password){
+
+    void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this)
+            return true;
+
+        if (!(obj instanceof User user))
+            return false;
+
+        return user.getRegistrationDate().equals(registrationDate)
+                && user.getEmail().equals(email)
+                && user.getName().equals(name)
+                && user.getSurname().equals(surname)
+                && user.getCodiceFiscale().equals(codiceFiscale)
+                && user.getPassword().equals(password);
     }
 }

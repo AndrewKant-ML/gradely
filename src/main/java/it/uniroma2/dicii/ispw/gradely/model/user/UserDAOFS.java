@@ -3,10 +3,8 @@ package it.uniroma2.dicii.ispw.gradely.model.user;
 import com.opencsv.exceptions.CsvException;
 import it.uniroma2.dicii.ispw.gradely.CSVParser;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.UserNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.enums.UserRoleEnum;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -32,8 +30,8 @@ public class UserDAOFS extends UserDAOAbstract {
      * @param line the csv file line
      * @return a User instance
      */
-    private User getUserByLine(List<String> line) {
-        return new User(
+    private User getUserByLine(List<String> line) throws UnrecognizedRoleException, DAOException, UserNotFoundException {
+        User user = new User(
                 line.get(1),
                 line.get(2),
                 line.get(0),
@@ -41,6 +39,8 @@ public class UserDAOFS extends UserDAOAbstract {
                 line.get(4),
                 LocalDate.parse(line.get(5))
         );
+        setUserRoleByRoleEnum(user, UserRoleEnum.getUserRoleByType(Integer.parseInt(line.get(6))));
+        return user;
     }
 
     User getUserByEmail(String email) throws UserNotFoundException, DAOException, ResourceNotFoundException {
@@ -51,13 +51,13 @@ public class UserDAOFS extends UserDAOAbstract {
                     return getUserByLine(line);
             }
             throw new UserNotFoundException(ExceptionMessagesEnum.USER_NOT_FOUND.message);
-        } catch (CsvException e) {
+        } catch (CsvException | UnrecognizedRoleException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }
 
     @Override
-    User getUserByCodiceFiscale(String codiceFiscale) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException {
+    User getUserByCodiceFiscale(String codiceFiscale) throws UserNotFoundException, DAOException, ResourceNotFoundException {
         try {
             List<List<String>> lines = new CSVParser().readAllLines(fileName);
             for (List<String> line : lines) {
@@ -65,7 +65,7 @@ public class UserDAOFS extends UserDAOAbstract {
                     return getUserByLine(line);
             }
             throw new UserNotFoundException(ExceptionMessagesEnum.USER_NOT_FOUND.message);
-        } catch (CsvException e) {
+        } catch (CsvException | UnrecognizedRoleException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }
