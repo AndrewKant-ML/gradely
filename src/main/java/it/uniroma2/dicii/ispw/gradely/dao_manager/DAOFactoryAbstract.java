@@ -16,11 +16,11 @@ import it.uniroma2.dicii.ispw.gradely.model.exam_result.dao.AbstractExamResultDA
 import it.uniroma2.dicii.ispw.gradely.model.pending_events.dao.AbstractPendingEventDAO;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.AbstractProfessorDAO;
 import it.uniroma2.dicii.ispw.gradely.model.role.secretary.AbstractSecretaryDAO;
-import it.uniroma2.dicii.ispw.gradely.model.role.student.AbstractStudentDAO;
-import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourseDAOAbstract;
+import it.uniroma2.dicii.ispw.gradely.model.role.student.StudentDAOInterface;
+import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourseDAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.test.TestDAOAbstract;
-import it.uniroma2.dicii.ispw.gradely.model.timer.dao.TimerDAOAbstract;
-import it.uniroma2.dicii.ispw.gradely.model.title.TitleDAOAbstract;
+import it.uniroma2.dicii.ispw.gradely.model.timer.TimerDAOInterface;
+import it.uniroma2.dicii.ispw.gradely.model.title.TitleDAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.user.UserDAOInterface;
 
 public abstract class DAOFactoryAbstract {
@@ -59,10 +59,10 @@ public abstract class DAOFactoryAbstract {
     public abstract AbstractPendingEventDAO getPendingEventDAO();
     public abstract AbstractProfessorDAO getProfessorDAO();
     public abstract AbstractSecretaryDAO getSecretaryDAO();
-    public abstract AbstractStudentDAO getStudentDAO();
-    public abstract SubjectCourseDAOAbstract getSubjectCourseDAO();
-    public abstract TimerDAOAbstract getTimerDAO();
-    public abstract TitleDAOAbstract getTitleDAO();
+    public abstract StudentDAOInterface getStudentDAO();
+    public abstract SubjectCourseDAOInterface getSubjectCourseDAO();
+    public abstract TimerDAOInterface getTimerDAO();
+    public abstract TitleDAOInterface getTitleDAO();
     public abstract UserDAOInterface getUserDAO();
     public abstract TestDAOAbstract getTestDAO();
     public abstract TestReservationDAOAbstract getTestReservationDAO();

@@ -8,7 +8,7 @@ import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import java.time.LocalDate;
 import java.util.List;
 
-public class UserDAOFS extends UserDAOInterface {
+public class UserDAOFS implements UserDAOInterface {
 
     private final String fileName = "user";
 

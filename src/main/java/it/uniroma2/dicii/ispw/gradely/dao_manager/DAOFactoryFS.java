@@ -22,15 +22,15 @@ import it.uniroma2.dicii.ispw.gradely.model.role.professor.AbstractProfessorDAO;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.ProfessorDAOFS;
 import it.uniroma2.dicii.ispw.gradely.model.role.secretary.AbstractSecretaryDAO;
 import it.uniroma2.dicii.ispw.gradely.model.role.secretary.SecretaryDAOFS;
-import it.uniroma2.dicii.ispw.gradely.model.role.student.AbstractStudentDAO;
+import it.uniroma2.dicii.ispw.gradely.model.role.student.StudentDAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.StudentDAOFS;
-import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourseDAOAbstract;
+import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourseDAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourseDAOFS;
 import it.uniroma2.dicii.ispw.gradely.model.test.TestDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.test.TestDAOFS;
-import it.uniroma2.dicii.ispw.gradely.model.timer.dao.TimerDAOAbstract;
-import it.uniroma2.dicii.ispw.gradely.model.timer.dao.TimerDAOFS;
-import it.uniroma2.dicii.ispw.gradely.model.title.TitleDAOAbstract;
+import it.uniroma2.dicii.ispw.gradely.model.timer.TimerDAOInterface;
+import it.uniroma2.dicii.ispw.gradely.model.timer.TimerDAOFS;
+import it.uniroma2.dicii.ispw.gradely.model.title.TitleDAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.title.TitleDAOFS;
 import it.uniroma2.dicii.ispw.gradely.model.user.UserDAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.user.UserDAOFS;
@@ -77,20 +77,20 @@ public class DAOFactoryFS extends DAOFactoryAbstract {
         return SecretaryDAOFS.getInstance();
     }
     @Override
-    public AbstractStudentDAO getStudentDAO(){
+    public StudentDAOInterface getStudentDAO(){
         return StudentDAOFS.getInstance();
     }
     @Override
-    public SubjectCourseDAOAbstract getSubjectCourseDAO(){
+    public SubjectCourseDAOInterface getSubjectCourseDAO(){
         return SubjectCourseDAOFS.getInstance();
     }
     @Override
-    public TimerDAOAbstract getTimerDAO(){
+    public TimerDAOInterface getTimerDAO(){
         return TimerDAOFS.getInstance();
     }
 
     @Override
-    public TitleDAOAbstract getTitleDAO() {
+    public TitleDAOInterface getTitleDAO() {
         return TitleDAOFS.getInstance();
     }
 

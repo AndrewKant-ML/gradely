@@ -1,16 +1,13 @@
-package it.uniroma2.dicii.ispw.gradely.model.timer.dao;
+package it.uniroma2.dicii.ispw.gradely.model.timer;
 
-import it.uniroma2.dicii.ispw.gradely.model.timer.AbstractTimer;
-
-import java.util.List;
-
-public class TimerDAOFS extends TimerDAOAbstract {
+public class TimerDAOFS extends TimerDAOInterface {
+    protected static TimerDAOInterface instance;
 
     private TimerDAOFS(){
         super();
     }
 
-    public static synchronized TimerDAOAbstract getInstance(){
+    public static synchronized TimerDAOInterface getInstance(){
         if (instance == null){
             instance = new TimerDAOFS();
         }

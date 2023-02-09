@@ -1,5 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.role.secretary;
 
+import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
 import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
@@ -19,7 +20,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SecretaryDAODB extends AbstractSecretaryDAO {
+public class SecretaryDAODB  extends DAODBAbstract<Secretary> implements AbstractSecretaryDAO {
+    protected static AbstractSecretaryDAO instance;
 
     private SecretaryDAODB() {
 
@@ -86,36 +88,36 @@ public class SecretaryDAODB extends AbstractSecretaryDAO {
     }
 
     @Override
-    public void update(Secretary secretary) throws DAOException, PropertyException, ResourceNotFoundException {
+    public void update(Secretary secretary) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
         updateQuery("SECRETARY",List.of("dipartimento"),List.of("codice_fiscale"),List.of(secretary.getUser().getCodiceFiscale()),secretary);
     }
 
-    void setInsertQueryParametersValue(PreparedStatement stmt, Secretary secretary) throws SQLException {
+    protected void setInsertQueryParametersValue(PreparedStatement stmt, Secretary secretary) throws SQLException {
         stmt.setString(1,secretary.getUser().getCodiceFiscale());
         stmt.setInt(2, secretary.getDipartimento().value);
     }
 
-    void setUpdateQueryParametersValue(PreparedStatement stmt, Secretary secretary) throws SQLException{
+    protected void setUpdateQueryParametersValue(PreparedStatement stmt, Secretary secretary) throws SQLException{
         stmt.setInt(1, secretary.getDipartimento().value);
     }
 
-    void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> values) throws SQLException{
+    protected void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> values) throws SQLException{
         stmt.setString(1, (String) values.get(0));
     }
 
 
-    Secretary getQueryObjectBuilder(ResultSet rs, List<User> users) throws SQLException, DAOException, PropertyException, ResourceNotFoundException {
-        Secretary secretary = new Secretary(users.get(0), DipartimentoEnum.getDipartimentoByValue(rs.getInt("dipartimento")));
+    protected Secretary getQueryObjectBuilder(ResultSet rs, List<Object> users) throws SQLException, DAOException, PropertyException, ResourceNotFoundException {
+        Secretary secretary = new Secretary((User) users.get(0), DipartimentoEnum.getDipartimentoByValue(rs.getInt("dipartimento")));
         return secretary;
     }
-    Secretary getListQueryObjectBuilder(ResultSet rs) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException {
+    protected Secretary getListQueryObjectBuilder(ResultSet rs) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, UserNotFoundException {
         User user = UserLazyFactory.getInstance().getUserByCodiceFiscale(rs.getString("codice_fiscale"));
         return user.getRole().castToSecretaryRole();
     }
-    String getListQueryIdentifierValues(Secretary secretary, int valueNumber) throws Exception {
+    protected String getListQueryIdentifierValue(Secretary secretary, int valueNumber) throws DAOException {
         if(valueNumber == 0){
             return secretary.getUser().getCodiceFiscale();
-        } else throw new Exception("wrong list query id value");
+        } else throw new DAOException("wrong list query id value");
     }
 
 

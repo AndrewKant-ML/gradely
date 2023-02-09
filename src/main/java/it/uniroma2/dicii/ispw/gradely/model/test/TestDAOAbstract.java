@@ -8,13 +8,8 @@ import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 
 import java.time.format.DateTimeFormatter;
 
-public abstract class TestDAOAbstract implements DAODBAbstract<Test> {
+public interface TestDAOAbstract{
 
-    protected final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    protected static TestDAOAbstract instance;
-
-    protected TestDAOAbstract(){
-    }
 
     abstract void saveTestInfo(Test test) throws PropertyException, ResourceNotFoundException, DAOException;
 

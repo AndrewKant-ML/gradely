@@ -1,25 +1,24 @@
 package it.uniroma2.dicii.ispw.gradely.model.subject_course;
 
+import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.SubjectCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
-import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
-import java.io.IOException;
 import java.sql.*;
 import java.time.Year;
 import java.util.List;
-import java.util.logging.Level;
 
 
-public class SubjectCourseDAODB extends SubjectCourseDAOAbstract {
+public class SubjectCourseDAODB extends DAODBAbstract<SubjectCourse> implements SubjectCourseDAOInterface {
+    protected static SubjectCourseDAOInterface instance;
 
     public SubjectCourseDAODB() {
         super();
     }
 
-    public static synchronized SubjectCourseDAOAbstract getInstance() {
+    public static synchronized SubjectCourseDAOInterface getInstance() {
         if (instance == null) {
             instance = new SubjectCourseDAODB();
         }
@@ -91,6 +90,21 @@ public class SubjectCourseDAODB extends SubjectCourseDAOAbstract {
     public void update(SubjectCourse subjectCourse) throws DAOException, PropertyException, ResourceNotFoundException {
         //TODO can't update because all primary keys
         insert(subjectCourse);
+    }
+
+    @Override
+    protected void setInsertQueryParametersValue(PreparedStatement stmt, SubjectCourse subjectCourse) throws SQLException {
+
+    }
+
+    @Override
+    protected void setUpdateQueryParametersValue(PreparedStatement stmt, SubjectCourse subjectCourse) throws SQLException, MissingAuthorizationException {
+
+    }
+
+    @Override
+    protected void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> identifiersValues) throws SQLException {
+
     }
 
     void setQueryParameters(PreparedStatement stmt, SubjectCourse subjectCourse) throws SQLException {

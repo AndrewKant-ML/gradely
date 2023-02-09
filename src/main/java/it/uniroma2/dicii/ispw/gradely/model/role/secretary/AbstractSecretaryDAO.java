@@ -10,24 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public abstract class AbstractSecretaryDAO extends DAODBAbstract<Secretary, User> {
-    protected static AbstractSecretaryDAO instance;
+public interface AbstractSecretaryDAO  {
 
-    protected AbstractSecretaryDAO(){
-    }
-
-    public abstract Secretary getSecretaryByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException;
-    public abstract List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento, List<Secretary> secretaryList) throws DAOException, UserNotFoundException, MissingAuthorizationException, PropertyException, ResourceNotFoundException, ObjectNotFoundException;
-
-    abstract void insert(Secretary secretary) throws DAOException, PropertyException, ResourceNotFoundException;
-    abstract void cancel(Secretary secretary) throws DAOException, PropertyException, ResourceNotFoundException;
-    abstract void update(Secretary secretary) throws DAOException, PropertyException, ResourceNotFoundException;
-
-    abstract Secretary getQueryObjectBuilder(ResultSet rs, List<User> user) throws SQLException, DAOException, PropertyException, ResourceNotFoundException;
-    abstract void setInsertQueryParametersValue(PreparedStatement stmt, Secretary secretary) throws SQLException;
-    abstract void setUpdateQueryParametersValue(PreparedStatement stmt, Secretary secretary) throws SQLException;
-    abstract void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> values) throws SQLException;
-    abstract Secretary getListQueryObjectBuilder(ResultSet rs) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException;
-    abstract String getListQueryIdentifierValues(Secretary secretary, int valueNumber) throws Exception;
+    Secretary getSecretaryByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException;
+    List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento, List<Secretary> secretaryList) throws DAOException, UserNotFoundException, MissingAuthorizationException, PropertyException, ResourceNotFoundException, ObjectNotFoundException;
 
 }

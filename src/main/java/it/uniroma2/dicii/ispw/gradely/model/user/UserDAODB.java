@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class UserDAODB extends DAODBAbstract<User, String> implements UserDAOInterface  {
+public class UserDAODB extends DAODBAbstract<User> implements UserDAOInterface  {
     protected static UserDAOInterface instance;
 
     private static final Logger logger = Logger.getLogger(UserDAODB.class.getName());

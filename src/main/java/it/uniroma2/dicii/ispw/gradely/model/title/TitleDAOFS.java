@@ -2,6 +2,7 @@ package it.uniroma2.dicii.ispw.gradely.model.title;
 
 import com.opencsv.exceptions.CsvException;
 import it.uniroma2.dicii.ispw.gradely.CSVParser;
+import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.DegreeCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
@@ -15,7 +16,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TitleDAOFS extends TitleDAOAbstract {
+public class TitleDAOFS extends DAODBAbstract<Title> implements TitleDAOInterface {
+    protected static TitleDAOInterface instance;
 
     private final String fileName = "title";
 
@@ -24,7 +26,7 @@ public class TitleDAOFS extends TitleDAOAbstract {
     }
 
 
-    public static synchronized TitleDAOAbstract getInstance() {
+    public static synchronized TitleDAOInterface getInstance() {
         if (instance == null) {
             instance = new TitleDAOFS();
         }

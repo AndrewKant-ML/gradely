@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class DAODBAbstract<T, O>{
+public abstract class DAODBAbstract<T>{
     /**
      * Inserts an object into the DB
      * @param t the object to insert
@@ -31,8 +31,6 @@ public abstract class DAODBAbstract<T, O>{
      */
     protected abstract void cancel(T t) throws DAOException, PropertyException, ResourceNotFoundException;
 
-    protected abstract void cancel(User user) throws DAOException, PropertyException, ResourceNotFoundException;
-
     /**
      * Updates an object present in the DB to its current state
      * @param t the object to be updated
@@ -40,7 +38,7 @@ public abstract class DAODBAbstract<T, O>{
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
-    protected abstract void update(T t) throws DAOException, PropertyException, ResourceNotFoundException;
+    protected abstract void update(T t) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException;
 
     /**
      * Sets the insert parameters value into a sql prepared statement getting the values from an object
@@ -57,7 +55,7 @@ public abstract class DAODBAbstract<T, O>{
      * @param t the object where to take the values from
      * @throws SQLException thrown if an error occurs with the DB
      */
-    protected abstract void setUpdateQueryParametersValue(PreparedStatement stmt, T t) throws SQLException;
+    protected abstract void setUpdateQueryParametersValue(PreparedStatement stmt, T t) throws SQLException, MissingAuthorizationException;
 
     /**
      * Set identifiers into a sql prepared statement
@@ -77,7 +75,7 @@ public abstract class DAODBAbstract<T, O>{
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
-    protected T getListQueryObjectBuilder(ResultSet rs) throws SQLException, DAOException, PropertyException, ResourceNotFoundException{
+    protected T getListQueryObjectBuilder(ResultSet rs) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException {
         throw new DAOException("non permitted method call");
     }
 
@@ -122,7 +120,7 @@ public abstract class DAODBAbstract<T, O>{
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
-    protected protected List<T> getListQuery(String table, List<String> identifiers, List<Object> values, List<T> ts) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException{
+    protected List<T> getListQuery(String table, List<String> identifiers, List<Object> values, List<T> ts) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
         String query = String.format("select * from %s where %s",  table, queryStringBuilder(identifiers, values));
         String finalQuery;
         if (ts.isEmpty()) {
@@ -184,7 +182,7 @@ public abstract class DAODBAbstract<T, O>{
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
-    protected T getQuery(String table, List<String> parameters, List<String> identifiers, List<Object> identifiersValues, List<O> o) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException{
+    protected T getQuery(String table, List<String> parameters, List<String> identifiers, List<Object> identifiersValues, List<Object> o) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException {
         StringBuilder parametersBuilder = new StringBuilder();
         StringBuilder identifiersBuilder = new StringBuilder();
         if (identifiers.size()!=identifiersValues.size())
@@ -299,7 +297,7 @@ public abstract class DAODBAbstract<T, O>{
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
-    protected void updateQuery(String table, List<String> columns, List<String> identifiers, List<Object> identifiersValue, T t) throws DAOException, PropertyException, ResourceNotFoundException {
+    protected void updateQuery(String table, List<String> columns, List<String> identifiers, List<Object> identifiersValue, T t) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
         if (identifiers.size()!=identifiersValue.size())
             throw new DAOException("id and values number don't match "); //TODO implementare exception
         StringBuilder columnBuilder = new StringBuilder();

@@ -1,16 +1,13 @@
-package it.uniroma2.dicii.ispw.gradely.model.test_result.dao;
+package it.uniroma2.dicii.ispw.gradely.model.test_result;
 
-import it.uniroma2.dicii.ispw.gradely.model.test_result.AbstractTestResult;
-
-import java.util.List;
-
-public class TestResultDAOFS extends TestResultDAOAbstract {
+public class TestResultDAOFS implements TestResultDAOInterface {
+    protected static TestResultDAOInterface instance;
 
     private TestResultDAOFS(){
         super();
     }
 
-    public static synchronized TestResultDAOAbstract getInstance(){
+    public static synchronized TestResultDAOInterface getInstance(){
         if (instance == null){
             instance = new TestResultDAOFS();
         }

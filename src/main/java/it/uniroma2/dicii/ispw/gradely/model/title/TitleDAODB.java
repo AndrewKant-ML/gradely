@@ -1,5 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.title;
 
+import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
 import it.uniroma2.dicii.ispw.gradely.enums.DegreeCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
@@ -14,14 +15,15 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TitleDAODB extends TitleDAOAbstract {
+public class TitleDAODB extends DAODBAbstract<Title> implements TitleDAOInterface {
+    protected static TitleDAOInterface instance;
 
     private TitleDAODB() {
         super();
     }
 
 
-    public static synchronized TitleDAOAbstract getInstance() {
+    public static synchronized TitleDAOInterface getInstance() {
         if (instance == null) {
             instance = new TitleDAODB();
         }
@@ -39,7 +41,7 @@ public class TitleDAODB extends TitleDAOAbstract {
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
     @Override
-    List<Title> getTitlesByStudent(Student student, List<Title> oldTitles) throws DAOException, PropertyException, ResourceNotFoundException {
+    public List<Title> getTitlesByStudent(Student student, List<Title> oldTitles) throws DAOException, PropertyException, ResourceNotFoundException {
         String query;
         if (oldTitles.isEmpty())
             query = String.format("select * from TITLE T where T.student='%s';", student.getUser().getCodiceFiscale());
@@ -98,6 +100,21 @@ public class TitleDAODB extends TitleDAOAbstract {
     public void update(Title title) throws DAOException, PropertyException, ResourceNotFoundException {
         String query = "update TITLE set student = ?, abstract_degree_course = ?, achievement_date = ? where student = ? and abstract_degree_course = ?";
         setQueryParameters(title, query);
+    }
+
+    @Override
+    protected void setInsertQueryParametersValue(PreparedStatement stmt, Title title) throws SQLException {
+
+    }
+
+    @Override
+    protected void setUpdateQueryParametersValue(PreparedStatement stmt, Title title) throws SQLException {
+
+    }
+
+    @Override
+    protected void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> identifiersValues) throws SQLException {
+
     }
 
     private void setQueryParameters(Title title, String query) throws ResourceNotFoundException, PropertyException, DAOException {

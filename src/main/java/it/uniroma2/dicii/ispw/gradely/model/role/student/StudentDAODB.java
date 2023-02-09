@@ -1,5 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.role.student;
 
+import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.DegreeCourseEnrollmentLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.ExamEnrollmentLazyFactory;
@@ -10,12 +11,13 @@ import it.uniroma2.dicii.ispw.gradely.model.user.User;
 import java.sql.*;
 import java.util.List;
 
-public class StudentDAODB extends AbstractStudentDAO {
+public class StudentDAODB extends DAODBAbstract<Student> implements StudentDAOInterface {
+    protected static StudentDAOInterface instance;
 
     private StudentDAODB() {
     }
 
-    public static synchronized AbstractStudentDAO getInstance() {
+    public static synchronized StudentDAOInterface getInstance() {
         if (instance == null) {
             instance = new StudentDAODB();
         }
@@ -50,20 +52,20 @@ public class StudentDAODB extends AbstractStudentDAO {
         updateQuery("STUDENT", List.of("matricola"), List.of("codice_fiscale"), List.of(student.getUser().getCodiceFiscale()),student);
     }
 
-    void setInsertQueryParametersValue(PreparedStatement stmt, Student student) throws SQLException {
+    protected void setInsertQueryParametersValue(PreparedStatement stmt, Student student) throws SQLException {
         stmt.setString(1,student.getUser().getCodiceFiscale());
         stmt.setString(2, student.getMatricola());
     }
 
-    void setUpdateQueryParametersValue(PreparedStatement stmt, Student student) throws SQLException{
+    protected void setUpdateQueryParametersValue(PreparedStatement stmt, Student student) throws SQLException{
         stmt.setString(1, student.getMatricola());
     }
 
-    void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> values) throws SQLException{
+    protected void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> values) throws SQLException{
         stmt.setString(1, (String) values.get(0));
     }
-    Student getQueryObjectBuilder(ResultSet rs, List<User> users) throws SQLException, DAOException, PropertyException, ResourceNotFoundException {
-        Student student = new Student(users.get(0), rs.getString("matricola"));
+    protected Student getQueryObjectBuilder(ResultSet rs, List<Object> users) throws SQLException, DAOException, PropertyException, ResourceNotFoundException {
+        Student student = new Student((User)users.get(0), rs.getString("matricola"));
         student.setDegreeCourseEnrollments(DegreeCourseEnrollmentLazyFactory.getInstance().getDegreeCourseEnrollmentsByStudent(student));
         student.setTitles(TitleLazyFactory.getInstance().getTitlesByStudent(student));
         student.setExamEnrollments(ExamEnrollmentLazyFactory.getInstance().getExamEnrollmentsByStudent(student));
