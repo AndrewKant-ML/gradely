@@ -69,9 +69,6 @@ public class ExamResultDAODB extends DAODBAbstract<ExamResult> implements ExamRe
         return null;
     }
 
-    @Override
-    protected void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> identifiersValues) throws SQLException {
 
-    }
 
 }

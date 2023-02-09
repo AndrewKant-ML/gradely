@@ -55,7 +55,7 @@ public class UserDAODB extends DAODBAbstract<User> implements UserDAOInterface  
 
 
     @Override
-    public void insert(User user) throws DAOException, PropertyException, ResourceNotFoundException {
+    public void insert(User user) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
         insertQuery("USER", List.of("codice_fiscale", "name", "surname", "password", "registration_date", "email", "role"), user);
     }
 

@@ -32,7 +32,7 @@ public interface UserDAOInterface {
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
-    void insert(User user) throws DAOException, PropertyException, ResourceNotFoundException;
+    void insert(User user) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException;
 
     /**
      * Deletes an object from the DB
