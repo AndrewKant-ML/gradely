@@ -33,7 +33,7 @@ public class StudentDAODB extends DAODBAbstract<Student> implements StudentDAOIn
      * @throws UserNotFoundException thrown if the given User has not a Student role
      */
     @Override
-    public Student getStudentByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException {
+    public Student getStudentByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException {
         return getQuery("STUDENT", List.of("matricola"), List.of("codice_fiscale"), List.of(user.getCodiceFiscale()), List.of(user));
     }
 
@@ -48,7 +48,7 @@ public class StudentDAODB extends DAODBAbstract<Student> implements StudentDAOIn
     }
 
     @Override
-    public void update(Student student) throws PropertyException, ResourceNotFoundException, DAOException {
+    public void update(Student student) throws PropertyException, ResourceNotFoundException, DAOException, MissingAuthorizationException {
         updateQuery("STUDENT", List.of("matricola"), List.of("codice_fiscale"), List.of(student.getUser().getCodiceFiscale()),student);
     }
 
@@ -61,7 +61,17 @@ public class StudentDAODB extends DAODBAbstract<Student> implements StudentDAOIn
         stmt.setString(1, student.getMatricola());
     }
 
-    protected void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> values) throws SQLException{
+    @Override
+    protected void setQueryIdentifiers(PreparedStatement stmt, List<Object> identifiersValues, String queryType) throws SQLException {
+        stmt.setString(1, (String) identifiersValues.get(0));
+    }
+
+    @Override
+    protected Student getListQueryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, UnrecognizedRoleException {
+        return null;
+    }
+
+    protected void setQueryIdentifiers(PreparedStatement stmt, List<Object> values) throws SQLException{
         stmt.setString(1, (String) values.get(0));
     }
     protected Student getQueryObjectBuilder(ResultSet rs, List<Object> users) throws SQLException, DAOException, PropertyException, ResourceNotFoundException {
@@ -71,6 +81,11 @@ public class StudentDAODB extends DAODBAbstract<Student> implements StudentDAOIn
         student.setExamEnrollments(ExamEnrollmentLazyFactory.getInstance().getExamEnrollmentsByStudent(student));
         student.setSubjectCourseEnrollments(SubjectCourseEnrollmentLazyFactory.getInstance().getSubjectCourseEnrollmentsByStudent(student));
         return student;
+    }
+
+    @Override
+    protected String getListQueryIdentifierValue(Student student, int valueNumber) throws DAOException {
+        return null;
     }
 
 

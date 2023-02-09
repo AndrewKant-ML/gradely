@@ -73,8 +73,8 @@ public class SecretaryDAODB  extends DAODBAbstract<Secretary> implements Abstrac
      * @throws UserNotFoundException thrown if the given User has not a Secretary role
      */
     @Override
-    public List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento, List<Secretary> excludedList) throws DAOException, UserNotFoundException, MissingAuthorizationException, PropertyException, ResourceNotFoundException, ObjectNotFoundException {
-        return getListQuery("SECRETARY",List.of("dipartimento"),List.of(dipartimento.value), excludedList);
+    public List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento, List<Secretary> excludedList) throws DAOException, UserNotFoundException, MissingAuthorizationException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UnrecognizedRoleException {
+        return getListQuery("SECRETARY",List.of("dipartimento"),List.of(dipartimento.value), excludedList, null);
     }
 
     @Override
@@ -100,9 +100,9 @@ public class SecretaryDAODB  extends DAODBAbstract<Secretary> implements Abstrac
     protected void setUpdateQueryParametersValue(PreparedStatement stmt, Secretary secretary) throws SQLException{
         stmt.setInt(1, secretary.getDipartimento().value);
     }
-
-    protected void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> values) throws SQLException{
-        stmt.setString(1, (String) values.get(0));
+    @Override
+    protected void setQueryIdentifiers(PreparedStatement stmt, List<Object> identifiersValues, String queryType) throws SQLException{
+        stmt.setString(1, (String) identifiersValues.get(0));
     }
 
 
@@ -110,7 +110,7 @@ public class SecretaryDAODB  extends DAODBAbstract<Secretary> implements Abstrac
         Secretary secretary = new Secretary((User) users.get(0), DipartimentoEnum.getDipartimentoByValue(rs.getInt("dipartimento")));
         return secretary;
     }
-    protected Secretary getListQueryObjectBuilder(ResultSet rs) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, UserNotFoundException {
+    protected Secretary getListQueryObjectBuilder(ResultSet rs, List<Object> dontCare) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, UserNotFoundException, UnrecognizedRoleException {
         User user = UserLazyFactory.getInstance().getUserByCodiceFiscale(rs.getString("codice_fiscale"));
         return user.getRole().castToSecretaryRole();
     }

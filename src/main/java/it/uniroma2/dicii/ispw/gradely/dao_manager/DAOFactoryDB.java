@@ -14,7 +14,7 @@ import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseDAOInterfa
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseDAODB;
 import it.uniroma2.dicii.ispw.gradely.model.exam.AbstractExamDAO;
 import it.uniroma2.dicii.ispw.gradely.model.exam.ExamDAODB;
-import it.uniroma2.dicii.ispw.gradely.model.exam_result.AbstractExamResultDAO;
+import it.uniroma2.dicii.ispw.gradely.model.exam_result.ExamResultDAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.exam_result.ExamResultDAODB;
 import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEventDAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEventDAODB;
@@ -61,7 +61,7 @@ public class DAOFactoryDB extends DAOFactoryAbstract {
         return ExamDAODB.getInstance();
     }
     @Override
-    public AbstractExamResultDAO getExamResultDAO(){
+    public ExamResultDAOInterface getExamResultDAO(){
         return ExamResultDAODB.getInstance();
     }
     @Override

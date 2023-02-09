@@ -3,7 +3,6 @@ package it.uniroma2.dicii.ispw.gradely.dao_abstract;
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
-import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +19,7 @@ public abstract class DAODBAbstract<T>{
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
-    protected abstract void insert(T t) throws DAOException, PropertyException, ResourceNotFoundException;
+    protected abstract void insert(T t) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException;
 
     /**
      * Deletes an object from the DB
@@ -46,8 +45,7 @@ public abstract class DAODBAbstract<T>{
      * @param t the object where to take the values from
      * @throws SQLException thrown if an error occurs with the DB
      */
-    protected abstract void setInsertQueryParametersValue(PreparedStatement stmt, T t) throws SQLException;
-
+    protected abstract void setInsertQueryParametersValue(PreparedStatement stmt, T t) throws SQLException, MissingAuthorizationException;
 
     /**
      * Sets update parameters value into a sql prepared statement getting the values from an object
@@ -60,11 +58,11 @@ public abstract class DAODBAbstract<T>{
     /**
      * Set identifiers into a sql prepared statement
      * @param stmt the statement
-     * @param identifiers the identifiers name to set in the query
      * @param identifiersValues the value of such identifiers
      * @throws SQLException thrown if an error occurs with the DB
      */
-    protected abstract void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> identifiersValues) throws SQLException;
+    protected abstract void setQueryIdentifiers(PreparedStatement stmt, List<Object> identifiersValues, String queryType) throws SQLException;
+
 
     /**
      * Instantiate the specific objects of a list query
@@ -75,24 +73,20 @@ public abstract class DAODBAbstract<T>{
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
-    protected T getListQueryObjectBuilder(ResultSet rs) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException {
-        throw new DAOException("non permitted method call");
-    }
+    protected abstract T getListQueryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, UnrecognizedRoleException;
 
     /**
      * Instantiates the specific object of a query
      * using a list of objects needed for its construction
      * @param rs the result set where to take the information from
-     * @param o the list of objects needed for the instatiation
+     * @param objects the list of objects needed for the instatiation
      * @return an instance of the requested object
      * @throws SQLException thrown if an error occurs with the DB
      * @throws DAOException thrown if errors occur while retrieving data from persistence layer
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
-    protected T getQueryObjectBuilder(ResultSet rs, List<Object> o) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException {
-        throw new DAOException("non permitted method call");
-    }
+    protected abstract T getQueryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException;
 
     /**
      * Gets the value of one of the identifier for an element
@@ -102,17 +96,17 @@ public abstract class DAODBAbstract<T>{
      * @return the string to be inserted into the query in order to exclude the element
      * @throws DAOException thrown if errors occur while retrieving data from persistence layer
      */
-    protected String getListQueryIdentifierValue(T t, int valueNumber) throws DAOException {
-        throw new DAOException("non permitted method call");
-    }
+    protected abstract String getListQueryIdentifierValue(T t, int valueNumber) throws DAOException;
 
     /**
      * Queries the DB for a list of objects, excluding all the entries
      * correlated to a given list, to avoid redundant reads from the DB
      *
+     * Helper methods: getListQueryExclusions, setQueryIdentifiers, getListQueryObjectBuilder
+     *
      * @param table the table where to find the information
      * @param identifiers the name of the columns needed to find the entry in the table
-     * @param values the value of such identifiers
+     * @param identifiersValue the value of such identifiers
      * @param ts the list of objects to be excluded from the query
      * @return a list of objects of the requested type
      * @throws UserNotFoundException
@@ -120,8 +114,8 @@ public abstract class DAODBAbstract<T>{
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
-    protected List<T> getListQuery(String table, List<String> identifiers, List<Object> values, List<T> ts) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
-        String query = String.format("select * from %s where %s",  table, queryStringBuilder(identifiers, values));
+    protected List<T> getListQuery(String table, List<String> identifiers, List<Object> identifiersValue, List<T> ts, List<Object> objects) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, UnrecognizedRoleException {
+        String query = String.format("select * from %s where %s",  table, queryStringBuilder(identifiers, identifiersValue));
         String finalQuery;
         if (ts.isEmpty()) {
             finalQuery = query;
@@ -131,10 +125,10 @@ public abstract class DAODBAbstract<T>{
         List<T> list = new ArrayList<>();
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement stmt = connection.prepareStatement(finalQuery, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)){
-            setQueryIdentifiers(stmt, identifiers, values);
+            setQueryIdentifiers(stmt, identifiersValue, "getList"); // implement case by case
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.first()) {
-                    list.add(getListQueryObjectBuilder(rs));
+                    list.add(getListQueryObjectBuilder(rs, objects)); // implement case by case
                 }
             } catch (PropertyException | ResourceNotFoundException e) {
                 throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
@@ -196,7 +190,7 @@ public abstract class DAODBAbstract<T>{
         String query = String.format("select %s from %s where %s", parametersBuilder, table, identifiersBuilder);
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement stmt = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)){
-            setQueryIdentifiers(stmt, identifiers, identifiersValues);
+            setQueryIdentifiers(stmt, identifiersValues, "get");
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.first()) {
                     return getQueryObjectBuilder(rs, o);
@@ -220,7 +214,7 @@ public abstract class DAODBAbstract<T>{
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
-    protected void insertQuery(String table, List<String> columns, T t) throws DAOException, PropertyException, ResourceNotFoundException {
+    protected void insertQuery(String table, List<String> columns, T t) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
         StringBuilder columnBuilder = new StringBuilder();
         StringBuilder questionBuilder = new StringBuilder();
         for (String s : columns){
@@ -258,7 +252,7 @@ public abstract class DAODBAbstract<T>{
         try{
             Connection connection = DBConnection.getInstance().getConnection();
             try(PreparedStatement stmt = connection.prepareStatement(query)){
-                setQueryIdentifiers(stmt, identifiers, identifiersValues);
+                setQueryIdentifiers(stmt, identifiersValues,"cancel"); // implement case by case
                 stmt.executeUpdate();
             }
         } catch (SQLException e) {
@@ -315,7 +309,7 @@ public abstract class DAODBAbstract<T>{
             Connection connection = DBConnection.getInstance().getConnection();
             try(PreparedStatement stmt = connection.prepareStatement(query)){
                 setUpdateQueryParametersValue(stmt, t);
-                setQueryIdentifiers(stmt, identifiers, identifiersValue);
+                setQueryIdentifiers(stmt, identifiersValue,"update");
                 stmt.executeUpdate();
             }
         } catch (SQLException e) {

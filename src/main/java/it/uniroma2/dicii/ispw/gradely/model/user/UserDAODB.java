@@ -29,50 +29,43 @@ public class UserDAODB extends DAODBAbstract<User> implements UserDAOInterface  
         return instance;
     }
 
-    /**
-     * Retrieves a User with a given email
-     *
-     * @param email the User's email
-     * @return a User object
-     * @throws UserNotFoundException thrown if the User cannot be found
-     * @throws DAOException          thrown if errors occur while retrieving data from persistence layer
-     */
-    public User getUserByEmail(String email) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException {
+    @Override
+    public User getUserByEmail(String email) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException {
         return getQuery("STUDENT", List.of("codice_fiscale", "name", "surname", "password", "registration_date", "email", "role"), List.of("email"), List.of(email), null);
     }
 
-    /**
-     * Retrieves a User with a given codice fiscale
-     *
-     * @param codiceFiscale the User's codice fiscale
-     * @return a User object
-     * @throws UserNotFoundException thrown if the User cannot be found
-     * @throws DAOException          thrown if errors occur while retrieving data from persistence layer
-     */
+
     @Override
-    public User getUserByCodiceFiscale(String codiceFiscale) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException {
+    public User getUserByCodiceFiscale(String codiceFiscale) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException {
         return getQuery("STUDENT", List.of("codice_fiscale", "name", "surname", "password", "registration_date", "email", "role"), List.of("codice_fiscale"), List.of(codiceFiscale), null);
     }
 
-    protected User getQueryObjectBuilder(ResultSet rs, List<Object> os) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException {
+
+    @Override
+    protected User getQueryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException {
         User user = new User(rs.getString("name"), rs.getString("surname"), rs.getString("codice_fiscale"),rs.getString("email"), rs.getString("password"), rs.getDate("registration_date").toLocalDate());
         setUserRoleByRoleEnum(user,UserRoleEnum.getUserRoleByType(rs.getInt("role")));
         return user;
     }
 
+    @Override
+    protected String getListQueryIdentifierValue(User user, int valueNumber) throws DAOException {
+        return null;
+    }
+
 
     @Override
-    protected void insert(User user) throws DAOException, PropertyException, ResourceNotFoundException {
+    public void insert(User user) throws DAOException, PropertyException, ResourceNotFoundException {
         insertQuery("USER", List.of("codice_fiscale", "name", "surname", "password", "registration_date", "email", "role"), user);
     }
 
     @Override
-    protected void cancel(User user) throws DAOException, PropertyException, ResourceNotFoundException {
+    public void cancel(User user) throws DAOException, PropertyException, ResourceNotFoundException {
         cancelQuery("USER",List.of("codice_fiscale"), List.of(user.getCodiceFiscale()));
     }
 
     @Override
-    protected  void update(User user) throws PropertyException, ResourceNotFoundException, DAOException, MissingAuthorizationException {
+    public void update(User user) throws PropertyException, ResourceNotFoundException, DAOException, MissingAuthorizationException {
         updateQuery("USER", List.of( "name", "surname", "password", "registration_date", "email", "role"),List.of("codice_fiscale"), List.of(user.getCodiceFiscale()), user);
     }
     protected void setUpdateQueryParametersValue(PreparedStatement stmt, User user) throws SQLException, MissingAuthorizationException {
@@ -97,9 +90,16 @@ public class UserDAODB extends DAODBAbstract<User> implements UserDAOInterface  
             logger.log(Level.SEVERE, "User with no role");
         }
     }
-    protected void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> values) throws SQLException{
-        stmt.setString(1, (String) values.get(0));
+    protected void setQueryIdentifiers(PreparedStatement stmt, List<Object> identifiersValues, String queryType) throws SQLException{
+        if(!queryType.equals(""))
+        stmt.setString(1, (String) identifiersValues.get(0));
     }
+
+    @Override
+    protected User getListQueryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, UnrecognizedRoleException {
+        return null;
+    }
+
     /**
      * Set the user role by a given role value
      *

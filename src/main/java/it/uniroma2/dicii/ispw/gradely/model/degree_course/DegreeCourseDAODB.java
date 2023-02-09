@@ -159,33 +159,56 @@ public class DegreeCourseDAODB extends DAODBAbstract<DegreeCourse> implements De
     }
 
     @Override
-    public void insert(DegreeCourse degreeCourse) {
-
+    public void insert(DegreeCourse degreeCourse) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
+        insertQuery("DEGREE_COURSE", List.of("code","name","coordinatore","test_type","dipartimento","facolta"),degreeCourse);
     }
 
     @Override
-    public void cancel(DegreeCourse degreeCourse) {
-
+    public void cancel(DegreeCourse degreeCourse) throws DAOException, PropertyException, ResourceNotFoundException {
+        cancelQuery("DEGREE_COURSE",List.of("code","name"),List.of(degreeCourse.getCode(),degreeCourse.getName()));
     }
 
     @Override
-    public void update(DegreeCourse degreeCourse) {
-
+    public void update(DegreeCourse degreeCourse) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
+        updateQuery("DEGREE_COURSE",List.of("code","name","coordinatore","test_type","dipartimento","facolta"),List.of("code","name"),List.of(degreeCourse.getCode(),degreeCourse.getName()),degreeCourse);
     }
 
     @Override
     protected void setInsertQueryParametersValue(PreparedStatement stmt, DegreeCourse degreeCourse) throws SQLException {
-
+        stmt.setInt(1,degreeCourse.getCode().value);
+        stmt.setString(2,degreeCourse.getName());
+        stmt.setString(3,degreeCourse.getCoordinatore().getUser().getCodiceFiscale());
+        stmt.setInt(4,degreeCourse.getTestType().value);
+        stmt.setInt(5,degreeCourse.getDipartimento().value);
+        stmt.setInt(6,degreeCourse.getFacolta().value);
     }
 
     @Override
     protected void setUpdateQueryParametersValue(PreparedStatement stmt, DegreeCourse degreeCourse) throws SQLException, MissingAuthorizationException {
-
+        setInsertQueryParametersValue(stmt,degreeCourse);
     }
 
     @Override
-    protected void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> identifiersValues) throws SQLException {
+    protected void setQueryIdentifiers(PreparedStatement stmt, List<Object> identifiersValues, String queryType) throws SQLException {
+        if(!queryType.equals("")){
+            stmt.setInt(1,(int)identifiersValues.get(0));
+            stmt.setString(2,(String)identifiersValues.get(1));
+        }
+    }
 
+    @Override
+    protected DegreeCourse getListQueryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, UnrecognizedRoleException {
+        return null;
+    }
+
+    @Override
+    protected DegreeCourse getQueryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException {
+        return null;
+    }
+
+    @Override
+    protected String getListQueryIdentifierValue(DegreeCourse degreeCourse, int valueNumber) throws DAOException {
+        return null;
     }
 
 }

@@ -7,6 +7,7 @@ import it.uniroma2.dicii.ispw.gradely.enums.SubjectCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.Year;
 import java.util.List;
 
@@ -26,36 +27,6 @@ public class SubjectCourseDAODB extends DAODBAbstract<SubjectCourse> implements 
     }
 
     /**
-     * Retrieves data of a single SubjectCourse, executing a given query
-     *
-     * @param query the query to be executed
-     * @return a SubjectCourse object
-     * @throws ObjectNotFoundException   thrown if the query produces no results
-     * @throws DAOException              thrown if errors occur while retrieving data from persistence layer
-     * @throws PropertyException thrown if errors occur while loading db connection properties OR thrown if errors occur while loading properties from .properties file
-     * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
-     */
-    private SubjectCourse querySingleSubjectCourseData(String query) throws ObjectNotFoundException, DAOException, PropertyException, ResourceNotFoundException {
-        try {
-            Connection connection = DBConnection.getInstance().getConnection();
-            try (PreparedStatement stmt = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                 ResultSet rs = stmt.executeQuery()) {
-                if (rs.first()) {
-                    return new SubjectCourse(
-                            SubjectCourseCodeEnum.getSubjectCourseCodeByValue(rs.getInt("code")),
-                            rs.getString("name"),
-                            Year.of(rs.getDate("aa").toLocalDate().getYear()),
-                            rs.getInt("cfu")
-                    );
-                } else
-                    throw new ObjectNotFoundException(ExceptionMessagesEnum.OBJ_NOT_FOUND.message);
-            }
-        } catch (SQLException e) {
-            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }
-    }
-
-    /**
      * Retrieve a SubjectCourse from given code, name, cfu and academic year
      *
      * @param name         the SubjectCourse's name
@@ -69,10 +40,9 @@ public class SubjectCourseDAODB extends DAODBAbstract<SubjectCourse> implements 
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
     @Override
-    public SubjectCourse getSubjectCourseByNameCodeCfuAndAcademicYear(String name, SubjectCourseCodeEnum code, Integer cfu, Year academicYear) throws ObjectNotFoundException, DAOException, PropertyException, ResourceNotFoundException {
-        String query = "select * from SUBJECT_COURSE SC where SC.code=%d and SC.name='%s' and SC.cfu=%d and SC.aa=%d;";
-        query = String.format(query, code.value, name, cfu, academicYear.getValue());
-        return querySingleSubjectCourseData(query);
+    public SubjectCourse getSubjectCourseByNameCodeCfuAndAcademicYear(String name, SubjectCourseCodeEnum code, Integer cfu, Year academicYear) throws ObjectNotFoundException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, UnrecognizedRoleException {
+        return getQuery("SUBJECT_COURSE",List.of("code","name","cfu","aa"),List.of("code","name","cfu","aa"),List.of(String.valueOf(code.value),name,String.valueOf(cfu),academicYear.toString()),null);
+        //mancano attributi secondari prereq,degreecourse, assignments,exams,enrollments
     }
 
     @Override
@@ -94,24 +64,42 @@ public class SubjectCourseDAODB extends DAODBAbstract<SubjectCourse> implements 
 
     @Override
     protected void setInsertQueryParametersValue(PreparedStatement stmt, SubjectCourse subjectCourse) throws SQLException {
-
-    }
-
-    @Override
-    protected void setUpdateQueryParametersValue(PreparedStatement stmt, SubjectCourse subjectCourse) throws SQLException, MissingAuthorizationException {
-
-    }
-
-    @Override
-    protected void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> identifiersValues) throws SQLException {
-
-    }
-
-    void setQueryParameters(PreparedStatement stmt, SubjectCourse subjectCourse) throws SQLException {
         stmt.setInt(1,subjectCourse.getCode().value);
         stmt.setString(2, subjectCourse.getName());
         stmt.setInt(3, subjectCourse.getCfu());
         stmt.setDate(4, Date.valueOf(subjectCourse.getAcademicYear().atDay(0))); //TODO fix year
+    }
+
+    @Override
+    protected void setUpdateQueryParametersValue(PreparedStatement stmt, SubjectCourse subjectCourse) throws SQLException, MissingAuthorizationException {
+        setInsertQueryParametersValue(stmt,subjectCourse);
+    }
+
+    @Override
+    protected void setQueryIdentifiers(PreparedStatement stmt, List<Object> identifiersValues, String queryType) throws SQLException {
+        stmt.setInt(1,(int)identifiersValues.get(0));
+        stmt.setString(2, (String)identifiersValues.get(1));
+        stmt.setInt(3, (int)identifiersValues.get(2));
+        stmt.setDate(4, Date.valueOf((LocalDate)identifiersValues.get(3))); //TODO fix year
+    }
+
+    @Override
+    protected SubjectCourse getListQueryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, UnrecognizedRoleException {
+        return new SubjectCourse(SubjectCourseCodeEnum.getSubjectCourseCodeByValue(rs.getInt("code")),
+                rs.getString("name"),
+                Year.of(rs.getDate("aa").toLocalDate().getYear()),
+                rs.getInt("cfu")
+                );
+    }
+
+    @Override
+    protected SubjectCourse getQueryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException {
+        return null;
+    }
+
+    @Override
+    protected String getListQueryIdentifierValue(SubjectCourse subjectCourse, int valueNumber) throws DAOException {
+        return null;
     }
 
 

@@ -94,7 +94,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @param bean
      * @return
      */
-    ExamEnrollmentListBean getExamEnrollments(String tokenKey, ExamBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException {
+    ExamEnrollmentListBean getExamEnrollments(String tokenKey, ExamBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UserNotFoundException, UnrecognizedRoleException {
         Professor professor = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToProfessorRole();
         Exam exam = getExamByBean(bean);
         checkExamProfessor(exam, professor);
@@ -135,7 +135,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @param bean
      * @return exam
      */
-    private Exam getExamByBean(ExamBean bean) throws DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException {
+    private Exam getExamByBean(ExamBean bean) throws DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UserNotFoundException, UnrecognizedRoleException {
         return ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(bean.getAppello(), getSubjectCourseByBean(bean.getCourse()), bean.getSessione());
     }
 
@@ -148,7 +148,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @param bean
      * @return subjectCourse
      */
-    private SubjectCourse getSubjectCourseByBean(SubjectCourseBean bean) throws DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException {
+    private SubjectCourse getSubjectCourseByBean(SubjectCourseBean bean) throws DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UserNotFoundException, UnrecognizedRoleException {
         return SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(bean.getCode(), bean.getName(), bean.getCfu(), bean.getAcademicYear());
     }
 
@@ -223,7 +223,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @param bean
      * @throws MissingAuthorizationException
      */
-    void confirmExamVerbaleProtocolization(String tokenKey, ProtocolBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException {
+    void confirmExamVerbaleProtocolization(String tokenKey, ProtocolBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UserNotFoundException, UnrecognizedRoleException {
         Secretary secretary = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToSecretaryRole();
         Exam e = ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(bean.getExamBean().getAppello(), SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(bean.getExamBean().getCourse().getCode(), bean.getExamBean().getCourse().getName(), bean.getExamBean().getCourse().getCfu(), bean.getExamBean().getCourse().getAcademicYear()), bean.getExamBean().getSessione());
         checkExamSecretary(e, secretary);
@@ -285,12 +285,12 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @throws WrongTimerTypeException
      */
     @Override
-    public void timeIsUp(AbstractTimer timer) throws WrongTimerTypeException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, ObjectNotFoundException {
+    public void timeIsUp(AbstractTimer timer) throws WrongTimerTypeException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, ObjectNotFoundException, UnrecognizedRoleException {
         ExamConfirmationTimer concreteTimer = timer.castToExamConfirmationTimer();
         for (ExamEnrollment e : concreteTimer.getObject().getEnrollments()) {
             if (e.getExamResult().getConfirmed() == ExamResultConfirmationEnum.NULL) {
                 e.getExamResult().setConfirmed(ExamResultConfirmationEnum.ACCEPTED);
-                PendingEventLazyFactory.getInstance().createNewPendingEventSingle(e.getStudent().getUser().getCodiceFiscale(), PendingEventTypeEnum.EVENT_2, e);
+                PendingEventLazyFactory.getInstance().createNewPendingEvent(List.of(e.getStudent().getUser().getCodiceFiscale()), PendingEventTypeEnum.EVENT_2, e);
             }
         }
         List<String> list = new ArrayList<>();
@@ -300,7 +300,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
                 list.add(s.getUser().getCodiceFiscale());
             }
         }
-        PendingEventLazyFactory.getInstance().createNewPendingEvent(list, PendingEventTypeEnum.EVENT_3, concreteTimer.getObject());
+        PendingEventLazyFactory.getInstance().createNewPendingEvent(list, PendingEventTypeEnum.EVENT_3, false, concreteTimer.getObject());
     }
 }
 

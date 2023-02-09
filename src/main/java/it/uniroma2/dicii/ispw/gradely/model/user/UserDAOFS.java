@@ -56,7 +56,7 @@ public class UserDAOFS implements UserDAOInterface {
     }
 
     @Override
-    User getUserByCodiceFiscale(String codiceFiscale) throws UserNotFoundException, DAOException, ResourceNotFoundException {
+    public User getUserByCodiceFiscale(String codiceFiscale) throws UserNotFoundException, DAOException, ResourceNotFoundException {
         try {
             List<List<String>> lines = new CSVParser().readAllLines(fileName);
             for (List<String> line : lines) {

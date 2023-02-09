@@ -10,11 +10,9 @@ import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseLazyFactor
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
+import java.util.logging.Level;
 
 public class ProfessorDAODB extends DAODBAbstract<Professor> implements AbstractProfessorDAO {
     protected static AbstractProfessorDAO instance;
@@ -67,33 +65,52 @@ public class ProfessorDAODB extends DAODBAbstract<Professor> implements Abstract
         }
     }
     @Override
-    public void insert(Professor professor) throws DAOException {
-
+    public void insert(Professor professor) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
+        insertQuery("PROFESSOR",List.of("codice_fiscale","matricola", "dipartimento"),professor);
     }
 
     @Override
-    public void cancel(Professor professor) throws DAOException {
-
+    public void cancel(Professor professor) throws DAOException, PropertyException, ResourceNotFoundException {
+        cancelQuery("PROFESSOR",List.of("codice_fiscale"),List.of(professor.getUser().getCodiceFiscale()));
     }
 
     @Override
-    public void update(Professor professor) throws DAOException {
-
+    public void update(Professor professor) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
+        updateQuery("PROFESSOR",List.of("matricola", "dipartimento"),List.of("codice_fiscale"),List.of(professor.getUser().getCodiceFiscale()),professor);
     }
 
     @Override
-    protected void setInsertQueryParametersValue(PreparedStatement stmt, Professor professor) throws SQLException {
-
+    protected void setInsertQueryParametersValue(PreparedStatement stmt, Professor professor) throws SQLException, MissingAuthorizationException {
+        stmt.setString(1,professor.getUser().getCodiceFiscale());
+        stmt.setString(2, professor.getMatricola());
+        stmt.setInt(3, professor.getDipartimento().value);
     }
 
     @Override
     protected void setUpdateQueryParametersValue(PreparedStatement stmt, Professor professor) throws SQLException, MissingAuthorizationException {
-
+        stmt.setString(1, professor.getMatricola());
+        stmt.setInt(2, professor.getDipartimento().value);
     }
 
     @Override
-    protected void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> identifiersValues) throws SQLException {
+    protected void setQueryIdentifiers(PreparedStatement stmt, List<Object> identifiersValues, String queryType) throws SQLException {
+        if(!queryType.equals(""))
+            stmt.setString(1, (String) identifiersValues.get(0));
+    }
 
+    @Override
+    protected Professor getListQueryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, UnrecognizedRoleException {
+        return null;
+    }
+
+    @Override
+    protected Professor getQueryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException {
+        return null;
+    }
+
+    @Override
+    protected String getListQueryIdentifierValue(Professor professor, int valueNumber) throws DAOException {
+        return null;
     }
 
 }
