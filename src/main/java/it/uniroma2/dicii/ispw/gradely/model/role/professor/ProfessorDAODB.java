@@ -1,5 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.role.professor;
 
+import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
 import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
@@ -15,7 +16,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ProfessorDAODB extends AbstractProfessorDAO {
+public class ProfessorDAODB extends DAODBAbstract<Professor> implements AbstractProfessorDAO {
+    protected static AbstractProfessorDAO instance;
 
     private ProfessorDAODB(){
 
@@ -52,6 +54,18 @@ public class ProfessorDAODB extends AbstractProfessorDAO {
         }
     }
 
+    public void setProfessorData(Professor professor) throws DAOException, UserNotFoundException {
+        try {
+            professor.setCoordinatedCourse(DegreeCourseLazyFactory.getInstance().getDegreeCourseByCoordinatore(professor));
+        } catch (ObjectNotFoundException e) {
+            professor.setCoordinatedCourse(null);
+        }
+        try {
+            professor.setCourseAssignments(SubjectCourseAssignmentLazyFactory.getInstance().getCourseAssignmentsByProfessor(professor));
+        } catch (ObjectNotFoundException e) {
+            professor.setCourseAssignments(null);
+        }
+    }
     @Override
     public void insert(Professor professor) throws DAOException {
 
@@ -64,6 +78,21 @@ public class ProfessorDAODB extends AbstractProfessorDAO {
 
     @Override
     public void update(Professor professor) throws DAOException {
+
+    }
+
+    @Override
+    protected void setInsertQueryParametersValue(PreparedStatement stmt, Professor professor) throws SQLException {
+
+    }
+
+    @Override
+    protected void setUpdateQueryParametersValue(PreparedStatement stmt, Professor professor) throws SQLException, MissingAuthorizationException {
+
+    }
+
+    @Override
+    protected void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> identifiersValues) throws SQLException {
 
     }
 

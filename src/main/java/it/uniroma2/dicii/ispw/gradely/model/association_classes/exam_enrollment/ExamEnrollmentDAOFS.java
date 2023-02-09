@@ -1,6 +1,5 @@
-package it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.dao;
+package it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment;
 
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.ExamEnrollment;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 

@@ -1,4 +1,4 @@
-package it.uniroma2.dicii.ispw.gradely.model.degree_course.dao;
+package it.uniroma2.dicii.ispw.gradely.model.degree_course;
 
 import com.opencsv.exceptions.CsvException;
 import it.uniroma2.dicii.ispw.gradely.CSVParser;
@@ -6,16 +6,13 @@ import it.uniroma2.dicii.ispw.gradely.enums.*;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ObjectNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
-import it.uniroma2.dicii.ispw.gradely.model.degree_course.AbstractDegreeCourse;
-import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
-import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.Professor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class DegreeCourseDAOFS extends AbstractDegreeCourseDAO {
+public class DegreeCourseDAOFS extends DegreeCourseDAOInterface {
 
     private final String degreeCourseFileName = "degree_course";
     private final String prerequisiteFileName = "degree_course_prerequisite";
@@ -24,7 +21,7 @@ public class DegreeCourseDAOFS extends AbstractDegreeCourseDAO {
 
     }
 
-    public static synchronized AbstractDegreeCourseDAO getInstance() {
+    public static synchronized DegreeCourseDAOInterface getInstance() {
         if (instance == null) {
             instance = new DegreeCourseDAOFS();
         }

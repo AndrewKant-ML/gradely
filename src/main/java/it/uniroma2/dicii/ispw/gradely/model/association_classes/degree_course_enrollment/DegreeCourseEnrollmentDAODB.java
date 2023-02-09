@@ -1,11 +1,9 @@
 package it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment;
 
+import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.ObjectNotFoundException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
@@ -18,7 +16,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DegreeCourseEnrollmentDAODB extends AbstractDegreeCourseEnrollmentDAO {
+public class DegreeCourseEnrollmentDAODB extends DAODBAbstract<DegreeCourseEnrollment> implements AbstractDegreeCourseEnrollmentDAO {
+    protected static AbstractDegreeCourseEnrollmentDAO instance;
 
     private DegreeCourseEnrollmentDAODB(){
 
@@ -94,6 +93,21 @@ public class DegreeCourseEnrollmentDAODB extends AbstractDegreeCourseEnrollmentD
 
     @Override
     public void update(DegreeCourseEnrollment degreeCourseEnrollment){
+
+    }
+
+    @Override
+    protected void setInsertQueryParametersValue(PreparedStatement stmt, DegreeCourseEnrollment degreeCourseEnrollment) throws SQLException {
+
+    }
+
+    @Override
+    protected void setUpdateQueryParametersValue(PreparedStatement stmt, DegreeCourseEnrollment degreeCourseEnrollment) throws SQLException, MissingAuthorizationException {
+
+    }
+
+    @Override
+    protected void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> identifiersValues) throws SQLException {
 
     }
 

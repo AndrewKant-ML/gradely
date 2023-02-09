@@ -2,22 +2,22 @@ package it.uniroma2.dicii.ispw.gradely.dao_manager;
 
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.AbstractDegreeCourseEnrollmentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.DegreeCourseEnrollmentDAOFS;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.dao.AbstractExamEnrollmentDAO;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.dao.ExamEnrollmentDAOFS;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.dao.AbstractSubjectCourseAssignmentDAO;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.dao.SubjectCourseAssignmentDAOFS;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.dao.AbstractSubjectCourseEnrollmentDAO;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.dao.SubjectCourseEnrollmentDAOFS;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.AbstractExamEnrollmentDAO;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.ExamEnrollmentDAOFS;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.AbstractSubjectCourseAssignmentDAO;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.SubjectCourseAssignmentDAOFS;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.AbstractSubjectCourseEnrollmentDAO;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.SubjectCourseEnrollmentDAOFS;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.test_reservation.TestReservationDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.test_reservation.TestReservationDAOFS;
-import it.uniroma2.dicii.ispw.gradely.model.degree_course.dao.AbstractDegreeCourseDAO;
-import it.uniroma2.dicii.ispw.gradely.model.degree_course.dao.DegreeCourseDAOFS;
-import it.uniroma2.dicii.ispw.gradely.model.exam.dao.AbstractExamDAO;
-import it.uniroma2.dicii.ispw.gradely.model.exam.dao.ExamDAOFS;
-import it.uniroma2.dicii.ispw.gradely.model.exam_result.dao.AbstractExamResultDAO;
-import it.uniroma2.dicii.ispw.gradely.model.exam_result.dao.ExamResultDAOFS;
-import it.uniroma2.dicii.ispw.gradely.model.pending_events.dao.AbstractPendingEventDAO;
-import it.uniroma2.dicii.ispw.gradely.model.pending_events.dao.PendingEventDAOFS;
+import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseDAOInterface;
+import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseDAOFS;
+import it.uniroma2.dicii.ispw.gradely.model.exam.AbstractExamDAO;
+import it.uniroma2.dicii.ispw.gradely.model.exam.ExamDAOFS;
+import it.uniroma2.dicii.ispw.gradely.model.exam_result.AbstractExamResultDAO;
+import it.uniroma2.dicii.ispw.gradely.model.exam_result.ExamResultDAOFS;
+import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEventDAOInterface;
+import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEventDAOFS;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.AbstractProfessorDAO;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.ProfessorDAOFS;
 import it.uniroma2.dicii.ispw.gradely.model.role.secretary.AbstractSecretaryDAO;
@@ -53,7 +53,7 @@ public class DAOFactoryFS extends DAOFactoryAbstract {
         return SubjectCourseEnrollmentDAOFS.getInstance();
     }
     @Override
-    public AbstractDegreeCourseDAO getDegreeCourseDAO(){
+    public DegreeCourseDAOInterface getDegreeCourseDAO(){
         return DegreeCourseDAOFS.getInstance();
     }
     @Override
@@ -65,7 +65,7 @@ public class DAOFactoryFS extends DAOFactoryAbstract {
         return ExamResultDAOFS.getInstance();
     }
     @Override
-    public AbstractPendingEventDAO getPendingEventDAO(){
+    public PendingEventDAOInterface getPendingEventDAO(){
         return PendingEventDAOFS.getInstance();
     }
     @Override

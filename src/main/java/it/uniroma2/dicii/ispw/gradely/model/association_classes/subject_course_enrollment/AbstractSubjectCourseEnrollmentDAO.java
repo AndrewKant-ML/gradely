@@ -1,4 +1,4 @@
-package it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.dao;
+package it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment;
 
 import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.SubjectCourseEnrollment;
@@ -7,11 +7,7 @@ import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 
 import java.util.List;
 
-public abstract class AbstractSubjectCourseEnrollmentDAO implements DAODBAbstract<SubjectCourseEnrollment> {
-    protected static AbstractSubjectCourseEnrollmentDAO instance;
-
-    protected AbstractSubjectCourseEnrollmentDAO(){
-    }
+public interface AbstractSubjectCourseEnrollmentDAO  {
 
     public abstract List<SubjectCourseEnrollment> getSubjectCourseEnrollmentsBySubjectCourse(SubjectCourse course);
 

@@ -1,14 +1,9 @@
-package it.uniroma2.dicii.ispw.gradely.model.degree_course.dao;
+package it.uniroma2.dicii.ispw.gradely.model.degree_course;
 
+import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
 import it.uniroma2.dicii.ispw.gradely.enums.*;
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.ObjectNotFoundException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
-import it.uniroma2.dicii.ispw.gradely.model.degree_course.AbstractDegreeCourse;
-import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
-import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseLazyFactory;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.Professor;
 
 import java.sql.Connection;
@@ -19,13 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
-
+public class DegreeCourseDAODB extends DAODBAbstract<DegreeCourse> implements DegreeCourseDAOInterface {
+    protected static DegreeCourseDAOInterface instance;
     private DegreeCourseDAODB() {
 
     }
 
-    public static synchronized AbstractDegreeCourseDAO getInstance() {
+    public static synchronized DegreeCourseDAOInterface getInstance() {
         if (instance == null) {
             instance = new DegreeCourseDAODB();
         }
@@ -175,6 +170,21 @@ public class DegreeCourseDAODB extends AbstractDegreeCourseDAO {
 
     @Override
     public void update(DegreeCourse degreeCourse) {
+
+    }
+
+    @Override
+    protected void setInsertQueryParametersValue(PreparedStatement stmt, DegreeCourse degreeCourse) throws SQLException {
+
+    }
+
+    @Override
+    protected void setUpdateQueryParametersValue(PreparedStatement stmt, DegreeCourse degreeCourse) throws SQLException, MissingAuthorizationException {
+
+    }
+
+    @Override
+    protected void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> identifiersValues) throws SQLException {
 
     }
 

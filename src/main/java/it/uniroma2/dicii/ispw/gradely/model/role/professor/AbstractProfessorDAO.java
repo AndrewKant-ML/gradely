@@ -6,11 +6,8 @@ import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_a
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
-public abstract class AbstractProfessorDAO implements DAODBAbstract<Professor> {
-    protected static AbstractProfessorDAO instance;
+public interface AbstractProfessorDAO {
 
-    protected AbstractProfessorDAO() {
-    }
 
     /**
      * Retrieve all Professor's data of a given User
@@ -22,18 +19,7 @@ public abstract class AbstractProfessorDAO implements DAODBAbstract<Professor> {
      * @throws PropertyException thrown if errors occur while loading db connection properties OR thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
-    public abstract Professor getProfessorByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException;
+    Professor getProfessorByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException;
 
-    protected void setProfessorData(Professor professor) throws DAOException, UserNotFoundException {
-        try {
-            professor.setCoordinatedCourse(DegreeCourseLazyFactory.getInstance().getDegreeCourseByCoordinatore(professor));
-        } catch (ObjectNotFoundException e) {
-            professor.setCoordinatedCourse(null);
-        }
-        try {
-            professor.setCourseAssignments(SubjectCourseAssignmentLazyFactory.getInstance().getCourseAssignmentsByProfessor(professor));
-        } catch (ObjectNotFoundException e) {
-            professor.setCourseAssignments(null);
-        }
-    }
+    void setProfessorData(Professor professor) throws DAOException, UserNotFoundException;
 }

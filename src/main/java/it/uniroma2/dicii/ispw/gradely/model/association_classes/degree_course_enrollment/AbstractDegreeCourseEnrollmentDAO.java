@@ -9,20 +9,10 @@ import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 
 import java.util.List;
 
-public abstract class AbstractDegreeCourseEnrollmentDAO implements DAODBAbstract<DegreeCourseEnrollment> {
-    protected static AbstractDegreeCourseEnrollmentDAO instance;
+public interface AbstractDegreeCourseEnrollmentDAO  {
 
-    protected AbstractDegreeCourseEnrollmentDAO(){
-    }
+    List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByDegreeCourse(DegreeCourse course) throws DAOException, PropertyException, ResourceNotFoundException;
 
+    List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByStudent(Student student) throws DAOException, PropertyException, ResourceNotFoundException;
 
-    public abstract List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByDegreeCourse(DegreeCourse course) throws DAOException, PropertyException, ResourceNotFoundException;
-
-    public abstract List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByStudent(Student student) throws DAOException, PropertyException, ResourceNotFoundException;
-
-    public abstract void insert(DegreeCourseEnrollment degreeCourseEnrollment);
-
-    public abstract void cancel(DegreeCourseEnrollment degreeCourseEnrollment);
-
-    public abstract void update(DegreeCourseEnrollment degreeCourseEnrollment);
 }

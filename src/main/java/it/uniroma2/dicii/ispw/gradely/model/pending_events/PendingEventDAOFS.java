@@ -1,18 +1,17 @@
-package it.uniroma2.dicii.ispw.gradely.model.pending_events.dao;
+package it.uniroma2.dicii.ispw.gradely.model.pending_events;
 
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEvent;
 
 import java.util.UUID;
 
 
-public class PendingEventDAOFS extends AbstractPendingEventDAO {
+public class PendingEventDAOFS extends PendingEventDAOInterface {
 
     private PendingEventDAOFS(){ 
 
     }
 
-    public static synchronized AbstractPendingEventDAO getInstance(){
+    public static synchronized PendingEventDAOInterface getInstance(){
         if (instance == null){
             instance = new PendingEventDAOFS();
         }

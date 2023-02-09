@@ -1,14 +1,18 @@
-package it.uniroma2.dicii.ispw.gradely.model.exam.dao;
+package it.uniroma2.dicii.ispw.gradely.model.exam;
 
+import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.AppelloEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.SessionEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
+import it.uniroma2.dicii.ispw.gradely.exceptions.MissingAuthorizationException;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
-public class ExamDAODB extends AbstractExamDAO {
+public class ExamDAODB extends DAODBAbstract<Exam> implements AbstractExamDAO {
+    protected static AbstractExamDAO instance;
 
     private ExamDAODB(){
     }
@@ -40,6 +44,20 @@ public class ExamDAODB extends AbstractExamDAO {
         System.out.println("Updated");
     }
 
+    @Override
+    protected void setInsertQueryParametersValue(PreparedStatement stmt, Exam exam) throws SQLException {
+
+    }
+
+    @Override
+    protected void setUpdateQueryParametersValue(PreparedStatement stmt, Exam exam) throws SQLException, MissingAuthorizationException {
+
+    }
+
+    @Override
+    protected void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> identifiersValues) throws SQLException {
+
+    }
 
 
 }

@@ -6,11 +6,7 @@ import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.model.test.Test;
 
-public abstract class TestReservationDAOAbstract implements DAODBAbstract<Test> {
-    protected static TestReservationDAOAbstract instance;
-
-    protected TestReservationDAOAbstract(){
-    }
+public interface TestReservationDAOAbstract  {
 
     abstract void addTestReservation(TestReservation testReservation) throws DAOException, PropertyException, ResourceNotFoundException;
 }

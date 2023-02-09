@@ -1,7 +1,6 @@
-package it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.dao;
+package it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment;
 
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.SubjectCourseAssignment;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.Professor;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 

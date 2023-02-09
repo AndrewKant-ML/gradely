@@ -1,17 +1,16 @@
-package it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.dao;
+package it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment;
 
+import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.SubjectCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.SubjectCourseAssignment;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.Professor;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.ProfessorLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourseLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.user.UserLazyFactory;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,7 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class SubjectCourseAssignmentDAODB extends AbstractSubjectCourseAssignmentDAO {
+public class SubjectCourseAssignmentDAODB extends DAODBAbstract<SubjectCourseAssignment> implements AbstractSubjectCourseAssignmentDAO {
+protected static AbstractSubjectCourseAssignmentDAO instance;
+
     private SubjectCourseAssignmentDAODB() {
 
     }
@@ -86,6 +87,20 @@ public class SubjectCourseAssignmentDAODB extends AbstractSubjectCourseAssignmen
 
     }
 
+    @Override
+    protected void setInsertQueryParametersValue(PreparedStatement stmt, SubjectCourseAssignment subjectCourseAssignment) throws SQLException {
+
+    }
+
+    @Override
+    protected void setUpdateQueryParametersValue(PreparedStatement stmt, SubjectCourseAssignment subjectCourseAssignment) throws SQLException, MissingAuthorizationException {
+
+    }
+
+    @Override
+    protected void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> identifiersValues) throws SQLException {
+
+    }
 
 
 }

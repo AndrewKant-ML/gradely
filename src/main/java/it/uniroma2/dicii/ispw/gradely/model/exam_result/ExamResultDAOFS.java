@@ -1,9 +1,6 @@
-package it.uniroma2.dicii.ispw.gradely.model.exam_result.dao;
+package it.uniroma2.dicii.ispw.gradely.model.exam_result;
 
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.model.exam_result.ExamResult;
-
-import java.util.List;
 
 public class ExamResultDAOFS extends AbstractExamResultDAO {
 
