@@ -25,24 +25,37 @@ public class PendingEventDAODB extends DAODBAbstract<PendingEvent> implements Pe
     }
 
     @Override
-    public List<PendingEvent> getAllPendingEvents(List<PendingEvent> list) {
-        getListQuery(
+    public List<PendingEvent> getAllPendingEvents(List<PendingEvent> list) throws UserNotFoundException, DAOException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
+        List<PendingEvent> newList = getListQuery(
+                "BIN_TO_UUID(id) AS id, notified, type",
                 "PENDING_EVENT",
-
+                List.of("id"),
+                null,
+                list,
+                null,
+                true
         );
+        for(PendingEvent p : newList){
+            auxiliaryBuilder(p);
+        }
+        return newList;
     }
 
     @Override
     public void insert(PendingEvent pendingEvent) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
         insertQuery(
                 "PENDING_EVENT",
-                List.of(pendingEvent.id,pendingEvent.notified,pendingEvent.type.name())
+                List.of("UUID_TO_BIN("+pendingEvent.id+")",pendingEvent.notified,pendingEvent.type.name())
         );
+        auxiliaryBuilder(pendingEvent);
+    }
+
+    private void auxiliaryBuilder(PendingEvent pendingEvent) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
         for(String s : pendingEvent.getRecipients()){
             insertQuery(
                     "PENDING_EVENT_RECIPIENT",
                     List.of(pendingEvent.id,s)
-                    );
+            );
         }
         switch (pendingEvent.type){
             case GRADE_CONFIRMATION_PENDING :
@@ -57,7 +70,6 @@ public class PendingEventDAODB extends DAODBAbstract<PendingEvent> implements Pe
             default:
 
         }
-
     }
 
     @Override
@@ -74,7 +86,7 @@ public class PendingEventDAODB extends DAODBAbstract<PendingEvent> implements Pe
 
     @Override
     protected PendingEvent queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, ObjectNotFoundException {
-        return null;
+        return new PendingEvent(rs.getInt("id"))
     }
 
 
