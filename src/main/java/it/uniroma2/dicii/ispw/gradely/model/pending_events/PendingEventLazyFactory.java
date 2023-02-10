@@ -3,10 +3,7 @@ package it.uniroma2.dicii.ispw.gradely.model.pending_events;
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum;
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.MissingAuthorizationException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
 import java.util.ArrayList;
@@ -59,7 +56,7 @@ public class PendingEventLazyFactory {
         pendingEvents.add(p);
     }
 
-    private void refreshPendingEvents() throws DAOException {
+    private void refreshPendingEvents() throws DAOException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         try {
             this.pendingEvents.addAll(DAOFactoryAbstract.getInstance().getPendingEventDAO().getAllPendingEvents(pendingEvents));
         } catch (ResourceNotFoundException | PropertyException e) {
