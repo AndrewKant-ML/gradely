@@ -16,6 +16,7 @@ import it.uniroma2.dicii.ispw.gradely.model.exam_result.ExamResult;
 import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEventLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.Professor;
 import it.uniroma2.dicii.ispw.gradely.model.role.secretary.Secretary;
+import it.uniroma2.dicii.ispw.gradely.model.role.secretary.SecretaryLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourseLazyFactory;
@@ -94,7 +95,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @param bean
      * @return
      */
-    ExamEnrollmentListBean getExamEnrollments(String tokenKey, ExamBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UserNotFoundException, UnrecognizedRoleException {
+    ExamEnrollmentListBean getExamEnrollments(String tokenKey, ExamBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UserNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException {
         Professor professor = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getProfessorRole();
         Exam exam = getExamByBean(bean);
         checkExamProfessor(exam, professor);
@@ -135,7 +136,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @param bean
      * @return exam
      */
-    private Exam getExamByBean(ExamBean bean) throws DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UserNotFoundException, UnrecognizedRoleException {
+    private Exam getExamByBean(ExamBean bean) throws DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UserNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         return ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(bean.getAppello(), getSubjectCourseByBean(bean.getCourse()), bean.getSessione());
     }
 
@@ -148,7 +149,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @param bean
      * @return subjectCourse
      */
-    private SubjectCourse getSubjectCourseByBean(SubjectCourseBean bean) throws DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UserNotFoundException, UnrecognizedRoleException {
+    private SubjectCourse getSubjectCourseByBean(SubjectCourseBean bean) throws DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UserNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         return SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(bean.getCode(), bean.getName(), bean.getCfu(), bean.getAcademicYear());
     }
 
@@ -173,7 +174,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
         checkExamProfessor(exam, professor);
         for (StudentGradeBean g : list.getGrades()) {
             saveExamResult(g);
-            PendingEventLazyFactory.getInstance().createNewPendingEvent(List.of(g.getEnrollmentBean().getStudent().getCodiceFiscale()), PendingEventTypeEnum.EVENT_1, g.getEnrollmentBean().getExam());
+            PendingEventLazyFactory.getInstance().createNewPendingEvent(List.of(g.getEnrollmentBean().getStudent().getCodiceFiscale()), PendingEventTypeEnum.GRADE_CONFIRMATION_PENDING, g.getEnrollmentBean().getExam());
         }
         TimerLazyFactory.getInstance().newExamConfirmationTimer(LocalDate.now().plusDays(7L), list.getExam());
     }
@@ -264,14 +265,12 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @param exam
      */
     private void notifyExamProtocolization(Exam exam) throws DAOException {
-        List<String> users = new ArrayList<>();
         for (ExamEnrollment e : exam.getEnrollments()){
-            users.add(e.getStudent().getCodiceFiscale());
+            PendingEventLazyFactory.getInstance().createNewPendingEvent(List.of(e.getStudent().getCodiceFiscale()),PendingEventTypeEnum.EXAM_VERBALIZED, exam);
         }
         for (SubjectCourseAssignment c : exam.getSubjectCourse().getCourseAssignments()){
-            users.add(c.getProfessor().getCodiceFiscale());
+            PendingEventLazyFactory.getInstance().createNewPendingEvent(List.of(c.getProfessor().getCodiceFiscale()),PendingEventTypeEnum.EXAM_VERBALIZED, exam);
         }
-        PendingEventLazyFactory.getInstance().createNewPendingEvent(users,PendingEventTypeEnum.EVENT_4,false, exam);
     }
 
     /**
@@ -285,22 +284,21 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @throws WrongTimerTypeException
      */
     @Override
-    public void timeIsUp(AbstractTimer timer) throws WrongTimerTypeException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, ObjectNotFoundException, UnrecognizedRoleException {
+    public void timeIsUp(AbstractTimer timer) throws WrongTimerTypeException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, ObjectNotFoundException, UnrecognizedRoleException, WrongListQueryIdentifierValue, WrongDegreeCourseCodeException {
         ExamConfirmationTimer concreteTimer = timer.castToExamConfirmationTimer();
         for (ExamEnrollment e : concreteTimer.getObject().getEnrollments()) {
             if (e.getExamResult().getConfirmed() == ExamResultConfirmationEnum.NULL) {
                 e.getExamResult().setConfirmed(ExamResultConfirmationEnum.ACCEPTED);
-                PendingEventLazyFactory.getInstance().createNewPendingEvent(List.of(e.getStudent().getCodiceFiscale()), PendingEventTypeEnum.EVENT_2, e);
+                PendingEventLazyFactory.getInstance().createNewPendingEvent(List.of(e.getStudent().getCodiceFiscale()), PendingEventTypeEnum.GRADE_AUTO_ACCEPTED, e);
             }
         }
         List<String> list = new ArrayList<>();
         for (DegreeCourse d : concreteTimer.getObject().getSubjectCourse().getDegreeCourses()) {
-            // TODO fix GVC (call from SecretaryLazyFactory)
-            for (Secretary s : DAOFactoryAbstract.getInstance().getSecretaryDAO().getSecretariesByDipartimento(d.getDipartimento(), new ArrayList<>())) {
+            for (Secretary s : SecretaryLazyFactory.getInstance().getSecretariesByDipartimento(d.getDipartimento())) {
                 list.add(s.getCodiceFiscale());
             }
         }
-        PendingEventLazyFactory.getInstance().createNewPendingEvent(list, PendingEventTypeEnum.EVENT_3, false, concreteTimer.getObject());
+        PendingEventLazyFactory.getInstance().createNewPendingEvent(list, PendingEventTypeEnum.EXAM_VERBALIZATION_PENDING, concreteTimer.getObject());
     }
 }
 

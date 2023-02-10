@@ -1,0 +1,7 @@
+1) As a professor, I want to insert students' grades so that the “segreteria” can verbalize them.
+2) As a professor, I want to insert exams dates and reservations deadlines, so that my students can reserve their seats in advance and I can then choose a room with enough seats to accommodate them all.
+
+1) As a student, I want to reserve a seat at exams, so that I will have a seat the day I want to take the tests.
+2) As a student, I want to have a log in protected personal dashboard, so that I can manage my tax payments, my courses subscriptions, my exams reservations and my 'career'.
+
+Career: the set of all the academical achievements of a student, such as passed exams and the relative grades, conferred degrees with relative grades

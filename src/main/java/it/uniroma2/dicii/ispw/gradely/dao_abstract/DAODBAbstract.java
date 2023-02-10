@@ -88,8 +88,13 @@ public abstract class DAODBAbstract<T>{
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
-    protected List<T> getListQuery(String table, List<String> identifiers, List<Object> identifiersValue, List<T> exclusions, List<Object> objects) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, UnrecognizedRoleException, WrongListQueryIdentifierValue, WrongDegreeCourseCodeException, ObjectNotFoundException {
-        String query = String.format("select * from %s where %s",table, andStringBuilder(identifiers, identifiersValue));
+    protected List<T> getListQuery(String table, List<String> identifiers, List<Object> identifiersValue, List<T> exclusions, List<Object> objects, Boolean wantAll) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, UnrecognizedRoleException, WrongListQueryIdentifierValue, WrongDegreeCourseCodeException, ObjectNotFoundException {
+        String query;
+        if(wantAll.equals(Boolean.FALSE))
+            query = String.format("select * from %s where %s",table, andStringBuilder(identifiers, identifiersValue));
+        else
+            query = String.format("select * from %s",table);
+
         String finalQuery;
         if (exclusions.isEmpty()) {
             finalQuery = query;
@@ -99,6 +104,7 @@ public abstract class DAODBAbstract<T>{
         List<T> list = new ArrayList<>();
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement stmt = connection.prepareStatement(finalQuery, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)){
+            if (wantAll.equals(Boolean.FALSE))
             setQueryQuestionMarksValue(stmt, identifiersValue,1);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
@@ -112,6 +118,7 @@ public abstract class DAODBAbstract<T>{
         }
         return list;
     }
+
 
     /**
      * Concatenates to a query string the string needed to exclude the elements
@@ -135,6 +142,7 @@ public abstract class DAODBAbstract<T>{
         }
         return query.concat(newQuery.toString());
     }
+
 
     /**
      * Queries the DB to get the information needed to instantiate an object
@@ -166,6 +174,7 @@ public abstract class DAODBAbstract<T>{
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }
+
     /**
      * Queries DB to insert an entry into a table
      *

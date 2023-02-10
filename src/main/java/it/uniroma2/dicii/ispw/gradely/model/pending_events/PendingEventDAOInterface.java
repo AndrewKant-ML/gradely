@@ -13,8 +13,6 @@ import java.util.UUID;
 
 public interface PendingEventDAOInterface {
 
-    PendingEvent getPendingEventById(UUID id) throws DAOException;
-
     List<PendingEvent> getAllPendingEvents(List<PendingEvent> list);
 
     /**
@@ -24,7 +22,7 @@ public interface PendingEventDAOInterface {
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
-    void insert(PendingEvent pendingEvent) throws DAOException, PropertyException, ResourceNotFoundException;
+    void insert(PendingEvent pendingEvent) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException;
 
     /**
      * Deletes an object from the DB
