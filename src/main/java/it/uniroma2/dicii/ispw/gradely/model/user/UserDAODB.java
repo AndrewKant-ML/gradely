@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class UserDAODB extends DAODBAbstract<User> implements UserDAOInterface  {
     protected static UserDAOInterface instance;
 
-    private static final Logger logger = Logger.getLogger(UserDAODB.class.getName());
+    //private static final Logger logger = Logger.getLogger(UserDAODB.class.getName());
 
     private UserDAODB() {
         super();
@@ -32,7 +32,7 @@ public class UserDAODB extends DAODBAbstract<User> implements UserDAOInterface  
     @Override
     public User getUserByEmail(String email) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         return getQuery(
-                "STUDENT",
+                "USER",
                 List.of("email"),
                 List.of(email),
                 null
@@ -42,7 +42,7 @@ public class UserDAODB extends DAODBAbstract<User> implements UserDAOInterface  
     @Override
     public User getUserByCodiceFiscale(String codiceFiscale) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         return getQuery(
-                "STUDENT",
+                "USER",
                 List.of("codice_fiscale"),
                 List.of(codiceFiscale),
                 null
@@ -51,7 +51,7 @@ public class UserDAODB extends DAODBAbstract<User> implements UserDAOInterface  
 
 
     @Override
-    protected User queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException {
+    protected User queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         User user = new User(
                 rs.getString("name"),
                 rs.getString("surname"),
@@ -110,7 +110,7 @@ public class UserDAODB extends DAODBAbstract<User> implements UserDAOInterface  
      * @throws DAOException              thrown if errors occur while retrieving data from persistence layer
      * @throws UserNotFoundException     thrown if the given User cannot be found
      */
-    protected void setUserRoleByRoleEnum(User user, UserRoleEnum role) throws UnrecognizedRoleException, DAOException, UserNotFoundException {
+    protected void setUserRoleByRoleEnum(User user, UserRoleEnum role) throws UnrecognizedRoleException, DAOException, UserNotFoundException, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         switch (role) {
             case STUDENT -> user.setRole(StudentLazyFactory.getInstance().getStudentByUser(user));
             case PROFESSOR -> user.setRole(ProfessorLazyFactory.getInstance().getProfessorByUser(user));

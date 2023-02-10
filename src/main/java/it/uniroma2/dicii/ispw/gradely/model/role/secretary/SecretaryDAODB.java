@@ -82,17 +82,16 @@ public class SecretaryDAODB  extends DAODBAbstract<Secretary> implements Abstrac
     }
     @Override
     protected Secretary queryObjectBuilder(ResultSet rs, List<Object> users) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, UnrecognizedRoleException {
-        Secretary secretary = new Secretary(
+        return new Secretary(
                 (users != null) ? (User)users.get(0) : UserLazyFactory.getInstance().getUserByCodiceFiscale(rs.getString("codice_fiscale")),
                 DipartimentoEnum.getDipartimentoByValue(rs.getInt("dipartimento"))
         );
-        return secretary;
     }
     @Override
-    protected String setGetListQueryIdentifiersValue(Secretary secretary, int valueNumber) throws DAOException {
+    protected String setGetListQueryIdentifiersValue(Secretary secretary, int valueNumber) throws WrongListQueryIdentifierValue {
         if(valueNumber == 0){
             return secretary.getCodiceFiscale();
-        } else throw new DAOException("wrong list query id value");
+        } else throw new WrongListQueryIdentifierValue(ExceptionMessagesEnum.WRONG_LIST_QUERY_IDENTIFIER_VALUE.message);
     }
 }
 

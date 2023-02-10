@@ -49,7 +49,7 @@ public abstract class DAODBAbstract<T>{
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
-    protected abstract T queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException;
+    protected abstract T queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, ObjectNotFoundException;
 
     /**
      * Gets the value of one of the identifiers for an element of the excluded list of a list query
@@ -88,7 +88,7 @@ public abstract class DAODBAbstract<T>{
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
-    protected List<T> getListQuery(String table, List<String> identifiers, List<Object> identifiersValue, List<T> exclusions, List<Object> objects) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, UnrecognizedRoleException, WrongListQueryIdentifierValue, WrongDegreeCourseCodeException {
+    protected List<T> getListQuery(String table, List<String> identifiers, List<Object> identifiersValue, List<T> exclusions, List<Object> objects) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, UnrecognizedRoleException, WrongListQueryIdentifierValue, WrongDegreeCourseCodeException, ObjectNotFoundException {
         String query = String.format("select * from %s where %s",table, andStringBuilder(identifiers, identifiersValue));
         String finalQuery;
         if (exclusions.isEmpty()) {
@@ -118,18 +118,18 @@ public abstract class DAODBAbstract<T>{
      * present in a list, such as the elements already present in memory
      * @param query the original query where to concatenate the exclusion part
      * @param identifiers the identifier columns needed to identify the elements to exclude
-     * @param ts the list of objects to exclude
+     * @param exclusions the list of objects to exclude
      * @return the new query string
      * @throws DAOException thrown if errors occur while retrieving data from persistence layer
      */
-    protected String getListQueryExclusions(String query, List <String> identifiers, List<T> ts) throws DAOException, WrongListQueryIdentifierValue {
+    protected String getListQueryExclusions(String query, List <String> identifiers, List<T> exclusions) throws DAOException, WrongListQueryIdentifierValue {
         StringBuilder newQuery = new StringBuilder();
         for (String i : identifiers){
             StringBuilder andBuilder = new StringBuilder();
             StringBuilder valuesBuilder = new StringBuilder();
             andBuilder.append(" and ").append(i).append(" not in (%s)");
-            for (T t : ts)
-                valuesBuilder.append('\'').append(setGetListQueryIdentifiersValue(t, identifiers.indexOf(i))).append('\'').append(',');
+            for (T excluded : exclusions)
+                valuesBuilder.append('\'').append(setGetListQueryIdentifiersValue(excluded, identifiers.indexOf(i))).append('\'').append(',');
             valuesBuilder.deleteCharAt(valuesBuilder.length() - 1);
             newQuery.append(String.format(andBuilder.toString(),valuesBuilder));
         }
@@ -191,14 +191,16 @@ public abstract class DAODBAbstract<T>{
      *
      * @param table the table to cancel from
      * @param identifiers the name of the columns needed to find the entry in the table
-     * @param identifiersValues the identifiers value needed to find the entry to update
+     * @param identifiersValue the identifiers value needed to find the entry to update
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      * @throws DAOException thrown if errors occur while retrieving data from persistence layer
      */
-    protected void cancelQuery(String table, List<String> identifiers, List<Object> identifiersValues) throws PropertyException, ResourceNotFoundException, DAOException {
-        String query = String.format("delete from %s where %s",table, andStringBuilder(identifiers, identifiersValues));
-        setQuestionMarksAndExecuteQuery(identifiersValues, query);
+    protected void cancelQuery(String table, List<String> identifiers, List<Object> identifiersValue) throws PropertyException, ResourceNotFoundException, DAOException {
+        if (identifiers.size()!=identifiersValue.size())
+            throw new DAOException("id and values number don't match "); //TODO implementare exception
+        String query = String.format("delete from %s where %s",table, andStringBuilder(identifiers, identifiersValue));
+        setQuestionMarksAndExecuteQuery(identifiersValue, query);
     }
 
     /**
@@ -228,24 +230,24 @@ public abstract class DAODBAbstract<T>{
      *
      * @param table the table to update
      * @param parameters the columns to be updated
-     * @param parametersValues the values to update
+     * @param parametersValue the values to update
      * @param identifiers the identifiers columns aka the primary key
      * @param identifiersValue the identifiers value needed to find the entry to update
      * @throws DAOException thrown if errors occur while retrieving data from persistence layer
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
-    protected void updateQuery(String table, List<String> parameters, List<Object> parametersValues, List<String> identifiers, List<Object> identifiersValue) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
+    protected void updateQuery(String table, List<String> parameters, List<Object> parametersValue, List<String> identifiers, List<Object> identifiersValue) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
         if (identifiers.size()!=identifiersValue.size())
             throw new DAOException("id and values number don't match "); //TODO implementare exception
-        StringBuilder columnBuilder = commaStringBuilder(parameters,parametersValues);
+        StringBuilder columnBuilder = commaStringBuilder(parameters,parametersValue);
         StringBuilder identifierBuilder = andStringBuilder(identifiers,identifiersValue);
         String query = String.format("update %s set %s where %s",table,columnBuilder,identifierBuilder);
         try{
             Connection connection = DBConnection.getInstance().getConnection();
             try(PreparedStatement stmt = connection.prepareStatement(query)){
-                setQueryQuestionMarksValue(stmt, parametersValues,1);
-                setQueryQuestionMarksValue(stmt, identifiersValue,parametersValues.size()+1);
+                setQueryQuestionMarksValue(stmt, parametersValue,1);
+                setQueryQuestionMarksValue(stmt, identifiersValue,parametersValue.size()+1);
                 stmt.executeUpdate();
             }
         } catch (SQLException e) {
@@ -278,9 +280,9 @@ public abstract class DAODBAbstract<T>{
      * @throws DAOException thrown if errors occur while retrieving data from persistence layer
      */
     private StringBuilder andStringBuilder(List<String> names, List<Object> values) throws DAOException {
-        StringBuilder builder = new StringBuilder();
         if (names.size()!=values.size())
             throw new DAOException("id and values number don't match "); //TODO implementare exception
+        StringBuilder builder = new StringBuilder();
         for (String s : names)
             builder.append(s).append(" = ? and");
         builder.delete(builder.length() - 4, builder.length()-1);
