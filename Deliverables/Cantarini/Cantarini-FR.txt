@@ -1,0 +1,6 @@
+• The system shall provide a personal role-based dashboard, after the login.
+• When displaying the dashboard, the system shall provide access to the following functionalities:
+  o For the students’ dashboard, taxes payments management, courses subscriptions management, exams reservations management, career management, services and licenses activation, and personal info management.
+  o For the professors’ dashboard, taught courses visualization, exams dates insertion and students’ grades insertions (for each exam date), and personal info management. In addiction, for the professors who are "Coordinatore del corso di laurea", single subject courses management
+  o For the "Segreteria studenti",
+• The system shall provide a list of taxes from the current academic year, either paid or not, with the possibility to pay then directly or to download the payment module

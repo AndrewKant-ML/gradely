@@ -39,7 +39,7 @@ public class SecretaryLazyFactory {
 
 
 
-    public List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento) throws DAOException, MissingAuthorizationException, ObjectNotFoundException, UnrecognizedRoleException {
+    public List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento) throws DAOException, MissingAuthorizationException, ObjectNotFoundException, UnrecognizedRoleException, WrongListQueryIdentifierValue, WrongDegreeCourseCodeException {
         List<Secretary> list = new ArrayList<>();
         for(Secretary s : secretaries){
             if(s.getDipartimento().equals(dipartimento)){

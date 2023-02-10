@@ -1,0 +1,10 @@
+Functional Requirements: 
+
+1) The system shall provide a list of all the *reservable exams*, 
+and the possibility to reserve a seat for each of them, to students 
+
+2) The system shall provide a list of all the *manageable exams*, 
+and the possibility to edit dates and registrations deadlines for each of them, to teachers
+
+3) The system shall provide a subject course creation form with the possibility to choose which 
+students can join it, basing on their degree course and surname, to degree course admins

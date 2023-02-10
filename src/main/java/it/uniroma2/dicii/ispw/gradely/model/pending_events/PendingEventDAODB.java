@@ -2,12 +2,12 @@ package it.uniroma2.dicii.ispw.gradely.model.pending_events;
 
 import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
+import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.UUID;
 
 
 public class PendingEventDAODB extends DAODBAbstract<PendingEvent> implements PendingEventDAOInterface {
@@ -25,23 +25,46 @@ public class PendingEventDAODB extends DAODBAbstract<PendingEvent> implements Pe
     }
 
     @Override
-    public PendingEvent getPendingEventById(UUID id) throws DAOException {
-        return null; 
-    }
-
-    @Override
     public List<PendingEvent> getAllPendingEvents(List<PendingEvent> list) {
-        return null;
+        getListQuery(
+                "PENDING_EVENT",
+
+        );
     }
 
     @Override
-    public void insert(PendingEvent pendingEvent){
-        insertQuery("PENDING_EVENT");
+    public void insert(PendingEvent pendingEvent) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
+        insertQuery(
+                "PENDING_EVENT",
+                List.of(pendingEvent.id,pendingEvent.notified,pendingEvent.type.name())
+        );
+        for(String s : pendingEvent.getRecipients()){
+            insertQuery(
+                    "PENDING_EVENT_RECIPIENT",
+                    List.of(pendingEvent.id,s)
+                    );
+        }
+        switch (pendingEvent.type){
+            case GRADE_CONFIRMATION_PENDING :
+            case EXAM_VERBALIZATION_PENDING :
+            case EXAM_VERBALIZED:
+            case GRADE_AUTO_ACCEPTED:
+                insertQuery("PENDING_EVENT_OBJECT", List.of(((Exam)pendingEvent.getObject()).getAppello().value.toString(),String.valueOf(((Exam)pendingEvent.getObject()).getSubjectCourse().getCode().value),((Exam)pendingEvent.getObject()).getSession().name()));
+                break;
+            case TEST_RESULT_READY:
+                System.out.println("");
+                break;
+            default:
+
+        }
+
     }
 
     @Override
-    public void cancel(PendingEvent pendingEvent){
-
+    public void cancel(PendingEvent pendingEvent) throws DAOException, PropertyException, ResourceNotFoundException {
+        cancelQuery("PENDING_EVENT_OBJECT",List.of("pending_event"),List.of(pendingEvent.id));
+        cancelQuery("PENDING_EVENT_RECIPIENT",List.of("pending_event"),List.of(pendingEvent.id));
+        cancelQuery("PENDING_EVENT",List.of("pending_event"),List.of(pendingEvent.id));
     }
 
     @Override
@@ -50,25 +73,14 @@ public class PendingEventDAODB extends DAODBAbstract<PendingEvent> implements Pe
     }
 
     @Override
-    protected void setInsertQueryParametersValue(PreparedStatement stmt, PendingEvent pendingEvent) throws SQLException {
-
+    protected PendingEvent queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, ObjectNotFoundException {
+        return null;
     }
-
-    @Override
-    protected void setUpdateQueryParametersValue(PreparedStatement stmt, PendingEvent pendingEvent) throws SQLException, MissingAuthorizationException {
-
-    }
-
 
 
     @Override
     protected String setGetListQueryIdentifiersValue(PendingEvent pendingEvent, int valueNumber) throws DAOException {
         return null;
-    }
-
-    @Override
-    protected void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> identifiersValues) throws SQLException {
-
     }
 
 

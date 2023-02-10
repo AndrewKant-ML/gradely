@@ -28,13 +28,12 @@ public class ProfessorDAODB extends DAODBAbstract<Professor> implements Abstract
 
     @Override
     public Professor getProfessorByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
-        Professor professor =getQuery(
+        return getQuery(
                 "PROFESSOR",
                 List.of("codice_fiscale"),
                 List.of(user.getCodiceFiscale()),
                 List.of(user)
         );
-        return professor;
     }
     @Override
     public void insert(Professor professor) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {

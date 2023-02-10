@@ -4,6 +4,7 @@ import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.MissingAuthorizationException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
@@ -38,7 +39,7 @@ public class PendingEventLazyFactory {
         }
         return list;
     }
-    public void createNewPendingEvent(List<String> recipients, PendingEventTypeEnum type, Object object) throws DAOException {
+    public void createNewPendingEvent(List<String> recipients, PendingEventTypeEnum type, Object object) throws DAOException, MissingAuthorizationException {
         PendingEvent p = new PendingEvent(recipients, type, object);
         try {
             DAOFactoryAbstract.getInstance().getPendingEventDAO().insert(p);
@@ -48,8 +49,8 @@ public class PendingEventLazyFactory {
         pendingEvents.add(p);
     }
 
-    public void createNewPendingEvent(List<String> recipients, PendingEventTypeEnum type, Boolean notified, Object object) throws DAOException {
-        PendingEvent p = new PendingEvent(recipients, type, notified, object);
+    public void createExistingPendingEvent(UUID id, List<String> recipients, PendingEventTypeEnum type, Boolean notified, Object object) throws DAOException, MissingAuthorizationException {
+        PendingEvent p = new PendingEvent(id, recipients, type, notified, object);
         try {
             DAOFactoryAbstract.getInstance().getPendingEventDAO().insert(p);
         } catch (ResourceNotFoundException | PropertyException e) {

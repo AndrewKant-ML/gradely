@@ -15,17 +15,25 @@ public class PendingEvent {
     protected Boolean notified;
     protected Object object;
 
+
     protected PendingEvent(List<String> recipients, PendingEventTypeEnum type, Object object) throws DAOException {
-        UUID generatedId = UUID.randomUUID();
-        this.id = generatedId;
+        //only for brand-new PendingEvents, id is generated
+        this.id = UUID.randomUUID();
         this.type = type;
         this.recipients = recipients;
         this.notified = false;
         this.object = object;
     }
-    protected PendingEvent(List<String> recipients, PendingEventTypeEnum type, Boolean notified, Object object) throws DAOException {
-        UUID generatedId = UUID.randomUUID();
-        this.id = generatedId;
+    protected PendingEvent(UUID id, Boolean notified, PendingEventTypeEnum type) {
+        //only for existing PendingEvents, id is not generated
+        this.id = id;
+        this.type = type;
+        this.notified = notified;
+    }
+
+    protected PendingEvent(UUID id,List<String> recipients, PendingEventTypeEnum type, Boolean notified, Object object) throws DAOException {
+        //only for existing PendingEvents, id is not generated
+        this.id = id;
         this.type = type;
         this.recipients = recipients;
         this.notified = notified;
