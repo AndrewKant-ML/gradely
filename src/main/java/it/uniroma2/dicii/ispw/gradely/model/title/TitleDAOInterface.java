@@ -26,7 +26,7 @@ public interface TitleDAOInterface {
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
-    void insert(Title title) throws DAOException, PropertyException, ResourceNotFoundException;
+    void insert(Title title) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException;
 
     /**
      * Deletes an object from the DB

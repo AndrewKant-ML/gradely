@@ -13,7 +13,7 @@ import java.util.List;
 
 public abstract class DAODBAbstract<T>{
     /**
-     * Inserts an object into the DB
+     * Inserts an object into DB
      * @param t the object to insert
      * @throws DAOException thrown if errors occur while retrieving data from persistence layer
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
@@ -22,7 +22,7 @@ public abstract class DAODBAbstract<T>{
     protected abstract void insert(T t) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException;
 
     /**
-     * Deletes an object from the DB
+     * Deletes an object from DB
      * @param t the object to cancel
      * @throws DAOException thrown if errors occur while retrieving data from persistence layer
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
@@ -31,7 +31,7 @@ public abstract class DAODBAbstract<T>{
     protected abstract void cancel(T t) throws DAOException, PropertyException, ResourceNotFoundException;
 
     /**
-     * Updates an object present in the DB to its current state
+     * Updates an object present in DB to its current state
      * @param t the object to be updated
      * @throws DAOException thrown if errors occur while retrieving data from persistence layer
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
@@ -40,63 +40,37 @@ public abstract class DAODBAbstract<T>{
     protected abstract void update(T t) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException;
 
     /**
-     * Sets the insert parameters value into a sql prepared statement getting the values from an object
-     * @param stmt the statement
-     * @param t the object where to take the values from
-     * @throws SQLException thrown if an error occurs with the DB
-     */
-    protected abstract void setInsertQueryParametersValue(PreparedStatement stmt, T t) throws SQLException, MissingAuthorizationException;
-
-    /**
-     * Sets update parameters value into a sql prepared statement getting the values from an object
-     * @param stmt the statement
-     * @param t the object where to take the values from
-     * @throws SQLException thrown if an error occurs with the DB
-     */
-    protected abstract void setUpdateQueryParametersValue(PreparedStatement stmt, T t) throws SQLException, MissingAuthorizationException;
-
-    /**
-     * Set identifiers into a sql prepared statement
-     * @param stmt the statement
-     * @param identifiersValues the value of such identifiers
-     * @throws SQLException thrown if an error occurs with the DB
-     */
-    protected abstract void setQueryIdentifiers(PreparedStatement stmt, List<Object> identifiersValues, String queryType) throws SQLException;
-
-
-    /**
-     * Instantiate the specific objects of a list query
+     * Instantiates the specific object of a query using a list of objects needed for its construction.
      * @param rs the result set where to take the information from
-     * @return a list of objects
-     * @throws SQLException thrown if an error occurs with the DB
-     * @throws DAOException thrown if errors occur while retrieving data from persistence layer
-     * @throws PropertyException thrown if errors occur while loading properties from .properties file
-     * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
-     */
-    protected abstract T getListQueryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, UnrecognizedRoleException;
-
-    /**
-     * Instantiates the specific object of a query
-     * using a list of objects needed for its construction
-     * @param rs the result set where to take the information from
-     * @param objects the list of objects needed for the instatiation
+     * @param objects the list of objects needed for the instantiation
      * @return an instance of the requested object
      * @throws SQLException thrown if an error occurs with the DB
      * @throws DAOException thrown if errors occur while retrieving data from persistence layer
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
-    protected abstract T getQueryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException;
+    protected abstract T queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException,MissingAuthorizationException;
 
     /**
-     * Gets the value of one of the identifier for an element
-     * of the excluded list of a list query
+     * Gets the value of one of the identifiers for an element of the excluded list of a list query
      * @param t the element to be excluded
      * @param valueNumber the index of the current value in the identifiers list
      * @return the string to be inserted into the query in order to exclude the element
      * @throws DAOException thrown if errors occur while retrieving data from persistence layer
      */
-    protected abstract String getListQueryIdentifierValue(T t, int valueNumber) throws DAOException;
+    protected abstract String setGetListQueryIdentifiersValue(T t, int valueNumber) throws DAOException;
+
+    /**
+     * Set values onto sql prepared statement question marks
+     *
+     * @param stmt              the statement
+     * @param values the value of such identifiers
+     * @throws SQLException thrown if an error occurs with the DB
+     */
+    protected void setQueryQuestionMarksValue(PreparedStatement stmt, List<Object> values, Integer start) throws SQLException{
+        for(Object o : values)
+            stmt.setObject(values.indexOf(o)+start,o);
+    }
 
     /**
      * Queries the DB for a list of objects, excluding all the entries
@@ -107,28 +81,28 @@ public abstract class DAODBAbstract<T>{
      * @param table the table where to find the information
      * @param identifiers the name of the columns needed to find the entry in the table
      * @param identifiersValue the value of such identifiers
-     * @param ts the list of objects to be excluded from the query
+     * @param exclusions the list of objects to be excluded from the query
      * @return a list of objects of the requested type
      * @throws UserNotFoundException
      * @throws DAOException thrown if errors occur while retrieving data from persistence layer
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
-    protected List<T> getListQuery(String table, List<String> identifiers, List<Object> identifiersValue, List<T> ts, List<Object> objects) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, UnrecognizedRoleException {
-        String query = String.format("select * from %s where %s",  table, queryStringBuilder(identifiers, identifiersValue));
+    protected List<T> getListQuery(String table, List<String> identifiers, List<Object> identifiersValue, List<T> exclusions, List<Object> objects) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, UnrecognizedRoleException {
+        String query = String.format("select * from %s where %s",table, andStringBuilder(identifiers, identifiersValue));
         String finalQuery;
-        if (ts.isEmpty()) {
+        if (exclusions.isEmpty()) {
             finalQuery = query;
         } else {
-            finalQuery = getListQueryExclusions(query,identifiers,ts);
+            finalQuery = getListQueryExclusions(query,identifiers,exclusions);
         }
         List<T> list = new ArrayList<>();
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement stmt = connection.prepareStatement(finalQuery, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)){
-            setQueryIdentifiers(stmt, identifiersValue, "getList"); // implement case by case
+            setQueryQuestionMarksValue(stmt, identifiersValue,1);
             try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.first()) {
-                    list.add(getListQueryObjectBuilder(rs, objects)); // implement case by case
+                while (rs.next()) {
+                    list.add(queryObjectBuilder(rs, objects));
                 }
             } catch (PropertyException | ResourceNotFoundException e) {
                 throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
@@ -155,47 +129,36 @@ public abstract class DAODBAbstract<T>{
             StringBuilder valuesBuilder = new StringBuilder();
             andBuilder.append(" and ").append(i).append(" not in (%s)");
             for (T t : ts)
-                valuesBuilder.append(getListQueryIdentifierValue(t, identifiers.indexOf(i))).append(',');
+                valuesBuilder.append('\'').append(setGetListQueryIdentifiersValue(t, identifiers.indexOf(i))).append('\'').append(',');
             valuesBuilder.deleteCharAt(valuesBuilder.length() - 1);
             newQuery.append(String.format(andBuilder.toString(),valuesBuilder));
         }
-        return query.concat(String.format("%s",newQuery));
+        return query.concat(newQuery.toString());
     }
 
     /**
      * Queries the DB to get the information needed to instantiate an object
      *
      * @param table the table where to find the information
-     * @param parameters the parameter columns where the information is stored
      * @param identifiers the name of the columns needed to find the entry in the table
      * @param identifiersValues the value of such identifiers
-     * @param o the objects needed to instantiate the new object (e.g. to make a student, a user is needed)
+     * @param objects the objects needed to instantiate the new object (e.g. to make a student, a user is needed)
      * @return an instance of the requested object
      * @throws UserNotFoundException
      * @throws DAOException thrown if errors occur while retrieving data from persistence layer
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
-    protected T getQuery(String table, List<String> parameters, List<String> identifiers, List<Object> identifiersValues, List<Object> o) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException {
-        StringBuilder parametersBuilder = new StringBuilder();
-        StringBuilder identifiersBuilder = new StringBuilder();
-        if (identifiers.size()!=identifiersValues.size())
-            throw new DAOException("id and values number don't match "); //TODO implementare exception
-        for (String s : parameters)
-            parametersBuilder.append(s).append(',');
-        for (String s : identifiers)
-            identifiersBuilder.append(s).append(" = ? and");
-        parametersBuilder.deleteCharAt(parametersBuilder.length()-1);
-        identifiersBuilder.delete(identifiersBuilder.length() - 4, identifiersBuilder.length()-1);
-        String query = String.format("select %s from %s where %s", parametersBuilder, table, identifiersBuilder);
+    protected T getQuery(String table, List<String> identifiers, List<Object> identifiersValues, List<Object> objects) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, ObjectNotFoundException {
+        String query = String.format("select * from %s where %s", table, andStringBuilder(identifiers,identifiersValues));
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement stmt = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)){
-            setQueryIdentifiers(stmt, identifiersValues, "get");
+            setQueryQuestionMarksValue(stmt, identifiersValues,1);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.first()) {
-                    return getQueryObjectBuilder(rs, o);
+                    return queryObjectBuilder(rs, objects);
                 } else
-                    throw new UserNotFoundException(ExceptionMessagesEnum.STUDENT_NOT_FOUND.message);
+                    throw new ObjectNotFoundException(ExceptionMessagesEnum.OBJ_NOT_FOUND.message);
             } catch (PropertyException | ResourceNotFoundException e) {
                 throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
             }
@@ -203,39 +166,25 @@ public abstract class DAODBAbstract<T>{
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }
-
     /**
      * Queries DB to insert an entry into a table
      *
      * @param table the table to insert into
-     * @param columns the columns necessary to insert
-     * @param t the object containing the information
      * @throws DAOException thrown if errors occur while retrieving data from persistence layer
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
-    protected void insertQuery(String table, List<String> columns, T t) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
-        StringBuilder columnBuilder = new StringBuilder();
+    protected void insertQuery(String table, List<Object> parametersValue) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
         StringBuilder questionBuilder = new StringBuilder();
-        for (String s : columns){
-            columnBuilder.append(s).append(',');
+        for (Object ignored : parametersValue){
             questionBuilder.append("?,");
         }
-        columnBuilder.deleteCharAt(columnBuilder.length() - 1);
         questionBuilder.deleteCharAt(questionBuilder.length() - 1);
 
-        String query = String.format("insert into %s (%s) values (%s)",table,columnBuilder,questionBuilder);
-        try{
-            Connection connection = DBConnection.getInstance().getConnection();
-            try(PreparedStatement stmt = connection.prepareStatement(query)){
-                setInsertQueryParametersValue(stmt, t);
-                stmt.executeUpdate();
-            }
-        } catch (
-                SQLException e) {
-            throw new DAOException(ExceptionMessagesEnum.DAO.message,e);
-        }
+        String query = String.format("insert into %s values (%s)",table,questionBuilder);
+        setQuestionMarksAndExecuteQuery(parametersValue, query);
     }
+
 
     /**
      * Queries DB to cancel the entry of a table related to an object
@@ -248,33 +197,28 @@ public abstract class DAODBAbstract<T>{
      * @throws DAOException thrown if errors occur while retrieving data from persistence layer
      */
     protected void cancelQuery(String table, List<String> identifiers, List<Object> identifiersValues) throws PropertyException, ResourceNotFoundException, DAOException {
-        String query = String.format("delete from %s where %s",table,queryStringBuilder(identifiers, identifiersValues));
+        String query = String.format("delete from %s where %s",table, andStringBuilder(identifiers, identifiersValues));
+        setQuestionMarksAndExecuteQuery(identifiersValues, query);
+    }
+
+    /**
+     * Sets the query question marks to provided values and executes the query
+     * @param values the values for the question marks
+     * @param query the query to be filled and executed
+     * @throws ResourceNotFoundException
+     * @throws PropertyException
+     * @throws DAOException
+     */
+    private void setQuestionMarksAndExecuteQuery(List<Object> values, String query) throws ResourceNotFoundException, PropertyException, DAOException {
         try{
             Connection connection = DBConnection.getInstance().getConnection();
             try(PreparedStatement stmt = connection.prepareStatement(query)){
-                setQueryIdentifiers(stmt, identifiersValues,"cancel"); // implement case by case
+                setQueryQuestionMarksValue(stmt, values,1);
                 stmt.executeUpdate();
             }
         } catch (SQLException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message,e);
         }
-    }
-
-    /**
-     * Builds a query string from a list of column names and the list of their value
-     * @param identifiers the identifiers name list
-     * @param values the values of such identifiers
-     * @return the Builded String
-     * @throws DAOException thrown if errors occur while retrieving data from persistence layer
-     */
-    private StringBuilder queryStringBuilder(List<String> identifiers, List<Object> values) throws DAOException {
-        StringBuilder builder = new StringBuilder();
-        if (identifiers.size()!=values.size())
-            throw new DAOException("id and values number don't match "); //TODO implementare exception
-        for (String s : identifiers)
-            builder.append(s).append(" = ? and");
-        builder.delete(builder.length() - 4, builder.length()-1);
-        return builder;
     }
 
     /**
@@ -283,33 +227,25 @@ public abstract class DAODBAbstract<T>{
      * itself
      *
      * @param table the table to update
-     * @param columns the columns to be updated
+     * @param parameters the columns to be updated
+     * @param parametersValues the values to update
      * @param identifiers the identifiers columns aka the primary key
      * @param identifiersValue the identifiers value needed to find the entry to update
-     * @param t the object which state will be updated in the DB
      * @throws DAOException thrown if errors occur while retrieving data from persistence layer
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
-    protected void updateQuery(String table, List<String> columns, List<String> identifiers, List<Object> identifiersValue, T t) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
+    protected void updateQuery(String table, List<String> parameters, List<Object> parametersValues, List<String> identifiers, List<Object> identifiersValue) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
         if (identifiers.size()!=identifiersValue.size())
             throw new DAOException("id and values number don't match "); //TODO implementare exception
-        StringBuilder columnBuilder = new StringBuilder();
-        StringBuilder identifierBuilder = new StringBuilder();
-        for (String s : columns){
-            columnBuilder.append(s).append(" = ?, ");
-        }
-        columnBuilder.delete(columnBuilder.length() - 2, columnBuilder.length()-1);
-        for (String s : identifiers){
-            identifierBuilder.append(s).append(" = ?, ");
-        }
-        columnBuilder.delete(columnBuilder.length() - 2, columnBuilder.length()-1);
+        StringBuilder columnBuilder = commaStringBuilder(parameters,parametersValues);
+        StringBuilder identifierBuilder = andStringBuilder(identifiers,identifiersValue);
         String query = String.format("update %s set %s where %s",table,columnBuilder,identifierBuilder);
         try{
             Connection connection = DBConnection.getInstance().getConnection();
             try(PreparedStatement stmt = connection.prepareStatement(query)){
-                setUpdateQueryParametersValue(stmt, t);
-                setQueryIdentifiers(stmt, identifiersValue,"update");
+                setQueryQuestionMarksValue(stmt, parametersValues,1);
+                setQueryQuestionMarksValue(stmt, identifiersValue,parametersValues.size()+1);
                 stmt.executeUpdate();
             }
         } catch (SQLException e) {
@@ -317,5 +253,37 @@ public abstract class DAODBAbstract<T>{
         }
     }
 
+    /**
+     * Builds a comma separated, column names and question marks query string piece from a list of names and the list of their value
+     * @param names the identifiers name list
+     * @param values the values of such identifiers
+     * @return the built String
+     * @throws DAOException thrown if errors occur while retrieving data from persistence layer
+     */
+    private StringBuilder commaStringBuilder(List<String> names, List<Object> values) throws DAOException {
+        StringBuilder builder = new StringBuilder();
+        if (names.size()!=values.size())
+            throw new DAOException("id and values number don't match "); //TODO implementare exception
+        for (String s : names)
+            builder.append(s).append(" = ? ,");
+        builder.deleteCharAt(builder.length()-1);
+        return builder;
+    }
 
+    /**
+     * Builds an and separated, column names and question marks query string piece from a list of names and the list of their value
+     * @param names the identifiers name list
+     * @param values the values of such identifiers
+     * @return the built String
+     * @throws DAOException thrown if errors occur while retrieving data from persistence layer
+     */
+    private StringBuilder andStringBuilder(List<String> names, List<Object> values) throws DAOException {
+        StringBuilder builder = new StringBuilder();
+        if (names.size()!=values.size())
+            throw new DAOException("id and values number don't match "); //TODO implementare exception
+        for (String s : names)
+            builder.append(s).append(" = ? and");
+        builder.delete(builder.length() - 4, builder.length()-1);
+        return builder;
+    }
 }

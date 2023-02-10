@@ -49,23 +49,11 @@ public class ExamResultDAODB extends DAODBAbstract<ExamResult> implements ExamRe
 
     }
 
-    @Override
-    protected void setQueryIdentifiers(PreparedStatement stmt, List<Object> identifiersValues, String queryType) throws SQLException {
 
-    }
+
 
     @Override
-    protected ExamResult getListQueryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, UnrecognizedRoleException {
-        return null;
-    }
-
-    @Override
-    protected ExamResult getQueryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException {
-        return null;
-    }
-
-    @Override
-    protected String getListQueryIdentifierValue(ExamResult examResult, int valueNumber) throws DAOException {
+    protected String setGetListQueryIdentifiersValue(ExamResult examResult, int valueNumber) throws DAOException {
         return null;
     }
 

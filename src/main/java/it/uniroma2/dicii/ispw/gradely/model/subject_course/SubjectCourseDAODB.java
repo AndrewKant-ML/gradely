@@ -1,8 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.subject_course;
 
 import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
-import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
-import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.SubjectCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 
@@ -75,16 +73,9 @@ public class SubjectCourseDAODB extends DAODBAbstract<SubjectCourse> implements 
         setInsertQueryParametersValue(stmt,subjectCourse);
     }
 
-    @Override
-    protected void setQueryIdentifiers(PreparedStatement stmt, List<Object> identifiersValues, String queryType) throws SQLException {
-        stmt.setInt(1,(int)identifiersValues.get(0));
-        stmt.setString(2, (String)identifiersValues.get(1));
-        stmt.setInt(3, (int)identifiersValues.get(2));
-        stmt.setDate(4, Date.valueOf((LocalDate)identifiersValues.get(3))); //TODO fix year
-    }
 
     @Override
-    protected SubjectCourse getListQueryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, UnrecognizedRoleException {
+    protected SubjectCourse queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, UnrecognizedRoleException {
         return new SubjectCourse(SubjectCourseCodeEnum.getSubjectCourseCodeByValue(rs.getInt("code")),
                 rs.getString("name"),
                 Year.of(rs.getDate("aa").toLocalDate().getYear()),
@@ -93,12 +84,7 @@ public class SubjectCourseDAODB extends DAODBAbstract<SubjectCourse> implements 
     }
 
     @Override
-    protected SubjectCourse getQueryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException {
-        return null;
-    }
-
-    @Override
-    protected String getListQueryIdentifierValue(SubjectCourse subjectCourse, int valueNumber) throws DAOException {
+    protected String setGetListQueryIdentifiersValue(SubjectCourse subjectCourse, int valueNumber) throws DAOException {
         return null;
     }
 

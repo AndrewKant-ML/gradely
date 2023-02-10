@@ -59,23 +59,10 @@ public class PendingEventDAODB extends DAODBAbstract<PendingEvent> implements Pe
 
     }
 
-    @Override
-    protected void setQueryIdentifiers(PreparedStatement stmt, List<Object> identifiersValues, String queryType) throws SQLException {
 
-    }
 
     @Override
-    protected PendingEvent getListQueryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, UnrecognizedRoleException {
-        return null;
-    }
-
-    @Override
-    protected PendingEvent getQueryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException {
-        return null;
-    }
-
-    @Override
-    protected String getListQueryIdentifierValue(PendingEvent pendingEvent, int valueNumber) throws DAOException {
+    protected String setGetListQueryIdentifiersValue(PendingEvent pendingEvent, int valueNumber) throws DAOException {
         return null;
     }
 

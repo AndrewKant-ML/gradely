@@ -61,20 +61,7 @@ public class StudentDAODB extends DAODBAbstract<Student> implements StudentDAOIn
         stmt.setString(1, student.getMatricola());
     }
 
-    @Override
-    protected void setQueryIdentifiers(PreparedStatement stmt, List<Object> identifiersValues, String queryType) throws SQLException {
-        stmt.setString(1, (String) identifiersValues.get(0));
-    }
-
-    @Override
-    protected Student getListQueryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, UnrecognizedRoleException {
-        return null;
-    }
-
-    protected void setQueryIdentifiers(PreparedStatement stmt, List<Object> values) throws SQLException{
-        stmt.setString(1, (String) values.get(0));
-    }
-    protected Student getQueryObjectBuilder(ResultSet rs, List<Object> users) throws SQLException, DAOException, PropertyException, ResourceNotFoundException {
+    protected Student queryObjectBuilder(ResultSet rs, List<Object> users) throws SQLException, DAOException, PropertyException, ResourceNotFoundException {
         Student student = new Student((User)users.get(0), rs.getString("matricola"));
         student.setDegreeCourseEnrollments(DegreeCourseEnrollmentLazyFactory.getInstance().getDegreeCourseEnrollmentsByStudent(student));
         student.setTitles(TitleLazyFactory.getInstance().getTitlesByStudent(student));
@@ -84,7 +71,7 @@ public class StudentDAODB extends DAODBAbstract<Student> implements StudentDAOIn
     }
 
     @Override
-    protected String getListQueryIdentifierValue(Student student, int valueNumber) throws DAOException {
+    protected String setGetListQueryIdentifiersValue(Student student, int valueNumber) throws DAOException {
         return null;
     }
 

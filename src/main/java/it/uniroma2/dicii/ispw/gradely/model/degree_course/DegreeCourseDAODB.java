@@ -188,26 +188,10 @@ public class DegreeCourseDAODB extends DAODBAbstract<DegreeCourse> implements De
         setInsertQueryParametersValue(stmt,degreeCourse);
     }
 
-    @Override
-    protected void setQueryIdentifiers(PreparedStatement stmt, List<Object> identifiersValues, String queryType) throws SQLException {
-        if(!queryType.equals("")){
-            stmt.setInt(1,(int)identifiersValues.get(0));
-            stmt.setString(2,(String)identifiersValues.get(1));
-        }
-    }
+
 
     @Override
-    protected DegreeCourse getListQueryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, UnrecognizedRoleException {
-        return null;
-    }
-
-    @Override
-    protected DegreeCourse getQueryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException {
-        return null;
-    }
-
-    @Override
-    protected String getListQueryIdentifierValue(DegreeCourse degreeCourse, int valueNumber) throws DAOException {
+    protected String setGetListQueryIdentifiersValue(DegreeCourse degreeCourse, int valueNumber) throws DAOException {
         return null;
     }
 

@@ -13,7 +13,7 @@ public interface UserDAOInterface {
      * @throws UserNotFoundException thrown if the User cannot be found
      * @throws DAOException          thrown if errors occur while retrieving data from persistence layer
      */
-    User getUserByEmail(String email) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException;
+    User getUserByEmail(String email) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, ObjectNotFoundException, MissingAuthorizationException;
 
     /**
      * Retrieves a User with a given codice fiscale
@@ -23,7 +23,7 @@ public interface UserDAOInterface {
      * @throws UserNotFoundException thrown if the User cannot be found
      * @throws DAOException          thrown if errors occur while retrieving data from persistence layer
      */
-    User getUserByCodiceFiscale(String codiceFiscale) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException;
+    User getUserByCodiceFiscale(String codiceFiscale) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, ObjectNotFoundException, MissingAuthorizationException;
 
     /**
      * Inserts an object into the DB

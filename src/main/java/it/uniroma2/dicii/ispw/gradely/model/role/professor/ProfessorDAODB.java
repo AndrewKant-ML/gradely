@@ -9,10 +9,8 @@ import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_a
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.List;
-import java.util.logging.Level;
 
 public class ProfessorDAODB extends DAODBAbstract<Professor> implements AbstractProfessorDAO {
     protected static AbstractProfessorDAO instance;
@@ -93,23 +91,13 @@ public class ProfessorDAODB extends DAODBAbstract<Professor> implements Abstract
     }
 
     @Override
-    protected void setQueryIdentifiers(PreparedStatement stmt, List<Object> identifiersValues, String queryType) throws SQLException {
-        if(!queryType.equals(""))
-            stmt.setString(1, (String) identifiersValues.get(0));
-    }
-
-    @Override
-    protected Professor getListQueryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, UnrecognizedRoleException {
+    protected Professor queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, UnrecognizedRoleException {
         return null;
     }
 
-    @Override
-    protected Professor getQueryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException {
-        return null;
-    }
 
     @Override
-    protected String getListQueryIdentifierValue(Professor professor, int valueNumber) throws DAOException {
+    protected String setGetListQueryIdentifiersValue(Professor professor, int valueNumber) throws DAOException {
         return null;
     }
 
