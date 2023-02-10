@@ -264,7 +264,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
      *
      * @param exam
      */
-    private void notifyExamProtocolization(Exam exam) throws DAOException {
+    private void notifyExamProtocolization(Exam exam) throws DAOException, MissingAuthorizationException {
         for (ExamEnrollment e : exam.getEnrollments()){
             PendingEventLazyFactory.getInstance().createNewPendingEvent(List.of(e.getStudent().getCodiceFiscale()),PendingEventTypeEnum.EXAM_VERBALIZED, exam);
         }
