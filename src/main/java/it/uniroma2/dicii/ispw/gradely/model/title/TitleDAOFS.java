@@ -2,6 +2,7 @@ package it.uniroma2.dicii.ispw.gradely.model.title;
 
 import com.opencsv.exceptions.CsvException;
 import it.uniroma2.dicii.ispw.gradely.CSVParser;
+import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.DegreeCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
@@ -15,7 +16,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TitleDAOFS extends TitleDAOAbstract {
+public class TitleDAOFS extends DAODBAbstract<Title> implements TitleDAOInterface {
+    protected static TitleDAOInterface instance;
 
     private final String fileName = "title";
 
@@ -24,7 +26,7 @@ public class TitleDAOFS extends TitleDAOAbstract {
     }
 
 
-    public static synchronized TitleDAOAbstract getInstance() {
+    public static synchronized TitleDAOInterface getInstance() {
         if (instance == null) {
             instance = new TitleDAOFS();
         }
@@ -37,7 +39,7 @@ public class TitleDAOFS extends TitleDAOAbstract {
             List<Title> titles = new ArrayList<>();
             List<List<String>> lines = new CSVParser().readAllLines(fileName);
             for (List<String> line : lines) {
-                if (line.get(1).equals(student.getUser().getCodiceFiscale()) &&
+                if (line.get(1).equals(student.getCodiceFiscale()) &&
                         !checkPresenceByDegreeCourseAndStudent(line.get(0), line.get(1), list)) {
                     DegreeCourseCodeEnum code = DegreeCourseCodeEnum.getDegreeCourseCodeByValue(Integer.parseInt(line.get(0)));
                     if (code == null)
@@ -58,7 +60,7 @@ public class TitleDAOFS extends TitleDAOAbstract {
     private boolean checkPresenceByDegreeCourseAndStudent(String degreeCourseCode, String codiceFiscale, List<Title> titles) {
         for (Title title : titles)
             if (String.valueOf(title.getDegreeCourse().getCode().value).equals(degreeCourseCode)
-                    && title.getStudent().getUser().getCodiceFiscale().equals(codiceFiscale))
+                    && title.getStudent().getCodiceFiscale().equals(codiceFiscale))
                 return true;
         return false;
     }

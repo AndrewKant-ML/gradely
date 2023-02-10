@@ -51,7 +51,7 @@ public class SecretaryDAOFS extends AbstractSecretaryDAO {
             for (List<String> line : lines) {
                 if (line.get(1).equals(String.valueOf(dipartimento.value))
                         && checkListPresenceByCodiceFiscale(line.get(0), secretaryList))
-                    secretaries.add(UserLazyFactory.getInstance().getUserByCodiceFiscale(line.get(0)).getRole().castToSecretaryRole());
+                    secretaries.add(UserLazyFactory.getInstance().getUserByCodiceFiscale(line.get(0)).getRole().getSecretaryRole());
             }
             return secretaries;
         } catch (CsvException e) {
@@ -68,7 +68,7 @@ public class SecretaryDAOFS extends AbstractSecretaryDAO {
      */
     private boolean checkListPresenceByCodiceFiscale(String codiceFiscale, List<Secretary> secretaries) {
         for (Secretary secretary : secretaries)
-            if (secretary.getUser().getCodiceFiscale().equals(codiceFiscale))
+            if (secretary.getCodiceFiscale().equals(codiceFiscale))
                 return true;
         return false;
     }

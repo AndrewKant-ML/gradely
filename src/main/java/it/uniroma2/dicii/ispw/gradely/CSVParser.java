@@ -17,7 +17,7 @@ public class CSVParser {
      *
      * @param filename the file name
      * @return a List of Strings arrays, each representing a row of the CSV file
-     * @throws ResourceNotFoundException thrown if the file cannot be found
+     * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      * @throws DAOException              thrown if errors occur while reading file content
      */
     public List<List<String>> readAllLines(String filename) throws ResourceNotFoundException, DAOException, CsvException {
@@ -53,7 +53,7 @@ public class CSVParser {
      *
      * @param resource the resource references to by the reader
      * @return a BufferedReader instance to the resource
-     * @throws ResourceNotFoundException if the given resource cannot be found
+     * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
     public BufferedReader buildResourceReader(String resource) throws ResourceNotFoundException {
         InputStream stream = getClass().getResourceAsStream(buildResourcePath(resource));

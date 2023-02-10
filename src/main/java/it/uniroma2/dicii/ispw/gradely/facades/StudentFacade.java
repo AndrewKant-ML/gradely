@@ -10,7 +10,7 @@ public class StudentFacade {
     private EnrollToDegreeCourseStudentFacade enrollToDegreeCourse;
 
     public StudentFacade(String tokenKey) throws MissingAuthorizationException{
-        SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToStudentRole();
+        SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getStudentRole();
     }
 
     public void insertStudentsGrades(String tokenKey) throws MissingAuthorizationException{

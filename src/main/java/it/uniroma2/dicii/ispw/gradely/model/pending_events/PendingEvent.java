@@ -15,16 +15,20 @@ public class PendingEvent {
     protected Boolean notified;
     protected Object object;
 
-    protected PendingEvent(List<String> recipients, PendingEventTypeEnum type, Boolean notified, Object object) throws DAOException {
-        UUID generatedId;
-        do {
-            generatedId = UUID.randomUUID();
-        } while (!Boolean.TRUE.equals(PendingEventLazyFactory.getInstance().checkUUID(generatedId)));
-
+    protected PendingEvent(List<String> recipients, PendingEventTypeEnum type, Object object) throws DAOException {
+        UUID generatedId = UUID.randomUUID();
         this.id = generatedId;
         this.type = type;
         this.recipients = recipients;
         this.notified = false;
+        this.object = object;
+    }
+    protected PendingEvent(List<String> recipients, PendingEventTypeEnum type, Boolean notified, Object object) throws DAOException {
+        UUID generatedId = UUID.randomUUID();
+        this.id = generatedId;
+        this.type = type;
+        this.recipients = recipients;
+        this.notified = notified;
         this.object = object;
     }
 

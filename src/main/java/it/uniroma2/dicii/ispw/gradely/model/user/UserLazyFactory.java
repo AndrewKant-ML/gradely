@@ -28,11 +28,11 @@ public class UserLazyFactory {
      * @param email the User's email
      * @return a User object
      * @throws DAOException              thrown if errors occur while retrieving data from persistence layer
-     * @throws PropertyException         thrown if errors occur while loading db connection properties
+     * @throws PropertyException thrown if errors occur while loading db connection properties OR thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      * @throws UserNotFoundException thrown if the email does not match any User
      */
-    public User getUserByEmail(String email) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException {
+    public User getUserByEmail(String email) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException {
         for (User u : registeredUsers) {
             if (u.getEmail().equals(email)) {
                 return u;
@@ -43,16 +43,18 @@ public class UserLazyFactory {
         return daoUser;
     }
 
-    public User getUserByCodiceFiscale(String codiceFiscale) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException {
-        for (User u : registeredUsers)
-            if (u.getCodiceFiscale().equals(codiceFiscale))
+    public User getUserByCodiceFiscale(String codiceFiscale) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException {
+        for (User u : registeredUsers) {
+            if (u.getCodiceFiscale().equals(codiceFiscale)) {
                 return u;
+            }
+        }
         User daoUser = DAOFactoryAbstract.getInstance().getUserDAO().getUserByCodiceFiscale(codiceFiscale);
         registeredUsers.add(daoUser);
         return daoUser;
     }
 
-    public User newUser(String name, String surname, String codiceFiscale, String email, String password, LocalDate registrationDate) throws DAOException, PropertyException, ResourceNotFoundException {
+    public User newUser(String name, String surname, String codiceFiscale, String email, String password, LocalDate registrationDate) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
         User newUser = new User(name, surname, codiceFiscale, email, password, registrationDate);
             DAOFactoryAbstract.getInstance().getUserDAO().insert(newUser);
             registeredUsers.add(newUser);

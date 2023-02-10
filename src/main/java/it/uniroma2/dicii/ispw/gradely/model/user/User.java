@@ -1,25 +1,17 @@
 package it.uniroma2.dicii.ispw.gradely.model.user;
 
-import com.opencsv.bean.CsvBindByName;
-import it.uniroma2.dicii.ispw.gradely.beans_general.CsvBaseBean;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.WrongPasswordException;
 import it.uniroma2.dicii.ispw.gradely.model.role.AbstractRole;
 
 import java.time.LocalDate;
 
-public class User extends CsvBaseBean {
-    @CsvBindByName()
+public class User {
     private String name;
-    @CsvBindByName()
     private String surname;
-    @CsvBindByName(column = "codice_fiscale")
     private String codiceFiscale;
-    @CsvBindByName()
     private String email;
-    @CsvBindByName()
     private String password;
-    @CsvBindByName(column = "registration_date")
     private LocalDate registrationDate;
     private AbstractRole role;
 

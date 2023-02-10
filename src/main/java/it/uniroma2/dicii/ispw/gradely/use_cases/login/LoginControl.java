@@ -12,13 +12,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LoginControl {
-    public LoginBean login(String email, String password) throws UserNotFoundException, WrongPasswordException, DAOException, MissingAuthorizationException, PropertyException, ResourceNotFoundException {
+    public LoginBean login(String email, String password) throws UserNotFoundException, WrongPasswordException, DAOException, MissingAuthorizationException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException {
         User user = UserLazyFactory.getInstance().getUserByEmail(email);
         user.checkPassword(password);
         String matricola;
         switch (user.getRole().getRoleEnumType()) {
-            case STUDENT -> matricola = user.getRole().castToStudentRole().getMatricola();
-            case PROFESSOR -> matricola = user.getRole().castToProfessorRole().getMatricola();
+            case STUDENT -> matricola = user.getRole().getStudentRole().getMatricola();
+            case PROFESSOR -> matricola = user.getRole().getProfessorRole().getMatricola();
             default -> matricola = "";
         }
         return new LoginBean(

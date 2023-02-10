@@ -2,7 +2,6 @@ package it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course;
 
 import it.uniroma2.dicii.ispw.gradely.beans_general.DegreeCourseBean;
 import it.uniroma2.dicii.ispw.gradely.beans_general.TestInfoBean;
-import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.TestTypeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.test_reservation.TestReservationLazyFactory;
@@ -45,11 +44,11 @@ public class EnrollToDegreeCourseController implements TimerObserver {
      *
      * @param tokenKey the student-relative token
      * @return a list of student-joinable degree courses
-     * @throws MissingAuthorizationException thrown when the requesting user is not a student
+     * @throws MissingAuthorizationException thrown if the User has no authorization to execute the requested operation OR thrown when the requesting user is not a student
      * @throws DAOException                  thrown when problems occur while retrieving data from persistence
      */
     public List<DegreeCourseBean> getJoinableDegreeCourses(String tokenKey) throws MissingAuthorizationException, DAOException {
-        Student student = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToStudentRole();
+        Student student = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getStudentRole();
         List<DegreeCourse> degreeCourses = DegreeCourseLazyFactory.getInstance().getAllDegreeCourses();
         // Removes degree courses already enrolled to by the student
         student.getDegreeCourseEnrollments().forEach(
@@ -86,7 +85,7 @@ public class EnrollToDegreeCourseController implements TimerObserver {
      * @return the test info
      */
     public TestInfoBean getTestInfo(String tokenKey, DegreeCourseBean degreeCourseBean) throws TestRetrivialException, MissingAuthorizationException, PropertyException, ResourceNotFoundException, DAOException {
-        SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToStudentRole();
+        SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getStudentRole();
         AbstractTestBoundary testBoundary = AbstractTestFactory.getInstance(degreeCourseBean.getTestType()).createTestBoundary();
         TestInfoBean testInfo = testBoundary.getTestInfo();
         try {
@@ -114,10 +113,10 @@ public class EnrollToDegreeCourseController implements TimerObserver {
      * @param tokenKey the token key used to grant operation authorization
      * @param testInfo the test to reserve to
      * @return a TestReservationBean containing all the reservation info
-     * @throws MissingAuthorizationException thrown if the token-relative User has no authorization to execute this operation
+     * @throws MissingAuthorizationException thrown if the User has no authorization to execute the requested operation OR thrown if the token-relative User has no authorization to execute this operation
      */
     public TestReservationBean reserveTest(String tokenKey, TestInfoBean testInfo) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException {
-        Student student = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToStudentRole();
+        Student student = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getStudentRole();
         AbstractTestBoundary testBoundary = AbstractTestFactory.getInstance(TestTypeEnum.getTestTypeByValue(testInfo.getTestType())).createTestBoundary();
         TestReservationBean testReservation = testBoundary.reserveTest(testInfo.getId());
         try {

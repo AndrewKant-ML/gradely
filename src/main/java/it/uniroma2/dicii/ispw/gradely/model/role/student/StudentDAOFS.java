@@ -9,11 +9,10 @@ import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.SubjectCourseEnrollmentLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.title.TitleLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
-import it.uniroma2.dicii.ispw.gradely.model.user.UserLazyFactory;
 
 import java.util.List;
 
-public class StudentDAOFS extends AbstractStudentDAO {
+public class StudentDAOFS extends StudentDAOInterface {
 
     private final String filename = "student";
 
@@ -21,7 +20,7 @@ public class StudentDAOFS extends AbstractStudentDAO {
 
     }
 
-    public static synchronized AbstractStudentDAO getInstance() {
+    public static synchronized StudentDAOInterface getInstance() {
         if (instance == null) {
             instance = new StudentDAOFS();
         }

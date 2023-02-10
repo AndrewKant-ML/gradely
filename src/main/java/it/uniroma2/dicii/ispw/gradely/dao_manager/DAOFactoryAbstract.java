@@ -6,22 +6,22 @@ import it.uniroma2.dicii.ispw.gradely.enums.PersistenceTypeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.AbstractDegreeCourseEnrollmentDAO;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.dao.AbstractExamEnrollmentDAO;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.dao.AbstractSubjectCourseAssignmentDAO;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.dao.AbstractSubjectCourseEnrollmentDAO;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.AbstractExamEnrollmentDAO;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.AbstractSubjectCourseAssignmentDAO;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.AbstractSubjectCourseEnrollmentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.test_reservation.TestReservationDAOAbstract;
-import it.uniroma2.dicii.ispw.gradely.model.degree_course.dao.AbstractDegreeCourseDAO;
-import it.uniroma2.dicii.ispw.gradely.model.exam.dao.AbstractExamDAO;
-import it.uniroma2.dicii.ispw.gradely.model.exam_result.dao.AbstractExamResultDAO;
-import it.uniroma2.dicii.ispw.gradely.model.pending_events.dao.AbstractPendingEventDAO;
+import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseDAOInterface;
+import it.uniroma2.dicii.ispw.gradely.model.exam.AbstractExamDAO;
+import it.uniroma2.dicii.ispw.gradely.model.exam_result.ExamResultDAOInterface;
+import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEventDAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.AbstractProfessorDAO;
 import it.uniroma2.dicii.ispw.gradely.model.role.secretary.AbstractSecretaryDAO;
-import it.uniroma2.dicii.ispw.gradely.model.role.student.AbstractStudentDAO;
-import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourseDAOAbstract;
+import it.uniroma2.dicii.ispw.gradely.model.role.student.StudentDAOInterface;
+import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourseDAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.test.TestDAOAbstract;
-import it.uniroma2.dicii.ispw.gradely.model.timer.dao.TimerDAOAbstract;
-import it.uniroma2.dicii.ispw.gradely.model.title.TitleDAOAbstract;
-import it.uniroma2.dicii.ispw.gradely.model.user.UserDAOAbstract;
+import it.uniroma2.dicii.ispw.gradely.model.timer.TimerDAOInterface;
+import it.uniroma2.dicii.ispw.gradely.model.title.TitleDAOInterface;
+import it.uniroma2.dicii.ispw.gradely.model.user.UserDAOInterface;
 
 public abstract class DAOFactoryAbstract {
 
@@ -53,17 +53,17 @@ public abstract class DAOFactoryAbstract {
     public abstract AbstractExamEnrollmentDAO getExamEnrollmentDAO();
 
     public abstract AbstractSubjectCourseEnrollmentDAO getSubjectCourseEnrollmentDAO();
-    public abstract AbstractDegreeCourseDAO getDegreeCourseDAO();
+    public abstract DegreeCourseDAOInterface getDegreeCourseDAO();
     public abstract AbstractExamDAO getExamDAO();
-    public abstract AbstractExamResultDAO getExamResultDAO();
-    public abstract AbstractPendingEventDAO getPendingEventDAO();
+    public abstract ExamResultDAOInterface getExamResultDAO();
+    public abstract PendingEventDAOInterface getPendingEventDAO();
     public abstract AbstractProfessorDAO getProfessorDAO();
     public abstract AbstractSecretaryDAO getSecretaryDAO();
-    public abstract AbstractStudentDAO getStudentDAO();
-    public abstract SubjectCourseDAOAbstract getSubjectCourseDAO();
-    public abstract TimerDAOAbstract getTimerDAO();
-    public abstract TitleDAOAbstract getTitleDAO();
-    public abstract UserDAOAbstract getUserDAO();
+    public abstract StudentDAOInterface getStudentDAO();
+    public abstract SubjectCourseDAOInterface getSubjectCourseDAO();
+    public abstract TimerDAOInterface getTimerDAO();
+    public abstract TitleDAOInterface getTitleDAO();
+    public abstract UserDAOInterface getUserDAO();
     public abstract TestDAOAbstract getTestDAO();
     public abstract TestReservationDAOAbstract getTestReservationDAO();
 }

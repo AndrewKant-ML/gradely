@@ -37,7 +37,7 @@ public class DegreeCourseEnrollmentDAOFS extends AbstractDegreeCourseEnrollmentD
                 if (Integer.parseInt(line.get(0)) == course.getCode().value && line.get(1).equals(course.getName()))
                     enrollments.add(new DegreeCourseEnrollment(
                             LocalDate.parse(line.get(3)),
-                            UserLazyFactory.getInstance().getUserByCodiceFiscale(line.get(2)).getRole().castToStudentRole(),
+                            UserLazyFactory.getInstance().getUserByCodiceFiscale(line.get(2)).getRole().getStudentRole(),
                             course
                     ));
             }
@@ -53,7 +53,7 @@ public class DegreeCourseEnrollmentDAOFS extends AbstractDegreeCourseEnrollmentD
             List<List<String>> lines = new CSVParser().readAllLines(fileName);
             List<DegreeCourseEnrollment> enrollments = new ArrayList<>();
             for (List<String> line : lines) {
-                if (line.get(2).equals(student.getUser().getCodiceFiscale()))
+                if (line.get(2).equals(student.getCodiceFiscale()))
                     enrollments.add(new DegreeCourseEnrollment(
                             LocalDate.parse(line.get(3)),
                             student,

@@ -1,117 +1,84 @@
 package it.uniroma2.dicii.ispw.gradely.model.title;
 
-import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
+import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.DegreeCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.ObjectNotFoundException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
+import it.uniroma2.dicii.ispw.gradely.model.role.student.StudentLazyFactory;
+import it.uniroma2.dicii.ispw.gradely.model.user.UserLazyFactory;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
-public class TitleDAODB extends TitleDAOAbstract {
+public class TitleDAODB extends DAODBAbstract<Title> implements TitleDAOInterface {
+    protected static TitleDAOInterface instance;
 
     private TitleDAODB() {
         super();
     }
 
 
-    public static synchronized TitleDAOAbstract getInstance() {
+    public static synchronized TitleDAOInterface getInstance() {
         if (instance == null) {
             instance = new TitleDAODB();
         }
         return instance;
     }
 
-    /**
-     * Retrieves all Title of a given Student
-     *
-     * @param student   the Student whose titles have to be found
-     * @param oldTitles the titles already loaded in memory
-     * @return a List of Title objects
-     * @throws DAOException              thrown if errors occur while retrieving data from persistence layer
-     * @throws PropertyException         thrown if errors occur while loading db connection properties
-     * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
-     */
     @Override
-    List<Title> getTitlesByStudent(Student student, List<Title> oldTitles) throws DAOException, PropertyException, ResourceNotFoundException {
-        String query;
-        if (oldTitles.isEmpty())
-            query = String.format("select * from TITLE T where T.student='%s';", student.getUser().getCodiceFiscale());
-        else {
-            StringBuilder builder = new StringBuilder();
-            for (Title title : oldTitles)
-                builder.append(title.getDegreeCourse().getCode().value).append(',');
-            builder.deleteCharAt(builder.length() - 1);
-            query = String.format("select * from TITLE T where T.student='%s' and T.abstract_degree_course not in (%s);", student.getUser().getCodiceFiscale(), builder);
-        }
-        try {
-            Connection connection = DBConnection.getInstance().getConnection();
-            try (PreparedStatement stmt = connection.prepareStatement(query);
-                 ResultSet rs = stmt.executeQuery()) {
-                List<Title> newTitles = new ArrayList<>();
-                while (rs.next()) {
-                    DegreeCourseCodeEnum code = DegreeCourseCodeEnum.getDegreeCourseCodeByValue(rs.getInt("abstract_degree_course"));
-                    if (code == null)
-                        throw new ObjectNotFoundException(ExceptionMessagesEnum.OBJ_NOT_FOUND.message);
-                    newTitles.add(new Title(
-                            DegreeCourseLazyFactory.getInstance().getDegreeCourseByDegreeCourseCodeList(List.of(code)).get(0),
-                            student,
-                            rs.getDate("achievement_date").toLocalDate()
-                    ));
-                }
-                return newTitles;
-            }
-        } catch (SQLException | ObjectNotFoundException e) {
-            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }
+    public List<Title> getTitlesByStudent(Student student, List<Title> exclusions) throws DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, UnrecognizedRoleException, WrongListQueryIdentifierValue, WrongDegreeCourseCodeException {
+        return getListQuery(
+                "TITLE",
+                List.of("student"),
+                List.of(student.getCodiceFiscale()),
+                exclusions,
+                List.of(student)
+        );
     }
 
     @Override
-    public void insert(Title title) throws DAOException, PropertyException, ResourceNotFoundException {
-        String query = "insert into TITLE (student, abstract_degree_course, achievement_date) values (?, ?, ?)";
-        setQueryParameters(title, query);
+    public void insert(Title title) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
+        insertQuery(
+                "TITLE",
+                List.of(title.getStudent().getCodiceFiscale(), title.getDegreeCourse().getCode().value, Date.valueOf(title.getAchievementDate()))
+        );
     }
 
     @Override
     public void cancel(Title title) throws DAOException, PropertyException, ResourceNotFoundException {
-        String query = "delete from TITLE where student = ? and abstract_degree_course = ?";
-        try{
-            Connection connection = DBConnection.getInstance().getConnection();
-            try(PreparedStatement stmt = connection.prepareStatement(query)){
-                stmt.setString(1,title.getStudent().getUser().getCodiceFiscale());
-                stmt.setInt(2,title.getDegreeCourse().getCode().value);
-                stmt.executeUpdate();
-            }
-        } catch (SQLException e) {
-            throw new DAOException(ExceptionMessagesEnum.DAO.message,e);
-        }
-
+        cancelQuery("TITLE",
+                List.of("codice_fiscale", "abstract_degree_course"),
+                List.of(title.getStudent().getCodiceFiscale(), title.getDegreeCourse().getCode().value)
+        );
     }
 
     @Override
-    public void update(Title title) throws DAOException, PropertyException, ResourceNotFoundException {
-        String query = "update TITLE set student = ?, abstract_degree_course = ?, achievement_date = ? where student = ? and abstract_degree_course = ?";
-        setQueryParameters(title, query);
+    public void update(Title title) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
+        updateQuery(
+                "TITLE",
+                List.of("achievement_date"),
+                List.of(Date.valueOf(title.getAchievementDate())),
+                List.of("codice_fiscale", "abstract_degree_course"),
+                List.of(title.getStudent().getCodiceFiscale(),title.getDegreeCourse().getCode().value)
+        );
     }
 
-    private void setQueryParameters(Title title, String query) throws ResourceNotFoundException, PropertyException, DAOException {
-        try{
-            Connection connection = DBConnection.getInstance().getConnection();
-            try(PreparedStatement stmt = connection.prepareStatement(query)){
-                stmt.setString(1,title.getStudent().getUser().getCodiceFiscale());
-                stmt.setInt(2,title.getDegreeCourse().getCode().value);
-                stmt.setDate(3, Date.valueOf(title.getAchievementDate()));
-                stmt.executeUpdate();
-            }
-        } catch (SQLException e) {
-            throw new DAOException(ExceptionMessagesEnum.DAO.message,e);
-        }
+    @Override
+    protected Title queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException, WrongDegreeCourseCodeException {
+        return new Title(
+                DegreeCourseLazyFactory.getInstance().getDegreeCourseByDegreeCourseCodeList(List.of(DegreeCourseCodeEnum.getDegreeCourseCodeByValue(rs.getInt("absract_degree_course")))).get(0),
+                StudentLazyFactory.getInstance().getStudentByUser(UserLazyFactory.getInstance().getUserByCodiceFiscale(rs.getString("codice_fiscale"))),
+                rs.getDate("achievement_date").toLocalDate()
+        );
+    }
+
+    @Override
+    protected String setGetListQueryIdentifiersValue(Title title, int valueNumber) throws WrongListQueryIdentifierValue {
+        if(valueNumber == 0){
+            return title.getStudent().getCodiceFiscale();
+        } else throw new WrongListQueryIdentifierValue(ExceptionMessagesEnum.WRONG_LIST_QUERY_IDENTIFIER_VALUE.message);
     }
 
 }

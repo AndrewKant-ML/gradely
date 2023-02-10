@@ -2,37 +2,37 @@ package it.uniroma2.dicii.ispw.gradely.dao_manager;
 
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.AbstractDegreeCourseEnrollmentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.DegreeCourseEnrollmentDAOFS;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.dao.AbstractExamEnrollmentDAO;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.dao.ExamEnrollmentDAOFS;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.dao.AbstractSubjectCourseAssignmentDAO;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.dao.SubjectCourseAssignmentDAOFS;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.dao.AbstractSubjectCourseEnrollmentDAO;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.dao.SubjectCourseEnrollmentDAOFS;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.AbstractExamEnrollmentDAO;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.ExamEnrollmentDAOFS;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.AbstractSubjectCourseAssignmentDAO;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.SubjectCourseAssignmentDAOFS;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.AbstractSubjectCourseEnrollmentDAO;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.SubjectCourseEnrollmentDAOFS;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.test_reservation.TestReservationDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.test_reservation.TestReservationDAOFS;
-import it.uniroma2.dicii.ispw.gradely.model.degree_course.dao.AbstractDegreeCourseDAO;
-import it.uniroma2.dicii.ispw.gradely.model.degree_course.dao.DegreeCourseDAOFS;
-import it.uniroma2.dicii.ispw.gradely.model.exam.dao.AbstractExamDAO;
-import it.uniroma2.dicii.ispw.gradely.model.exam.dao.ExamDAOFS;
-import it.uniroma2.dicii.ispw.gradely.model.exam_result.dao.AbstractExamResultDAO;
-import it.uniroma2.dicii.ispw.gradely.model.exam_result.dao.ExamResultDAOFS;
-import it.uniroma2.dicii.ispw.gradely.model.pending_events.dao.AbstractPendingEventDAO;
-import it.uniroma2.dicii.ispw.gradely.model.pending_events.dao.PendingEventDAOFS;
+import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseDAOInterface;
+import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseDAOFS;
+import it.uniroma2.dicii.ispw.gradely.model.exam.AbstractExamDAO;
+import it.uniroma2.dicii.ispw.gradely.model.exam.ExamDAOFS;
+import it.uniroma2.dicii.ispw.gradely.model.exam_result.ExamResultDAOInterface;
+import it.uniroma2.dicii.ispw.gradely.model.exam_result.ExamResultDAOFS;
+import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEventDAOInterface;
+import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEventDAOFS;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.AbstractProfessorDAO;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.ProfessorDAOFS;
 import it.uniroma2.dicii.ispw.gradely.model.role.secretary.AbstractSecretaryDAO;
 import it.uniroma2.dicii.ispw.gradely.model.role.secretary.SecretaryDAOFS;
-import it.uniroma2.dicii.ispw.gradely.model.role.student.AbstractStudentDAO;
+import it.uniroma2.dicii.ispw.gradely.model.role.student.StudentDAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.StudentDAOFS;
-import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourseDAOAbstract;
+import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourseDAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourseDAOFS;
 import it.uniroma2.dicii.ispw.gradely.model.test.TestDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.test.TestDAOFS;
-import it.uniroma2.dicii.ispw.gradely.model.timer.dao.TimerDAOAbstract;
-import it.uniroma2.dicii.ispw.gradely.model.timer.dao.TimerDAOFS;
-import it.uniroma2.dicii.ispw.gradely.model.title.TitleDAOAbstract;
+import it.uniroma2.dicii.ispw.gradely.model.timer.TimerDAOInterface;
+import it.uniroma2.dicii.ispw.gradely.model.timer.TimerDAOFS;
+import it.uniroma2.dicii.ispw.gradely.model.title.TitleDAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.title.TitleDAOFS;
-import it.uniroma2.dicii.ispw.gradely.model.user.UserDAOAbstract;
+import it.uniroma2.dicii.ispw.gradely.model.user.UserDAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.user.UserDAOFS;
 
 public class DAOFactoryFS extends DAOFactoryAbstract {
@@ -53,7 +53,7 @@ public class DAOFactoryFS extends DAOFactoryAbstract {
         return SubjectCourseEnrollmentDAOFS.getInstance();
     }
     @Override
-    public AbstractDegreeCourseDAO getDegreeCourseDAO(){
+    public DegreeCourseDAOInterface getDegreeCourseDAO(){
         return DegreeCourseDAOFS.getInstance();
     }
     @Override
@@ -61,11 +61,11 @@ public class DAOFactoryFS extends DAOFactoryAbstract {
         return ExamDAOFS.getInstance();
     }
     @Override
-    public AbstractExamResultDAO getExamResultDAO(){
+    public ExamResultDAOInterface getExamResultDAO(){
         return ExamResultDAOFS.getInstance();
     }
     @Override
-    public AbstractPendingEventDAO getPendingEventDAO(){
+    public PendingEventDAOInterface getPendingEventDAO(){
         return PendingEventDAOFS.getInstance();
     }
     @Override
@@ -77,25 +77,25 @@ public class DAOFactoryFS extends DAOFactoryAbstract {
         return SecretaryDAOFS.getInstance();
     }
     @Override
-    public AbstractStudentDAO getStudentDAO(){
+    public StudentDAOInterface getStudentDAO(){
         return StudentDAOFS.getInstance();
     }
     @Override
-    public SubjectCourseDAOAbstract getSubjectCourseDAO(){
+    public SubjectCourseDAOInterface getSubjectCourseDAO(){
         return SubjectCourseDAOFS.getInstance();
     }
     @Override
-    public TimerDAOAbstract getTimerDAO(){
+    public TimerDAOInterface getTimerDAO(){
         return TimerDAOFS.getInstance();
     }
 
     @Override
-    public TitleDAOAbstract getTitleDAO() {
+    public TitleDAOInterface getTitleDAO() {
         return TitleDAOFS.getInstance();
     }
 
     @Override
-    public UserDAOAbstract getUserDAO() {
+    public UserDAOInterface getUserDAO() {
         return UserDAOFS.getInstance();
     }
 

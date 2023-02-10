@@ -2,10 +2,7 @@ package it.uniroma2.dicii.ispw.gradely.model.role.student;
 
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.UserNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.title.Title;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
@@ -27,7 +24,7 @@ public class StudentLazyFactory {
         return instance;
     }
 
-    public Student getStudentByUser(User user) throws DAOException, UserNotFoundException {
+    public Student getStudentByUser(User user) throws DAOException, UserNotFoundException, UnrecognizedRoleException, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         for (Student s : students) {
             if (s.getUser().equals(user)) {
                 return s;
@@ -42,7 +39,7 @@ public class StudentLazyFactory {
         }
     }
 
-    public Student newStudent(User user, String matricola, List<Title> titles) throws DAOException {
+    public Student newStudent(User user, String matricola, List<Title> titles) throws DAOException, MissingAuthorizationException {
         Student student = new Student(user, matricola);
         user.setRole(student);
         if (titles != null){

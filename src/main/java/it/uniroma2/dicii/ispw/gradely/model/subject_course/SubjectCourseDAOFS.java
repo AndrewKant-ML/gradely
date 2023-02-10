@@ -12,7 +12,7 @@ import java.time.Year;
 import java.util.List;
 
 
-public class SubjectCourseDAOFS extends SubjectCourseDAOAbstract {
+public class SubjectCourseDAOFS extends SubjectCourseDAOInterface {
 
     private final String subjectCourseFileName = "subject_course";
     private final String prerequisiteFileName = "subject_course_prerequisite";
@@ -21,7 +21,7 @@ public class SubjectCourseDAOFS extends SubjectCourseDAOAbstract {
         super();
     }
 
-    public static synchronized SubjectCourseDAOAbstract getInstance() {
+    public static synchronized SubjectCourseDAOInterface getInstance() {
         if (instance == null) {
             instance = new SubjectCourseDAOFS();
         }

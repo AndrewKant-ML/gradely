@@ -38,6 +38,15 @@ public class PendingEventLazyFactory {
         }
         return list;
     }
+    public void createNewPendingEvent(List<String> recipients, PendingEventTypeEnum type, Object object) throws DAOException {
+        PendingEvent p = new PendingEvent(recipients, type, object);
+        try {
+            DAOFactoryAbstract.getInstance().getPendingEventDAO().insert(p);
+        } catch (ResourceNotFoundException | PropertyException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
+        pendingEvents.add(p);
+    }
 
     public void createNewPendingEvent(List<String> recipients, PendingEventTypeEnum type, Boolean notified, Object object) throws DAOException {
         PendingEvent p = new PendingEvent(recipients, type, notified, object);
@@ -56,16 +65,4 @@ public class PendingEventLazyFactory {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }
-
-    public Boolean checkUUID(UUID id) throws DAOException {
-        refreshPendingEvents();
-        for(PendingEvent event : pendingEvents){
-            if(id.equals(event.getId())){
-                return false;
-            }
-        }
-        return true;
-    }
-
-
 }

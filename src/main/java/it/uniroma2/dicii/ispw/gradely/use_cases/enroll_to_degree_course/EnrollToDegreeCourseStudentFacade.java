@@ -12,22 +12,22 @@ public class EnrollToDegreeCourseStudentFacade {
     private final EnrollToDegreeCourseController controller;
 
     public EnrollToDegreeCourseStudentFacade(String tokenKey) throws MissingAuthorizationException {
-        SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToStudentRole();
+        SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getStudentRole();
         controller = new EnrollToDegreeCourseController();
     }
 
     public List<DegreeCourseBean> getDegreeCourses(String tokenKey) throws MissingAuthorizationException, DAOException {
-        SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToStudentRole();
+        SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getStudentRole();
         return controller.getJoinableDegreeCourses(tokenKey);
     }
 
     public TestInfoBean getTestInfo(String tokenKey, DegreeCourseBean degreeCourseBean) throws TestRetrivialException, MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException {
-        SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToStudentRole();
+        SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getStudentRole();
         return controller.getTestInfo(tokenKey, degreeCourseBean);
     }
 
     public TestReservationBean reserveTest(String tokenKey, TestInfoBean testInfo) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException {
-        SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToStudentRole();
+        SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getStudentRole();
         return controller.reserveTest(tokenKey, testInfo);
     }
 }
