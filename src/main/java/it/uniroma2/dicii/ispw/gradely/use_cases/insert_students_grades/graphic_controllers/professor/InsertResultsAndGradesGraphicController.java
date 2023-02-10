@@ -2,8 +2,10 @@ package it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.graphic_
 
 import it.uniroma2.dicii.ispw.gradely.beans_general.ExamEnrollmentBean;
 import it.uniroma2.dicii.ispw.gradely.beans_general.ExamEnrollmentListBean;
+import it.uniroma2.dicii.ispw.gradely.beans_general.ExamResultBean;
 import it.uniroma2.dicii.ispw.gradely.enums.ResultEnum;
 import it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.beans.ExamResultBeanTableModel;
+import it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.beans.StudentGradeBean;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,6 +30,7 @@ public class InsertResultsAndGradesGraphicController implements Initializable {
     public TableColumn<ExamResultBeanTableModel, ChoiceBox<ResultEnum>> result;
     @FXML
     public TableColumn<ExamResultBeanTableModel, String> grade;
+    private List<ExamEnrollmentBean> enrollmentBeans;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -50,7 +53,7 @@ public class InsertResultsAndGradesGraphicController implements Initializable {
     }
 
     public void setEnrollments(ExamEnrollmentListBean listBean) {
-        List<ExamEnrollmentBean> enrollmentBeans = listBean.getExamEnrollmentBeans();
+        this.enrollmentBeans = listBean.getExamEnrollmentBeans();
         List<ExamResultBeanTableModel> resultBeanTableModels = new ArrayList<>();
         for (ExamEnrollmentBean enrollmentBean : enrollmentBeans) {
             resultBeanTableModels.add(new ExamResultBeanTableModel(
@@ -60,5 +63,27 @@ public class InsertResultsAndGradesGraphicController implements Initializable {
             ));
         }
         enrollmentsTable.setItems(FXCollections.observableArrayList(resultBeanTableModels));
+    }
+
+    /**
+     * Builds and returns an array of StudentGradeBeans, by coupling each enrollment
+     * to the inserted grade.
+     *
+     * @return a list of StudentGradeBeans
+     */
+    public List<StudentGradeBean> getResults() {
+        List<StudentGradeBean> gradeBeans = new ArrayList<>();
+        for (ExamEnrollmentBean enrollmentBean : this.enrollmentBeans)
+            for (ExamResultBeanTableModel item : enrollmentsTable.getItems())
+                if (enrollmentBean.getStudentMatricola().equals(item.getStudentMatricolaProperty()))
+                    gradeBeans.add(new StudentGradeBean(
+                            enrollmentBean,
+                            new ExamResultBean(
+                                    item.getGradeProperty(),
+                                    item.getResultProperty().getValue(),
+                                    false
+                            )
+                    ));
+        return gradeBeans;
     }
 }

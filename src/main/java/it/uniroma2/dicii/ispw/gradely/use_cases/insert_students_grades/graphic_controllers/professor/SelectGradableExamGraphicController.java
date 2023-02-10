@@ -57,7 +57,7 @@ public class SelectGradableExamGraphicController implements Initializable {
             modelAppello = model.getAppelloProperty();
             modelSession = model.getSessionProperty();
             if (examBean.getCourse().getName().equals(modelName) &&
-                    examBean.getSessione().toString().equals(modelSession) &&
+                    examBean.getSession().toString().equals(modelSession) &&
                     Objects.equals(examBean.getAppello().value, modelAppello) &&
                     examBean.getDate().isEqual(modelDate))
                 return examBean;
@@ -72,7 +72,7 @@ public class SelectGradableExamGraphicController implements Initializable {
                     examBean.getCourse().getName(),
                     LocalDate.now(),
                     examBean.getAppello(),
-                    examBean.getSessione()
+                    examBean.getSession()
             ));
         gradableExamsTable.setItems(FXCollections.observableArrayList(models));
     }
