@@ -61,7 +61,7 @@ public class DegreeCourseEnrollmentDAODB extends DAODBAbstract<DegreeCourseEnrol
     @Override
     public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByStudent(Student student) throws DAOException, PropertyException, ResourceNotFoundException {
         String query = "select degree_course_name as name, enrollment_date from DEGREE_COURSE_ENROLLMENT DCE where DCE.student='%s'";
-        query = String.format(query, student.getUser().getCodiceFiscale());
+        query = String.format(query, student.getCodiceFiscale());
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             try (PreparedStatement stmt = connection.prepareStatement(query);

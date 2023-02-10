@@ -27,7 +27,7 @@ public class DegreeCourseDAODB extends DAODBAbstract<DegreeCourse> implements De
         return instance;
     }
 
-    private DegreeCourse parseResultSet(ResultSet rs) throws SQLException, DAOException, PropertyException, ResourceNotFoundException {
+    private DegreeCourse parseResultSet(ResultSet rs) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, WrongDegreeCourseCodeException {
         int code = rs.getInt("code");
         DegreeCourse degreeCourse = new DegreeCourse(DegreeCourseCodeEnum.getDegreeCourseCodeByValue(code), rs.getString("name"), FacoltaEnum.getFacoltaByValue(rs.getInt("facolta")), DipartimentoEnum.getDipartimentoByValue(rs.getInt("dipartimento")), DegreeCourseTypeEnum.getDegreeCourseTypeByValue(rs.getInt("type")), TestTypeEnum.getTestTypeByValue(rs.getInt("test_type")));
         degreeCourse.setPrerequisites(DegreeCourseLazyFactory.getInstance().getDegreeCourseByDegreeCourseCodeList(getPrerequisitesCodesByDegreeCourseCode(code)));
@@ -118,7 +118,7 @@ public class DegreeCourseDAODB extends DAODBAbstract<DegreeCourse> implements De
     @Override
     public DegreeCourse getDegreeCourseByCoordinatore(Professor professor) throws DAOException, ObjectNotFoundException, PropertyException, ResourceNotFoundException {
         String query = "select DC.code as code,name,facolta,dipartimento,type,test_type from DEGREE_COURSE DC join ABSTRACT_DEGREE_COURSE ADC on DC.code=ADC.code where DC.coordinatore='%s';";
-        query = String.format(query, professor.getUser().getCodiceFiscale());
+        query = String.format(query, professor.getCodiceFiscale());
         return querySingleDegreeCourseData(query);
     }
 
@@ -174,10 +174,15 @@ public class DegreeCourseDAODB extends DAODBAbstract<DegreeCourse> implements De
     }
 
     @Override
+    protected DegreeCourse queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException, MissingAuthorizationException {
+        return null;
+    }
+
+    @Override
     protected void setInsertQueryParametersValue(PreparedStatement stmt, DegreeCourse degreeCourse) throws SQLException {
         stmt.setInt(1,degreeCourse.getCode().value);
         stmt.setString(2,degreeCourse.getName());
-        stmt.setString(3,degreeCourse.getCoordinatore().getUser().getCodiceFiscale());
+        stmt.setString(3,degreeCourse.getCoordinatore().getCodiceFiscale());
         stmt.setInt(4,degreeCourse.getTestType().value);
         stmt.setInt(5,degreeCourse.getDipartimento().value);
         stmt.setInt(6,degreeCourse.getFacolta().value);

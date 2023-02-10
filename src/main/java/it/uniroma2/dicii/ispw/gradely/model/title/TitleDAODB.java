@@ -2,6 +2,7 @@ package it.uniroma2.dicii.ispw.gradely.model.title;
 
 import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.DegreeCourseCodeEnum;
+import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
@@ -27,11 +28,11 @@ public class TitleDAODB extends DAODBAbstract<Title> implements TitleDAOInterfac
     }
 
     @Override
-    public List<Title> getTitlesByStudent(Student student, List<Title> exclusions) throws DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, UnrecognizedRoleException {
+    public List<Title> getTitlesByStudent(Student student, List<Title> exclusions) throws DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, UnrecognizedRoleException, WrongListQueryIdentifierValue, WrongDegreeCourseCodeException {
         return getListQuery(
                 "TITLE",
                 List.of("student"),
-                List.of(student.getUser().getCodiceFiscale()),
+                List.of(student.getCodiceFiscale()),
                 exclusions,
                 List.of(student)
         );
@@ -41,7 +42,7 @@ public class TitleDAODB extends DAODBAbstract<Title> implements TitleDAOInterfac
     public void insert(Title title) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
         insertQuery(
                 "TITLE",
-                List.of(title.getStudent().getUser().getCodiceFiscale(), title.getDegreeCourse().getCode().value, Date.valueOf(title.getAchievementDate()))
+                List.of(title.getStudent().getCodiceFiscale(), title.getDegreeCourse().getCode().value, Date.valueOf(title.getAchievementDate()))
         );
     }
 
@@ -49,7 +50,7 @@ public class TitleDAODB extends DAODBAbstract<Title> implements TitleDAOInterfac
     public void cancel(Title title) throws DAOException, PropertyException, ResourceNotFoundException {
         cancelQuery("TITLE",
                 List.of("codice_fiscale", "abstract_degree_course"),
-                List.of(title.getStudent().getUser().getCodiceFiscale(), title.getDegreeCourse().getCode().value)
+                List.of(title.getStudent().getCodiceFiscale(), title.getDegreeCourse().getCode().value)
         );
     }
 
@@ -60,12 +61,12 @@ public class TitleDAODB extends DAODBAbstract<Title> implements TitleDAOInterfac
                 List.of("achievement_date"),
                 List.of(Date.valueOf(title.getAchievementDate())),
                 List.of("codice_fiscale", "abstract_degree_course"),
-                List.of(title.getStudent().getUser().getCodiceFiscale(),title.getDegreeCourse().getCode().value)
+                List.of(title.getStudent().getCodiceFiscale(),title.getDegreeCourse().getCode().value)
         );
     }
 
     @Override
-    protected Title queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException,MissingAuthorizationException {
+    protected Title queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException, WrongDegreeCourseCodeException {
         return new Title(
                 DegreeCourseLazyFactory.getInstance().getDegreeCourseByDegreeCourseCodeList(List.of(DegreeCourseCodeEnum.getDegreeCourseCodeByValue(rs.getInt("absract_degree_course")))).get(0),
                 StudentLazyFactory.getInstance().getStudentByUser(UserLazyFactory.getInstance().getUserByCodiceFiscale(rs.getString("codice_fiscale"))),
@@ -74,10 +75,10 @@ public class TitleDAODB extends DAODBAbstract<Title> implements TitleDAOInterfac
     }
 
     @Override
-    protected String setGetListQueryIdentifiersValue(Title title, int valueNumber) throws DAOException {
+    protected String setGetListQueryIdentifiersValue(Title title, int valueNumber) throws WrongListQueryIdentifierValue {
         if(valueNumber == 0){
-            return title.getStudent().getUser().getCodiceFiscale();
-        } else throw new DAOException("wrong list query id value");
+            return title.getStudent().getCodiceFiscale();
+        } else throw new WrongListQueryIdentifierValue(ExceptionMessagesEnum.WRONG_LIST_QUERY_IDENTIFIER_VALUE.message);
     }
 
 }

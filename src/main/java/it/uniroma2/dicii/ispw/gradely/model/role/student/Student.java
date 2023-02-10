@@ -26,7 +26,7 @@ public class Student extends AbstractRole {
     }
 
     @Override
-    public Student castToStudentRole() {
+    public Student getStudentRole() {
         return this;
     }
 

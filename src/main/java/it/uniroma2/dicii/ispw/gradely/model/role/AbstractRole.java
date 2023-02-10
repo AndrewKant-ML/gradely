@@ -23,28 +23,32 @@ public abstract class AbstractRole {
         this.user = user;
     }
 
-    public Professor castToProfessorRole() throws MissingAuthorizationException {
+    public String getCodiceFiscale(){
+        return user.getCodiceFiscale();
+    }
+
+    public Professor getProfessorRole() throws MissingAuthorizationException {
         throw new MissingAuthorizationException(ExceptionMessagesEnum.MISSING_AUTH.message);
     }
 
-    public Student castToStudentRole() throws MissingAuthorizationException {
+    public Student getStudentRole() throws MissingAuthorizationException {
         throw new MissingAuthorizationException(ExceptionMessagesEnum.MISSING_AUTH.message);
     }
 
-    public Secretary castToSecretaryRole() throws MissingAuthorizationException {
+    public Secretary getSecretaryRole() throws MissingAuthorizationException {
         throw new MissingAuthorizationException(ExceptionMessagesEnum.MISSING_AUTH.message);
     }
 
     public UserRoleEnum getRoleEnumType() throws MissingAuthorizationException {
         try {
-            castToStudentRole();
+            getStudentRole();
             return UserRoleEnum.STUDENT;
         } catch (MissingAuthorizationException e) {
             try {
-                castToProfessorRole();
+                getProfessorRole();
                 return UserRoleEnum.PROFESSOR;
             } catch (MissingAuthorizationException ex) {
-                castToSecretaryRole();
+                getSecretaryRole();
                 return UserRoleEnum.SECRETARY;
             }
         }

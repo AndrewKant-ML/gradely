@@ -68,7 +68,7 @@ protected static AbstractSubjectCourseAssignmentDAO instance;
     @Override
     public List<SubjectCourseAssignment> getCourseAssignmentsByProfessor(Professor professor) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, ObjectNotFoundException {
         String query = "select professor, sc_code, sc_name, sc_cfu, sc_aa from SUBJECT_COURSE_ASSIGNMENT SCA where SCA.professor='%s';";
-        query = String.format(query, professor.getUser().getCodiceFiscale());
+        query = String.format(query, professor.getCodiceFiscale());
         return queryMultipleSubjectCourseAssignmentData(query);
     }
 

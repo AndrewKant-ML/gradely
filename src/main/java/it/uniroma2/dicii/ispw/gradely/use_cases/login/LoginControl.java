@@ -17,8 +17,8 @@ public class LoginControl {
         user.checkPassword(password);
         String matricola;
         switch (user.getRole().getRoleEnumType()) {
-            case STUDENT -> matricola = user.getRole().castToStudentRole().getMatricola();
-            case PROFESSOR -> matricola = user.getRole().castToProfessorRole().getMatricola();
+            case STUDENT -> matricola = user.getRole().getStudentRole().getMatricola();
+            case PROFESSOR -> matricola = user.getRole().getProfessorRole().getMatricola();
             default -> matricola = "";
         }
         return new LoginBean(

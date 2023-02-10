@@ -30,7 +30,7 @@ public class UserDAODB extends DAODBAbstract<User> implements UserDAOInterface  
     }
 
     @Override
-    public User getUserByEmail(String email) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, ObjectNotFoundException, MissingAuthorizationException {
+    public User getUserByEmail(String email) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         return getQuery(
                 "STUDENT",
                 List.of("email"),
@@ -40,7 +40,7 @@ public class UserDAODB extends DAODBAbstract<User> implements UserDAOInterface  
     }
 
     @Override
-    public User getUserByCodiceFiscale(String codiceFiscale) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, ObjectNotFoundException, MissingAuthorizationException {
+    public User getUserByCodiceFiscale(String codiceFiscale) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         return getQuery(
                 "STUDENT",
                 List.of("codice_fiscale"),

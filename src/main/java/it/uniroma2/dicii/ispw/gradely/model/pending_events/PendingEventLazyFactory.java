@@ -65,16 +65,4 @@ public class PendingEventLazyFactory {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }
-
-    public Boolean checkUUID(UUID id) throws DAOException {
-        refreshPendingEvents();
-        for(PendingEvent event : pendingEvents){
-            if(id.equals(event.getId())){
-                return false;
-            }
-        }
-        return true;
-    }
-
-
 }

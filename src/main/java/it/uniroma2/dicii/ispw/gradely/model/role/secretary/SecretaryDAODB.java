@@ -37,24 +37,13 @@ public class SecretaryDAODB  extends DAODBAbstract<Secretary> implements Abstrac
      * @throws UserNotFoundException thrown if the given User has not a Student role
      */
     @Override
-    public Secretary getSecretaryByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException {
-        String query = "select * from SECRETARY S where S.codice_fiscale='%s';";
-        query = String.format(query, user.getCodiceFiscale());
-        try {
-            Connection connection = DBConnection.getInstance().getConnection();
-            try (PreparedStatement stmt = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                 ResultSet rs = stmt.executeQuery()) {
-                if (rs.first()) {
-                    return new Secretary(
-                            user,
-                            DipartimentoEnum.getDipartimentoByValue(rs.getInt("dipartimento"))
-                    );
-                } else
-                    throw new UserNotFoundException(ExceptionMessagesEnum.SECRETARY_NOT_FOUND.message);
-            }
-        } catch (SQLException e) {
-            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }
+    public Secretary getSecretaryByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
+        return getQuery(
+                "SECRETARY",
+                List.of("codice_fiiscale"),
+                List.of(user.getCodiceFiscale()),
+                List.of(user)
+        );
     }
 
     /**
@@ -67,28 +56,34 @@ public class SecretaryDAODB  extends DAODBAbstract<Secretary> implements Abstrac
      * @throws UserNotFoundException thrown if the given User has not a Secretary role
      */
     @Override
-    public List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento, List<Secretary> excludedList) throws DAOException, UserNotFoundException, MissingAuthorizationException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UnrecognizedRoleException {
-        return getListQuery("SECRETARY",List.of("dipartimento"),List.of(dipartimento.value), excludedList, null);
+    public List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento, List<Secretary> excludedList) throws DAOException, UserNotFoundException, MissingAuthorizationException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, WrongListQueryIdentifierValue, WrongDegreeCourseCodeException {
+        return getListQuery(
+                "SECRETARY",
+                List.of("dipartimento"),
+                List.of(dipartimento.value),
+                excludedList,
+                null
+        );
     }
 
     @Override
     public void insert(Secretary secretary) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
-        insertQuery("SECRETARY",List.of(secretary.getUser().getCodiceFiscale(),secretary.getDipartimento().value));
+        insertQuery("SECRETARY",List.of(secretary.getCodiceFiscale(),secretary.getDipartimento().value));
     }
 
     @Override
     public void cancel(Secretary secretary) throws DAOException, PropertyException, ResourceNotFoundException {
-        cancelQuery("SECRETARY",List.of("codice_fiscale","dipartimento"), List.of(secretary.getUser().getCodiceFiscale(), secretary.getDipartimento().value));
+        cancelQuery("SECRETARY",List.of("codice_fiscale","dipartimento"), List.of(secretary.getCodiceFiscale(), secretary.getDipartimento().value));
     }
 
     @Override
     public void update(Secretary secretary) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
-        updateQuery("SECRETARY",List.of("dipartimento"),List.of(secretary.getDipartimento().value),List.of("codice_fiscale"),List.of(secretary.getUser().getCodiceFiscale()));
+        updateQuery("SECRETARY",List.of("dipartimento"),List.of(secretary.getDipartimento().value),List.of("codice_fiscale"),List.of(secretary.getCodiceFiscale()));
     }
     @Override
-    protected Secretary queryObjectBuilder(ResultSet rs, List<Object> users) throws SQLException, DAOException, PropertyException, ResourceNotFoundException {
+    protected Secretary queryObjectBuilder(ResultSet rs, List<Object> users) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, UnrecognizedRoleException {
         Secretary secretary = new Secretary(
-                (User)users.get(0),
+                (users != null) ? (User)users.get(0) : UserLazyFactory.getInstance().getUserByCodiceFiscale(rs.getString("codice_fiscale")),
                 DipartimentoEnum.getDipartimentoByValue(rs.getInt("dipartimento"))
         );
         return secretary;
@@ -96,21 +91,10 @@ public class SecretaryDAODB  extends DAODBAbstract<Secretary> implements Abstrac
     @Override
     protected String setGetListQueryIdentifiersValue(Secretary secretary, int valueNumber) throws DAOException {
         if(valueNumber == 0){
-            return secretary.getUser().getCodiceFiscale();
+            return secretary.getCodiceFiscale();
         } else throw new DAOException("wrong list query id value");
     }
 }
 
-
-    /*
-    protected void setInsertQueryParametersValue(PreparedStatement stmt, Secretary secretary) throws SQLException {
-        stmt.setString(1,secretary.getUser().getCodiceFiscale());
-        stmt.setInt(2, secretary.getDipartimento().value);
-    }
-
-    protected void setUpdateQueryParametersValue(PreparedStatement stmt, Secretary secretary) throws SQLException{
-        stmt.setInt(1, secretary.getDipartimento().value);
-    }
-    */
 
 

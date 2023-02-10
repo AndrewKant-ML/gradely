@@ -33,36 +33,45 @@ public class StudentDAODB extends DAODBAbstract<Student> implements StudentDAOIn
      * @throws UserNotFoundException thrown if the given User has not a Student role
      */
     @Override
-    public Student getStudentByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException {
-        return getQuery("STUDENT", List.of("matricola"), List.of("codice_fiscale"), List.of(user.getCodiceFiscale()), List.of(user));
+    public Student getStudentByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException {
+        return getQuery(
+                "STUDENT",
+                List.of("codice_fiscale"),
+                List.of(user.getCodiceFiscale()),
+                List.of(user)
+        );
     }
 
     @Override
-    public void insert(Student student) throws DAOException, PropertyException, ResourceNotFoundException {
-        insertQuery("STUDENT", List.of("codice_fiscale","matricola"),student);
+    public void insert(Student student) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
+        insertQuery(
+                "STUDENT",
+                List.of(student.getCodiceFiscale(),student.getMatricola())
+        );
     }
 
     @Override
     public void cancel(Student student) throws DAOException, PropertyException, ResourceNotFoundException {
-        cancelQuery("STUDENT",List.of("codice_fiscale"), List.of(student.getUser().getCodiceFiscale()));
+        cancelQuery(
+                "STUDENT",
+                List.of("codice_fiscale"),
+                List.of(student.getCodiceFiscale())
+        );
     }
 
     @Override
     public void update(Student student) throws PropertyException, ResourceNotFoundException, DAOException, MissingAuthorizationException {
-        updateQuery("STUDENT", List.of("matricola"), List.of("codice_fiscale"), List.of(student.getUser().getCodiceFiscale()),student);
+        updateQuery(
+                "STUDENT",
+                List.of("matricola"),
+                List.of(student.getMatricola()),
+                List.of("codice_fiscale"),
+                List.of(student.getCodiceFiscale())
+        );
     }
 
-    protected void setInsertQueryParametersValue(PreparedStatement stmt, Student student) throws SQLException {
-        stmt.setString(1,student.getUser().getCodiceFiscale());
-        stmt.setString(2, student.getMatricola());
-    }
-
-    protected void setUpdateQueryParametersValue(PreparedStatement stmt, Student student) throws SQLException{
-        stmt.setString(1, student.getMatricola());
-    }
-
-    protected Student queryObjectBuilder(ResultSet rs, List<Object> users) throws SQLException, DAOException, PropertyException, ResourceNotFoundException {
-        Student student = new Student((User)users.get(0), rs.getString("matricola"));
+    protected Student queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, UnrecognizedRoleException, MissingAuthorizationException {
+        Student student = new Student((User)objects.get(0), rs.getString("matricola"));
         student.setDegreeCourseEnrollments(DegreeCourseEnrollmentLazyFactory.getInstance().getDegreeCourseEnrollmentsByStudent(student));
         student.setTitles(TitleLazyFactory.getInstance().getTitlesByStudent(student));
         student.setExamEnrollments(ExamEnrollmentLazyFactory.getInstance().getExamEnrollmentsByStudent(student));

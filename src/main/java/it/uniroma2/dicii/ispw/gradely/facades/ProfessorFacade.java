@@ -8,7 +8,7 @@ public class ProfessorFacade {
     private InsertStudentsGradesProfessorFacade insertStudentsGrades;
 
     public ProfessorFacade(String tokenKey) throws MissingAuthorizationException{
-        SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToProfessorRole();
+        SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getProfessorRole();
     }
 
     public void insertStudentsGrades(String tokenKey) throws MissingAuthorizationException{

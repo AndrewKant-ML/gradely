@@ -39,7 +39,7 @@ public class TitleDAOFS extends DAODBAbstract<Title> implements TitleDAOInterfac
             List<Title> titles = new ArrayList<>();
             List<List<String>> lines = new CSVParser().readAllLines(fileName);
             for (List<String> line : lines) {
-                if (line.get(1).equals(student.getUser().getCodiceFiscale()) &&
+                if (line.get(1).equals(student.getCodiceFiscale()) &&
                         !checkPresenceByDegreeCourseAndStudent(line.get(0), line.get(1), list)) {
                     DegreeCourseCodeEnum code = DegreeCourseCodeEnum.getDegreeCourseCodeByValue(Integer.parseInt(line.get(0)));
                     if (code == null)
@@ -60,7 +60,7 @@ public class TitleDAOFS extends DAODBAbstract<Title> implements TitleDAOInterfac
     private boolean checkPresenceByDegreeCourseAndStudent(String degreeCourseCode, String codiceFiscale, List<Title> titles) {
         for (Title title : titles)
             if (String.valueOf(title.getDegreeCourse().getCode().value).equals(degreeCourseCode)
-                    && title.getStudent().getUser().getCodiceFiscale().equals(codiceFiscale))
+                    && title.getStudent().getCodiceFiscale().equals(codiceFiscale))
                 return true;
         return false;
     }

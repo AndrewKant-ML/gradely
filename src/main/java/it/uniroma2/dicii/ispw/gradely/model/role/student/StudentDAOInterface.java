@@ -17,7 +17,7 @@ public interface StudentDAOInterface {
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
-    void insert(Student student) throws DAOException, PropertyException, ResourceNotFoundException;
+    void insert(Student student) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException;
 
     /**
      * Deletes an object from the DB
@@ -37,5 +37,5 @@ public interface StudentDAOInterface {
      */
     void update(Student student) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException;
 
-    abstract Student getStudentByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException;
+    abstract Student getStudentByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException;
 }

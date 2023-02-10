@@ -10,11 +10,11 @@ public class InsertStudentsGradesStudentFacade {
     private InsertStudentsGradesControl controller;
 
     public InsertStudentsGradesStudentFacade(String tokenKey) throws MissingAuthorizationException{
-        SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToStudentRole();
+        SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getStudentRole();
         controller = new InsertStudentsGradesControl();
     }
     public void acceptOrRejectExamGrade(String tokenKey, ExamEnrollment enrollment, ExamResultConfirmationEnum decision) throws MissingAuthorizationException, DAOException {
-        SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToStudentRole();
+        SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getStudentRole();
         controller.acceptOrRejectExamGrade(tokenKey, enrollment, decision);
 
     }

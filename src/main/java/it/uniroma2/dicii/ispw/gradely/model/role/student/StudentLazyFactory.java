@@ -24,7 +24,7 @@ public class StudentLazyFactory {
         return instance;
     }
 
-    public Student getStudentByUser(User user) throws DAOException, UserNotFoundException, UnrecognizedRoleException {
+    public Student getStudentByUser(User user) throws DAOException, UserNotFoundException, UnrecognizedRoleException, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         for (Student s : students) {
             if (s.getUser().equals(user)) {
                 return s;
@@ -39,7 +39,7 @@ public class StudentLazyFactory {
         }
     }
 
-    public Student newStudent(User user, String matricola, List<Title> titles) throws DAOException {
+    public Student newStudent(User user, String matricola, List<Title> titles) throws DAOException, MissingAuthorizationException {
         Student student = new Student(user, matricola);
         user.setRole(student);
         if (titles != null){

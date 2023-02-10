@@ -38,41 +38,38 @@ public class SubjectCourseDAODB extends DAODBAbstract<SubjectCourse> implements 
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
     @Override
-    public SubjectCourse getSubjectCourseByNameCodeCfuAndAcademicYear(String name, SubjectCourseCodeEnum code, Integer cfu, Year academicYear) throws ObjectNotFoundException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, UnrecognizedRoleException {
-        return getQuery("SUBJECT_COURSE",List.of("code","name","cfu","aa"),List.of("code","name","cfu","aa"),List.of(String.valueOf(code.value),name,String.valueOf(cfu),academicYear.toString()),null);
+    public SubjectCourse getSubjectCourseByNameCodeCfuAndAcademicYear(String name, SubjectCourseCodeEnum code, Integer cfu, Year academicYear) throws ObjectNotFoundException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
+        return getQuery(
+                "SUBJECT_COURSE",
+                List.of("code","name","cfu","aa"),
+                List.of(code.value,name,cfu,Date.valueOf(academicYear.atDay(0))),
+                null
+        );
         //mancano attributi secondari prereq,degreecourse, assignments,exams,enrollments
     }
 
     @Override
-    public void insert(SubjectCourse subjectCourse) throws PropertyException, ResourceNotFoundException, DAOException {
-        insertQuery("SUBJECT_COURSE", List.of("code", "name", "cfu", "aa"),subjectCourse);
+    public void insert(SubjectCourse subjectCourse) throws PropertyException, ResourceNotFoundException, DAOException, MissingAuthorizationException {
+        insertQuery(
+                "SUBJECT_COURSE",
+                List.of(subjectCourse.getCode().value,subjectCourse.getName(),subjectCourse.getCfu(),Date.valueOf(subjectCourse.getAcademicYear().atDay(0)))
+        );
 
     }
 
     @Override
     public void cancel(SubjectCourse subjectCourse) throws PropertyException, ResourceNotFoundException, DAOException {
-        cancelQuery("SUBJECT_COURSE",List.of("code", "name", "cfu", "aa"), List.of(subjectCourse.getCode().toString(),subjectCourse.getName(),subjectCourse.getCfu().toString(),subjectCourse.getAcademicYear().toString()));
+        cancelQuery(
+                "SUBJECT_COURSE",
+                List.of("code", "name", "cfu", "aa"),
+                List.of(subjectCourse.getCode().value,subjectCourse.getName(),subjectCourse.getCfu(),Date.valueOf(subjectCourse.getAcademicYear().atDay(0)))
+        );
     }
 
     @Override
     public void update(SubjectCourse subjectCourse) throws DAOException, PropertyException, ResourceNotFoundException {
-        //TODO can't update because all primary keys
-        insert(subjectCourse);
+        throw new DAOException("SubjectCourse is an non updatable resource");
     }
-
-    @Override
-    protected void setInsertQueryParametersValue(PreparedStatement stmt, SubjectCourse subjectCourse) throws SQLException {
-        stmt.setInt(1,subjectCourse.getCode().value);
-        stmt.setString(2, subjectCourse.getName());
-        stmt.setInt(3, subjectCourse.getCfu());
-        stmt.setDate(4, Date.valueOf(subjectCourse.getAcademicYear().atDay(0))); //TODO fix year
-    }
-
-    @Override
-    protected void setUpdateQueryParametersValue(PreparedStatement stmt, SubjectCourse subjectCourse) throws SQLException, MissingAuthorizationException {
-        setInsertQueryParametersValue(stmt,subjectCourse);
-    }
-
 
     @Override
     protected SubjectCourse queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, UnrecognizedRoleException {

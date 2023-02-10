@@ -40,7 +40,7 @@ public class TestReservationDAODB extends DAODBAbstract<Test> implements TestRes
     @Override
     public void addTestReservation(TestReservation testReservation) throws DAOException, PropertyException, ResourceNotFoundException {
         String query = "insert into TEST_RESERVATION (test, student, reservation_date) values('%s', '%s', '%s');";
-        query = String.format(query, testReservation.getTestInfo().getId(), testReservation.getStudent().getUser().getCodiceFiscale(), testReservation.getReservationDate().toString());
+        query = String.format(query, testReservation.getTestInfo().getId(), testReservation.getStudent().getCodiceFiscale(), testReservation.getReservationDate().toString());
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             try (PreparedStatement stmt = connection.prepareStatement(query)) {

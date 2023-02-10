@@ -87,7 +87,7 @@ public class DegreeCourseDAOFS extends DegreeCourseDAOInterface {
         try {
             List<List<String>> lines = new CSVParser().readAllLines(degreeCourseFileName);
             for (List<String> line : lines)
-                if (line.get(3).equals(professor.getUser().getCodiceFiscale()))
+                if (line.get(3).equals(professor.getCodiceFiscale()))
                     return (parseLine(line));
             throw new ObjectNotFoundException(ExceptionMessagesEnum.OBJ_NOT_FOUND.message);
         } catch (CsvException | ResourceNotFoundException | DAOException e) {

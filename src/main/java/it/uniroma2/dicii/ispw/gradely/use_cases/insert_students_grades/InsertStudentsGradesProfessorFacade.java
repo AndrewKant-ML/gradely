@@ -12,7 +12,7 @@ public class InsertStudentsGradesProfessorFacade {
     private InsertStudentsGradesControl controller;
 
     public InsertStudentsGradesProfessorFacade(String tokenKey) throws MissingAuthorizationException{
-        SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().castToProfessorRole();
+        SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getProfessorRole();
         controller = new InsertStudentsGradesControl();
     }
 
