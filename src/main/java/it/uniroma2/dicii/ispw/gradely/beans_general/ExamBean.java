@@ -8,13 +8,13 @@ import java.time.LocalDate;
 public class ExamBean {
     private SubjectCourseBean course;
     private AppelloEnum appello;
-    private SessionEnum sessione;
+    private SessionEnum session;
     private LocalDate date;
 
-    public ExamBean(SubjectCourseBean course, AppelloEnum appello, SessionEnum sessione, LocalDate date) {
+    public ExamBean(SubjectCourseBean course, AppelloEnum appello, SessionEnum session, LocalDate date) {
         this.course = course;
         this.appello = appello;
-        this.sessione = sessione;
+        this.session = session;
         this.date = date;
     }
 
@@ -34,12 +34,12 @@ public class ExamBean {
         this.appello = appello;
     }
 
-    public SessionEnum getSessione(){
-        return sessione;
+    public SessionEnum getSession(){
+        return session;
     }
 
-    public void setSessione(SessionEnum sessione){
-        this.sessione = sessione;
+    public void setSession(SessionEnum session){
+        this.session = session;
     }
 
     public LocalDate getDate() {

@@ -1,14 +1,15 @@
 package it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.beans;
 
+import it.uniroma2.dicii.ispw.gradely.beans_general.ExamBean;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 
 import java.util.List;
 
 public class StudentGradeListBean {
     private List<StudentGradeBean> grades;
-    private Exam exam;
+    private ExamBean exam;
 
-    public StudentGradeListBean(List<StudentGradeBean> grades, Exam exam){
+    public StudentGradeListBean(List<StudentGradeBean> grades, ExamBean exam){
         this.grades = grades;
         this.exam = exam;
         // TODO implement exam check on list
@@ -22,11 +23,11 @@ public class StudentGradeListBean {
         this.grades = grades;
     }
 
-    public Exam getExam(){
+    public ExamBean getExam(){
         return exam;
     }
 
-    public void setExam(Exam exam){
+    public void setExam(ExamBean exam){
         this.exam = exam;
     }
 }

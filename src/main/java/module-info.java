@@ -18,7 +18,7 @@ module it.uniroma2.dicii.ispw.gradely {
     opens it.uniroma2.dicii.ispw.gradely.session_manager to javafx.fxml;
     opens it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course to javafx.fxml;
     opens it.uniroma2.dicii.ispw.gradely.use_cases.login to javafx.fxml;
-
+    exports it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.beans;
     exports it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.external_boundaries;
     opens it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.external_boundaries to javafx.fxml;
     exports it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.graphic_controllers;
@@ -38,8 +38,6 @@ module it.uniroma2.dicii.ispw.gradely {
     exports it.uniroma2.dicii.ispw.gradely.model.exam_result;
     exports it.uniroma2.dicii.ispw.gradely.model.title;
     exports it.uniroma2.dicii.ispw.gradely.model.pending_events;
-    exports it.uniroma2.dicii.ispw.gradely.graphic_controllers_general;
-    opens it.uniroma2.dicii.ispw.gradely.graphic_controllers_general to javafx.fxml;
     exports it.uniroma2.dicii.ispw.gradely.graphic_controllers_general.homepages;
     opens it.uniroma2.dicii.ispw.gradely.graphic_controllers_general.homepages to javafx.fxml;
 

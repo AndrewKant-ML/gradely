@@ -97,7 +97,7 @@ public class EnrollToDegreeCourseGraphicController implements Initializable {
             secondStage.setVisible(true);
             backButton.setVisible(true);
         } else
-            PageNavigationController.getInstance().showAlert(Alert.AlertType.WARNING, UserErrorMessagesEnum.MISSING_VALUE.message, UserErrorMessagesEnum.SELECT_A_DEGREE_COURSE_MSG.message);
+            PageNavigationController.getInstance().showAlert(Alert.AlertType.WARNING, UserErrorMessagesEnum.MISSING_VALUE_TITLE.message, UserErrorMessagesEnum.SELECT_A_DEGREE_COURSE_MSG.message);
     }
 
     /**
