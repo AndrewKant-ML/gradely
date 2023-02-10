@@ -86,7 +86,7 @@ public class PendingEventDAODB extends DAODBAbstract<PendingEvent> implements Pe
 
     @Override
     protected PendingEvent queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, ObjectNotFoundException {
-        return new PendingEvent(rs.getInt("id"))
+        return new PendingEvent(rs.getInt("id")) //TODO
     }
 
 
