@@ -9,63 +9,55 @@ import java.time.LocalDate;
 
 public class ExamBeanTableModel {
 
-    private SimpleStringProperty subjectCourseName;
-    private SimpleStringProperty date;
-    private SimpleIntegerProperty appello;
-    private SimpleStringProperty session;
+    private final SimpleStringProperty subjectCourseNameProperty;
+    private final SimpleStringProperty dateProperty;
+    private final SimpleIntegerProperty appelloProperty;
+    private final SimpleStringProperty sessionProperty;
 
-    public ExamBeanTableModel(String subjectCourseName, LocalDate date, AppelloEnum appello, SessionEnum session) {
-        this.subjectCourseName = new SimpleStringProperty(subjectCourseName);
-        this.date = new SimpleStringProperty(date.toString());
-        this.appello = new SimpleIntegerProperty(appello.value);
-        this.session = new SimpleStringProperty(session.toString());
+    public ExamBeanTableModel(String subjectCourseNameProperty, LocalDate dateProperty, AppelloEnum appelloProperty, SessionEnum sessionProperty) {
+        this.subjectCourseNameProperty = new SimpleStringProperty(subjectCourseNameProperty);
+        this.dateProperty = new SimpleStringProperty(dateProperty.toString());
+        this.appelloProperty = new SimpleIntegerProperty(appelloProperty.value);
+        this.sessionProperty = new SimpleStringProperty(sessionProperty.toString());
     }
 
-    public String getSubjectCourseName() {
-        return subjectCourseName.get();
+    public String getSubjectCourseNameProperty() {
+        return subjectCourseNameProperty.get();
     }
 
-    public void setSubjectCourseName(String subjectCourseName) {
-        this.subjectCourseName.set(subjectCourseName);
+    public String getDateProperty() {
+        return dateProperty.get();
     }
 
-    public SimpleStringProperty subjectCourseNameProperty() {
-        return subjectCourseName;
+    public void setDateProperty(String dateProperty) {
+        this.dateProperty.set(dateProperty);
     }
 
-    public String getDate() {
-        return date.get();
+    public SimpleStringProperty datePropertyProperty() {
+        return dateProperty;
     }
 
-    public void setDate(String date) {
-        this.date.set(date);
+    public int getAppelloProperty() {
+        return appelloProperty.get();
     }
 
-    public SimpleStringProperty dateProperty() {
-        return date;
+    public void setAppelloProperty(int appelloProperty) {
+        this.appelloProperty.set(appelloProperty);
     }
 
-    public int getAppello() {
-        return appello.get();
+    public SimpleIntegerProperty appelloPropertyProperty() {
+        return appelloProperty;
     }
 
-    public void setAppello(int appello) {
-        this.appello.set(appello);
+    public String getSessionProperty() {
+        return sessionProperty.get();
     }
 
-    public SimpleIntegerProperty appelloProperty() {
-        return appello;
+    public void setSessionProperty(String sessionProperty) {
+        this.sessionProperty.set(sessionProperty);
     }
 
-    public String getSession() {
-        return session.get();
-    }
-
-    public void setSession(String session) {
-        this.session.set(session);
-    }
-
-    public SimpleStringProperty sessionProperty() {
-        return session;
+    public SimpleStringProperty sessionPropertyProperty() {
+        return sessionProperty;
     }
 }
