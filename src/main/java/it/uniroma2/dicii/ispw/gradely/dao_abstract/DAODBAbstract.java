@@ -94,39 +94,46 @@ public abstract class DAODBAbstract<T>{
         if(wantAll.equals(Boolean.FALSE))
             query = String.format("select * from %s where %s",table, andStringBuilder(identifiers, identifiersValue));
         else
-            query = String.format("select * from %s",table);
+            query = String.format("select * from %s", table);
 
         String finalQuery;
         if (exclusions.isEmpty()) {
             finalQuery = query;
         } else {
-            finalQuery = getListQueryExclusions(query,identifiers,exclusions);
+            finalQuery = getListQueryExclusions(query, identifiers, exclusions);
         }
         List<T> list = new ArrayList<>();
-        try (Connection connection = DBConnection.getInstance().getConnection();
-             PreparedStatement stmt = connection.prepareStatement(finalQuery, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)){
-            if (wantAll.equals(Boolean.FALSE))
-                setQueryQuestionMarksValue(stmt, identifiersValue,1);
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    list.add(queryObjectBuilder(rs, objects));
-                }
-            } catch (PropertyException | ResourceNotFoundException e) {
-                throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-            }
+        Connection connection;
+        try {
+            connection = DBConnection.getInstance().getConnection();
         } catch (SQLException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
+        try (PreparedStatement stmt = createStatement(connection, finalQuery, wantAll, identifiersValue);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                list.add(queryObjectBuilder(rs, objects));
+            }
+        } catch (PropertyException | ResourceNotFoundException | SQLException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
         return list;
     }
 
+    private PreparedStatement createStatement(Connection connection, String finalQuery, Boolean wantAll, List<Object> identifiersValue) throws SQLException {
+        PreparedStatement stmt = connection.prepareStatement(finalQuery, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        if (wantAll.equals(Boolean.FALSE))
+            setQueryQuestionMarksValue(stmt, identifiersValue, 1);
+        return stmt;
+    }
 
     /**
      * Concatenates to a query string the string needed to exclude the elements
      * present in a list, such as the elements already present in memory
-     * @param query the original query where to concatenate the exclusion part
+     *
+     * @param query       the original query where to concatenate the exclusion part
      * @param identifiers the identifier columns needed to identify the elements to exclude
-     * @param exclusions the list of objects to exclude
+     * @param exclusions  the list of objects to exclude
      * @return the new query string
      * @throws DAOException thrown if errors occur while retrieving data from persistence layer
      */
@@ -159,16 +166,21 @@ public abstract class DAODBAbstract<T>{
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
     protected T getQuery(String table, List<String> identifiers, List<Object> identifiersValues, List<Object> objects) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, ObjectNotFoundException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
-        String query = String.format("select * from %s where %s", table, andStringBuilder(identifiers,identifiersValues));
-        try (Connection connection = DBConnection.getInstance().getConnection();
-             PreparedStatement stmt = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)){
-            setQueryQuestionMarksValue(stmt, identifiersValues,1);
+        String query = String.format("select * from %s where %s", table, andStringBuilder(identifiers, identifiersValues));
+        Connection connection;
+        try {
+            connection = DBConnection.getInstance().getConnection();
+        } catch (SQLException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
+        try (PreparedStatement stmt = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
+            setQueryQuestionMarksValue(stmt, identifiersValues, 1);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.first()) {
                     return queryObjectBuilder(rs, objects);
                 } else
                     throw new ObjectNotFoundException(ExceptionMessagesEnum.OBJ_NOT_FOUND.message);
-            } catch (PropertyException | ResourceNotFoundException e) {
+            } catch (PropertyException | ResourceNotFoundException | SQLException e) {
                 throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
             }
         } catch (SQLException e) {
