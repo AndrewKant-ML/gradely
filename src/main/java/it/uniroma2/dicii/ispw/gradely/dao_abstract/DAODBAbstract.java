@@ -106,7 +106,7 @@ public abstract class DAODBAbstract<T>{
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement stmt = connection.prepareStatement(finalQuery, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)){
             if (wantAll.equals(Boolean.FALSE))
-            setQueryQuestionMarksValue(stmt, identifiersValue,1);
+                setQueryQuestionMarksValue(stmt, identifiersValue,1);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     list.add(queryObjectBuilder(rs, objects));
@@ -295,7 +295,7 @@ public abstract class DAODBAbstract<T>{
         StringBuilder builder = new StringBuilder();
         for (String s : names)
             builder.append(s).append(" = ? and");
-        builder.delete(builder.length() - 4, builder.length()-1);
+        builder.delete(builder.length() - 4, builder.length());
         return builder;
     }
 }
