@@ -1,10 +1,16 @@
 package it.uniroma2.dicii.ispw.gradely;
 
 import it.uniroma2.dicii.ispw.gradely.beans_general.PendingEventBean;
+import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.UserErrorMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.WrongPendingEventTypeException;
 import it.uniroma2.dicii.ispw.gradely.facades.UserFacade;
+import it.uniroma2.dicii.ispw.gradely.use_cases.controllers_general.pending_event.graphic.PendingEventExamVerbalizationGraphicController;
+import it.uniroma2.dicii.ispw.gradely.use_cases.controllers_general.pending_event.graphic.PendingEventGradeAcceptanceGraphicController;
+import it.uniroma2.dicii.ispw.gradely.use_cases.controllers_general.pending_event.graphic.PendingEventSimpleGraphicController;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -12,9 +18,11 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class BaseGraphicControl implements Initializable {
@@ -96,13 +104,23 @@ public class BaseGraphicControl implements Initializable {
             List<PendingEventBean> newPendingEvents = facade.retrievePendingEvents(PageNavigationController.getInstance().getSessionTokenKey());
             this.pendingEvents.addAll(newPendingEvents);
             for (PendingEventBean newPendingEvent : newPendingEvents) {
-                String pendingEventViewName;
                 switch (newPendingEvent.getType()) {
-
+                    case EXAM_VERBALIZATION_PENDING ->
+                            pendingEventList.getChildren().add(loadPendingExamVerbalizationView(newPendingEvent));
+                    case GRADE_CONFIRMATION_PENDING ->
+                            pendingEventList.getChildren().add(loadPendingEventGradeAcceptanceView(newPendingEvent));
+                    case EXAM_VERBALIZED, TEST_RESULT_READY, GRADE_AUTO_ACCEPTED ->
+                            pendingEventList.getChildren().add(loadPendingEventSimpleView(newPendingEvent));
+                    default ->
+                            throw new WrongPendingEventTypeException(ExceptionMessagesEnum.UNEXPECTED_PROPERTY_NAME.message);
                 }
             }
         } catch (DAOException e) {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.DATA_RETRIEVAL_TITLE.message, UserErrorMessagesEnum.DATA_RETRIEVAL_MSG.message);
+        } catch (WrongPendingEventTypeException e) {
+            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.PROPERTY_VALUE_TITLE.message, UserErrorMessagesEnum.PROPERTY_VALUE_MSG.message);
+        } catch (IOException e) {
+            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.RESOURCE_LOADING_TITLE.message, UserErrorMessagesEnum.RESOURCE_LOADING_MSG.message);
         }
     }
 
@@ -113,5 +131,32 @@ public class BaseGraphicControl implements Initializable {
     private void showPendingEvents() {
         retrievePendingEvents();
         pendingEventList.setVisible(!pendingEventList.isVisible());
+    }
+
+    private Node loadPendingEventSimpleView(PendingEventBean bean) throws IOException {
+        String pendingEventViewName = "pending_event_simple.fxml";
+        FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(BaseGraphicControl.class.getResource(pendingEventViewName)));
+        Node node = loader.load();
+        PendingEventSimpleGraphicController controller = loader.getController();
+        controller.setMessage(bean.getType().message);
+        return node;
+    }
+
+    private Node loadPendingEventGradeAcceptanceView(PendingEventBean bean) throws IOException {
+        String pendingEventViewName = "pending_event_grade_acceptance.fxml";
+        FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(BaseGraphicControl.class.getResource(pendingEventViewName)));
+        Node node = loader.load();
+        PendingEventGradeAcceptanceGraphicController controller = loader.getController();
+        controller.setPendingEvent(bean);
+        return node;
+    }
+
+    private Node loadPendingExamVerbalizationView(PendingEventBean bean) throws IOException {
+        String pendingEventViewName = "pending_event_xam_verbalization.fxml";
+        FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(BaseGraphicControl.class.getResource(pendingEventViewName)));
+        Node node = loader.load();
+        PendingEventExamVerbalizationGraphicController controller = loader.getController();
+        controller.setPendingEvent(bean);
+        return node;
     }
 }

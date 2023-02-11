@@ -2,11 +2,12 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             prefHeight="56" prefWidth="200.0"
+            fx:controller="it.uniroma2.dicii.ispw.gradely.use_cases.controllers_general.pending_event.graphic.PendingEventGradeAcceptanceGraphicController"
             stylesheets="@styles/default.css">
 
     <padding>
@@ -14,12 +15,13 @@
     </padding>
     <VBox AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
           AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0">
-        <Label fx:id="text" styleClass="text-field"/>
+        <Text fx:id="text" wrappingWidth="140" styleClass="text-field"/>
         <HBox>
-            <Button fx:id="rejectButton" styleClass="second-action-button">
+            <Button styleClass="second-action-button" onAction="#rejectGrade">
                 Reject
             </Button>
-            <Button fx:id="acceptButton" styleClass="action-button">
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button styleClass="action-button" onAction="#acceptGrade">
                 Accept
             </Button>
         </HBox>

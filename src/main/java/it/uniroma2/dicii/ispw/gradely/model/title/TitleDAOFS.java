@@ -5,13 +5,12 @@ import it.uniroma2.dicii.ispw.gradely.CSVParser;
 import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.DegreeCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.ObjectNotFoundException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +33,7 @@ public class TitleDAOFS extends DAODBAbstract<Title> implements TitleDAOInterfac
     }
 
     @Override
-    List<Title> getTitlesByStudent(Student student, List<Title> list) throws PropertyException, ResourceNotFoundException, DAOException {
+    public List<Title> getTitlesByStudent(Student student, List<Title> list) throws ResourceNotFoundException, DAOException {
         try {
             List<Title> titles = new ArrayList<>();
             List<List<String>> lines = new CSVParser().readAllLines(fileName);
@@ -42,8 +41,6 @@ public class TitleDAOFS extends DAODBAbstract<Title> implements TitleDAOInterfac
                 if (line.get(1).equals(student.getCodiceFiscale()) &&
                         !checkPresenceByDegreeCourseAndStudent(line.get(0), line.get(1), list)) {
                     DegreeCourseCodeEnum code = DegreeCourseCodeEnum.getDegreeCourseCodeByValue(Integer.parseInt(line.get(0)));
-                    if (code == null)
-                        throw new ObjectNotFoundException(ExceptionMessagesEnum.OBJ_NOT_FOUND.message);
                     titles.add(new Title(
                             DegreeCourseLazyFactory.getInstance().getDegreeCourseByDegreeCourseCodeList(List.of(code)).get(0),
                             student,
@@ -52,7 +49,7 @@ public class TitleDAOFS extends DAODBAbstract<Title> implements TitleDAOInterfac
                 }
             }
             return titles;
-        } catch (CsvException | ObjectNotFoundException e) {
+        } catch (CsvException | WrongDegreeCourseCodeException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }
@@ -78,6 +75,16 @@ public class TitleDAOFS extends DAODBAbstract<Title> implements TitleDAOInterfac
     @Override
     public void update(Title title) throws DAOException {
 
+    }
+
+    @Override
+    protected Title queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, ObjectNotFoundException {
+        return null;
+    }
+
+    @Override
+    protected String setGetListQueryIdentifiersValue(Title title, int valueNumber) throws DAOException, WrongListQueryIdentifierValue {
+        return null;
     }
 
 }

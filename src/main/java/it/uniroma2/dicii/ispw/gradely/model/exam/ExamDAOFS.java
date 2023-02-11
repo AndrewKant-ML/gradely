@@ -5,7 +5,9 @@ import it.uniroma2.dicii.ispw.gradely.enums.SessionEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 
-public class ExamDAOFS extends AbstractExamDAO {
+public class ExamDAOFS implements AbstractExamDAO {
+
+    private static ExamDAOFS instance;
 
     private ExamDAOFS(){
 
@@ -23,17 +25,14 @@ public class ExamDAOFS extends AbstractExamDAO {
         return null;
     }
 
-    @Override
     public void insert(Exam exam){
 
     }
 
-    @Override
     public void cancel(Exam exam){
 
     }
 
-    @Override
     public void update(Exam exam){
         System.out.println("Updated");
     }

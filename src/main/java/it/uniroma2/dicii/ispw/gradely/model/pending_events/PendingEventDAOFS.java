@@ -2,10 +2,13 @@ package it.uniroma2.dicii.ispw.gradely.model.pending_events;
 
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 
+import java.util.List;
 import java.util.UUID;
 
 
-public class PendingEventDAOFS extends PendingEventDAOInterface {
+public class PendingEventDAOFS implements PendingEventDAOInterface {
+
+    private static PendingEventDAOFS instance;
 
     private PendingEventDAOFS(){ 
 
@@ -18,9 +21,13 @@ public class PendingEventDAOFS extends PendingEventDAOInterface {
         return instance;
     }
 
-    @Override
     public PendingEvent getPendingEventById(UUID id) throws DAOException {
         return null; 
+    }
+
+    @Override
+    public List<PendingEvent> getAllPendingEvents(List<PendingEvent> list) {
+        return null;
     }
 
     @Override

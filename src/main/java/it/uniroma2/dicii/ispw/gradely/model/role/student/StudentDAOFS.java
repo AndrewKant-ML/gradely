@@ -12,7 +12,9 @@ import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
 import java.util.List;
 
-public class StudentDAOFS extends StudentDAOInterface {
+public class StudentDAOFS implements StudentDAOInterface {
+
+    private static StudentDAOFS instance;
 
     private final String filename = "student";
 
@@ -29,7 +31,7 @@ public class StudentDAOFS extends StudentDAOInterface {
 
     @Override
     public Student getStudentByUser(User user) throws DAOException, UserNotFoundException, ResourceNotFoundException, PropertyException {
-        try {
+        /*try {
             List<List<String>> lines = new CSVParser().readAllLines(filename);
             for (List<String> line : lines) {
                 if (line.get(0).equals(user.getCodiceFiscale())) {
@@ -47,7 +49,8 @@ public class StudentDAOFS extends StudentDAOInterface {
             throw new UserNotFoundException(ExceptionMessagesEnum.SECRETARY_NOT_FOUND.message);
         } catch (CsvException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }
+        }*/
+        return null;
     }
 
     @Override
