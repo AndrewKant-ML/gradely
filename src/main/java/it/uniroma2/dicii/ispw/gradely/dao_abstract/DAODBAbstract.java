@@ -106,7 +106,7 @@ public abstract class DAODBAbstract<T>{
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement stmt = connection.prepareStatement(finalQuery, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)){
             if (wantAll.equals(Boolean.FALSE))
-            setQueryQuestionMarksValue(stmt, identifiersValue,1);
+                setQueryQuestionMarksValue(stmt, identifiersValue,1);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     list.add(queryObjectBuilder(rs, objects));

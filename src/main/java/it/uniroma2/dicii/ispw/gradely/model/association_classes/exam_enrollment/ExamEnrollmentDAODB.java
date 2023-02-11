@@ -7,6 +7,7 @@ import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExamEnrollmentDAODB extends DAODBAbstract<ExamEnrollment> implements ExamEnrollmentDAOInterface {
@@ -30,7 +31,7 @@ public class ExamEnrollmentDAODB extends DAODBAbstract<ExamEnrollment> implement
 
     @Override
     public List<ExamEnrollment> getExamEnrollmentsByStudent(Student student){
-        return null;
+        return new ArrayList<>(); // TODO implement
     }
 
     @Override

@@ -7,6 +7,7 @@ import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SubjectCourseEnrollmentDAODB extends DAODBAbstract<SubjectCourseEnrollment> implements AbstractSubjectCourseEnrollmentDAO {
@@ -30,7 +31,7 @@ public class SubjectCourseEnrollmentDAODB extends DAODBAbstract<SubjectCourseEnr
 
     @Override
     public List<SubjectCourseEnrollment> getSubjectCourseEnrollmentsByStudent(Student student){
-        return null;
+        return new ArrayList<>(); // TODO implement
     }
 
     @Override
