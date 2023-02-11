@@ -13,7 +13,7 @@ public class InsertStudentsGradesSecretaryFacade {
         controller = new InsertStudentsGradesControl();
     }
 
-    public void confirmExamVerbaleProtocolization(String tokenKey, ProtocolBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException {
+    public void confirmExamVerbaleProtocolization(String tokenKey, ProtocolBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UserNotFoundException, WrongListQueryIdentifierValue, UnrecognizedRoleException, WrongDegreeCourseCodeException {
         controller.confirmExamVerbaleProtocolization(tokenKey,bean);
     }
 }

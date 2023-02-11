@@ -11,6 +11,7 @@ import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class ExamLazyFactory {
     private static ExamLazyFactory instance;
@@ -40,6 +41,19 @@ public class ExamLazyFactory {
         }
     }
 
+    public Exam getExamById(UUID id) throws DAOException {
+        for(Exam e : exams){
+            if(e.getId().equals(id)){
+                return e;
+            }
+        }
+        try {
+            return DAOFactoryAbstract.getInstance().getExamDAO().getExamById(id);
+        } catch (ResourceNotFoundException | PropertyException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
+    }
+
     public List<Exam> getGradableExams(Professor professor) throws DAOException, UserNotFoundException, ObjectNotFoundException {
         List<Exam> list = new ArrayList<>();
         for(SubjectCourse c : SubjectCourseAssignmentLazyFactory.getInstance().getAssignedSubjectCoursesByProfessor(professor)){
@@ -52,7 +66,7 @@ public class ExamLazyFactory {
         return list;
     }
 
-    public void update (Exam exam) throws DAOException {
+    public void update (Exam exam) throws DAOException, MissingAuthorizationException {
         try {
             DAOFactoryAbstract.getInstance().getExamDAO().update(exam);
         } catch (ResourceNotFoundException | PropertyException e) {

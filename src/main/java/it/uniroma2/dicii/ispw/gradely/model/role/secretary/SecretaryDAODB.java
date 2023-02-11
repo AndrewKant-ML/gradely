@@ -58,7 +58,6 @@ public class SecretaryDAODB  extends DAODBAbstract<Secretary> implements Abstrac
     @Override
     public List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento, List<Secretary> excludedList) throws DAOException, UserNotFoundException, MissingAuthorizationException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, WrongListQueryIdentifierValue, WrongDegreeCourseCodeException {
         return getListQuery(
-                "*",
                 "SECRETARY",
                 List.of("dipartimento"),
                 List.of(dipartimento.value),

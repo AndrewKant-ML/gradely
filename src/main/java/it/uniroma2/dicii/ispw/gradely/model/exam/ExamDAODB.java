@@ -3,21 +3,21 @@ package it.uniroma2.dicii.ispw.gradely.model.exam;
 import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.AppelloEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.SessionEnum;
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.MissingAuthorizationException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 
-import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.UUID;
 
-public class ExamDAODB extends DAODBAbstract<Exam> implements AbstractExamDAO {
-    protected static AbstractExamDAO instance;
+public class ExamDAODB extends DAODBAbstract<Exam> implements ExamDAOInterface {
+    protected static ExamDAOInterface instance;
 
     private ExamDAODB(){
     }
 
-    public static synchronized AbstractExamDAO getInstance(){
+    public static synchronized ExamDAOInterface getInstance(){
         if (instance == null){
             instance = new ExamDAODB();
         }
@@ -26,6 +26,11 @@ public class ExamDAODB extends DAODBAbstract<Exam> implements AbstractExamDAO {
 
     @Override
     public Exam getExamByAppelloAndSubjectCourseAndSession(AppelloEnum appello, SubjectCourse course, SessionEnum session) throws DAOException {
+        return null;
+    }
+
+    @Override
+    public Exam getExamById(UUID id) {
         return null;
     }
 
@@ -45,18 +50,13 @@ public class ExamDAODB extends DAODBAbstract<Exam> implements AbstractExamDAO {
     }
 
     @Override
-    protected void setInsertQueryParametersValue(PreparedStatement stmt, Exam exam) throws SQLException {
-
+    protected Exam queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, ObjectNotFoundException {
+        return null;
     }
 
     @Override
-    protected void setUpdateQueryParametersValue(PreparedStatement stmt, Exam exam) throws SQLException, MissingAuthorizationException {
-
-    }
-
-    @Override
-    protected void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> identifiersValues) throws SQLException {
-
+    protected String setGetListQueryIdentifiersValue(Exam exam, int valueNumber) throws DAOException, WrongListQueryIdentifierValue {
+        return null;
     }
 
 

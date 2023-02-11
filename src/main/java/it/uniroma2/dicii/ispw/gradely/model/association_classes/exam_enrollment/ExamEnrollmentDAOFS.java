@@ -5,13 +5,13 @@ import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 
 import java.util.List;
 
-public class ExamEnrollmentDAOFS extends AbstractExamEnrollmentDAO {
+public class ExamEnrollmentDAOFS extends ExamEnrollmentDAOInterface {
 
     private ExamEnrollmentDAOFS(){
 
     }
 
-    public static synchronized AbstractExamEnrollmentDAO getInstance(){
+    public static synchronized ExamEnrollmentDAOInterface getInstance(){
         if (instance == null){
             instance = new ExamEnrollmentDAOFS();
         }
@@ -44,7 +44,7 @@ public class ExamEnrollmentDAOFS extends AbstractExamEnrollmentDAO {
     }
 
     @Override
-    public void update(ExamEnrollment enrollment){
+    public void update(ExamEnrollment examEnrollment){
         System.out.println("Updated");
     }
 

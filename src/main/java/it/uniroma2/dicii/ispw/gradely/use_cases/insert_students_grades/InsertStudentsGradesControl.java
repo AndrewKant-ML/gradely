@@ -34,12 +34,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class InsertStudentsGradesControl implements TimerObserver {
+public class InsertStudentsGradesControl extends TimerObserver {
 
     private static final Logger logger = Logger.getLogger(InsertStudentsGradesControl.class.getName());
 
     InsertStudentsGradesControl() {
-
+        super();
     }
 
     /**
@@ -168,7 +168,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @param list
      * @throws MissingAuthorizationException
      */
-    void saveExamResults(String tokenKey, StudentGradeListBean list) throws MissingAuthorizationException, DAOException {
+    void saveExamResults(String tokenKey, StudentGradeListBean list) throws MissingAuthorizationException, DAOException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException, WrongTimerTypeException, PropertyException, ResourceNotFoundException {
         Professor professor = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getProfessorRole();
         Exam exam = list.getExam();
         checkExamProfessor(exam, professor);
@@ -186,7 +186,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
      *
      * @param bean
      */
-    private void saveExamResult(StudentGradeBean bean) throws DAOException {
+    private void saveExamResult(StudentGradeBean bean) throws DAOException, MissingAuthorizationException {
         ExamEnrollmentLazyFactory.getInstance().saveExamResult(ExamEnrollmentLazyFactory.getInstance().getExamEnrollmentByExamAndStudent(bean.getEnrollmentBean().getExam(), bean.getEnrollmentBean().getStudent()), new ExamResult(bean.getExamResultBean().getGrade(),bean.getExamResultBean().getResult(), ExamResultConfirmationEnum.NULL));
     }
 
@@ -224,7 +224,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @param bean
      * @throws MissingAuthorizationException
      */
-    void confirmExamVerbaleProtocolization(String tokenKey, ProtocolBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UserNotFoundException, UnrecognizedRoleException {
+    void confirmExamVerbaleProtocolization(String tokenKey, ProtocolBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UserNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         Secretary secretary = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getSecretaryRole();
         Exam e = ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(bean.getExamBean().getAppello(), SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(bean.getExamBean().getCourse().getCode(), bean.getExamBean().getCourse().getName(), bean.getExamBean().getCourse().getCfu(), bean.getExamBean().getCourse().getAcademicYear()), bean.getExamBean().getSessione());
         checkExamSecretary(e, secretary);
@@ -264,7 +264,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
      *
      * @param exam
      */
-    private void notifyExamProtocolization(Exam exam) throws DAOException, MissingAuthorizationException {
+    private void notifyExamProtocolization(Exam exam) throws DAOException, MissingAuthorizationException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException {
         for (ExamEnrollment e : exam.getEnrollments()){
             PendingEventLazyFactory.getInstance().createNewPendingEvent(List.of(e.getStudent().getCodiceFiscale()),PendingEventTypeEnum.EXAM_VERBALIZED, exam);
         }

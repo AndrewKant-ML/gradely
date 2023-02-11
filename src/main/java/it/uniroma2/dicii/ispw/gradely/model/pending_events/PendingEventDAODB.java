@@ -37,7 +37,6 @@ public class PendingEventDAODB extends DAODBAbstract<PendingEvent> implements Pe
     @Override
     public List<PendingEvent> getAllPendingEvents(List<PendingEvent> list) throws UserNotFoundException, DAOException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         List<PendingEvent> newList = getListQuery(
-                "*",
                 "PENDING_EVENT",
                 List.of("id"),
                 null,
@@ -53,7 +52,7 @@ public class PendingEventDAODB extends DAODBAbstract<PendingEvent> implements Pe
     private void auxiliaryGetBuilder(List<PendingEvent> pendingEvents) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, UserNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException {
         for(PendingEvent p : pendingEvents){
             List<String> recipients = new ArrayList<>();
-            String query = String.format("select recipient from PENDING_EVENT_RECIPIENT where id = UUID_TO_BIN(%s)", p.id);
+            String query = String.format("select recipient from PENDING_EVENT_RECIPIENT where pending_event = '%s'", p.id);
             try (Connection connection = DBConnection.getInstance().getConnection();
                  PreparedStatement stmt = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                  ResultSet rs = stmt.executeQuery()){
@@ -64,7 +63,7 @@ public class PendingEventDAODB extends DAODBAbstract<PendingEvent> implements Pe
                 throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
             }
             p.setRecipients(recipients);
-            String query2 = String.format("select * from PENDING_EVENT_OBJECT where id = UUID_TO_BIN(%s)", p.id);
+            String query2 = String.format("select * from PENDING_EVENT_OBJECT where id = %s", p.id);
             try (Connection connection = DBConnection.getInstance().getConnection();
                  PreparedStatement stmt = connection.prepareStatement(query2, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                  ResultSet rs = stmt.executeQuery()){
@@ -74,10 +73,10 @@ public class PendingEventDAODB extends DAODBAbstract<PendingEvent> implements Pe
                         case EXAM_VERBALIZATION_PENDING :
                         case EXAM_VERBALIZED:
                         case GRADE_AUTO_ACCEPTED:
-                            p.setObject(ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(AppelloEnum.getAppelloByValue(rs.getInt("attribute_1")), SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(SubjectCourseCodeEnum.getSubjectCourseCodeByValue(rs.getInt("attribute_2")),rs.getString("attribute_3"),rs.getInt("attribute_4"), Year.of(rs.getDate("attribute_5").toLocalDate().getYear())), SessionEnum.getSessionByValue(rs.getInt("attribute_6"))));
+                            p.setObject(ExamLazyFactory.getInstance().getExamById(UUID.fromString(rs.getString("attribute_1"))));
                             break;
                         case TEST_RESULT_READY:
-                            p.setObject(TestResutlLazyFactory.getInstance().getTestResultById(rs.getInt("attribute_1")));
+                            p.setObject(TestResutlLazyFactory.getInstance().getTestResultById(UUID.fromString(rs.getString("attribute_1"))));
                             break;
                         default:
 
@@ -97,7 +96,7 @@ public class PendingEventDAODB extends DAODBAbstract<PendingEvent> implements Pe
     public void insert(PendingEvent pendingEvent) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
         insertQuery(
                 "PENDING_EVENT",
-                List.of("UUID_TO_BIN("+pendingEvent.id+")",pendingEvent.notified,pendingEvent.type.name())
+                List.of(pendingEvent.id,pendingEvent.notified,pendingEvent.type.name())
         );
         auxiliaryInsertBuilder(pendingEvent);
     }
@@ -114,7 +113,7 @@ public class PendingEventDAODB extends DAODBAbstract<PendingEvent> implements Pe
             case EXAM_VERBALIZATION_PENDING :
             case EXAM_VERBALIZED:
             case GRADE_AUTO_ACCEPTED:
-                insertQuery("PENDING_EVENT_OBJECT", List.of(((Exam)pendingEvent.getObject()).getAppello().value.toString(),String.valueOf(((Exam)pendingEvent.getObject()).getSubjectCourse().getCode().value),((Exam)pendingEvent.getObject()).getSession().name()));
+                insertQuery("PENDING_EVENT_OBJECT", List.of(((Exam)pendingEvent.getObject())));
                 break;
             case TEST_RESULT_READY:
                 System.out.println("");

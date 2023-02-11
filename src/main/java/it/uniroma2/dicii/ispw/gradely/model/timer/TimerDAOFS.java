@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.timer;
 
-public class TimerDAOFS extends TimerDAOInterface {
+public class TimerDAOFS implements TimerDAOInterface {
     protected static TimerDAOInterface instance;
 
     private TimerDAOFS(){

@@ -19,15 +19,16 @@ public class TimerLazyFactory {
     }
 
 
-    public static synchronized TimerLazyFactory getInstance(){
+    public static synchronized TimerLazyFactory getInstance() throws DAOException, UserNotFoundException, WrongTimerTypeException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         if (instance == null){
             instance = new TimerLazyFactory();
         }
+        instance.checkTimers();
         return instance;
     }
 
 
-    public AbstractTimer newExamConfirmationTimer(LocalDate expiration, Exam exam) throws DAOException {
+    public AbstractTimer newExamConfirmationTimer(LocalDate expiration, Exam exam) throws DAOException, MissingAuthorizationException {
         AbstractTimer newTimer = new ExamConfirmationTimer(expiration, exam);
         try {
             DAOFactoryAbstract.getInstance().getTimerDAO().insert(newTimer);
@@ -37,7 +38,7 @@ public class TimerLazyFactory {
         activeTimers.add(newTimer);
         return newTimer;
     }
-    public AbstractTimer newTestResultTimer(LocalDate expiration, Test test) throws DAOException {
+    public AbstractTimer newTestResultTimer(LocalDate expiration, Test test) throws DAOException, MissingAuthorizationException {
         AbstractTimer newTimer = new TestResultTimer(expiration, test);
         try {
             DAOFactoryAbstract.getInstance().getTimerDAO().insert(newTimer);
@@ -47,14 +48,18 @@ public class TimerLazyFactory {
         activeTimers.add(newTimer);
         return newTimer;
     }
-    private void checkTimers() throws WrongTimerTypeException, DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, ObjectNotFoundException { //TODO timered trigger
-        //refresh timers
+    private void checkTimers() throws WrongTimerTypeException, DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, ObjectNotFoundException, WrongListQueryIdentifierValue, UnrecognizedRoleException, WrongDegreeCourseCodeException { //TODO timered trigger
+        refreshTimers();
         for (AbstractTimer t : activeTimers){
             if (t.getExpiration().isAfter(LocalDate.now())){
                 t.notifyTimerExpiration();
                 activeTimers.remove(t);
             }
         }
+    }
+
+    private void refreshTimers(){
+
     }
 
 

@@ -2,7 +2,7 @@ package it.uniroma2.dicii.ispw.gradely.dao_manager;
 
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.AbstractDegreeCourseEnrollmentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.DegreeCourseEnrollmentDAOFS;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.AbstractExamEnrollmentDAO;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.ExamEnrollmentDAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.ExamEnrollmentDAOFS;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.AbstractSubjectCourseAssignmentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.SubjectCourseAssignmentDAOFS;
@@ -12,7 +12,7 @@ import it.uniroma2.dicii.ispw.gradely.model.association_classes.test_reservation
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.test_reservation.TestReservationDAOFS;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseDAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseDAOFS;
-import it.uniroma2.dicii.ispw.gradely.model.exam.AbstractExamDAO;
+import it.uniroma2.dicii.ispw.gradely.model.exam.ExamDAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.exam.ExamDAOFS;
 import it.uniroma2.dicii.ispw.gradely.model.exam_result.ExamResultDAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.exam_result.ExamResultDAOFS;
@@ -45,7 +45,7 @@ public class DAOFactoryFS extends DAOFactoryAbstract {
         return DegreeCourseEnrollmentDAOFS.getInstance();
     }
     @Override
-    public AbstractExamEnrollmentDAO getExamEnrollmentDAO(){
+    public ExamEnrollmentDAOInterface getExamEnrollmentDAO(){
         return ExamEnrollmentDAOFS.getInstance();
     }
     @Override
@@ -57,7 +57,7 @@ public class DAOFactoryFS extends DAOFactoryAbstract {
         return DegreeCourseDAOFS.getInstance();
     }
     @Override
-    public AbstractExamDAO getExamDAO(){
+    public ExamDAOInterface getExamDAO(){
         return ExamDAOFS.getInstance();
     }
     @Override

@@ -5,13 +5,13 @@ import it.uniroma2.dicii.ispw.gradely.enums.SessionEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 
-public class ExamDAOFS extends AbstractExamDAO {
+public class ExamDAOFS extends ExamDAOInterface {
 
     private ExamDAOFS(){
 
     }
 
-    public static synchronized AbstractExamDAO getInstance(){
+    public static synchronized ExamDAOInterface getInstance(){
         if (instance == null){
             instance = new ExamDAOFS();
         }

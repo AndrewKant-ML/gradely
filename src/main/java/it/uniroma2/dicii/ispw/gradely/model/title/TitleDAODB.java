@@ -30,7 +30,6 @@ public class TitleDAODB extends DAODBAbstract<Title> implements TitleDAOInterfac
     @Override
     public List<Title> getTitlesByStudent(Student student, List<Title> exclusions) throws DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, UnrecognizedRoleException, WrongListQueryIdentifierValue, WrongDegreeCourseCodeException, ObjectNotFoundException {
         return getListQuery(
-                "*",
                 "TITLE",
                 List.of("student"),
                 List.of(student.getCodiceFiscale()),

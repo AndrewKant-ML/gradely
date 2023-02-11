@@ -2,6 +2,7 @@ package it.uniroma2.dicii.ispw.gradely.model.test_result;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class TestResutlLazyFactory {
     private static TestResutlLazyFactory instance;
@@ -17,7 +18,7 @@ public class TestResutlLazyFactory {
         return instance;
     }
 
-    public AbstractTestResult getTestResultById(Integer id){
+    public AbstractTestResult getTestResultById(UUID id){
         return null;
     }
 

@@ -89,12 +89,12 @@ public abstract class DAODBAbstract<T>{
      * @throws PropertyException         thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
-    protected List<T> getListQuery(String columns, String table, List<String> identifiers, List<Object> identifiersValue, List<T> exclusions, List<Object> objects, Boolean wantAll) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, UnrecognizedRoleException, WrongListQueryIdentifierValue, WrongDegreeCourseCodeException, ObjectNotFoundException {
+    protected List<T> getListQuery(String table, List<String> identifiers, List<Object> identifiersValue, List<T> exclusions, List<Object> objects, Boolean wantAll) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, UnrecognizedRoleException, WrongListQueryIdentifierValue, WrongDegreeCourseCodeException, ObjectNotFoundException {
         String query;
         if(wantAll.equals(Boolean.FALSE))
-            query = String.format("select %s from %s where %s", columns,table, andStringBuilder(identifiers, identifiersValue));
+            query = String.format("select * from %s where %s",table, andStringBuilder(identifiers, identifiersValue));
         else
-            query = String.format("select %s from %s", columns,table);
+            query = String.format("select * from %s",table);
 
         String finalQuery;
         if (exclusions.isEmpty()) {

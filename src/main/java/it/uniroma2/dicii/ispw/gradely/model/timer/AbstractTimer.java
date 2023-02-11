@@ -10,12 +10,28 @@ public abstract class AbstractTimer <T, O extends TimerObserver>{
     protected UUID id;
     protected LocalDate expiration;
     protected T object;
-    protected List<O> observers; //can a timer have multiple observers? Snd multiple types?
+    protected List<O> observers; //can a timer have multiple observers in this system? I don't think so, but left the possibility open
 
 
     protected AbstractTimer(LocalDate expiration, T object){
         this.expiration = expiration;
         this.object = object;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public List<O> getObservers() {
+        return observers;
+    }
+
+    public void setObservers(List<O> observers) {
+        this.observers = observers;
     }
 
     public LocalDate getExpiration(){
@@ -45,7 +61,7 @@ public abstract class AbstractTimer <T, O extends TimerObserver>{
     public void detach(O observer){
         this.observers.remove(observer);
     }
-    public void notifyTimerExpiration() throws WrongTimerTypeException, DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, ObjectNotFoundException {
+    public void notifyTimerExpiration() throws WrongTimerTypeException, DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, ObjectNotFoundException, WrongListQueryIdentifierValue, UnrecognizedRoleException, WrongDegreeCourseCodeException {
         for (O o : observers){
             o.timeIsUp(this);
         }
