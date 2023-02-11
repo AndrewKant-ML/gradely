@@ -76,7 +76,7 @@ public class SecretaryDAOFS implements AbstractSecretaryDAO {
 
     }
 
-    public void cancel(Secretary secretary) {
+    public void delete(Secretary secretary) {
 
     }
 

@@ -71,7 +71,7 @@ public class DegreeCourseEnrollmentDAOFS implements DegreeCourseEnrollmentDAOInt
 
     }
 
-    public void cancel(DegreeCourseEnrollment degreeCourseEnrollment){
+    public void delete(DegreeCourseEnrollment degreeCourseEnrollment){
 
     }
 

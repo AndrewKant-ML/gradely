@@ -29,7 +29,7 @@ public class TestReservationDAOFS implements TestReservationDAOAbstract {
 
     }
 
-    public void cancel(Test test){
+    public void delete(Test test){
 
     }
 

@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.role.secretary;
 
-import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
+import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
@@ -70,8 +70,8 @@ public class SecretaryDAODB  extends DAODBAbstract<Secretary> implements Abstrac
     }
 
     @Override
-    public void cancel(Secretary secretary) throws DAOException, PropertyException, ResourceNotFoundException {
-        cancelQuery("SECRETARY",List.of("codice_fiscale","dipartimento"), List.of(secretary.getCodiceFiscale(), secretary.getDipartimento().value));
+    public void delete(Secretary secretary) throws DAOException, PropertyException, ResourceNotFoundException {
+        deleteQuery("SECRETARY",List.of("codice_fiscale","dipartimento"), List.of(secretary.getCodiceFiscale(), secretary.getDipartimento().value));
     }
 
     @Override

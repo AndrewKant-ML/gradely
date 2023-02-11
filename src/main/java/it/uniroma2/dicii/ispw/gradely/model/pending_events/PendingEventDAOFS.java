@@ -36,7 +36,7 @@ public class PendingEventDAOFS implements PendingEventDAOInterface {
     }
 
     @Override
-    public void cancel(PendingEvent pendingEvent){
+    public void delete(PendingEvent pendingEvent){
 
     }
 

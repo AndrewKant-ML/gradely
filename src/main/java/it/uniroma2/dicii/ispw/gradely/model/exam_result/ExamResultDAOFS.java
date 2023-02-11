@@ -21,7 +21,7 @@ public class ExamResultDAOFS implements ExamResultDAOInterface {
 
     }
 
-    public void cancel(ExamResult examResult) throws DAOException {
+    public void delete(ExamResult examResult) throws DAOException {
 
     }
 

@@ -53,7 +53,7 @@ public class StudentDAOFS implements StudentDAOInterface {
     }
 
     @Override
-    public void cancel(Student student){
+    public void delete(Student student){
 
     }
 

@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.pending_events;
 
-import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
+import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum;
@@ -122,10 +122,10 @@ public class PendingEventDAODB extends DAODBAbstract<PendingEvent> implements Pe
     }
 
     @Override
-    public void cancel(PendingEvent pendingEvent) throws DAOException, PropertyException, ResourceNotFoundException {
-        cancelQuery("PENDING_EVENT_OBJECT",List.of("pending_event"),List.of(pendingEvent.id));
-        cancelQuery("PENDING_EVENT_RECIPIENT",List.of("pending_event"),List.of(pendingEvent.id));
-        cancelQuery("PENDING_EVENT",List.of("pending_event"),List.of(pendingEvent.id));
+    public void delete(PendingEvent pendingEvent) throws DAOException, PropertyException, ResourceNotFoundException {
+        deleteQuery("PENDING_EVENT_OBJECT",List.of("pending_event"),List.of(pendingEvent.id));
+        deleteQuery("PENDING_EVENT_RECIPIENT",List.of("pending_event"),List.of(pendingEvent.id));
+        deleteQuery("PENDING_EVENT",List.of("pending_event"),List.of(pendingEvent.id));
     }
 
     @Override

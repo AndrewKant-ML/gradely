@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.timer;
 
-import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
+import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
@@ -82,8 +82,8 @@ public class TimerDAODB extends DAODBAbstract<AbstractTimer> implements TimerDAO
     }
 
     @Override
-    public void cancel(AbstractTimer timer) throws DAOException, PropertyException, ResourceNotFoundException {
-        cancelQuery("TIMER", List.of("id"),List.of(timer.getId().toString()));
+    public void delete(AbstractTimer timer) throws DAOException, PropertyException, ResourceNotFoundException {
+        deleteQuery("TIMER", List.of("id"),List.of(timer.getId().toString()));
     }
 
     @Override

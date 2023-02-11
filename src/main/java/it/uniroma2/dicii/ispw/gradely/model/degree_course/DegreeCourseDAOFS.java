@@ -136,7 +136,7 @@ public class DegreeCourseDAOFS implements DegreeCourseDAOInterface {
     }
 
     @Override
-    public void cancel(DegreeCourse degreeCourse) {
+    public void delete(DegreeCourse degreeCourse) {
 
     }
 

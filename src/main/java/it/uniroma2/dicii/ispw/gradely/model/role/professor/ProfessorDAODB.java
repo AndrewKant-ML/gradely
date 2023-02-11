@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.role.professor;
 
-import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
+import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.SubjectCourseAssignmentLazyFactory;
@@ -43,8 +43,8 @@ public class ProfessorDAODB extends DAODBAbstract<Professor> implements Abstract
     }
 
     @Override
-    public void cancel(Professor professor) throws DAOException, PropertyException, ResourceNotFoundException {
-        cancelQuery(
+    public void delete(Professor professor) throws DAOException, PropertyException, ResourceNotFoundException {
+        deleteQuery(
                 "PROFESSOR",
                 List.of("codice_fiscale"),
                 List.of(professor.getCodiceFiscale())

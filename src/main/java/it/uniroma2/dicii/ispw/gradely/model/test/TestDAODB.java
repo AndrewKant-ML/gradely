@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.test;
 
-import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
+import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
@@ -99,7 +99,7 @@ public class TestDAODB extends DAODBAbstract<Test> implements TestDAOAbstract {
     }
 
     @Override
-    public void cancel(Test test) {
+    public void delete(Test test) {
 
     }
 

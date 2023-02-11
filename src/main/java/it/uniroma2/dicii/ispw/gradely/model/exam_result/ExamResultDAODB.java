@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.exam_result;
 
-import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
+import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
@@ -38,7 +38,7 @@ public class ExamResultDAODB extends DAODBAbstract<ExamResult> implements ExamRe
     }
 
     @Override
-    public void cancel(ExamResult examResult) throws DAOException {
+    public void delete(ExamResult examResult) throws DAOException {
 
     }
 

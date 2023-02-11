@@ -46,7 +46,7 @@ public class ProfessorDAOFS implements AbstractProfessorDAO {
 
     }
 
-    public void cancel(Professor professor) throws DAOException {
+    public void delete(Professor professor) throws DAOException {
 
     }
 

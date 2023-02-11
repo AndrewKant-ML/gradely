@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment;
 
-import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
+import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
@@ -8,7 +8,6 @@ import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ExamEnrollmentDAODB extends DAODBAbstract<ExamEnrollment> implements ExamEnrollmentDAOInterface {
@@ -65,7 +64,7 @@ public class ExamEnrollmentDAODB extends DAODBAbstract<ExamEnrollment> implement
     }
 
     @Override
-    public void cancel(ExamEnrollment examEnrollment){
+    public void delete(ExamEnrollment examEnrollment){
 
     }
 

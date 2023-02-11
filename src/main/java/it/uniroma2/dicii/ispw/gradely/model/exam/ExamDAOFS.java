@@ -38,7 +38,7 @@ public class ExamDAOFS implements ExamDAOInterface {
     }
 
     @Override
-    public void cancel(Exam exam){
+    public void delete(Exam exam){
 
     }
 

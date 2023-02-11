@@ -80,7 +80,7 @@ public class UserDAOFS implements UserDAOInterface {
     }
 
     @Override
-    public void cancel(User user) throws DAOException {
+    public void delete(User user) throws DAOException {
 
     }
 

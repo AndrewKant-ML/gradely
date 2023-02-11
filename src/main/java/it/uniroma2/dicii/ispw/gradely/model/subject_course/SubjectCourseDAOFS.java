@@ -54,7 +54,7 @@ public class SubjectCourseDAOFS implements SubjectCourseDAOInterface {
 
     }
 
-    public void cancel(SubjectCourse subjectCourse){
+    public void delete(SubjectCourse subjectCourse){
 
     }
 

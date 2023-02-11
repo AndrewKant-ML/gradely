@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.role.student;
 
-import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
+import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.DegreeCourseEnrollmentLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.ExamEnrollmentLazyFactory;
@@ -52,8 +52,8 @@ public class StudentDAODB extends DAODBAbstract<Student> implements StudentDAOIn
     }
 
     @Override
-    public void cancel(Student student) throws DAOException, PropertyException, ResourceNotFoundException {
-        cancelQuery(
+    public void delete(Student student) throws DAOException, PropertyException, ResourceNotFoundException {
+        deleteQuery(
                 "STUDENT",
                 List.of("codice_fiscale"),
                 List.of(student.getCodiceFiscale())

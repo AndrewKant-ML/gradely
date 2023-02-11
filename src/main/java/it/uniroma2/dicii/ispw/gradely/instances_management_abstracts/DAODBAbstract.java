@@ -1,4 +1,4 @@
-package it.uniroma2.dicii.ispw.gradely.dao_abstract;
+package it.uniroma2.dicii.ispw.gradely.instances_management_abstracts;
 
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
@@ -23,12 +23,12 @@ public abstract class DAODBAbstract<T>{
 
     /**
      * Deletes an object from DB
-     * @param t the object to cancel
+     * @param t the object to delete
      * @throws DAOException thrown if errors occur while retrieving data from persistence layer
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
-    protected abstract void cancel(T t) throws DAOException, PropertyException, ResourceNotFoundException;
+    protected abstract void delete(T t) throws DAOException, PropertyException, ResourceNotFoundException;
 
     /**
      * Updates an object present in DB to its current state
@@ -205,16 +205,16 @@ public abstract class DAODBAbstract<T>{
 
 
     /**
-     * Queries DB to cancel the entry of a table related to an object
+     * Queries DB to delete the entry of a table related to an object
      *
-     * @param table the table to cancel from
+     * @param table the table to delete from
      * @param identifiers the name of the columns needed to find the entry in the table
      * @param identifiersValue the identifiers value needed to find the entry to update
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      * @throws DAOException thrown if errors occur while retrieving data from persistence layer
      */
-    protected void cancelQuery(String table, List<String> identifiers, List<Object> identifiersValue) throws PropertyException, ResourceNotFoundException, DAOException {
+    protected void deleteQuery(String table, List<String> identifiers, List<Object> identifiersValue) throws PropertyException, ResourceNotFoundException, DAOException {
         if (identifiers.size()!=identifiersValue.size())
             throw new DAOException("id and values number don't match "); //TODO implementare exception
         String query = String.format("delete from %s where %s",table, andStringBuilder(identifiers, identifiersValue));

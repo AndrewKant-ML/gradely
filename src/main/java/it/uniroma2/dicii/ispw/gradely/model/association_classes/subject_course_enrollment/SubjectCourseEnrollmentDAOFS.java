@@ -33,7 +33,7 @@ public class SubjectCourseEnrollmentDAOFS implements AbstractSubjectCourseEnroll
 
     }
 
-    public void cancel(SubjectCourseEnrollment subjectCourseEnrollment){
+    public void delete(SubjectCourseEnrollment subjectCourseEnrollment){
 
     }
 

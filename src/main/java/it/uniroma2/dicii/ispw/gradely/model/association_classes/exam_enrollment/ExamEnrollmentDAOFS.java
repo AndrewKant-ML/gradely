@@ -40,7 +40,7 @@ public class ExamEnrollmentDAOFS implements ExamEnrollmentDAOInterface {
     }
 
     @Override
-    public void cancel(ExamEnrollment examEnrollment){
+    public void delete(ExamEnrollment examEnrollment){
 
     }
 

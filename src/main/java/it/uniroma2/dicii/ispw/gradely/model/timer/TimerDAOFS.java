@@ -23,7 +23,7 @@ public class TimerDAOFS implements TimerDAOInterface {
 
     }
 
-    public void cancel(AbstractTimer timer){
+    public void delete(AbstractTimer timer){
 
     }
 

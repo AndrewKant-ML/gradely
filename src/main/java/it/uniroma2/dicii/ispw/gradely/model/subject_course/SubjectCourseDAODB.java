@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.subject_course;
 
-import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
+import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.SubjectCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 
@@ -59,8 +59,8 @@ public class SubjectCourseDAODB extends DAODBAbstract<SubjectCourse> implements 
     }
 
     @Override
-    public void cancel(SubjectCourse subjectCourse) throws PropertyException, ResourceNotFoundException, DAOException {
-        cancelQuery(
+    public void delete(SubjectCourse subjectCourse) throws PropertyException, ResourceNotFoundException, DAOException {
+        deleteQuery(
                 "SUBJECT_COURSE",
                 List.of("code", "name", "cfu", "aa"),
                 List.of(subjectCourse.getCode().value,subjectCourse.getName(),subjectCourse.getCfu(),Date.valueOf(subjectCourse.getAcademicYear().atDay(0)))

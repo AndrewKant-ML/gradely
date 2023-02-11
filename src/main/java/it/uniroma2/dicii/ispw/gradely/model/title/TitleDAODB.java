@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.title;
 
-import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
+import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.DegreeCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
@@ -50,8 +50,8 @@ public class TitleDAODB extends DAODBAbstract<Title> implements TitleDAOInterfac
     }
 
     @Override
-    public void cancel(Title title) throws DAOException, PropertyException, ResourceNotFoundException {
-        cancelQuery("TITLE",
+    public void delete(Title title) throws DAOException, PropertyException, ResourceNotFoundException {
+        deleteQuery("TITLE",
                 List.of("codice_fiscale", "abstract_degree_course"),
                 List.of(title.getStudent().getCodiceFiscale(), title.getDegreeCourse().getCode().value)
         );

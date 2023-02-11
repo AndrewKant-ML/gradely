@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.user;
 
-import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
+import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.UserRoleEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
@@ -78,8 +78,8 @@ public class UserDAODB extends DAODBAbstract<User> implements UserDAOInterface  
     }
 
     @Override
-    public void cancel(User user) throws DAOException, PropertyException, ResourceNotFoundException {
-        cancelQuery(
+    public void delete(User user) throws DAOException, PropertyException, ResourceNotFoundException {
+        deleteQuery(
                 "USER",
                 List.of("codice_fiscale"),
                 List.of(user.getCodiceFiscale())

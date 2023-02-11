@@ -18,7 +18,7 @@ public class TestResultDAOFS implements TestResultDAOInterface {
 
     }
 
-    public void cancel(AbstractTestResult abstractTestResult){
+    public void delete(AbstractTestResult abstractTestResult){
 
     }
 
