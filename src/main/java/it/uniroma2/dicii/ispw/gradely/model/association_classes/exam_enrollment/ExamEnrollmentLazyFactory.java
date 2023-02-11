@@ -2,10 +2,7 @@ package it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment
 
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.MissingAuthorizationException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.exam_result.ExamResult;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
@@ -28,7 +25,7 @@ public class ExamEnrollmentLazyFactory {
         return instance;
     }
 
-    public List<ExamEnrollment> getExamEnrollmentsByExam(Exam exam) throws DAOException {
+    public List<ExamEnrollment> getExamEnrollmentsByExam(Exam exam) throws DAOException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         List<ExamEnrollment> list = new ArrayList<>();
         for(ExamEnrollment e : examEnrollments){
             if(e.getExam().equals(exam)){
@@ -43,7 +40,7 @@ public class ExamEnrollmentLazyFactory {
         return list;
     }
 
-    public List<ExamEnrollment> getExamEnrollmentsByStudent(Student student) throws DAOException {
+    public List<ExamEnrollment> getExamEnrollmentsByStudent(Student student) throws DAOException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         List<ExamEnrollment> list = new ArrayList<>();
         for(ExamEnrollment e : examEnrollments){
             if(e.getStudent().equals(student)){
@@ -58,7 +55,7 @@ public class ExamEnrollmentLazyFactory {
         return list;
     }
 
-    public ExamEnrollment getExamEnrollmentByExamAndStudent(Exam exam, Student student) throws DAOException {
+    public ExamEnrollment getExamEnrollmentByExamAndStudent(Exam exam, Student student) throws DAOException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         for(ExamEnrollment e : examEnrollments){
             if(e.getExam().equals(exam) && e.getStudent().equals(student)){
                 return e;

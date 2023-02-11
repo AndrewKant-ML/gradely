@@ -47,17 +47,7 @@ public class UserDAODB extends DAODBAbstract<User> implements UserDAOInterface  
         );
     }
 
-    @Override
-    public List<User> getAll(List<User> exclusions) throws UserNotFoundException, DAOException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
-        return getListQuery(
-                "USER",
-                List.of("codice_fiscale"),
-                null,
-                exclusions,
-                null,
-                true
-        );
-    }
+
 
 
     @Override
