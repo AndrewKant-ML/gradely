@@ -67,7 +67,7 @@ public class TitleDAODB extends DAODBAbstract<Title> implements TitleDAOInterfac
     }
 
     @Override
-    protected Title queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException, WrongDegreeCourseCodeException, ObjectNotFoundException, MissingAuthorizationException {
+    protected Title queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException, WrongDegreeCourseCodeException, ObjectNotFoundException, MissingAuthorizationException, WrongListQueryIdentifierValue {
         return new Title(
                 DegreeCourseLazyFactory.getInstance().getDegreeCourseByDegreeCourseCodeList(List.of(DegreeCourseCodeEnum.getDegreeCourseCodeByValue(rs.getInt("absract_degree_course")))).get(0),
                 StudentLazyFactory.getInstance().getStudentByUser(UserLazyFactory.getInstance().getUserByCodiceFiscale(rs.getString("codice_fiscale"))),

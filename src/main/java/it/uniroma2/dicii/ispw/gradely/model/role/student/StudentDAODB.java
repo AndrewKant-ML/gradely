@@ -33,7 +33,7 @@ public class StudentDAODB extends DAODBAbstract<Student> implements StudentDAOIn
      * @throws UserNotFoundException thrown if the given User has not a Student role
      */
     @Override
-    public Student getStudentByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException {
+    public Student getStudentByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         return getQuery(
                 "STUDENT",
                 List.of("codice_fiscale"),
@@ -70,7 +70,7 @@ public class StudentDAODB extends DAODBAbstract<Student> implements StudentDAOIn
         );
     }
 
-    protected Student queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, UnrecognizedRoleException, MissingAuthorizationException {
+    protected Student queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongListQueryIdentifierValue, ObjectNotFoundException, WrongDegreeCourseCodeException {
         Student student = new Student((User)objects.get(0), rs.getString("matricola"));
         student.setDegreeCourseEnrollments(DegreeCourseEnrollmentLazyFactory.getInstance().getDegreeCourseEnrollmentsByStudent(student));
         student.setTitles(TitleLazyFactory.getInstance().getTitlesByStudent(student));

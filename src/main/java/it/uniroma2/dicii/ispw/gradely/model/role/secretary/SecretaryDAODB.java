@@ -37,7 +37,7 @@ public class SecretaryDAODB  extends DAODBAbstract<Secretary> implements Abstrac
      * @throws UserNotFoundException thrown if the given User has not a Student role
      */
     @Override
-    public Secretary getSecretaryByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
+    public Secretary getSecretaryByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         return getQuery(
                 "SECRETARY",
                 List.of("codice_fiiscale"),
@@ -82,7 +82,7 @@ public class SecretaryDAODB  extends DAODBAbstract<Secretary> implements Abstrac
         updateQuery("SECRETARY",List.of("dipartimento"),List.of(secretary.getDipartimento().value),List.of("codice_fiscale"),List.of(secretary.getCodiceFiscale()));
     }
     @Override
-    protected Secretary queryObjectBuilder(ResultSet rs, List<Object> users) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, UnrecognizedRoleException {
+    protected Secretary queryObjectBuilder(ResultSet rs, List<Object> users) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, UnrecognizedRoleException, WrongListQueryIdentifierValue, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         return new Secretary(
                 (users != null) ? (User)users.get(0) : UserLazyFactory.getInstance().getUserByCodiceFiscale(rs.getString("codice_fiscale")),
                 DipartimentoEnum.getDipartimentoByValue(rs.getInt("dipartimento"))

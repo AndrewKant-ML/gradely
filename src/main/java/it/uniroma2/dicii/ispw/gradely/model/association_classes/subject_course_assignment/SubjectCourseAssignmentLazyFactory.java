@@ -24,7 +24,7 @@ public class SubjectCourseAssignmentLazyFactory {
         return instance;
     }
 
-    public List<SubjectCourseAssignment> getCourseAssignmentsBySubjectCourse(SubjectCourse course) throws DAOException, UserNotFoundException, ObjectNotFoundException {
+    public List<SubjectCourseAssignment> getCourseAssignmentsBySubjectCourse(SubjectCourse course) throws DAOException, UserNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         List<SubjectCourseAssignment> assignments = new ArrayList<>();
         for (SubjectCourseAssignment c : subjectCourseAssignments) {
             if (c.getSubjectCourse().equals(course)) {
@@ -40,7 +40,7 @@ public class SubjectCourseAssignmentLazyFactory {
         }
     }
 
-    public List<SubjectCourseAssignment> getCourseAssignmentsByProfessor(Professor professor) throws DAOException, UserNotFoundException, ObjectNotFoundException {
+    public List<SubjectCourseAssignment> getCourseAssignmentsByProfessor(Professor professor) throws DAOException, UserNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         List<SubjectCourseAssignment> list = new ArrayList<>();
         for (SubjectCourseAssignment c : subjectCourseAssignments) {
             if (c.getProfessor().equals(professor)) {
@@ -60,7 +60,7 @@ public class SubjectCourseAssignmentLazyFactory {
         return list;
     }
 
-    public List<SubjectCourse> getAssignedSubjectCoursesByProfessor(Professor professor) throws DAOException, UserNotFoundException, ObjectNotFoundException {
+    public List<SubjectCourse> getAssignedSubjectCoursesByProfessor(Professor professor) throws DAOException, UserNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         List<SubjectCourse> list = new ArrayList<>();
         for (SubjectCourseAssignment c : subjectCourseAssignments) {
             if (c.getProfessor().equals(professor)) {

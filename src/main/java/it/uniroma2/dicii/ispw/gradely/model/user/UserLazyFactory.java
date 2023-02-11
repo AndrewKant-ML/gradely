@@ -32,7 +32,7 @@ public class UserLazyFactory {
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      * @throws UserNotFoundException thrown if the email does not match any User
      */
-    public User getUserByEmail(String email) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException {
+    public User getUserByEmail(String email) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, WrongListQueryIdentifierValue, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         for (User u : registeredUsers) {
             if (u.getEmail().equals(email)) {
                 return u;
@@ -43,7 +43,7 @@ public class UserLazyFactory {
         return daoUser;
     }
 
-    public User getUserByCodiceFiscale(String codiceFiscale) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException {
+    public User getUserByCodiceFiscale(String codiceFiscale) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, WrongListQueryIdentifierValue, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         for (User u : registeredUsers) {
             if (u.getCodiceFiscale().equals(codiceFiscale)) {
                 return u;

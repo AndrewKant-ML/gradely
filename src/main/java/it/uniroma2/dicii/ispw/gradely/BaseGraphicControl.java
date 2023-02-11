@@ -3,8 +3,7 @@ package it.uniroma2.dicii.ispw.gradely;
 import it.uniroma2.dicii.ispw.gradely.beans_general.PendingEventBean;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.UserErrorMessagesEnum;
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.WrongPendingEventTypeException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.facades.UserFacade;
 import it.uniroma2.dicii.ispw.gradely.use_cases.controllers_general.pending_event.graphic.PendingEventExamVerbalizationGraphicController;
 import it.uniroma2.dicii.ispw.gradely.use_cases.controllers_general.pending_event.graphic.PendingEventGradeAcceptanceGraphicController;
@@ -121,6 +120,18 @@ public class BaseGraphicControl implements Initializable {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.PROPERTY_VALUE_TITLE.message, UserErrorMessagesEnum.PROPERTY_VALUE_MSG.message);
         } catch (IOException e) {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.RESOURCE_LOADING_TITLE.message, UserErrorMessagesEnum.RESOURCE_LOADING_MSG.message);
+        } catch (UserNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (WrongListQueryIdentifierValue e) {
+            throw new RuntimeException(e);
+        } catch (ObjectNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (UnrecognizedRoleException e) {
+            throw new RuntimeException(e);
+        } catch (MissingAuthorizationException e) {
+            throw new RuntimeException(e);
+        } catch (WrongDegreeCourseCodeException e) {
+            throw new RuntimeException(e);
         }
     }
 

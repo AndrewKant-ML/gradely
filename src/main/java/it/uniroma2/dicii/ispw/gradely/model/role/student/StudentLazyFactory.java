@@ -24,7 +24,7 @@ public class StudentLazyFactory {
         return instance;
     }
 
-    public Student getStudentByUser(User user) throws DAOException, UserNotFoundException, UnrecognizedRoleException, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException {
+    public Student getStudentByUser(User user) throws DAOException, UserNotFoundException, UnrecognizedRoleException, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         for (Student s : students) {
             if (s.getUser().equals(user)) {
                 return s;

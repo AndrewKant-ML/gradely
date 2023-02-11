@@ -5,6 +5,7 @@ import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.WrongDegreeCourseCodeException;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 
@@ -54,7 +55,7 @@ public class DegreeCourseEnrollmentLazyFactory {
      * @return a List of DegreeCourseEnrollment objects
      * @throws DAOException thrown if errors occur while retrieving data from persistence layer
      */
-    public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByStudent(Student student) throws DAOException {
+    public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByStudent(Student student) throws DAOException, WrongDegreeCourseCodeException {
         List<DegreeCourseEnrollment> list = new ArrayList<>();
         for (DegreeCourseEnrollment e : degreeCourseEnrollments) {
             if (e.getStudent().equals(student)) {
@@ -75,7 +76,7 @@ public class DegreeCourseEnrollmentLazyFactory {
         return list;
     }
 
-    public Boolean checkDegreeCourseEnrollmentPresence(Student student, DegreeCourse course) throws DAOException {
+    public Boolean checkDegreeCourseEnrollmentPresence(Student student, DegreeCourse course) throws DAOException, WrongDegreeCourseCodeException {
         List<DegreeCourseEnrollment> list = getDegreeCourseEnrollmentsByStudent(student);
         for(DegreeCourseEnrollment e : list){
             if(!e.getDegreeCourse().equals(course)){

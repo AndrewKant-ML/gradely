@@ -45,10 +45,12 @@ public class EnrollToDegreeCourseCLIGraphicController {
             throw new RuntimeException(e);
         } catch (ResourceNotFoundException e) {
             throw new RuntimeException(e);
+        } catch (WrongDegreeCourseCodeException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    private int selectDegreeCourses() throws DAOException, MissingAuthorizationException {
+    private int selectDegreeCourses() throws DAOException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         List<DegreeCourseBean> degreeCourseBeans = facade.getDegreeCourses(tokenKey);
         System.out.println("Select the degree course you want to enroll to:");
         for (int i = 0; i < degreeCourseBeans.size(); i++)
@@ -82,7 +84,7 @@ public class EnrollToDegreeCourseCLIGraphicController {
         return -1;
     }
 
-    private void showTestInfo() throws DAOException, TestRetrivialException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
+    private void showTestInfo() throws DAOException, TestRetrivialException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         TestInfoBean testInfo = facade.getTestInfo(tokenKey, selectedCourse);
         System.out.printf("Degree course: %s\n", selectedCourse.getName());
         System.out.printf("Test ID: %s\n", testInfo.getId());

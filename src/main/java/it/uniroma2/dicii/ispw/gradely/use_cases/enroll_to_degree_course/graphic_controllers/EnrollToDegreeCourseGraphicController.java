@@ -52,6 +52,8 @@ public class EnrollToDegreeCourseGraphicController implements Initializable {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.AUTHORIZATION_TITLE.message, UserErrorMessagesEnum.MISSING_AUTHORIZATION_MSG.message, e);
         } catch (DAOException e) {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.DATA_RETRIEVAL_TITLE.message, UserErrorMessagesEnum.DATA_RETRIEVAL_MSG.message, e);
+        } catch (WrongDegreeCourseCodeException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -120,6 +122,8 @@ public class EnrollToDegreeCourseGraphicController implements Initializable {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.PROPERTY_VALUE_TITLE.message, UserErrorMessagesEnum.PROPERTY_VALUE_MSG.message, e);
         } catch (ResourceNotFoundException e) {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.RESOURCE_LOADING_TITLE.message, UserErrorMessagesEnum.RESOURCE_LOADING_MSG.message);
+        } catch (WrongDegreeCourseCodeException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -137,6 +141,8 @@ public class EnrollToDegreeCourseGraphicController implements Initializable {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.PROPERTY_VALUE_TITLE.message, UserErrorMessagesEnum.PROPERTY_VALUE_MSG.message);
         } catch (ResourceNotFoundException e) {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.RESOURCE_LOADING_TITLE.message, UserErrorMessagesEnum.RESOURCE_LOADING_MSG.message);
+        } catch (WrongDegreeCourseCodeException e) {
+            throw new RuntimeException(e);
         }
     }
 }

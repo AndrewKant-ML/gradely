@@ -50,6 +50,12 @@ public class InsertStudentsGradesProfessorGraphicControl implements Initializabl
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.DATA_RETRIEVAL_TITLE.message, UserErrorMessagesEnum.DATA_RETRIEVAL_MSG.message);
         } catch (UserNotFoundException e) {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.DATA_RETRIEVAL_TITLE.message, UserErrorMessagesEnum.USER_NOT_FOUND_MSG.message);
+        } catch (UnrecognizedRoleException e) {
+            throw new RuntimeException(e);
+        } catch (WrongDegreeCourseCodeException e) {
+            throw new RuntimeException(e);
+        } catch (WrongListQueryIdentifierValue e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -103,6 +109,8 @@ public class InsertStudentsGradesProfessorGraphicControl implements Initializabl
                 PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.ROLE_ERROR_TITLE.message, UserErrorMessagesEnum.ROLE_ERROR_MSG.message);
             } catch (ObjectNotFoundException | WrongDegreeCourseCodeException e) {
                 PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.OBJ_NOT_FOUND_TITLE.message, UserErrorMessagesEnum.OBJ_NOT_FOUND_MSG.message);
+            } catch (WrongListQueryIdentifierValue e) {
+                throw new RuntimeException(e);
             }
         }
     }
@@ -126,6 +134,10 @@ public class InsertStudentsGradesProfessorGraphicControl implements Initializabl
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.ROLE_ERROR_TITLE.message, UserErrorMessagesEnum.ROLE_ERROR_MSG.message);
         } catch (ObjectNotFoundException | WrongDegreeCourseCodeException e) {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.OBJ_NOT_FOUND_TITLE.message, UserErrorMessagesEnum.OBJ_NOT_FOUND_MSG.message);
+        } catch (WrongListQueryIdentifierValue e) {
+            throw new RuntimeException(e);
+        } catch (WrongTimerTypeException e) {
+            throw new RuntimeException(e);
         }
     }
 }

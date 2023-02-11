@@ -41,7 +41,7 @@ public class TestDAODB extends DAODBAbstract<Test> implements TestDAOAbstract {
      * @throws PropertyException thrown if errors occur while loading db connection properties OR thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
-    private Test querySingleTestData(String query) throws DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException {
+    private Test querySingleTestData(String query) throws DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, WrongDegreeCourseCodeException {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             try (PreparedStatement stmt = connection.prepareStatement(query);
@@ -87,7 +87,7 @@ public class TestDAODB extends DAODBAbstract<Test> implements TestDAOAbstract {
     }
 
     @Override
-    public Test getTestById(String id) throws PropertyException, ResourceNotFoundException, DAOException, ObjectNotFoundException {
+    public Test getTestById(String id) throws PropertyException, ResourceNotFoundException, DAOException, ObjectNotFoundException, WrongDegreeCourseCodeException {
         String query = "select id, test_date, result_date, reservation_link, info_link, place, degree_course_name from TEST T where T.id='%s';";
         query = String.format(query, id);
         return querySingleTestData(query);
@@ -117,20 +117,4 @@ public class TestDAODB extends DAODBAbstract<Test> implements TestDAOAbstract {
     protected String setGetListQueryIdentifiersValue(Test test, int valueNumber) throws DAOException, WrongListQueryIdentifierValue {
         return null;
     }
-
-    @Override
-    protected void setInsertQueryParametersValue(PreparedStatement stmt, Test test) throws SQLException {
-
-    }
-
-    @Override
-    protected void setUpdateQueryParametersValue(PreparedStatement stmt, Test test) throws SQLException, MissingAuthorizationException {
-
-    }
-
-    @Override
-    protected void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> identifiersValues) throws SQLException {
-
-    }
-
 }

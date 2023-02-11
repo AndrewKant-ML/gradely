@@ -54,7 +54,7 @@ public class InsertStudentsGradesControl extends TimerObserver {
      * @return gradable exam list
      * @throws MissingAuthorizationException
      */
-    ExamListBean getGradableExams(String tokenKey) throws MissingAuthorizationException, DAOException, UserNotFoundException {
+    ExamListBean getGradableExams(String tokenKey) throws MissingAuthorizationException, DAOException, UserNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         Professor professor = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getProfessorRole();
         try {
             return new ExamListBean(createExamBeanList(ExamLazyFactory.getInstance().getGradableExams(professor)));
@@ -95,7 +95,7 @@ public class InsertStudentsGradesControl extends TimerObserver {
      * @param bean
      * @return
      */
-    ExamEnrollmentListBean getExamEnrollments(String tokenKey, ExamBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UserNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException {
+    ExamEnrollmentListBean getExamEnrollments(String tokenKey, ExamBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UserNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         Professor professor = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getProfessorRole();
         Exam exam = getExamByBean(bean);
         checkExamProfessor(exam, professor);
@@ -136,7 +136,7 @@ public class InsertStudentsGradesControl extends TimerObserver {
      * @param bean
      * @return exam
      */
-    private Exam getExamByBean(ExamBean bean) throws DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UserNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
+    private Exam getExamByBean(ExamBean bean) throws DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UserNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         return ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(bean.getAppello(), getSubjectCourseByBean(bean.getCourse()), bean.getSession());
     }
 
@@ -149,7 +149,7 @@ public class InsertStudentsGradesControl extends TimerObserver {
      * @param bean
      * @return subjectCourse
      */
-    private SubjectCourse getSubjectCourseByBean(SubjectCourseBean bean) throws DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UserNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
+    private SubjectCourse getSubjectCourseByBean(SubjectCourseBean bean) throws DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UserNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         return SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(bean.getCode(), bean.getName(), bean.getCfu(), bean.getAcademicYear());
     }
 
@@ -234,7 +234,7 @@ public class InsertStudentsGradesControl extends TimerObserver {
      * @param bean
      * @throws MissingAuthorizationException
      */
-    void confirmExamVerbaleProtocolization(String tokenKey, ProtocolBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UserNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException {
+    void confirmExamVerbaleProtocolization(String tokenKey, ProtocolBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UserNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         Secretary secretary = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getSecretaryRole();
         Exam e = ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(bean.getExamBean().getAppello(), SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(bean.getExamBean().getCourse().getCode(), bean.getExamBean().getCourse().getName(), bean.getExamBean().getCourse().getCfu(), bean.getExamBean().getCourse().getAcademicYear()), bean.getExamBean().getSession());
         checkExamSecretary(e, secretary);

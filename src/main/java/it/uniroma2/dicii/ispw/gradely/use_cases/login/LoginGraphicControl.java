@@ -63,6 +63,12 @@ public class LoginGraphicControl implements Initializable {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.RESOURCE_LOADING_TITLE.message, UserErrorMessagesEnum.RESOURCE_LOADING_MSG.message, e);
         } catch (UnrecognizedRoleException e) {
             throw new RuntimeException(e);
+        } catch (WrongListQueryIdentifierValue e) {
+            throw new RuntimeException(e);
+        } catch (ObjectNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (WrongDegreeCourseCodeException e) {
+            throw new RuntimeException(e);
         }
     }
 }

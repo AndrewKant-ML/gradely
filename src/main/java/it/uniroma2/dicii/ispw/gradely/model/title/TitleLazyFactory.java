@@ -25,7 +25,7 @@ public class TitleLazyFactory {
         return instance;
     }
 
-    public List<Title> getTitlesByStudent(Student student) throws DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, UnrecognizedRoleException, MissingAuthorizationException {
+    public List<Title> getTitlesByStudent(Student student) throws DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongListQueryIdentifierValue, ObjectNotFoundException, WrongDegreeCourseCodeException {
         List<Title> list = new ArrayList<>();
         for (Title t : titles) {
             if (t.getStudent().equals(student)) {

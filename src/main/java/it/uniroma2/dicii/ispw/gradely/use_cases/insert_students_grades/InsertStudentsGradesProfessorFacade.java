@@ -16,15 +16,15 @@ public class InsertStudentsGradesProfessorFacade {
         controller = new InsertStudentsGradesControl();
     }
 
-    public ExamListBean getGradableExams(String tokenKey) throws MissingAuthorizationException, DAOException, UserNotFoundException {
+    public ExamListBean getGradableExams(String tokenKey) throws MissingAuthorizationException, DAOException, UserNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         return controller.getGradableExams(tokenKey);
     }
 
-    public ExamEnrollmentListBean getExamEnrollments(String tokenKey, ExamBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, UnrecognizedRoleException, ObjectNotFoundException, WrongDegreeCourseCodeException {
+    public ExamEnrollmentListBean getExamEnrollments(String tokenKey, ExamBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, UnrecognizedRoleException, ObjectNotFoundException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         return controller.getExamEnrollments(tokenKey, bean);
     }
 
-    public void saveExamResults(String tokenKey, StudentGradeListBean list) throws MissingAuthorizationException, DAOException, UserNotFoundException, PropertyException, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException {
+    public void saveExamResults(String tokenKey, StudentGradeListBean list) throws MissingAuthorizationException, DAOException, UserNotFoundException, PropertyException, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue, WrongTimerTypeException {
         controller.saveExamResults(tokenKey, list);
     }
 

@@ -1,9 +1,10 @@
 package it.uniroma2.dicii.ispw.gradely.model.test_result;
 
 import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
-import it.uniroma2.dicii.ispw.gradely.exceptions.MissingAuthorizationException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -36,18 +37,13 @@ public class TestResultDAODB extends DAODBAbstract<AbstractTestResult> implement
     }
 
     @Override
-    protected void setInsertQueryParametersValue(PreparedStatement stmt, AbstractTestResult abstractTestResult) throws SQLException {
-
+    protected AbstractTestResult queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, ObjectNotFoundException {
+        return null;
     }
 
     @Override
-    protected void setUpdateQueryParametersValue(PreparedStatement stmt, AbstractTestResult abstractTestResult) throws SQLException, MissingAuthorizationException {
-
-    }
-
-    @Override
-    protected void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> identifiersValues) throws SQLException {
-
+    protected String setGetListQueryIdentifiersValue(AbstractTestResult abstractTestResult, int valueNumber) throws DAOException, WrongListQueryIdentifierValue {
+        return null;
     }
 
 }

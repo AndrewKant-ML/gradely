@@ -54,7 +54,7 @@ public class ExamLazyFactory {
         }
     }
 
-    public List<Exam> getGradableExams(Professor professor) throws DAOException, UserNotFoundException, ObjectNotFoundException {
+    public List<Exam> getGradableExams(Professor professor) throws DAOException, UserNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         List<Exam> list = new ArrayList<>();
         for(SubjectCourse c : SubjectCourseAssignmentLazyFactory.getInstance().getAssignedSubjectCoursesByProfessor(professor)){
             for (Exam e : c.getExams()){

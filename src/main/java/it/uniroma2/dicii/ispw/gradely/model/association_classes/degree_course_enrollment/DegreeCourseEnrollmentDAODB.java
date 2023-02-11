@@ -59,7 +59,7 @@ public class DegreeCourseEnrollmentDAODB extends DAODBAbstract<DegreeCourseEnrol
      * @throws DAOException thrown if errors occur while retrieving data from persistence layer
      */
     @Override
-    public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByStudent(Student student) throws DAOException, PropertyException, ResourceNotFoundException {
+    public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByStudent(Student student) throws DAOException, PropertyException, ResourceNotFoundException, WrongDegreeCourseCodeException {
         String query = "select degree_course_name as name, enrollment_date from DEGREE_COURSE_ENROLLMENT DCE where DCE.student='%s'";
         query = String.format(query, student.getCodiceFiscale());
         try {

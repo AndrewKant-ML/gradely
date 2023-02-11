@@ -42,7 +42,7 @@ public class DegreeCourseDAODB extends DAODBAbstract<DegreeCourse> implements De
      * @throws ObjectNotFoundException thrown if the DegreeCourse cannot be found
      * @throws DAOException            thrown if errors occur while retrieving data from persistence layer
      */
-    private DegreeCourse querySingleDegreeCourseData(String query) throws DAOException, ObjectNotFoundException, PropertyException, ResourceNotFoundException {
+    private DegreeCourse querySingleDegreeCourseData(String query) throws DAOException, ObjectNotFoundException, PropertyException, ResourceNotFoundException, WrongDegreeCourseCodeException {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             try (PreparedStatement stmt = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE); ResultSet rs = stmt.executeQuery()) {
@@ -62,7 +62,7 @@ public class DegreeCourseDAODB extends DAODBAbstract<DegreeCourse> implements De
      * @return a DegreeCourse object
      * @throws DAOException thrown if errors occur while retrieving data from persistence layer
      */
-    private List<DegreeCourse> queryMultipleDegreeCourseData(String query) throws DAOException, PropertyException, ResourceNotFoundException {
+    private List<DegreeCourse> queryMultipleDegreeCourseData(String query) throws DAOException, PropertyException, ResourceNotFoundException, WrongDegreeCourseCodeException {
         List<DegreeCourse> degreeCourses = new ArrayList<>();
         try {
             Connection connection = DBConnection.getInstance().getConnection();
@@ -88,7 +88,7 @@ public class DegreeCourseDAODB extends DAODBAbstract<DegreeCourse> implements De
      * @throws DAOException thrown if error occurs while executing DB operations
      */
     @Override
-    public DegreeCourse getDegreeCourseByName(String name) throws DAOException, ObjectNotFoundException, PropertyException, ResourceNotFoundException {
+    public DegreeCourse getDegreeCourseByName(String name) throws DAOException, ObjectNotFoundException, PropertyException, ResourceNotFoundException, WrongDegreeCourseCodeException {
         String query = "select DC.code as code,name,facolta,dipartimento,type,test_type from DEGREE_COURSE DC join ABSTRACT_DEGREE_COURSE ADC on DC.code=ADC.code where DC.name='%s';";
         query = String.format(query, name);
         return querySingleDegreeCourseData(query);
@@ -102,7 +102,7 @@ public class DegreeCourseDAODB extends DAODBAbstract<DegreeCourse> implements De
      * @throws DAOException thrown if error occurs while executing DB operations
      */
     @Override
-    public List<DegreeCourse> getAllDegreeCourses(List<DegreeCourse> degreeCourses) throws DAOException, PropertyException, ResourceNotFoundException {
+    public List<DegreeCourse> getAllDegreeCourses(List<DegreeCourse> degreeCourses) throws DAOException, PropertyException, ResourceNotFoundException, WrongDegreeCourseCodeException {
         String query = "select DC.code as code,name,facolta,dipartimento,type,test_type from DEGREE_COURSE DC join ABSTRACT_DEGREE_COURSE ADC on DC.code = ADC.code";
         if (!degreeCourses.isEmpty()) {
             query = query.concat(" where ADC.code not in (%s);");
@@ -116,7 +116,7 @@ public class DegreeCourseDAODB extends DAODBAbstract<DegreeCourse> implements De
     }
 
     @Override
-    public DegreeCourse getDegreeCourseByCoordinatore(Professor professor) throws DAOException, ObjectNotFoundException, PropertyException, ResourceNotFoundException {
+    public DegreeCourse getDegreeCourseByCoordinatore(Professor professor) throws DAOException, ObjectNotFoundException, PropertyException, ResourceNotFoundException, WrongDegreeCourseCodeException {
         String query = "select DC.code as code,name,facolta,dipartimento,type,test_type from DEGREE_COURSE DC join ABSTRACT_DEGREE_COURSE ADC on DC.code=ADC.code where DC.coordinatore='%s';";
         query = String.format(query, professor.getCodiceFiscale());
         return querySingleDegreeCourseData(query);
@@ -129,7 +129,7 @@ public class DegreeCourseDAODB extends DAODBAbstract<DegreeCourse> implements De
      * @return a list of DegreeCourseCodeEnum
      * @throws DAOException thrown if error occurs while executing DB operations
      */
-    private List<DegreeCourseCodeEnum> getPrerequisitesCodesByDegreeCourseCode(int code) throws DAOException, PropertyException, ResourceNotFoundException {
+    private List<DegreeCourseCodeEnum> getPrerequisitesCodesByDegreeCourseCode(int code) throws DAOException, PropertyException, ResourceNotFoundException, WrongDegreeCourseCodeException {
         String query = "select abstract_degree_course as code from DEGREE_COURSE_PREREQUISITE where degree_course_code=%d;"; //TODO fix degree_course_code column name
         query = String.format(query, code);
         try {
@@ -146,7 +146,7 @@ public class DegreeCourseDAODB extends DAODBAbstract<DegreeCourse> implements De
         }
     }
 
-    public List<AbstractDegreeCourse> getDegreeCoursesByDegreeCourseCodeList(List<DegreeCourseCodeEnum> codes) throws DAOException, PropertyException, ResourceNotFoundException {
+    public List<AbstractDegreeCourse> getDegreeCoursesByDegreeCourseCodeList(List<DegreeCourseCodeEnum> codes) throws DAOException, PropertyException, ResourceNotFoundException, WrongDegreeCourseCodeException {
         if (codes.isEmpty())
             return new ArrayList<>();
         String query = "select DC.code as code,name,facolta,dipartimento,type,test_type from DEGREE_COURSE DC join ABSTRACT_DEGREE_COURSE ADC on DC.code = ADC.code where ADC.code in (%s);";
@@ -176,16 +176,6 @@ public class DegreeCourseDAODB extends DAODBAbstract<DegreeCourse> implements De
     @Override
     protected DegreeCourse queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException, MissingAuthorizationException {
         return null;
-    }
-
-    @Override
-    protected void setInsertQueryParametersValue(PreparedStatement stmt, DegreeCourse degreeCourse) throws SQLException {
-        stmt.setInt(1,degreeCourse.getCode().value);
-        stmt.setString(2,degreeCourse.getName());
-        stmt.setString(3,degreeCourse.getCoordinatore().getCodiceFiscale());
-        stmt.setInt(4,degreeCourse.getTestType().value);
-        stmt.setInt(5,degreeCourse.getDipartimento().value);
-        stmt.setInt(6,degreeCourse.getFacolta().value);
     }
 
 

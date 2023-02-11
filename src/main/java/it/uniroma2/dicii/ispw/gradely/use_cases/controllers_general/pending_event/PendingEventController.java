@@ -1,7 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.use_cases.controllers_general.pending_event;
 
 import it.uniroma2.dicii.ispw.gradely.beans_general.PendingEventBean;
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEvent;
 import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEventLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
@@ -12,7 +12,7 @@ import java.util.List;
 
 public class PendingEventController {
 
-    public List<PendingEventBean> retrievePendingEvents(String tokenKey) throws DAOException {
+    public List<PendingEventBean> retrievePendingEvents(String tokenKey) throws DAOException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         User user = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey);
         List<PendingEvent> pendingEvents = PendingEventLazyFactory.getInstance().getPendingEventsByUser(user);
         List<PendingEventBean> beans = new ArrayList<>();

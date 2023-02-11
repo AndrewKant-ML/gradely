@@ -34,7 +34,7 @@ protected static AbstractSubjectCourseAssignmentDAO instance;
         return instance;
     }
 
-    private List<SubjectCourseAssignment> queryMultipleSubjectCourseAssignmentData(String query) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, ObjectNotFoundException {
+    private List<SubjectCourseAssignment> queryMultipleSubjectCourseAssignmentData(String query) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             try (PreparedStatement stmt = connection.prepareStatement(query);
@@ -59,14 +59,14 @@ protected static AbstractSubjectCourseAssignmentDAO instance;
     }
 
     @Override
-    public List<SubjectCourseAssignment> getCourseAssignmentsBySubjectCourse(SubjectCourse course) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, ObjectNotFoundException {
+    public List<SubjectCourseAssignment> getCourseAssignmentsBySubjectCourse(SubjectCourse course) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         String query = "select professor, sc_code, sc_name, sc_cfu, sc_aa from SUBJECT_COURSE_ASSIGNMENT SCA where SCA.sc_code=%d and SCA.sc_name='%s' and SCA.sc_cfu=%d and SCA.sc_aa=%d;";
         query = String.format(query, course.getCode().value, course.getName(), course.getCfu(), course.getAcademicYear().getValue());
         return queryMultipleSubjectCourseAssignmentData(query);
     }
 
     @Override
-    public List<SubjectCourseAssignment> getCourseAssignmentsByProfessor(Professor professor) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, ObjectNotFoundException {
+    public List<SubjectCourseAssignment> getCourseAssignmentsByProfessor(Professor professor) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         String query = "select professor, sc_code, sc_name, sc_cfu, sc_aa from SUBJECT_COURSE_ASSIGNMENT SCA where SCA.professor='%s';";
         query = String.format(query, professor.getCodiceFiscale());
         return queryMultipleSubjectCourseAssignmentData(query);
@@ -88,19 +88,12 @@ protected static AbstractSubjectCourseAssignmentDAO instance;
     }
 
     @Override
-    protected void setInsertQueryParametersValue(PreparedStatement stmt, SubjectCourseAssignment subjectCourseAssignment) throws SQLException {
-
+    protected SubjectCourseAssignment queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, ObjectNotFoundException {
+        return null;
     }
 
     @Override
-    protected void setUpdateQueryParametersValue(PreparedStatement stmt, SubjectCourseAssignment subjectCourseAssignment) throws SQLException, MissingAuthorizationException {
-
+    protected String setGetListQueryIdentifiersValue(SubjectCourseAssignment subjectCourseAssignment, int valueNumber) throws DAOException, WrongListQueryIdentifierValue {
+        return null;
     }
-
-    @Override
-    protected void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> identifiersValues) throws SQLException {
-
-    }
-
-
 }

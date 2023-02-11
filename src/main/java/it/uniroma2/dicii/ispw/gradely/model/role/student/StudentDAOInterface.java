@@ -37,5 +37,5 @@ public interface StudentDAOInterface {
      */
     void update(Student student) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException;
 
-    abstract Student getStudentByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException;
+    abstract Student getStudentByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue;
 }

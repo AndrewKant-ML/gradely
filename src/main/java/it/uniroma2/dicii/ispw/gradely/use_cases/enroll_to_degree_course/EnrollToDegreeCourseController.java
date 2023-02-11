@@ -47,7 +47,7 @@ public class EnrollToDegreeCourseController extends TimerObserver {
      * @throws MissingAuthorizationException thrown if the User has no authorization to execute the requested operation OR thrown when the requesting user is not a student
      * @throws DAOException                  thrown when problems occur while retrieving data from persistence
      */
-    public List<DegreeCourseBean> getJoinableDegreeCourses(String tokenKey) throws MissingAuthorizationException, DAOException {
+    public List<DegreeCourseBean> getJoinableDegreeCourses(String tokenKey) throws MissingAuthorizationException, DAOException, WrongDegreeCourseCodeException {
         Student student = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getStudentRole();
         List<DegreeCourse> degreeCourses = DegreeCourseLazyFactory.getInstance().getAllDegreeCourses();
         // Removes degree courses already enrolled to by the student
@@ -84,7 +84,7 @@ public class EnrollToDegreeCourseController extends TimerObserver {
      * @param degreeCourseBean the degree course referred from the test
      * @return the test info
      */
-    public TestInfoBean getTestInfo(String tokenKey, DegreeCourseBean degreeCourseBean) throws TestRetrivialException, MissingAuthorizationException, PropertyException, ResourceNotFoundException, DAOException {
+    public TestInfoBean getTestInfo(String tokenKey, DegreeCourseBean degreeCourseBean) throws TestRetrivialException, MissingAuthorizationException, PropertyException, ResourceNotFoundException, DAOException, WrongDegreeCourseCodeException {
         SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getStudentRole();
         AbstractTestBoundary testBoundary = AbstractTestFactory.getInstance(degreeCourseBean.getTestType()).createTestBoundary();
         TestInfoBean testInfo = testBoundary.getTestInfo();
@@ -115,7 +115,7 @@ public class EnrollToDegreeCourseController extends TimerObserver {
      * @return a TestReservationBean containing all the reservation info
      * @throws MissingAuthorizationException thrown if the User has no authorization to execute the requested operation OR thrown if the token-relative User has no authorization to execute this operation
      */
-    public TestReservationBean reserveTest(String tokenKey, TestInfoBean testInfo) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException {
+    public TestReservationBean reserveTest(String tokenKey, TestInfoBean testInfo) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException, WrongDegreeCourseCodeException {
         Student student = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getStudentRole();
         AbstractTestBoundary testBoundary = AbstractTestFactory.getInstance(TestTypeEnum.getTestTypeByValue(testInfo.getTestType())).createTestBoundary();
         TestReservationBean testReservation = testBoundary.reserveTest(testInfo.getId());

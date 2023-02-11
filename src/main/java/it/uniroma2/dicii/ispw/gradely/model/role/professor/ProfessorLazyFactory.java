@@ -22,7 +22,7 @@ public class ProfessorLazyFactory {
         return instance;
     }
 
-    public Professor getProfessorByUser(User user) throws DAOException, UserNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
+    public Professor getProfessorByUser(User user) throws DAOException, UserNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         for (Professor p : this.professors)
             if (p.getUser().equals(user))
                 return p;

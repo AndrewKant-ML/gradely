@@ -1,9 +1,6 @@
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.SubjectCourseCodeEnum;
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.ObjectNotFoundException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.StudentLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
@@ -22,7 +19,7 @@ public class DAODBTests {
     private static final Logger LOGGER = Logger.getLogger(DAODBTests.class.getName());
 
     @Test
-    void testSubjectCourseDAO() {
+    void testSubjectCourseDAO() throws UserNotFoundException, WrongListQueryIdentifierValue, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         try {
             SubjectCourseCodeEnum code = SubjectCourseCodeEnum.C01;
             String name = "ISPW";

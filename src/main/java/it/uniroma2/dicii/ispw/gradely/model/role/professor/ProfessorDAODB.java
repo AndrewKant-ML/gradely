@@ -27,7 +27,7 @@ public class ProfessorDAODB extends DAODBAbstract<Professor> implements Abstract
     }
 
     @Override
-    public Professor getProfessorByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
+    public Professor getProfessorByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         return getQuery(
                 "PROFESSOR",
                 List.of("codice_fiscale"),
@@ -64,7 +64,7 @@ public class ProfessorDAODB extends DAODBAbstract<Professor> implements Abstract
     }
 
     @Override
-    protected Professor queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, UnrecognizedRoleException {
+    protected Professor queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, UnrecognizedRoleException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         Professor professor = new Professor(
                 (User) objects.get(0),
                 rs.getString("matricola"),

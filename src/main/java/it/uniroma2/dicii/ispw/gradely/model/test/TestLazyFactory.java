@@ -1,16 +1,14 @@
 package it.uniroma2.dicii.ispw.gradely.model.test;
 
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.ObjectNotFoundException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class TestLazyFactory {
 
@@ -30,13 +28,13 @@ public class TestLazyFactory {
 
     public void saveTestData(DegreeCourse degreeCourse, String id, LocalDate testDate, URL testReservationLink, LocalDate resultsDate, URL infoLink, String place) throws PropertyException, ResourceNotFoundException, DAOException {
         Test newTest = new Test(
-                degreeCourse, id, testDate, testReservationLink, resultsDate, infoLink, place
+                degreeCourse, UUID.fromString(id), testDate, testReservationLink, resultsDate, infoLink, place
         );
         DAOFactoryAbstract.getInstance().getTestDAO().saveTestInfo(newTest);
         tests.add(newTest);
     }
 
-    public Test getTestById(String id) throws PropertyException, ResourceNotFoundException, ObjectNotFoundException, DAOException {
+    public Test getTestById(String id) throws PropertyException, ResourceNotFoundException, ObjectNotFoundException, DAOException, WrongDegreeCourseCodeException {
         for (Test test : tests)
             if (test.getId().equals(id))
                 return test;

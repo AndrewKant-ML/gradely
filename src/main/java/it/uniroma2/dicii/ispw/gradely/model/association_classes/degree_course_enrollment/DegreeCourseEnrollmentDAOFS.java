@@ -3,10 +3,7 @@ package it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_e
 import com.opencsv.exceptions.CsvException;
 import it.uniroma2.dicii.ispw.gradely.CSVParser;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.ObjectNotFoundException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
@@ -52,7 +49,7 @@ public class DegreeCourseEnrollmentDAOFS implements AbstractDegreeCourseEnrollme
     }
 
     @Override
-    public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByStudent(Student student) throws DAOException, ResourceNotFoundException {
+    public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByStudent(Student student) throws DAOException, ResourceNotFoundException, WrongDegreeCourseCodeException {
         try {
             List<List<String>> lines = new CSVParser().readAllLines(fileName);
             List<DegreeCourseEnrollment> enrollments = new ArrayList<>();
