@@ -72,7 +72,7 @@ protected static SubjectCourseAssignmentDAOInterface instance;
                 List.of("professor"),
                 List.of(professor.getCodiceFiscale()),
                 exclusions,
-                null,
+                List.of(professor),
                 false
         );
     }
@@ -105,7 +105,7 @@ protected static SubjectCourseAssignmentDAOInterface instance;
     protected SubjectCourseAssignment queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, ObjectNotFoundException, WrongListQueryIdentifierValue {
         return new SubjectCourseAssignment(
                 SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(SubjectCourseCodeEnum.getSubjectCourseCodeByValue(rs.getInt("sc_code")),rs.getString("sc_name"),rs.getInt("cfu"),Year.of(rs.getDate("aa").toLocalDate().getYear())),
-                ProfessorLazyFactory.getInstance().getProfessorByUser(UserLazyFactory.getInstance().getUserByCodiceFiscale(rs.getString("professor")))
+                (Professor) objects.get(0)
         );
     }
 
