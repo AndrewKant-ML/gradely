@@ -8,7 +8,7 @@
             prefHeight="453.0" prefWidth="650.0">
 
     <StackPane AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" prefWidth="650"
-               prefHeight="400">
+               prefHeight="453">
         <fx:include source="select_gradable_exam.fxml" fx:id="firstStage" visible="true"/>
     </StackPane>
 

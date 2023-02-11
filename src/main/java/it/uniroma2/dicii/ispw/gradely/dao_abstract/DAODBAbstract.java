@@ -173,17 +173,13 @@ public abstract class DAODBAbstract<T>{
         } catch (SQLException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
-        try (PreparedStatement stmt = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
-            setQueryQuestionMarksValue(stmt, identifiersValues, 1);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.first()) {
-                    return queryObjectBuilder(rs, objects);
-                } else
-                    throw new ObjectNotFoundException(ExceptionMessagesEnum.OBJ_NOT_FOUND.message);
-            } catch (PropertyException | ResourceNotFoundException | SQLException e) {
-                throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-            }
-        } catch (SQLException e) {
+        try (PreparedStatement stmt = createStatement(connection, query, false, identifiersValues);
+             ResultSet rs = stmt.executeQuery()) {
+            if (rs.first()) {
+                return queryObjectBuilder(rs, objects);
+            } else
+                throw new ObjectNotFoundException(ExceptionMessagesEnum.OBJ_NOT_FOUND.message);
+        } catch (PropertyException | ResourceNotFoundException | SQLException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }
@@ -234,14 +230,17 @@ public abstract class DAODBAbstract<T>{
      * @throws DAOException
      */
     private void setQuestionMarksAndExecuteQuery(List<Object> values, String query) throws ResourceNotFoundException, PropertyException, DAOException {
-        try{
-            Connection connection = DBConnection.getInstance().getConnection();
-            try(PreparedStatement stmt = connection.prepareStatement(query)){
-                setQueryQuestionMarksValue(stmt, values,1);
-                stmt.executeUpdate();
-            }
+        Connection connection;
+        try {
+            connection = DBConnection.getInstance().getConnection();
         } catch (SQLException e) {
-            throw new DAOException(ExceptionMessagesEnum.DAO.message,e);
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            setQueryQuestionMarksValue(stmt, values, 1);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }
 
@@ -260,20 +259,23 @@ public abstract class DAODBAbstract<T>{
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
     protected void updateQuery(String table, List<String> parameters, List<Object> parametersValue, List<String> identifiers, List<Object> identifiersValue) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
-        if (identifiers.size()!=identifiersValue.size())
+        if (identifiers.size() != identifiersValue.size())
             throw new DAOException("id and values number don't match "); //TODO implementare exception
-        StringBuilder columnBuilder = commaStringBuilder(parameters,parametersValue);
-        StringBuilder identifierBuilder = andStringBuilder(identifiers,identifiersValue);
-        String query = String.format("update %s set %s where %s",table,columnBuilder,identifierBuilder);
-        try{
-            Connection connection = DBConnection.getInstance().getConnection();
-            try(PreparedStatement stmt = connection.prepareStatement(query)){
-                setQueryQuestionMarksValue(stmt, parametersValue,1);
-                setQueryQuestionMarksValue(stmt, identifiersValue,parametersValue.size()+1);
-                stmt.executeUpdate();
-            }
+        StringBuilder columnBuilder = commaStringBuilder(parameters, parametersValue);
+        StringBuilder identifierBuilder = andStringBuilder(identifiers, identifiersValue);
+        String query = String.format("update %s set %s where %s", table, columnBuilder, identifierBuilder);
+        Connection connection;
+        try {
+            connection = DBConnection.getInstance().getConnection();
         } catch (SQLException e) {
-            throw new DAOException(ExceptionMessagesEnum.DAO.message,e);
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            setQueryQuestionMarksValue(stmt, parametersValue, 1);
+            setQueryQuestionMarksValue(stmt, identifiersValue, parametersValue.size() + 1);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }
 

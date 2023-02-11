@@ -17,7 +17,7 @@ public class DegreeCourseEnrollmentLazyFactory {
     private final List<DegreeCourseEnrollment> degreeCourseEnrollments;
 
     private DegreeCourseEnrollmentLazyFactory(){
-        degreeCourseEnrollments = new ArrayList<DegreeCourseEnrollment>();
+        degreeCourseEnrollments = new ArrayList<>();
     }
 
     public static synchronized DegreeCourseEnrollmentLazyFactory getInstance(){

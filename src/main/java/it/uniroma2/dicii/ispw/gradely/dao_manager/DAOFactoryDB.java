@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.dao_manager;
 
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.AbstractDegreeCourseEnrollmentDAO;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.DegreeCourseEnrollmentDAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.DegreeCourseEnrollmentDAODB;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.ExamEnrollmentDAODB;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.ExamEnrollmentDAOInterface;
@@ -41,7 +41,7 @@ public class DAOFactoryDB extends DAOFactoryAbstract {
         return SubjectCourseAssignmentDAODB.getInstance();
     }
     @Override
-    public AbstractDegreeCourseEnrollmentDAO getDegreeCourseEnrollmentDAO(){
+    public DegreeCourseEnrollmentDAOInterface getDegreeCourseEnrollmentDAO(){
         return DegreeCourseEnrollmentDAODB.getInstance();
     }
     @Override

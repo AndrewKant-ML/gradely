@@ -8,8 +8,11 @@ import it.uniroma2.dicii.ispw.gradely.model.association_classes.test_reservation
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
+import it.uniroma2.dicii.ispw.gradely.model.test.Test;
 import it.uniroma2.dicii.ispw.gradely.model.test.TestLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.timer.AbstractTimer;
+import it.uniroma2.dicii.ispw.gradely.model.timer.TestResultTimer;
+import it.uniroma2.dicii.ispw.gradely.model.timer.TimerLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.timer.TimerObserver;
 import it.uniroma2.dicii.ispw.gradely.model.title.Title;
 import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
@@ -88,8 +91,9 @@ public class EnrollToDegreeCourseController extends TimerObserver {
         SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getStudentRole();
         AbstractTestBoundary testBoundary = AbstractTestFactory.getInstance(degreeCourseBean.getTestType()).createTestBoundary();
         TestInfoBean testInfo = testBoundary.getTestInfo();
+        Test savedTest;
         try {
-            TestLazyFactory.getInstance().saveTestData(
+            savedTest = TestLazyFactory.getInstance().saveTestData(
                     DegreeCourseLazyFactory.getInstance().getDegreeCourseByName(degreeCourseBean.getName()),
                     testInfo.getId(),
                     testInfo.getTestDate(),
@@ -98,6 +102,7 @@ public class EnrollToDegreeCourseController extends TimerObserver {
                     testInfo.getInfoLink(),
                     testInfo.getPlace()
             );
+            //TimerLazyFactory.getInstance().newTestResultTimer(testInfo.getResultsDate(), savedTest);
         } catch (ObjectNotFoundException e) {
             // This can only happen if DB is corrupted, so the application must stop
             logger.log(Level.SEVERE, String.format("Error: degree course with name %s does not exists", degreeCourseBean.getName()));
@@ -130,7 +135,8 @@ public class EnrollToDegreeCourseController extends TimerObserver {
     }
 
     @Override
-    public void timeIsUp(AbstractTimer timer) {
-        // TODO implement
+    public void timeIsUp(AbstractTimer timer) throws WrongTimerTypeException {
+        TestResultTimer concreteTimer = timer.castToTestResultTimer();
+
     }
 }

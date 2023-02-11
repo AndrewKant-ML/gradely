@@ -39,4 +39,6 @@ public class TestReservationLazyFactory {
         DAOFactoryAbstract.getInstance().getTestReservationDAO().addTestReservation(newTestReservation);
         testReservations.add(newTestReservation);
     }
+
+
 }

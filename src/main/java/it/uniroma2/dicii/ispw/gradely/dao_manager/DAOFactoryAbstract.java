@@ -5,7 +5,7 @@ import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.PersistenceTypeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.AbstractDegreeCourseEnrollmentDAO;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.DegreeCourseEnrollmentDAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.ExamEnrollmentDAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.AbstractSubjectCourseAssignmentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.AbstractSubjectCourseEnrollmentDAO;
@@ -48,7 +48,7 @@ public abstract class DAOFactoryAbstract {
 
     public abstract AbstractSubjectCourseAssignmentDAO getCourseAssignmentDAO();
 
-    public abstract AbstractDegreeCourseEnrollmentDAO getDegreeCourseEnrollmentDAO();
+    public abstract DegreeCourseEnrollmentDAOInterface getDegreeCourseEnrollmentDAO();
 
     public abstract ExamEnrollmentDAOInterface getExamEnrollmentDAO();
 

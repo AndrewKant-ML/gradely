@@ -7,6 +7,8 @@ import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
+import it.uniroma2.dicii.ispw.gradely.model.role.student.StudentLazyFactory;
+import it.uniroma2.dicii.ispw.gradely.model.user.UserLazyFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,14 +17,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DegreeCourseEnrollmentDAODB extends DAODBAbstract<DegreeCourseEnrollment> implements AbstractDegreeCourseEnrollmentDAO {
-    protected static AbstractDegreeCourseEnrollmentDAO instance;
+public class DegreeCourseEnrollmentDAODB extends DAODBAbstract<DegreeCourseEnrollment> implements DegreeCourseEnrollmentDAOInterface {
+    protected static DegreeCourseEnrollmentDAOInterface instance;
 
     private DegreeCourseEnrollmentDAODB(){
 
     }
 
-    public static synchronized AbstractDegreeCourseEnrollmentDAO getInstance(){
+    public static synchronized DegreeCourseEnrollmentDAOInterface getInstance(){
         if (instance == null){
             instance = new DegreeCourseEnrollmentDAODB();
         }
@@ -30,7 +32,7 @@ public class DegreeCourseEnrollmentDAODB extends DAODBAbstract<DegreeCourseEnrol
     }
 
     @Override
-    public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByDegreeCourse(DegreeCourse degreeCourse) throws DAOException, PropertyException, ResourceNotFoundException {
+    public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByDegreeCourse(DegreeCourse degreeCourse) throws DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         String query = "select * from DEGREE_COURSE_ENROLLMENT DCE join STUDENT S on DCE.student=S.codice_fiscale join USER U on S.codice_fiscale = U.codice_fiscale where DCE.degree_course_code=%d and DCE.degree_course_name='%s';";
         query = String.format(query, degreeCourse.getCode().value, degreeCourse.getName());
         try {
@@ -40,7 +42,7 @@ public class DegreeCourseEnrollmentDAODB extends DAODBAbstract<DegreeCourseEnrol
                 List<DegreeCourseEnrollment> enrollments = new ArrayList<>();
                 Student student = null;
                 while (rs.next()) {
-                    // TODO get Student from codice_fiscale
+                    student = StudentLazyFactory.getInstance().getStudentByUser(UserLazyFactory.getInstance().getUserByCodiceFiscale(rs.getString("codice_fiscale")));
                     enrollments.add(new DegreeCourseEnrollment(rs.getDate("enrollment_date").toLocalDate(), student, degreeCourse));
                 }
                 return enrollments;

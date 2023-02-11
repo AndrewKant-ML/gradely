@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DegreeCourseEnrollmentDAOFS implements AbstractDegreeCourseEnrollmentDAO {
+public class DegreeCourseEnrollmentDAOFS implements DegreeCourseEnrollmentDAOInterface {
 
     private static DegreeCourseEnrollmentDAOFS instance;
     private final String fileName = "degree_course_enrollment";
@@ -21,7 +21,7 @@ public class DegreeCourseEnrollmentDAOFS implements AbstractDegreeCourseEnrollme
 
     }
 
-    public static synchronized AbstractDegreeCourseEnrollmentDAO getInstance() {
+    public static synchronized DegreeCourseEnrollmentDAOInterface getInstance() {
         if (instance == null) {
             instance = new DegreeCourseEnrollmentDAOFS();
         }
