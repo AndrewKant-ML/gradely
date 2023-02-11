@@ -1,7 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades;
 
 import it.uniroma2.dicii.ispw.gradely.beans_general.*;
-import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.ExamResultConfirmationEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum;

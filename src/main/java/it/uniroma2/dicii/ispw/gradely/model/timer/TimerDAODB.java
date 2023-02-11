@@ -5,16 +5,11 @@ import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.exam.ExamLazyFactory;
-import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEvent;
-import it.uniroma2.dicii.ispw.gradely.model.test_result.TestResutlLazyFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
 import java.util.UUID;
-
-import static it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum.GRADE_CONFIRMATION_PENDING;
 
 public class TimerDAODB extends DAODBAbstract<AbstractTimer> implements TimerDAOInterface {
     protected static TimerDAOInterface instance;

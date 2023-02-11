@@ -6,7 +6,6 @@ import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
-import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
 import java.util.List;
 

@@ -1,19 +1,11 @@
 package it.uniroma2.dicii.ispw.gradely.model.test;
 
-import com.opencsv.exceptions.CsvException;
-import it.uniroma2.dicii.ispw.gradely.CSVParser;
-import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
-import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
-import it.uniroma2.dicii.ispw.gradely.exceptions.*;
-import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseLazyFactory;
+import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.ObjectNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 
-import java.io.IOException;
-import java.net.URL;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 public class TestDAOFS implements TestDAOAbstract {
 

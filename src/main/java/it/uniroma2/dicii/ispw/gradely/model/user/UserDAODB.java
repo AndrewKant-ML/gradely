@@ -8,10 +8,10 @@ import it.uniroma2.dicii.ispw.gradely.model.role.professor.ProfessorLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.secretary.SecretaryLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.StudentLazyFactory;
 
-import java.sql.*;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class UserDAODB extends DAODBAbstract<User> implements UserDAOInterface  {
     protected static UserDAOInterface instance;

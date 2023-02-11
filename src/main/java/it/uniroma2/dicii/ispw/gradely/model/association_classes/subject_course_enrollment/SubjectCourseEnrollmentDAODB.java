@@ -5,7 +5,6 @@ import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;

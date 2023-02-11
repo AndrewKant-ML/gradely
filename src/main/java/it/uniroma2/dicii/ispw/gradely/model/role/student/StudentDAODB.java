@@ -8,7 +8,8 @@ import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_e
 import it.uniroma2.dicii.ispw.gradely.model.title.TitleLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public class StudentDAODB extends DAODBAbstract<Student> implements StudentDAOInterface {

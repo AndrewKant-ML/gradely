@@ -1,7 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.beans;
 
 import it.uniroma2.dicii.ispw.gradely.beans_general.ExamBean;
-import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 
 import java.util.List;
 

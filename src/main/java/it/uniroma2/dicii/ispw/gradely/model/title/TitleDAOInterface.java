@@ -2,7 +2,6 @@ package it.uniroma2.dicii.ispw.gradely.model.title;
 
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
-import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
 import java.util.List;
 

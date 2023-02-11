@@ -1,10 +1,7 @@
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.SubjectCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
-import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
-import it.uniroma2.dicii.ispw.gradely.model.role.student.StudentLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
-import it.uniroma2.dicii.ispw.gradely.model.user.UserLazyFactory;
 import org.junit.jupiter.api.Test;
 
 import java.time.Year;

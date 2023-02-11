@@ -1,16 +1,9 @@
 package it.uniroma2.dicii.ispw.gradely.model.role.professor;
 
-import com.opencsv.exceptions.CsvException;
-import it.uniroma2.dicii.ispw.gradely.CSVParser;
-import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
-import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.UserNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
-
-import java.util.List;
 
 public class ProfessorDAOFS implements AbstractProfessorDAO {
 

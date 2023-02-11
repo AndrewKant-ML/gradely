@@ -295,7 +295,7 @@ public abstract class DAODBAbstract<T>{
         StringBuilder builder = new StringBuilder();
         for (String s : names)
             builder.append(s).append(" = ? and");
-        builder.delete(builder.length() - 4, builder.length()-1);
+        builder.delete(builder.length() - 4, builder.length());
         return builder;
     }
 }

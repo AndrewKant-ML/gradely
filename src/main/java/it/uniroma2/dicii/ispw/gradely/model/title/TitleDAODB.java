@@ -9,7 +9,9 @@ import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.StudentLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.user.UserLazyFactory;
 
-import java.sql.*;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public class TitleDAODB extends DAODBAbstract<Title> implements TitleDAOInterface {

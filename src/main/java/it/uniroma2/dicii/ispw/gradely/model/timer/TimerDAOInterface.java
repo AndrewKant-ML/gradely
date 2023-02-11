@@ -1,8 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.timer;
 
-import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
-import it.uniroma2.dicii.ispw.gradely.model.timer.AbstractTimer;
 
 import java.util.List;
 

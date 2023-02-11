@@ -2,19 +2,17 @@ package it.uniroma2.dicii.ispw.gradely.model.pending_events;
 
 import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
-import it.uniroma2.dicii.ispw.gradely.enums.*;
+import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
+import it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.exam.ExamLazyFactory;
-import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourseLazyFactory;
-import it.uniroma2.dicii.ispw.gradely.model.test_result.AbstractTestResult;
 import it.uniroma2.dicii.ispw.gradely.model.test_result.TestResutlLazyFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;

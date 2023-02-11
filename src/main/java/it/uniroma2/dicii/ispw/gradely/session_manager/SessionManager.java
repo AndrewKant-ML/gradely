@@ -1,18 +1,13 @@
 package it.uniroma2.dicii.ispw.gradely.session_manager;
 
 import it.uniroma2.dicii.ispw.gradely.PropertiesHandler;
-import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
-import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.FrontEndTypeEnum;
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
-import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEvent;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class SessionManager {
     private static SessionManager instance;
