@@ -32,24 +32,15 @@ public class DegreeCourseEnrollmentDAODB extends DAODBAbstract<DegreeCourseEnrol
     }
 
     @Override
-    public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByDegreeCourse(DegreeCourse degreeCourse) throws DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
-        String query = "select * from DEGREE_COURSE_ENROLLMENT DCE join STUDENT S on DCE.student=S.codice_fiscale join USER U on S.codice_fiscale = U.codice_fiscale where DCE.degree_course_code=%d and DCE.degree_course_name='%s';";
-        query = String.format(query, degreeCourse.getCode().value, degreeCourse.getName());
-        try {
-            Connection connection = DBConnection.getInstance().getConnection();
-            try (PreparedStatement stmt = connection.prepareStatement(query);
-                 ResultSet rs = stmt.executeQuery()) {
-                List<DegreeCourseEnrollment> enrollments = new ArrayList<>();
-                Student student = null;
-                while (rs.next()) {
-                    student = StudentLazyFactory.getInstance().getStudentByUser(UserLazyFactory.getInstance().getUserByCodiceFiscale(rs.getString("codice_fiscale")));
-                    enrollments.add(new DegreeCourseEnrollment(rs.getDate("enrollment_date").toLocalDate(), student, degreeCourse));
-                }
-                return enrollments;
-            }
-        } catch (SQLException e) {
-            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }
+    public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByDegreeCourse(DegreeCourse degreeCourse, List<DegreeCourseEnrollment> excluded) throws DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
+        return getListQuery(
+                "DEGREE_COURSE_ENROLLMENT",
+                List.of("degree_course_name"),
+                List.of(degreeCourse.getName()),
+                excluded,
+                List.of(degreeCourse),
+                false
+        );
     }
 
     /**
@@ -60,51 +51,67 @@ public class DegreeCourseEnrollmentDAODB extends DAODBAbstract<DegreeCourseEnrol
      * @throws DAOException thrown if errors occur while retrieving data from persistence layer
      */
     @Override
-    public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByStudent(Student student) throws DAOException, PropertyException, ResourceNotFoundException, WrongDegreeCourseCodeException {
-        String query = "select degree_course_name as name, enrollment_date from DEGREE_COURSE_ENROLLMENT DCE where DCE.student='%s'";
-        query = String.format(query, student.getCodiceFiscale());
-        try {
-            Connection connection = DBConnection.getInstance().getConnection();
-            try (PreparedStatement stmt = connection.prepareStatement(query);
-                 ResultSet rs = stmt.executeQuery()) {
-                List<DegreeCourseEnrollment> enrollments = new ArrayList<>();
-                DegreeCourse degreeCourse;
-                while (rs.next()) {
-                    degreeCourse = DegreeCourseLazyFactory.getInstance().getDegreeCourseByName(rs.getString("name"));
-                    enrollments.add(new DegreeCourseEnrollment(rs.getDate("enrollment_date").toLocalDate(), student, degreeCourse));
-                }
-                return enrollments;
-            }
-        } catch (SQLException e) {
-            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        } catch (ObjectNotFoundException e) { // TODO handle this
-            throw new RuntimeException(e);
-        }
+    public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByStudent(Student student, List<DegreeCourseEnrollment> exclusions) throws DAOException, PropertyException, ResourceNotFoundException, WrongDegreeCourseCodeException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException {
+        return getListQuery(
+                "DEGREE_COURSE_ENROLLMENT",
+                List.of("student"),
+                List.of(student.getCodiceFiscale()),
+                exclusions,
+                List.of(student),
+                false
+        );
     }
 
     @Override
-    public void insert(DegreeCourseEnrollment degreeCourseEnrollment){
-
+    public void insert(DegreeCourseEnrollment degreeCourseEnrollment) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
+        insertQuery(
+                "DEGREE_COURSE_ENROLLMENT",
+                List.of(degreeCourseEnrollment.getStudent().getCodiceFiscale(),degreeCourseEnrollment.getDegreeCourse().getCode().value,degreeCourseEnrollment.getDegreeCourse().getName())
+        );
     }
 
     @Override
-    public void cancel(DegreeCourseEnrollment degreeCourseEnrollment){
-
+    public void cancel(DegreeCourseEnrollment degreeCourseEnrollment) throws DAOException, PropertyException, ResourceNotFoundException {
+        cancelQuery(
+                "DEGREE_COURSE_ENROLLMENT",
+                List.of("student","degree_course_code","degree_course_name"),
+                List.of(degreeCourseEnrollment.getStudent().getCodiceFiscale(),String.valueOf(degreeCourseEnrollment.getDegreeCourse().getCode().value),degreeCourseEnrollment.getDegreeCourse().getName())
+        );
     }
 
     @Override
-    public void update(DegreeCourseEnrollment degreeCourseEnrollment){
-
+    public void update(DegreeCourseEnrollment degreeCourseEnrollment) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
+        updateQuery(
+                "DEGREE_COURSE_ENROLLMENT",
+                List.of("enrollment_date"),
+                List.of(degreeCourseEnrollment.getEnrollmentDate()),
+                List.of("student","degree_course_code","degree_course_name"),
+                List.of(degreeCourseEnrollment.getStudent().getCodiceFiscale(),String.valueOf(degreeCourseEnrollment.getDegreeCourse().getCode().value),degreeCourseEnrollment.getDegreeCourse().getName())
+        );
     }
 
     @Override
-    protected DegreeCourseEnrollment queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, ObjectNotFoundException {
-        return null;
+    protected DegreeCourseEnrollment queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, ObjectNotFoundException, WrongListQueryIdentifierValue {
+        if(objects.get(0) instanceof Student)
+            return new DegreeCourseEnrollment(
+                    rs.getDate("enrollment_date").toLocalDate(),
+                    (Student) objects.get(0),
+                    DegreeCourseLazyFactory.getInstance().getDegreeCourseByName(rs.getString("degree_course_name"))
+            );
+        else return new
+                DegreeCourseEnrollment(
+                rs.getDate("enrollment_date").toLocalDate(),
+                StudentLazyFactory.getInstance().getStudentByUser(UserLazyFactory.getInstance().getUserByCodiceFiscale(rs.getString("student"))),
+                (DegreeCourse) objects.get(0)
+                );
+
     }
 
     @Override
     protected String setGetListQueryIdentifiersValue(DegreeCourseEnrollment degreeCourseEnrollment, int valueNumber) throws DAOException, WrongListQueryIdentifierValue {
-        return null;
+        if(valueNumber==0)
+            return degreeCourseEnrollment.getStudent().getCodiceFiscale();
+        else throw new WrongListQueryIdentifierValue(ExceptionMessagesEnum.WRONG_LIST_QUERY_IDENTIFIER_VALUE.message);
     }
 
 

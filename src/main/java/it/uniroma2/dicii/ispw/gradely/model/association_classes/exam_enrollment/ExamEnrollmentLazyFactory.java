@@ -36,12 +36,7 @@ public class ExamEnrollmentLazyFactory {
             }
         }
         try {
-            List<ExamEnrollment> daoList = DAOFactoryAbstract.getInstance().getExamEnrollmentDAO().getExamEnrollmentsByExam(exam);
-            for (ExamEnrollment e : daoList) {
-                if (!list.contains(e)) {
-                    list.add(e);
-                }
-            }
+            list.addAll(DAOFactoryAbstract.getInstance().getExamEnrollmentDAO().getExamEnrollmentsByExam(exam,list));
         } catch (PropertyException | ResourceNotFoundException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
@@ -56,12 +51,7 @@ public class ExamEnrollmentLazyFactory {
             }
         }
         try {
-            List<ExamEnrollment> daoList = DAOFactoryAbstract.getInstance().getExamEnrollmentDAO().getExamEnrollmentsByStudent(student);
-            for (ExamEnrollment e : daoList) {
-                if (!list.contains(e)) {
-                    list.add(e);
-                }
-            }
+            list.addAll(DAOFactoryAbstract.getInstance().getExamEnrollmentDAO().getExamEnrollmentsByStudent(student, list));
         } catch (PropertyException | ResourceNotFoundException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
