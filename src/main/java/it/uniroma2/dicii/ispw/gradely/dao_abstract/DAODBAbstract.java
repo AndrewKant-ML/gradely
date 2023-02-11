@@ -103,33 +103,37 @@ public abstract class DAODBAbstract<T>{
             finalQuery = getListQueryExclusions(query, identifiers, exclusions);
         }
         List<T> list = new ArrayList<>();
+        Connection connection;
         try {
-            Connection connection = DBConnection.getInstance().getConnection();
-            try (
-                    PreparedStatement stmt = connection.prepareStatement(finalQuery, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
-                if (wantAll.equals(Boolean.FALSE))
-                    setQueryQuestionMarksValue(stmt, identifiersValue, 1);
-                try (ResultSet rs = stmt.executeQuery()) {
-                    while (rs.next()) {
-                        list.add(queryObjectBuilder(rs, objects));
-                    }
-                } catch (PropertyException | ResourceNotFoundException e) {
-                    throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-                }
-            }
+            connection = DBConnection.getInstance().getConnection();
         } catch (SQLException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
+        try (PreparedStatement stmt = createStatement(connection, finalQuery, wantAll, identifiersValue);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                list.add(queryObjectBuilder(rs, objects));
+            }
+        } catch (PropertyException | ResourceNotFoundException | SQLException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
         return list;
     }
 
+    private PreparedStatement createStatement(Connection connection, String finalQuery, Boolean wantAll, List<Object> identifiersValue) throws SQLException {
+        PreparedStatement stmt = connection.prepareStatement(finalQuery, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        if (wantAll.equals(Boolean.FALSE))
+            setQueryQuestionMarksValue(stmt, identifiersValue, 1);
+        return stmt;
+    }
 
     /**
      * Concatenates to a query string the string needed to exclude the elements
      * present in a list, such as the elements already present in memory
-     * @param query the original query where to concatenate the exclusion part
+     *
+     * @param query       the original query where to concatenate the exclusion part
      * @param identifiers the identifier columns needed to identify the elements to exclude
-     * @param exclusions the list of objects to exclude
+     * @param exclusions  the list of objects to exclude
      * @return the new query string
      * @throws DAOException thrown if errors occur while retrieving data from persistence layer
      */
