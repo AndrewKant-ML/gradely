@@ -13,4 +13,11 @@ public enum PendingEventTypeEnum {
     private PendingEventTypeEnum(String message){
         this.message = message;
     }
+
+    public static PendingEventTypeEnum getPendingEventTypeByName(String name) {
+        for (PendingEventTypeEnum p : values())
+            if (p.name().equals(name))
+                return p;
+        return null;
+    }
 }

@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.UUID;
 
 public class TestDAODB extends DAODBAbstract<Test> implements TestDAOAbstract {
 
@@ -48,7 +49,7 @@ public class TestDAODB extends DAODBAbstract<Test> implements TestDAOAbstract {
                 if (rs.first()) {
                     return new Test(
                             DegreeCourseLazyFactory.getInstance().getDegreeCourseByName(rs.getString("degree_course_name")),
-                            rs.getString("id"),
+                            UUID.fromString(rs.getString("id")),
                             rs.getDate("test_date").toLocalDate(),
                             new URL(rs.getString("reservation_link")),
                             rs.getDate("result_date").toLocalDate(),
@@ -105,6 +106,16 @@ public class TestDAODB extends DAODBAbstract<Test> implements TestDAOAbstract {
     @Override
     public void update(Test test) {
 
+    }
+
+    @Override
+    protected Test queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, ObjectNotFoundException {
+        return null;
+    }
+
+    @Override
+    protected String setGetListQueryIdentifiersValue(Test test, int valueNumber) throws DAOException, WrongListQueryIdentifierValue {
+        return null;
     }
 
     @Override

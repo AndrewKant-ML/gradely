@@ -48,6 +48,7 @@ public class TimerLazyFactory {
         return newTimer;
     }
     private void checkTimers() throws WrongTimerTypeException, DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, ObjectNotFoundException { //TODO timered trigger
+        //refresh timers
         for (AbstractTimer t : activeTimers){
             if (t.getExpiration().isAfter(LocalDate.now())){
                 t.notifyTimerExpiration();

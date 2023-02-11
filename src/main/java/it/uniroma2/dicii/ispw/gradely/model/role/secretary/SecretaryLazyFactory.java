@@ -24,7 +24,7 @@ public class SecretaryLazyFactory {
         return instance;
     }
 
-    public Secretary getSecretaryByUser(User user) throws DAOException, UserNotFoundException {
+    public Secretary getSecretaryByUser(User user) throws DAOException, UserNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         for(Secretary s : secretaries){
             if(s.getUser().equals(user)){
                 return s;

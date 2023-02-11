@@ -11,11 +11,14 @@ public class TestResutlLazyFactory {
         this.testResults = new ArrayList<>();
     }
 
-    public TestResutlLazyFactory getInstance(){
+    public static TestResutlLazyFactory getInstance(){
         if (instance == null)
             instance = new TestResutlLazyFactory();
         return instance;
     }
 
+    public AbstractTestResult getTestResultById(Integer id){
+        return null;
+    }
 
 }

@@ -15,18 +15,18 @@ public class PendingEventLazyFactory {
     private final List<PendingEvent> pendingEvents;
 
     private PendingEventLazyFactory() throws DAOException{
-        pendingEvents = new ArrayList<PendingEvent>();
-        refreshPendingEvents();
+        pendingEvents = new ArrayList<>();
     }
 
-    public static synchronized PendingEventLazyFactory getInstance() throws DAOException{
+    public static synchronized PendingEventLazyFactory getInstance() throws DAOException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         if (instance == null){
             instance = new PendingEventLazyFactory();
         }
+        instance.refreshPendingEvents();
         return instance;
     }
 
-    public List<PendingEvent> getPendingEventsByUser(User user) throws DAOException {
+    public List<PendingEvent> getPendingEventsByUser(User user) throws DAOException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         refreshPendingEvents();
         List<PendingEvent> list = new ArrayList<>();
         for (PendingEvent p : pendingEvents){
