@@ -5,6 +5,8 @@ import it.uniroma2.dicii.ispw.gradely.enums.SessionEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 
+import java.util.UUID;
+
 public class ExamDAOFS implements ExamDAOInterface {
 
     private static ExamDAOFS instance;
@@ -22,6 +24,11 @@ public class ExamDAOFS implements ExamDAOInterface {
 
     @Override
     public Exam getExamByAppelloAndSubjectCourseAndSession(AppelloEnum appello, SubjectCourse course, SessionEnum session) throws DAOException {
+        return null;
+    }
+
+    @Override
+    public Exam getExamById(UUID id) {
         return null;
     }
 
