@@ -160,7 +160,7 @@ public class DegreeCourseDAODB extends DAODBAbstract<DegreeCourse> implements De
 
     @Override
     public void insert(DegreeCourse degreeCourse) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
-        insertQuery("DEGREE_COURSE", List.of("code","name","coordinatore","test_type","dipartimento","facolta"),degreeCourse);
+        insertQuery("DEGREE_COURSE", List.of(degreeCourse));
     }
 
     @Override
@@ -170,7 +170,7 @@ public class DegreeCourseDAODB extends DAODBAbstract<DegreeCourse> implements De
 
     @Override
     public void update(DegreeCourse degreeCourse) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
-        updateQuery("DEGREE_COURSE",List.of("code","name","coordinatore","test_type","dipartimento","facolta"),List.of("code","name"),List.of(degreeCourse.getCode(),degreeCourse.getName()),degreeCourse);
+        updateQuery("DEGREE_COURSE",List.of("code","name","coordinatore","test_type","dipartimento","facolta"),List.of("code","name"),List.of(String.valueOf(degreeCourse.getCode().value),degreeCourse.getName()),List.of(degreeCourse));
     }
 
     @Override
@@ -187,12 +187,6 @@ public class DegreeCourseDAODB extends DAODBAbstract<DegreeCourse> implements De
         stmt.setInt(5,degreeCourse.getDipartimento().value);
         stmt.setInt(6,degreeCourse.getFacolta().value);
     }
-
-    @Override
-    protected void setUpdateQueryParametersValue(PreparedStatement stmt, DegreeCourse degreeCourse) throws SQLException, MissingAuthorizationException {
-        setInsertQueryParametersValue(stmt,degreeCourse);
-    }
-
 
 
     @Override

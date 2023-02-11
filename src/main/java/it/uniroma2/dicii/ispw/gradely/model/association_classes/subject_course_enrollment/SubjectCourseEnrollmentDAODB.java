@@ -1,11 +1,12 @@
 package it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment;
 
 import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
-import it.uniroma2.dicii.ispw.gradely.exceptions.MissingAuthorizationException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -49,19 +50,13 @@ public class SubjectCourseEnrollmentDAODB extends DAODBAbstract<SubjectCourseEnr
     }
 
     @Override
-    protected void setInsertQueryParametersValue(PreparedStatement stmt, SubjectCourseEnrollment subjectCourseEnrollment) throws SQLException {
-
+    protected SubjectCourseEnrollment queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, ObjectNotFoundException {
+        return null;
     }
 
     @Override
-    protected void setUpdateQueryParametersValue(PreparedStatement stmt, SubjectCourseEnrollment subjectCourseEnrollment) throws SQLException, MissingAuthorizationException {
-
+    protected String setGetListQueryIdentifiersValue(SubjectCourseEnrollment subjectCourseEnrollment, int valueNumber) throws DAOException, WrongListQueryIdentifierValue {
+        return null;
     }
-
-    @Override
-    protected void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> identifiersValues) throws SQLException {
-
-    }
-
 
 }

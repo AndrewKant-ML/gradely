@@ -97,18 +97,13 @@ public class DegreeCourseEnrollmentDAODB extends DAODBAbstract<DegreeCourseEnrol
     }
 
     @Override
-    protected void setInsertQueryParametersValue(PreparedStatement stmt, DegreeCourseEnrollment degreeCourseEnrollment) throws SQLException {
-
+    protected DegreeCourseEnrollment queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, ObjectNotFoundException {
+        return null;
     }
 
     @Override
-    protected void setUpdateQueryParametersValue(PreparedStatement stmt, DegreeCourseEnrollment degreeCourseEnrollment) throws SQLException, MissingAuthorizationException {
-
-    }
-
-    @Override
-    protected void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> identifiersValues) throws SQLException {
-
+    protected String setGetListQueryIdentifiersValue(DegreeCourseEnrollment degreeCourseEnrollment, int valueNumber) throws DAOException, WrongListQueryIdentifierValue {
+        return null;
     }
 
 

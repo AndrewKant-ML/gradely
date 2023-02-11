@@ -30,7 +30,7 @@ public class SubjectCourseDAOFS implements SubjectCourseDAOInterface {
 
     @Override
     public SubjectCourse getSubjectCourseByNameCodeCfuAndAcademicYear(String name, SubjectCourseCodeEnum code, Integer cfu, Year academicYear) throws DAOException, ObjectNotFoundException, ResourceNotFoundException {
-        try {
+        /*try {
             List<List<String>> lines = new CSVParser().readAllLines(subjectCourseFileName);
             SubjectCourseCodeEnum scCode;
             String scName;
@@ -49,7 +49,8 @@ public class SubjectCourseDAOFS implements SubjectCourseDAOInterface {
             throw new ObjectNotFoundException(ExceptionMessagesEnum.OBJ_NOT_FOUND.message);
         } catch (CsvException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }
+        }*/
+        return null;
     }
 
     public void insert(SubjectCourse subjectCourse){

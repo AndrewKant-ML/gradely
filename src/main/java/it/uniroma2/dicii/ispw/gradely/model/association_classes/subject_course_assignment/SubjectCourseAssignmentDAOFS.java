@@ -7,13 +7,16 @@ import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 import java.util.List;
 
 
-public class SubjectCourseAssignmentDAOFS extends AbstractSubjectCourseAssignmentDAO {
-    private SubjectCourseAssignmentDAOFS(){
+public class SubjectCourseAssignmentDAOFS implements AbstractSubjectCourseAssignmentDAO {
+
+    private static SubjectCourseAssignmentDAOFS instance;
+
+    private SubjectCourseAssignmentDAOFS() {
 
     }
 
-    public static synchronized AbstractSubjectCourseAssignmentDAO getInstance(){
-        if (instance == null){
+    public static synchronized AbstractSubjectCourseAssignmentDAO getInstance() {
+        if (instance == null) {
             instance = new SubjectCourseAssignmentDAOFS();
         }
         return instance;
@@ -21,7 +24,7 @@ public class SubjectCourseAssignmentDAOFS extends AbstractSubjectCourseAssignmen
 
     @Override
     public List<SubjectCourseAssignment> getCourseAssignmentsBySubjectCourse(SubjectCourse course) throws DAOException {
-        return null; 
+        return null;
     }
 
     @Override
@@ -29,21 +32,15 @@ public class SubjectCourseAssignmentDAOFS extends AbstractSubjectCourseAssignmen
         return null; 
     }
 
-    @Override
     public void insert(SubjectCourseAssignment subjectCourseAssignment){
 
     }
 
-    @Override
     public void cancel(SubjectCourseAssignment subjectCourseAssignment){
 
     }
 
-    @Override
     public void update(SubjectCourseAssignment subjectCourseAssignment){
 
     }
-
-
-
 }

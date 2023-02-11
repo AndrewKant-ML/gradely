@@ -5,8 +5,9 @@ import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 
 import java.util.List;
 
-public class SubjectCourseEnrollmentDAOFS extends AbstractSubjectCourseEnrollmentDAO {
+public class SubjectCourseEnrollmentDAOFS implements AbstractSubjectCourseEnrollmentDAO {
 
+    private static SubjectCourseEnrollmentDAOFS instance;
     private SubjectCourseEnrollmentDAOFS(){
 
     }
@@ -28,19 +29,15 @@ public class SubjectCourseEnrollmentDAOFS extends AbstractSubjectCourseEnrollmen
         return null;
     }
 
-    @Override
     public void insert(SubjectCourseEnrollment subjectCourseEnrollment){
 
     }
 
-    @Override
     public void cancel(SubjectCourseEnrollment subjectCourseEnrollment){
 
     }
 
-    @Override
     public void update(SubjectCourseEnrollment subjectCourseEnrollment){
 
     }
-
 }

@@ -27,10 +27,10 @@ public class ExamResultLazyFactory {
 
 
     public void update (ExamResult examResult) throws DAOException {
-        try {
+        /*try {
             DAOFactoryAbstract.getInstance().getExamResultDAO().update(examResult);
         } catch (PropertyException | ResourceNotFoundException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }
+        }*/
     }
 }

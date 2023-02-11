@@ -39,7 +39,7 @@ public class TestDAOFS implements TestDAOAbstract {
 
     @Override
     public Test getTestById(String id) throws PropertyException, ResourceNotFoundException, DAOException, ObjectNotFoundException {
-        try {
+        /*try {
             List<List<String>> lines = new CSVParser().readAllLines(fileName);
             for (List<String> line : lines)
                 if (line.get(0).equals(id))
@@ -55,7 +55,7 @@ public class TestDAOFS implements TestDAOAbstract {
             throw new ObjectNotFoundException(ExceptionMessagesEnum.OBJ_NOT_FOUND.message);
         } catch (CsvException | IOException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }
+        }*/
+        return null;
     }
-
 }

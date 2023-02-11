@@ -5,8 +5,9 @@ import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 
 import java.util.List;
 
-public class ExamEnrollmentDAOFS extends ExamEnrollmentDAOInterface {
+public class ExamEnrollmentDAOFS implements ExamEnrollmentDAOInterface {
 
+    private static ExamEnrollmentDAOFS instance;
     private ExamEnrollmentDAOFS(){
 
     }

@@ -3,18 +3,21 @@ package it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_e
 import com.opencsv.exceptions.CsvException;
 import it.uniroma2.dicii.ispw.gradely.CSVParser;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
-import it.uniroma2.dicii.ispw.gradely.exceptions.*;
+import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.ObjectNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
-import it.uniroma2.dicii.ispw.gradely.model.user.UserLazyFactory;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DegreeCourseEnrollmentDAOFS extends AbstractDegreeCourseEnrollmentDAO {
+public class DegreeCourseEnrollmentDAOFS implements AbstractDegreeCourseEnrollmentDAO {
 
+    private static DegreeCourseEnrollmentDAOFS instance;
     private final String fileName = "degree_course_enrollment";
 
     private DegreeCourseEnrollmentDAOFS() {
@@ -30,7 +33,7 @@ public class DegreeCourseEnrollmentDAOFS extends AbstractDegreeCourseEnrollmentD
 
     @Override
     public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByDegreeCourse(DegreeCourse course) throws DAOException, ResourceNotFoundException, PropertyException {
-        try {
+        /*try {
             List<List<String>> lines = new CSVParser().readAllLines(fileName);
             List<DegreeCourseEnrollment> enrollments = new ArrayList<>();
             for (List<String> line : lines) {
@@ -44,7 +47,8 @@ public class DegreeCourseEnrollmentDAOFS extends AbstractDegreeCourseEnrollmentD
             return enrollments;
         } catch (CsvException | UserNotFoundException | MissingAuthorizationException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }
+        }*/
+        return null;
     }
 
     @Override
@@ -66,20 +70,15 @@ public class DegreeCourseEnrollmentDAOFS extends AbstractDegreeCourseEnrollmentD
         }
     }
 
-    @Override
     public void insert(DegreeCourseEnrollment degreeCourseEnrollment){
 
     }
 
-    @Override
     public void cancel(DegreeCourseEnrollment degreeCourseEnrollment){
 
     }
 
-    @Override
     public void update(DegreeCourseEnrollment degreeCourseEnrollment){
 
     }
-
-
 }
