@@ -22,12 +22,12 @@ public class PendingEventLazyFactory {
         if (instance == null){
             instance = new PendingEventLazyFactory();
         }
-        instance.refreshPendingEvents();
+        instance.refreshLazyFactory();
         return instance;
     }
 
     public List<PendingEvent> getPendingEventsByUser(User user) throws DAOException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
-        refreshPendingEvents();
+        refreshLazyFactory();
         List<PendingEvent> list = new ArrayList<>();
         for (PendingEvent p : pendingEvents){
             if (Boolean.TRUE.equals(p.isForUser(user))){
@@ -56,7 +56,7 @@ public class PendingEventLazyFactory {
         pendingEvents.add(p);
     }
 
-    private void refreshPendingEvents() throws DAOException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
+    private void refreshLazyFactory() throws DAOException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         try {
             this.pendingEvents.addAll(DAOFactoryAbstract.getInstance().getPendingEventDAO().getAllPendingEvents(pendingEvents));
         } catch (ResourceNotFoundException | PropertyException e) {

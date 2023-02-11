@@ -71,10 +71,10 @@ public class PendingEventDAODB extends DAODBAbstract<PendingEvent> implements Pe
                         case EXAM_VERBALIZATION_PENDING :
                         case EXAM_VERBALIZED:
                         case GRADE_AUTO_ACCEPTED:
-                            p.setObject(ExamLazyFactory.getInstance().getExamById(UUID.fromString(rs.getString("attribute_1"))));
+                            p.setObject(ExamLazyFactory.getInstance().getExamById(UUID.fromString(rs.getString("id"))));
                             break;
                         case TEST_RESULT_READY:
-                            p.setObject(TestResutlLazyFactory.getInstance().getTestResultById(UUID.fromString(rs.getString("attribute_1"))));
+                            p.setObject(TestResutlLazyFactory.getInstance().getTestResultById(UUID.fromString(rs.getString("id"))));
                             break;
                         default:
 

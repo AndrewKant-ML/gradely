@@ -2,6 +2,8 @@ package it.uniroma2.dicii.ispw.gradely.model.user;
 
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 
+import java.util.List;
+
 
 public interface UserDAOInterface {
 

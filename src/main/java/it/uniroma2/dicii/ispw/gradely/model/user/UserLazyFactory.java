@@ -1,6 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.model.user;
 
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
+import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 
 import java.time.LocalDate;
@@ -15,7 +16,7 @@ public class UserLazyFactory {
         registeredUsers = new ArrayList<>();
     }
 
-    public static synchronized UserLazyFactory getInstance() {
+    public static synchronized UserLazyFactory getInstance() throws DAOException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         if (instance == null) {
             instance = new UserLazyFactory();
         }
@@ -60,4 +61,5 @@ public class UserLazyFactory {
             registeredUsers.add(newUser);
             return newUser;
     }
+
 }

@@ -1,9 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.user;
 
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.UnrecognizedRoleException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.UserNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 
 import java.util.List;
 
@@ -69,6 +66,11 @@ public class UserDAOFS implements UserDAOInterface {
         } catch (CsvException | UnrecognizedRoleException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }*/
+        return null;
+    }
+
+    @Override
+    public List<User> getAll(List<User> registeredUsers) throws UserNotFoundException, DAOException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         return null;
     }
 

@@ -16,8 +16,6 @@ import java.util.List;
 public class UserDAODB extends DAODBAbstract<User> implements UserDAOInterface  {
     protected static UserDAOInterface instance;
 
-    //private static final Logger logger = Logger.getLogger(UserDAODB.class.getName());
-
     private UserDAODB() {
         super();
     }
@@ -49,6 +47,18 @@ public class UserDAODB extends DAODBAbstract<User> implements UserDAOInterface  
         );
     }
 
+    @Override
+    public List<User> getAll(List<User> exclusions) throws UserNotFoundException, DAOException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
+        return getListQuery(
+                "USER",
+                List.of("codice_fiscale"),
+                null,
+                exclusions,
+                null,
+                true
+        );
+    }
+
 
     @Override
     protected User queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
@@ -75,11 +85,6 @@ public class UserDAODB extends DAODBAbstract<User> implements UserDAOInterface  
                 "USER",
                 List.of(user.getCodiceFiscale(), user.getName(), user.getSurname(), user.getPassword(), Date.valueOf(user.getRegistrationDate()), user.getEmail(),user.getRole().getRoleEnumType().type)
         );
-        /*try{
-            stmt.setInt(7, user.getRole().getRoleEnumType().type);
-        }catch (MissingAuthorizationException e){
-            logger.log(Level.SEVERE, "User with no role");
-        }*/
     }
 
     @Override

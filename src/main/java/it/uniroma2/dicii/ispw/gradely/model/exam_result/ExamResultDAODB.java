@@ -2,6 +2,8 @@ package it.uniroma2.dicii.ispw.gradely.model.exam_result;
 
 import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
+import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
+import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,6 +24,13 @@ public class ExamResultDAODB extends DAODBAbstract<ExamResult> implements ExamRe
     }
 
 
+    @Override
+    public ExamResult getExamResultByStudentAndExam(Student student, Exam exam) throws DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
+        return getQuery(
+                "EXAM_RESULT",
+                List.of("exam")
+        );
+    }
 
     @Override
     public void insert(ExamResult examResult) throws DAOException {
