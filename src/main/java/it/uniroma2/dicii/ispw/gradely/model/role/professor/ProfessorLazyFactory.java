@@ -9,10 +9,10 @@ import java.util.List;
 
 public class ProfessorLazyFactory {
     private static ProfessorLazyFactory instance;
-    private final List<Professor> professors;
+    private final List<Professor> factoryObjects;
 
     private ProfessorLazyFactory(){
-        professors = new ArrayList<Professor>();
+        factoryObjects = new ArrayList<Professor>();
     }
 
     public static synchronized ProfessorLazyFactory getInstance() {
@@ -23,11 +23,13 @@ public class ProfessorLazyFactory {
     }
 
     public Professor getProfessorByUser(User user) throws DAOException, UserNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
-        for (Professor p : this.professors)
+        for (Professor p : this.factoryObjects)
             if (p.getUser().equals(user))
                 return p;
         try {
-            return DAOFactoryAbstract.getInstance().getProfessorDAO().getProfessorByUser(user);
+            Professor professor = DAOFactoryAbstract.getInstance().getProfessorDAO().getProfessorByUser(user);
+            factoryObjects.add(professor);
+            return professor;
         } catch (PropertyException | ResourceNotFoundException e) {
             throw new RuntimeException(e);
         }
