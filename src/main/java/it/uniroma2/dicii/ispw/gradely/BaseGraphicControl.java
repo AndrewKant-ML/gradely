@@ -114,7 +114,10 @@ public class BaseGraphicControl implements Initializable {
                             throw new WrongPendingEventTypeException(ExceptionMessagesEnum.UNEXPECTED_PROPERTY_NAME.message);
                 }
             }
-        } catch (DAOException e) {
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        /*catch (DAOException e) {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.DATA_RETRIEVAL_TITLE.message, UserErrorMessagesEnum.DATA_RETRIEVAL_MSG.message);
         } catch (WrongPendingEventTypeException e) {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.PROPERTY_VALUE_TITLE.message, UserErrorMessagesEnum.PROPERTY_VALUE_MSG.message);
@@ -132,7 +135,7 @@ public class BaseGraphicControl implements Initializable {
             throw new RuntimeException(e);
         } catch (WrongDegreeCourseCodeException e) {
             throw new RuntimeException(e);
-        }
+        }*/
     }
 
     /**
