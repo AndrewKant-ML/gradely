@@ -2,10 +2,7 @@ package it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_e
 
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.WrongDegreeCourseCodeException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 
@@ -27,7 +24,7 @@ public class DegreeCourseEnrollmentLazyFactory {
         return instance;
     }
 
-    public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByDegreeCourse(DegreeCourse course) throws DAOException {
+    public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByDegreeCourse(DegreeCourse course) throws DAOException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         List<DegreeCourseEnrollment> list = new ArrayList<>();
         for (DegreeCourseEnrollment e : degreeCourseEnrollments) {
             if (e.getDegreeCourse().equals(course)) {
@@ -35,12 +32,7 @@ public class DegreeCourseEnrollmentLazyFactory {
             }
         }
         try {
-            List<DegreeCourseEnrollment> daoList = DAOFactoryAbstract.getInstance().getDegreeCourseEnrollmentDAO().getDegreeCourseEnrollmentsByDegreeCourse(course);
-            for (DegreeCourseEnrollment e : daoList) {
-                if (!list.contains(e)) {
-                    list.add(e);
-                }
-            }
+            list.addAll(DAOFactoryAbstract.getInstance().getDegreeCourseEnrollmentDAO().getDegreeCourseEnrollmentsByDegreeCourse(course,list));
         } catch (PropertyException | ResourceNotFoundException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
@@ -55,7 +47,7 @@ public class DegreeCourseEnrollmentLazyFactory {
      * @return a List of DegreeCourseEnrollment objects
      * @throws DAOException thrown if errors occur while retrieving data from persistence layer
      */
-    public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByStudent(Student student) throws DAOException, WrongDegreeCourseCodeException {
+    public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByStudent(Student student) throws DAOException, WrongDegreeCourseCodeException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, PropertyException, ResourceNotFoundException {
         List<DegreeCourseEnrollment> list = new ArrayList<>();
         for (DegreeCourseEnrollment e : degreeCourseEnrollments) {
             if (e.getStudent().equals(student)) {
@@ -63,23 +55,17 @@ public class DegreeCourseEnrollmentLazyFactory {
             }
         }
         try {
-            List<DegreeCourseEnrollment> daoList = DAOFactoryAbstract.getInstance().getDegreeCourseEnrollmentDAO().getDegreeCourseEnrollmentsByStudent(student);
-
-            for (DegreeCourseEnrollment e : daoList) {
-                if (!list.contains(e)) {
-                    list.add(e);
-                }
-            }
+            list.addAll(DAOFactoryAbstract.getInstance().getDegreeCourseEnrollmentDAO().getDegreeCourseEnrollmentsByStudent(student, list));
         } catch (PropertyException | ResourceNotFoundException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
         return list;
     }
 
-    public Boolean checkDegreeCourseEnrollmentPresence(Student student, DegreeCourse course) throws DAOException, WrongDegreeCourseCodeException {
+    public Boolean checkDegreeCourseEnrollmentPresence(Student student, DegreeCourse course) throws DAOException, WrongDegreeCourseCodeException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, PropertyException, ResourceNotFoundException {
         List<DegreeCourseEnrollment> list = getDegreeCourseEnrollmentsByStudent(student);
         for(DegreeCourseEnrollment e : list){
-            if(!e.getDegreeCourse().equals(course)){
+            if(e.getDegreeCourse().equals(course)){
                 return true; 
             }
         }

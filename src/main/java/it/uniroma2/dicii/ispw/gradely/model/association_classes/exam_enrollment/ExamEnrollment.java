@@ -14,7 +14,12 @@ public class ExamEnrollment {
 
     public ExamEnrollment(){
     }
-
+    public ExamEnrollment(LocalDate enrollmentDate, Student student, Exam exam){
+        this.enrollmentDate = enrollmentDate;
+        this.student = student;
+        this.exam = exam;
+        this.examResult = null;
+    }
     public ExamEnrollment(LocalDate enrollmentDate, Student student, Exam exam, ExamResult examResult){
         this.enrollmentDate = enrollmentDate;
         this.student = student;

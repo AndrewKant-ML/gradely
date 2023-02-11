@@ -5,6 +5,7 @@ import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -25,18 +26,37 @@ public class ExamEnrollmentDAODB extends DAODBAbstract<ExamEnrollment> implement
     }
 
     @Override
-    public List<ExamEnrollment> getExamEnrollmentsByExam(Exam exam){
-        return null;
+    public List<ExamEnrollment> getExamEnrollmentsByExam(Exam exam, List<ExamEnrollment> exclusions) throws UserNotFoundException, DAOException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
+        return getListQuery(
+                "EXAM_ENROLLMENT",
+                List.of("exam_session","exam_appello","exam_sc_code","exam_sc_name","exam_sc_cfu","exam_sc_aa"),
+                List.of(exam.getSession().value,exam.getAppello().value,exam.getSubjectCourse().getCode().value,exam.getSubjectCourse().getName(),exam.getSubjectCourse().getCfu(), Date.valueOf(exam.getSubjectCourse().getAcademicYear().atDay(0))),
+                exclusions,
+                null,
+                false
+        );
     }
 
     @Override
-    public List<ExamEnrollment> getExamEnrollmentsByStudent(Student student){
-        return new ArrayList<>(); // TODO implement
+    public List<ExamEnrollment> getExamEnrollmentsByStudent(Student student, List<ExamEnrollment> exclusions) throws UserNotFoundException, DAOException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
+        return getListQuery(
+                "EXAM_ENROLLMENT",
+                List.of("student"),
+                List.of(student.getCodiceFiscale()),
+                exclusions,
+                null,
+                false
+        );
     }
 
     @Override
-    public ExamEnrollment getExamEnrollmentByExamAndStudent(Exam exam, Student student){
-        return null;
+    public ExamEnrollment getExamEnrollmentByExamAndStudent(Exam exam, Student student) throws UserNotFoundException, DAOException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
+        return getQuery(
+                "EXAM_ENROLLMENT",
+                List.of("student","exam_session","exam_appello","exam_sc_code","exam_sc_name","exam_sc_cfu","exam_sc_aa"),
+                List.of(exam.getSession().value,exam.getAppello().value,exam.getSubjectCourse().getCode().value,exam.getSubjectCourse().getName(),exam.getSubjectCourse().getCfu(), Date.valueOf(exam.getSubjectCourse().getAcademicYear().atDay(0))),
+                null
+        );
     }
 
     @Override
