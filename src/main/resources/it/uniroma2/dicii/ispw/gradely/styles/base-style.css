@@ -27,13 +27,13 @@
     -fx-text-fill: black;
 }
 
-.back-button {
+.icon-button {
     -fx-pref-width: 24px;
     -fx-pref-height: 24px;
     -fx-background-color: transparent;
     -fx-border-width: 0;
 }
 
-.back-button:hover {
+.icon-button:hover {
     cursor: hand;
 }

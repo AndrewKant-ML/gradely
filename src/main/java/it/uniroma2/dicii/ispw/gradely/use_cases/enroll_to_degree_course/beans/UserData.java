@@ -8,14 +8,17 @@ public class UserData {
     private String userCodiceFiscale;
     private String userMatricola;
     private Integer userRole;
+    private String sessionTokenKey;
 
-    public UserData(String userName, String userSurname, String userEmail, String userCodiceFiscale, String userMatricola, Integer userRole) {
+
+    public UserData(String userName, String userSurname, String userEmail, String userCodiceFiscale, String userMatricola, Integer userRole, String sessionTokenKey) {
         this.userName = userName;
         this.userSurname = userSurname;
         this.userEmail = userEmail;
         this.userCodiceFiscale = userCodiceFiscale;
         this.userMatricola = userMatricola;
         this.userRole = userRole;
+        this.sessionTokenKey = sessionTokenKey;
     }
 
     public String getUserName() {
@@ -64,5 +67,13 @@ public class UserData {
 
     public void setUserRole(Integer userRole) {
         this.userRole = userRole;
+    }
+
+    public String getSessionTokenKey() {
+        return sessionTokenKey;
+    }
+
+    public void setSessionTokenKey(String sessionTokenKey) {
+        this.sessionTokenKey = sessionTokenKey;
     }
 }

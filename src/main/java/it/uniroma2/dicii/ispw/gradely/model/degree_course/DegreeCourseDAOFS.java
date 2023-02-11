@@ -6,16 +6,19 @@ import it.uniroma2.dicii.ispw.gradely.enums.*;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ObjectNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.WrongDegreeCourseCodeException;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.Professor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class DegreeCourseDAOFS extends DegreeCourseDAOInterface {
+public class DegreeCourseDAOFS implements DegreeCourseDAOInterface {
 
     private final String degreeCourseFileName = "degree_course";
     private final String prerequisiteFileName = "degree_course_prerequisite";
+
+    private static DegreeCourseDAOFS instance;
 
     private DegreeCourseDAOFS() {
 
@@ -28,7 +31,7 @@ public class DegreeCourseDAOFS extends DegreeCourseDAOInterface {
         return instance;
     }
 
-    private DegreeCourse parseLine(List<String> line) throws DAOException, ResourceNotFoundException {
+    private DegreeCourse parseLine(List<String> line) throws DAOException, ResourceNotFoundException, WrongDegreeCourseCodeException {
         DegreeCourse degreeCourse = new DegreeCourse(
                 DegreeCourseCodeEnum.getDegreeCourseCodeByValue(Integer.parseInt(line.get(0))),
                 line.get(1),
@@ -42,7 +45,7 @@ public class DegreeCourseDAOFS extends DegreeCourseDAOInterface {
     }
 
     @Override
-    public DegreeCourse getDegreeCourseByName(String name) throws DAOException, ResourceNotFoundException, ObjectNotFoundException {
+    public DegreeCourse getDegreeCourseByName(String name) throws DAOException, ResourceNotFoundException, ObjectNotFoundException, WrongDegreeCourseCodeException {
         try {
             List<List<String>> lines = new CSVParser().readAllLines(degreeCourseFileName);
             for (List<String> line : lines)
@@ -55,7 +58,7 @@ public class DegreeCourseDAOFS extends DegreeCourseDAOInterface {
     }
 
     @Override
-    public List<DegreeCourse> getAllDegreeCourses(List<DegreeCourse> degreeCourses) throws DAOException, ResourceNotFoundException {
+    public List<DegreeCourse> getAllDegreeCourses(List<DegreeCourse> degreeCourses) throws DAOException, ResourceNotFoundException, WrongDegreeCourseCodeException {
         try {
             List<List<String>> lines = new CSVParser().readAllLines(degreeCourseFileName);
             List<DegreeCourse> newDegreeCourses = new ArrayList<>();
@@ -83,7 +86,7 @@ public class DegreeCourseDAOFS extends DegreeCourseDAOInterface {
     }
 
     @Override
-    public DegreeCourse getDegreeCourseByCoordinatore(Professor professor) throws DAOException, ObjectNotFoundException {
+    public DegreeCourse getDegreeCourseByCoordinatore(Professor professor) throws DAOException, ObjectNotFoundException, WrongDegreeCourseCodeException {
         try {
             List<List<String>> lines = new CSVParser().readAllLines(degreeCourseFileName);
             for (List<String> line : lines)
@@ -96,11 +99,10 @@ public class DegreeCourseDAOFS extends DegreeCourseDAOInterface {
     }
 
     @Override
-    public List<AbstractDegreeCourse> getDegreeCoursesByDegreeCourseCodeList(List<DegreeCourseCodeEnum> codes) throws DAOException, ResourceNotFoundException {
+    public List<AbstractDegreeCourse> getDegreeCoursesByDegreeCourseCodeList(List<DegreeCourseCodeEnum> codes) throws DAOException, ResourceNotFoundException, WrongDegreeCourseCodeException {
         try {
             List<List<String>> lines = new CSVParser().readAllLines(degreeCourseFileName);
-            List<Abstract
-        DegreeCourse> newDegreeCourses = new ArrayList<>();
+            List<AbstractDegreeCourse> newDegreeCourses = new ArrayList<>();
             for (List<String> line : lines)
                 if (codes.contains(DegreeCourseCodeEnum.getDegreeCourseCodeByValue(Integer.parseInt(line.get(0)))))
                     newDegreeCourses.add(parseLine(line));
@@ -110,7 +112,7 @@ public class DegreeCourseDAOFS extends DegreeCourseDAOInterface {
         }
     }
 
-    private List<DegreeCourseCodeEnum> getPrerequisitesCodesByDegreeCourseCode(String code) throws DAOException, ResourceNotFoundException {
+    private List<DegreeCourseCodeEnum> getPrerequisitesCodesByDegreeCourseCode(String code) throws DAOException, ResourceNotFoundException, WrongDegreeCourseCodeException {
         try {
             List<List<String>> lines = new CSVParser().readAllLines(prerequisiteFileName);
             List<DegreeCourseCodeEnum> codes = new ArrayList<>();
@@ -123,7 +125,8 @@ public class DegreeCourseDAOFS extends DegreeCourseDAOInterface {
         }
     }
 
-    @Override
+    // TODO implement
+    /*@Override
     public void insert(DegreeCourse degreeCourse) {
 
     }
@@ -136,6 +139,6 @@ public class DegreeCourseDAOFS extends DegreeCourseDAOInterface {
     @Override
     public void update(DegreeCourse degreeCourse){
 
-    }
+    }*/
 
 }
