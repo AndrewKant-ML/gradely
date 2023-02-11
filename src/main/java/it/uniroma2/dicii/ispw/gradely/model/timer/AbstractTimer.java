@@ -12,8 +12,7 @@ public abstract class AbstractTimer <T, O extends TimerObserver>{
     protected T object;
     protected List<O> observers; //can a timer have multiple observers in this system? I don't think so, but left the possibility open
 
-
-    protected AbstractTimer(LocalDate expiration, T object){
+    protected AbstractTimer(LocalDate expiration, T object) {
         this.expiration = expiration;
         this.object = object;
     }

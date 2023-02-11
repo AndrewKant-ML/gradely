@@ -7,8 +7,6 @@ public class ExamEnrollmentBean {
     private Student student;
     private Exam exam;
 
-
-
     public ExamEnrollmentBean(Student student, Exam exam){
         this.student = student;
         this.exam = exam;
@@ -22,11 +20,15 @@ public class ExamEnrollmentBean {
         this.student = student;
     }
 
-    public Exam getExam(){
+    public Exam getExam() {
         return exam;
     }
 
-    public void setExam(Exam exam){
+    public void setExam(Exam exam) {
         this.exam = exam;
+    }
+
+    public String getStudentMatricola() {
+        return this.student.getMatricola();
     }
 }

@@ -9,7 +9,7 @@ import it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.beans.Stu
 
 public class InsertStudentsGradesProfessorFacade {
     //insert students' grades use case
-    private InsertStudentsGradesControl controller;
+    private final InsertStudentsGradesControl controller;
 
     public InsertStudentsGradesProfessorFacade(String tokenKey) throws MissingAuthorizationException{
         SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getProfessorRole();
@@ -19,10 +19,12 @@ public class InsertStudentsGradesProfessorFacade {
     public ExamListBean getGradableExams(String tokenKey) throws MissingAuthorizationException, DAOException, UserNotFoundException {
         return controller.getGradableExams(tokenKey);
     }
-    public ExamEnrollmentListBean getExamEnrollments(String tokenKey, ExamBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UserNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException {
+
+    public ExamEnrollmentListBean getExamEnrollments(String tokenKey, ExamBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, UnrecognizedRoleException, ObjectNotFoundException, WrongDegreeCourseCodeException {
         return controller.getExamEnrollments(tokenKey, bean);
     }
-    public void saveExamResults(String tokenKey, StudentGradeListBean list) throws MissingAuthorizationException, DAOException, UserNotFoundException, WrongListQueryIdentifierValue, WrongTimerTypeException, PropertyException, ObjectNotFoundException, UnrecognizedRoleException, ResourceNotFoundException, WrongDegreeCourseCodeException {
+
+    public void saveExamResults(String tokenKey, StudentGradeListBean list) throws MissingAuthorizationException, DAOException, UserNotFoundException, PropertyException, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException {
         controller.saveExamResults(tokenKey, list);
     }
 

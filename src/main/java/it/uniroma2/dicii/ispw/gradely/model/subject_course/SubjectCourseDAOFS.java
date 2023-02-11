@@ -12,8 +12,9 @@ import java.time.Year;
 import java.util.List;
 
 
-public class SubjectCourseDAOFS extends SubjectCourseDAOInterface {
+public class SubjectCourseDAOFS implements SubjectCourseDAOInterface {
 
+    private static SubjectCourseDAOFS instance;
     private final String subjectCourseFileName = "subject_course";
     private final String prerequisiteFileName = "subject_course_prerequisite";
 
@@ -52,21 +53,15 @@ public class SubjectCourseDAOFS extends SubjectCourseDAOInterface {
         }
     }
 
-    @Override
     public void insert(SubjectCourse subjectCourse){
 
     }
 
-    @Override
     public void cancel(SubjectCourse subjectCourse){
 
     }
 
-    @Override
     public void update(SubjectCourse subjectCourse){
 
     }
-
-
-
 }

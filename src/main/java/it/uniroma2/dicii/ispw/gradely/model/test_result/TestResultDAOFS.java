@@ -14,17 +14,14 @@ public class TestResultDAOFS implements TestResultDAOInterface {
         return instance;
     }
 
-    @Override
     public void insert(AbstractTestResult abstractTestResult){
 
     }
 
-    @Override
     public void cancel(AbstractTestResult abstractTestResult){
 
     }
 
-    @Override
     public void update(AbstractTestResult abstractTestResult){
 
     }

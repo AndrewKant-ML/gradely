@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
@@ -8,7 +8,13 @@
             fx:controller="it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.graphic_controllers.professor.SelectGradableExamGraphicController"
             stylesheets="@styles/default.css, @styles/list-style.css" styleClass="background">
 
-    <TableView fx:id="gradableExamsTable" styleClass="list" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
-               AnchorPane.bottomAnchor="0"/>
+    <TableView fx:id="gradableExamsTable" styleClass="list" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
+               AnchorPane.rightAnchor="0"
+               AnchorPane.bottomAnchor="0">
+        <TableColumn fx:id="subjectCourse" text="Subject course"/>
+        <TableColumn fx:id="date" text="Date"/>
+        <TableColumn fx:id="appello" text="Appello"/>
+        <TableColumn fx:id="session" text="Session"/>
+    </TableView>
 
 </AnchorPane>

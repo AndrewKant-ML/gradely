@@ -2,7 +2,9 @@ package it.uniroma2.dicii.ispw.gradely.model.exam_result;
 
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 
-public class ExamResultDAOFS extends ExamResultDAOInterface {
+public class ExamResultDAOFS implements ExamResultDAOInterface {
+
+    private static ExamResultDAOFS instance;
 
     private ExamResultDAOFS(){ 
 
@@ -15,18 +17,14 @@ public class ExamResultDAOFS extends ExamResultDAOInterface {
         return instance;
     }
 
-
-    @Override
     public void insert(ExamResult examResult) throws DAOException {
 
     }
 
-    @Override
     public void cancel(ExamResult examResult) throws DAOException {
 
     }
 
-    @Override
     public void update(ExamResult examResult) throws DAOException {
 
     }

@@ -137,7 +137,7 @@ public class InsertStudentsGradesControl extends TimerObserver {
      * @return exam
      */
     private Exam getExamByBean(ExamBean bean) throws DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UserNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
-        return ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(bean.getAppello(), getSubjectCourseByBean(bean.getCourse()), bean.getSessione());
+        return ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(bean.getAppello(), getSubjectCourseByBean(bean.getCourse()), bean.getSession());
     }
 
     /**
@@ -170,13 +170,23 @@ public class InsertStudentsGradesControl extends TimerObserver {
      */
     void saveExamResults(String tokenKey, StudentGradeListBean list) throws MissingAuthorizationException, DAOException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException, WrongTimerTypeException, PropertyException, ResourceNotFoundException {
         Professor professor = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getProfessorRole();
-        Exam exam = list.getExam();
+        ExamBean examBean = list.getExam();
+        Exam exam = ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(
+                examBean.getAppello(),
+                SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(
+                        examBean.getCourse().getCode(),
+                        examBean.getCourse().getName(),
+                        examBean.getCourse().getCfu(),
+                        examBean.getCourse().getAcademicYear()
+                ),
+                examBean.getSession()
+        );
         checkExamProfessor(exam, professor);
         for (StudentGradeBean g : list.getGrades()) {
             saveExamResult(g);
             PendingEventLazyFactory.getInstance().createNewPendingEvent(List.of(g.getEnrollmentBean().getStudent().getCodiceFiscale()), PendingEventTypeEnum.GRADE_CONFIRMATION_PENDING, g.getEnrollmentBean().getExam());
         }
-        TimerLazyFactory.getInstance().newExamConfirmationTimer(LocalDate.now().plusDays(7L), list.getExam());
+        TimerLazyFactory.getInstance().newExamConfirmationTimer(LocalDate.now().plusDays(7L), exam);
     }
 
     /**
@@ -224,9 +234,9 @@ public class InsertStudentsGradesControl extends TimerObserver {
      * @param bean
      * @throws MissingAuthorizationException
      */
-    void confirmExamVerbaleProtocolization(String tokenKey, ProtocolBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UserNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
+    void confirmExamVerbaleProtocolization(String tokenKey, ProtocolBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UserNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException {
         Secretary secretary = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getSecretaryRole();
-        Exam e = ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(bean.getExamBean().getAppello(), SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(bean.getExamBean().getCourse().getCode(), bean.getExamBean().getCourse().getName(), bean.getExamBean().getCourse().getCfu(), bean.getExamBean().getCourse().getAcademicYear()), bean.getExamBean().getSessione());
+        Exam e = ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(bean.getExamBean().getAppello(), SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(bean.getExamBean().getCourse().getCode(), bean.getExamBean().getCourse().getName(), bean.getExamBean().getCourse().getCfu(), bean.getExamBean().getCourse().getAcademicYear()), bean.getExamBean().getSession());
         checkExamSecretary(e, secretary);
         e.setVerbalizable(false);
         e.setVerbaleDate(bean.getVerbaleDate());

@@ -1,5 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.test;
 
+import com.opencsv.exceptions.CsvException;
 import it.uniroma2.dicii.ispw.gradely.CSVParser;
 import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
@@ -52,7 +53,7 @@ public class TestDAOFS implements TestDAOAbstract {
                             line.get(5)
                     );
             throw new ObjectNotFoundException(ExceptionMessagesEnum.OBJ_NOT_FOUND.message);
-        } catch ( IOException e) {
+        } catch (CsvException | IOException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }
