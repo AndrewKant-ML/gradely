@@ -43,9 +43,8 @@
     </HBox>
 
     <VBox fx:id="pendingEventList" AnchorPane.rightAnchor="35" AnchorPane.topAnchor="35" AnchorPane.leftAnchor="485"
-          prefHeight="350.0" visible="false"/>
+          prefHeight="350.0" visible="false" translateZ="10"/>
 
-    <StackPane fx:id="content" AnchorPane.topAnchor="47" AnchorPane.rightAnchor="35" AnchorPane.leftAnchor="35"
-               AnchorPane.bottomAnchor="12">
+    <StackPane fx:id="content" prefWidth="650.0" prefHeight="453.0" AnchorPane.topAnchor="45" AnchorPane.rightAnchor="35" AnchorPane.leftAnchor="35">
     </StackPane>
 </AnchorPane>

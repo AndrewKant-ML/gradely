@@ -70,11 +70,6 @@ public class UserDAOFS implements UserDAOInterface {
     }
 
     @Override
-    public List<User> getAll(List<User> registeredUsers) throws UserNotFoundException, DAOException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
-        return null;
-    }
-
-    @Override
     public void insert(User user) throws DAOException {
         //TODO implementare query
     }

@@ -1,7 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.model.exam_result;
 
-import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
+import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 
@@ -26,10 +26,16 @@ public class ExamResultDAODB extends DAODBAbstract<ExamResult> implements ExamRe
 
     @Override
     public ExamResult getExamResultByStudentAndExam(Student student, Exam exam) throws DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
-        return getQuery(
-                "EXAM_RESULT",
-                List.of("exam")
-        );
+        try {
+            return getQuery(
+                    "EXAM_RESULT",
+                    List.of("exam_sc_code", "exam_sc_name", "exam_sc_cfu", "exam_sc_aa", "exam_session", "exam_appello", "student"),
+                    List.of(exam.getSubjectCourse().getCode().value, exam.getSubjectCourse().getName(), exam.getSubjectCourse().getCfu(), exam.getSubjectCourse().getAcademicYear(), exam.getSession().value, exam.getAppello().value, student),
+                    List.of(exam, student)
+            );
+        } catch (UserNotFoundException e) {
+            return null; // TODO manage UserNotFoundException
+        }
     }
 
     @Override

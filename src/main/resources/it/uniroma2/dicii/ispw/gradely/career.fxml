@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+<VBox prefHeight="453.0" prefWidth="650.0" spacing="10.0" styleClass="background"
+      stylesheets="@styles/base-style.css, @styles/default.css, @styles/list-dashboard-style.css"
+      xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.graphic_controllers.CareerGraphicController">
+
+    <!-- Degree course enrollments -->
+    <HBox alignment="BASELINE_CENTER" prefHeight="52" styleClass="card-horizontal">
+        <padding>
+            <Insets topRightBottomLeft="10"/>
+        </padding>
+        <Label text="Enroll to a degree course"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button onAction="#enrollToDegreeCourse" styleClass="action-button, nav-action-button" HBox.hgrow="NEVER">
+            <padding>
+                <Insets topRightBottomLeft="6"/>
+            </padding>
+            <graphic>
+                <ImageView preserveRatio="true">
+                    <Image requestedHeight="20" requestedWidth="20" url="@images/right_arrow.png"/>
+                </ImageView>
+            </graphic>
+            <shape>
+                <Circle radius="19"/>
+            </shape>
+        </Button>
+    </HBox>
+
+    <!-- Transfer requests -->
+    <HBox alignment="BASELINE_CENTER" prefHeight="52" styleClass="card-horizontal">
+        <padding>
+            <Insets topRightBottomLeft="10"/>
+        </padding>
+        <Label text="Transfer requests"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button onAction="#underConstruction" styleClass="action-button, nav-action-button" HBox.hgrow="NEVER">
+            <padding>
+                <Insets topRightBottomLeft="6"/>
+            </padding>
+            <graphic>
+                <ImageView preserveRatio="true">
+                    <Image requestedHeight="20" requestedWidth="20" url="@images/right_arrow.png"/>
+                </ImageView>
+            </graphic>
+            <shape>
+                <Circle radius="19"/>
+            </shape>
+        </Button>
+    </HBox>
+
+    <!-- Degree course transfer requests -->
+    <HBox alignment="BASELINE_CENTER" prefHeight="52" styleClass="card-horizontal">
+        <padding>
+            <Insets topRightBottomLeft="10"/>
+        </padding>
+        <Label text="Degree course transfer requests"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button onAction="#underConstruction" styleClass="action-button, nav-action-button" HBox.hgrow="NEVER">
+            <padding>
+                <Insets topRightBottomLeft="6"/>
+            </padding>
+            <graphic>
+                <ImageView preserveRatio="true">
+                    <Image requestedHeight="20" requestedWidth="20" url="@images/right_arrow.png"/>
+                </ImageView>
+            </graphic>
+            <shape>
+                <Circle radius="19"/>
+            </shape>
+        </Button>
+    </HBox>
+
+</VBox>

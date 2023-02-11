@@ -1,5 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment;
 
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 
@@ -20,12 +21,12 @@ public class ExamEnrollmentDAOFS implements ExamEnrollmentDAOInterface {
     }
 
     @Override
-    public List<ExamEnrollment> getExamEnrollmentsByExam(Exam exam){
+    public List<ExamEnrollment> getExamEnrollmentsByExam(Exam exam, List<ExamEnrollment> exclusions) throws UserNotFoundException, DAOException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         return null;
     }
 
     @Override
-    public List<ExamEnrollment> getExamEnrollmentsByStudent(Student student){
+    public List<ExamEnrollment> getExamEnrollmentsByStudent(Student student, List<ExamEnrollment> exclusions) throws UserNotFoundException, DAOException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         return null;
     }
 

@@ -54,13 +54,21 @@ public final class PageNavigationController {
      * @param pageName the name of the view (without the '.fxml' suffix) to be displayed
      */
     public void navigateTo(String pageName) {
-        pageName = pageName.concat(".fxml");
+        if (!pageName.endsWith(".fxml"))
+            pageName = pageName.concat(".fxml");
         try {
             baseGraphicController.switchTo(
                     FXMLLoader.load(Objects.requireNonNull(PageNavigationController.class.getResource(pageName))));
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.RESOURCE_LOADING_TITLE.message, UserErrorMessagesEnum.RESOURCE_LOADING_MSG.message, e);
         }
+    }
+
+    /**
+     * Navigates to under construction page
+     */
+    public void navigateToUnderConstructionPage() {
+        navigateTo("under_construction");
     }
 
     public void setBaseGraphicController(BaseGraphicControl baseGraphicController) {

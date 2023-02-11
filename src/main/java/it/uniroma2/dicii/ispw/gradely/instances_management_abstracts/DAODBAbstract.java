@@ -308,8 +308,8 @@ public abstract class DAODBAbstract<T>{
             throw new DAOException("id and values number don't match "); //TODO implementare exception
         StringBuilder builder = new StringBuilder();
         for (String s : names)
-            builder.append(s).append(" = ? and");
-        builder.delete(builder.length() - 4, builder.length());
+            builder.append(s).append(" = ? and ");
+        builder.delete(builder.length() - 5, builder.length());
         return builder;
     }
 }

@@ -1,6 +1,8 @@
 package it.uniroma2.dicii.ispw.gradely.model.exam_result;
 
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
+import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
+import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 
 public class ExamResultDAOFS implements ExamResultDAOInterface {
 
@@ -15,6 +17,11 @@ public class ExamResultDAOFS implements ExamResultDAOInterface {
             instance = new ExamResultDAOFS();
         }
         return instance;
+    }
+
+    @Override
+    public ExamResult getExamResultByStudentAndExam(Student student, Exam exam) throws DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
+        return null;
     }
 
     public void insert(ExamResult examResult) throws DAOException {

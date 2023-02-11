@@ -43,7 +43,7 @@ public class SubjectCourseDAODB extends DAODBAbstract<SubjectCourse> implements 
         return getQuery(
                 "SUBJECT_COURSE",
                 List.of("code","name","cfu","aa"),
-                List.of(code.value,name,cfu,Date.valueOf(academicYear.atDay(0))),
+                List.of(code.value,name,cfu,Date.valueOf(academicYear.atDay(1))),
                 null
         );
         //mancano attributi secondari prereq,degreecourse, assignments,exams,enrollments

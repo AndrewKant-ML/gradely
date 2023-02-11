@@ -24,6 +24,9 @@ module it.uniroma2.dicii.ispw.gradely {
     exports it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.graphic_controllers;
     opens it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.graphic_controllers to javafx.fxml;
     exports it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.graphic_controllers;
+    opens it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.graphic_controllers to javafx.fxml;
+    exports it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.graphic_controllers.professor;
+    opens it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.graphic_controllers.professor to javafx.fxml;
     exports it.uniroma2.dicii.ispw.gradely.model.timer;
     exports it.uniroma2.dicii.ispw.gradely.model.user;
     exports it.uniroma2.dicii.ispw.gradely.model.test;
