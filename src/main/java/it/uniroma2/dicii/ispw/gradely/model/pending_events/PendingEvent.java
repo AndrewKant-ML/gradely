@@ -15,8 +15,7 @@ public class PendingEvent {
     protected Boolean notified;
     protected Object object;
 
-
-    protected PendingEvent(List<String> recipients, PendingEventTypeEnum type, Object object) throws DAOException {
+    protected PendingEvent(List<String> recipients, PendingEventTypeEnum type, Object object) {
         //only for brand-new PendingEvents, id is generated
         this.id = UUID.randomUUID();
         this.type = type;

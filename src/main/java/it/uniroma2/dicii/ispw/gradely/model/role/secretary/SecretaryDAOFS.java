@@ -1,17 +1,14 @@
 package it.uniroma2.dicii.ispw.gradely.model.role.secretary;
 
-import com.opencsv.exceptions.CsvException;
-import it.uniroma2.dicii.ispw.gradely.CSVParser;
 import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
-import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
-import it.uniroma2.dicii.ispw.gradely.model.user.UserLazyFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class SecretaryDAOFS extends AbstractSecretaryDAO {
+public class SecretaryDAOFS implements AbstractSecretaryDAO {
+
+    private static SecretaryDAOFS instance;
 
     private final String filename = "secretary";
 
@@ -28,7 +25,7 @@ public class SecretaryDAOFS extends AbstractSecretaryDAO {
 
     @Override
     public Secretary getSecretaryByUser(User user) throws DAOException, ResourceNotFoundException, UserNotFoundException, PropertyException {
-        try {
+        /*try {
             List<List<String>> lines = new CSVParser().readAllLines(filename);
             for (List<String> line : lines) {
                 if (line.get(0).equals(user.getCodiceFiscale()))
@@ -40,12 +37,13 @@ public class SecretaryDAOFS extends AbstractSecretaryDAO {
             throw new UserNotFoundException(ExceptionMessagesEnum.SECRETARY_NOT_FOUND.message);
         } catch (CsvException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }
+        }*/
+        return null;
     }
 
     @Override
     public List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento, List<Secretary> secretaryList) throws DAOException, UserNotFoundException, ResourceNotFoundException, PropertyException, MissingAuthorizationException {
-        try {
+        /*try {
             List<Secretary> secretaries = new ArrayList<>();
             List<List<String>> lines = new CSVParser().readAllLines(filename);
             for (List<String> line : lines) {
@@ -56,7 +54,8 @@ public class SecretaryDAOFS extends AbstractSecretaryDAO {
             return secretaries;
         } catch (CsvException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }
+        }*/
+        return null;
     }
 
     /**
@@ -73,21 +72,15 @@ public class SecretaryDAOFS extends AbstractSecretaryDAO {
         return false;
     }
 
-    @Override
     public void insert(Secretary secretary) {
 
     }
 
-    @Override
     public void cancel(Secretary secretary) {
 
     }
 
-    @Override
     public void update(Secretary secretary){
 
     }
-
-
-
 }

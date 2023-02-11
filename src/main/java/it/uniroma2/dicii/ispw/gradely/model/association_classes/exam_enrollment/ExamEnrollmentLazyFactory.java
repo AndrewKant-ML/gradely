@@ -3,6 +3,7 @@ package it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.MissingAuthorizationException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
@@ -80,7 +81,7 @@ public class ExamEnrollmentLazyFactory {
         }
     }
 
-    public void saveExamResult(ExamEnrollment enrollment, ExamResult result) throws DAOException {
+    public void saveExamResult(ExamEnrollment enrollment, ExamResult result) throws DAOException, MissingAuthorizationException {
         enrollment.setExamResult(result);
         try {
             DAOFactoryAbstract.getInstance().getExamEnrollmentDAO().update(enrollment);
@@ -89,7 +90,7 @@ public class ExamEnrollmentLazyFactory {
         }
     }
 
-    public void update (ExamEnrollment exam) throws DAOException {
+    public void update (ExamEnrollment exam) throws DAOException, MissingAuthorizationException {
         try {
             DAOFactoryAbstract.getInstance().getExamEnrollmentDAO().update(exam);
         } catch (ResourceNotFoundException | PropertyException e) {

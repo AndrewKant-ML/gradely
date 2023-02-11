@@ -4,17 +4,18 @@ import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class Test {
     private DegreeCourse degreeCourse;
-    private String id;
+    private UUID id;
     private LocalDate testDate;
     private URL testReservationLink;
     private LocalDate resultsDate;
     private URL infoLink;
     private String place;
 
-    protected Test(DegreeCourse degreeCourse, String id, LocalDate testDate, URL testReservationLink, LocalDate resultsDate, URL infoLink, String place){
+    protected Test(DegreeCourse degreeCourse, UUID id, LocalDate testDate, URL testReservationLink, LocalDate resultsDate, URL infoLink, String place){
         this.degreeCourse = degreeCourse;
         this.id = id;
         this.testDate = testDate;
@@ -32,11 +33,11 @@ public class Test {
         this.degreeCourse = degreeCourse;
     }
 
-    public String getId(){
+    public UUID getId(){
         return id;
     }
 
-    public void setId(String id){
+    public void setId(UUID id){
         this.id = id;
     }
 

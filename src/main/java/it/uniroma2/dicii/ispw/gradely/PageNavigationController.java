@@ -16,7 +16,6 @@ public final class PageNavigationController {
     private static final Logger LOGGER = Logger.getLogger(PageNavigationController.class.getName());
     private static PageNavigationController instance;
     private BaseGraphicControl baseGraphicController;
-    private String sessionTokenKey;
     private UserData userData;
 
     private PageNavigationController() {
@@ -30,9 +29,7 @@ public final class PageNavigationController {
     }
 
     public void openMainPage(String sessionTokenKey, UserBean userBean) {
-        setUserData(userBean);
-        setSessionTokenKey(sessionTokenKey);
-        setUserData(userBean);
+        setUserData(userBean, sessionTokenKey);
         String viewName = "";
         switch (userBean.getRole()) {
             case 0 -> viewName = "homepage_student";
@@ -75,11 +72,11 @@ public final class PageNavigationController {
     }
 
     public String getSessionTokenKey() {
-        return sessionTokenKey;
+        return this.userData.getSessionTokenKey();
     }
 
     public void setSessionTokenKey(String sessionTokenKey) {
-        this.sessionTokenKey = sessionTokenKey;
+        this.userData.setSessionTokenKey(sessionTokenKey);
     }
 
     public UserData getUserData() {
@@ -91,14 +88,15 @@ public final class PageNavigationController {
      *
      * @param userBean a bean containing the User data
      */
-    private void setUserData(UserBean userBean) {
+    private void setUserData(UserBean userBean, String tokenKey) {
         this.userData = new UserData(
                 userBean.getName(),
                 userBean.getSurname(),
                 userBean.getEmail(),
                 userBean.getCodiceFiscale(),
                 userBean.getMatricola(),
-                userBean.getRole()
+                userBean.getRole(),
+                tokenKey
         );
     }
 

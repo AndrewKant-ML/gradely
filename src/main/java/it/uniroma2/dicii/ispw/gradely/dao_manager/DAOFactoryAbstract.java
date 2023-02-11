@@ -6,12 +6,12 @@ import it.uniroma2.dicii.ispw.gradely.enums.PersistenceTypeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.AbstractDegreeCourseEnrollmentDAO;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.AbstractExamEnrollmentDAO;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.ExamEnrollmentDAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.AbstractSubjectCourseAssignmentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.AbstractSubjectCourseEnrollmentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.test_reservation.TestReservationDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseDAOInterface;
-import it.uniroma2.dicii.ispw.gradely.model.exam.AbstractExamDAO;
+import it.uniroma2.dicii.ispw.gradely.model.exam.ExamDAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.exam_result.ExamResultDAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEventDAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.AbstractProfessorDAO;
@@ -50,11 +50,11 @@ public abstract class DAOFactoryAbstract {
 
     public abstract AbstractDegreeCourseEnrollmentDAO getDegreeCourseEnrollmentDAO();
 
-    public abstract AbstractExamEnrollmentDAO getExamEnrollmentDAO();
+    public abstract ExamEnrollmentDAOInterface getExamEnrollmentDAO();
 
     public abstract AbstractSubjectCourseEnrollmentDAO getSubjectCourseEnrollmentDAO();
     public abstract DegreeCourseDAOInterface getDegreeCourseDAO();
-    public abstract AbstractExamDAO getExamDAO();
+    public abstract ExamDAOInterface getExamDAO();
     public abstract ExamResultDAOInterface getExamResultDAO();
     public abstract PendingEventDAOInterface getPendingEventDAO();
     public abstract AbstractProfessorDAO getProfessorDAO();

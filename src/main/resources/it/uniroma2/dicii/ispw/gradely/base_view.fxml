@@ -7,17 +7,18 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Circle?>
-<VBox xmlns:fx="http://javafx.com/fxml"
-      fx:controller="it.uniroma2.dicii.ispw.gradely.BaseGraphicControl"
-      stylesheets="@styles/base-style.css, @styles/default.css"
-      styleClass="background">
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="it.uniroma2.dicii.ispw.gradely.BaseGraphicControl"
+            stylesheets="@styles/base-style.css, @styles/default.css"
+            styleClass="background">
 
-    <HBox styleClass="header" prefHeight="35" alignment="CENTER_LEFT">
+    <HBox styleClass="header" prefHeight="35" alignment="CENTER_LEFT" AnchorPane.leftAnchor="0"
+          AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
         <padding>
             <Insets topRightBottomLeft="6"/>
         </padding>
 
-        <Button fx:id="backButton" onAction="#goBack" styleClass="back-button">
+        <Button fx:id="backButton" onAction="#goBack" styleClass="icon-button">
             <graphic>
                 <ImageView preserveRatio="true">
                     <Image url="@images/left_arrow.png" requestedWidth="24" requestedHeight="24"/>
@@ -27,6 +28,13 @@
         <Region HBox.hgrow="ALWAYS"/>
         <Label text="gradely" styleClass="app-name"/>
         <Region HBox.hgrow="ALWAYS"/>
+        <Button fx:id="notificationButton" onAction="#showPendingEvents" visible="false" styleClass="icon-button">
+            <graphic>
+                <ImageView preserveRatio="true">
+                    <Image url="@images/notification.png" requestedWidth="24" requestedHeight="24"/>
+                </ImageView>
+            </graphic>
+        </Button>
         <Button fx:id="accountButton" styleClass="account-button" visible="false">
             <shape>
                 <Circle radius="14"/>
@@ -34,9 +42,10 @@
         </Button>
     </HBox>
 
-    <AnchorPane VBox.vgrow="ALWAYS">
-        <StackPane fx:id="content" AnchorPane.topAnchor="12" AnchorPane.rightAnchor="35" AnchorPane.leftAnchor="35"
-                   AnchorPane.bottomAnchor="12">
-        </StackPane>
-    </AnchorPane>
-</VBox>
+    <VBox fx:id="pendingEventList" AnchorPane.rightAnchor="35" AnchorPane.topAnchor="35" AnchorPane.leftAnchor="485"
+          prefHeight="350.0" visible="false"/>
+
+    <StackPane fx:id="content" AnchorPane.topAnchor="47" AnchorPane.rightAnchor="35" AnchorPane.leftAnchor="35"
+               AnchorPane.bottomAnchor="12">
+    </StackPane>
+</AnchorPane>

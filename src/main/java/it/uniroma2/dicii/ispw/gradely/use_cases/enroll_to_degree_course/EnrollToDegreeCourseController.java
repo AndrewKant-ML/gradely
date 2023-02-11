@@ -22,12 +22,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class EnrollToDegreeCourseController implements TimerObserver {
+public class EnrollToDegreeCourseController extends TimerObserver {
 
     private final Logger logger = Logger.getLogger(EnrollToDegreeCourseController.class.getName());
 
     public EnrollToDegreeCourseController() {
-
+        super();
     }
 
     /**

@@ -8,8 +8,10 @@ import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 public class Exam {
+    private UUID id;
     private LocalDate enrollmentStartDate;
     private LocalDate enrollmentEndDate;
     private LocalDate examinationDate;
@@ -47,6 +49,39 @@ public class Exam {
         this.verbaleDate = verbaleDate;
         this.verbaleNumber = verbaleNumber;
         this.enrollments = enrollments;
+    }
+    public Exam(UUID id, LocalDate enrollmentStartDate, LocalDate enrollmentEndDate, LocalDate examinationDate, RoomEnum room, AppelloEnum appello, SessionEnum session, SubjectCourse subjectCourse){
+        this.id = id;
+        this.enrollmentStartDate = enrollmentStartDate;
+        this.enrollmentEndDate = enrollmentEndDate;
+        this.examinationDate = examinationDate;
+        this.room = room;
+        this.appello = appello;
+        this.session = session;
+        this.subjectCourse = subjectCourse;
+    }
+    public Exam(UUID id, LocalDate enrollmentStartDate, LocalDate enrollmentEndDate, LocalDate examinationDate, RoomEnum room, AppelloEnum appello, SessionEnum session, SubjectCourse subjectCourse, Boolean gradable, Boolean verbalizable, LocalDate verbaleDate, Integer verbaleNumber, List<ExamEnrollment> enrollments){
+        this.id = id;
+        this.enrollmentStartDate = enrollmentStartDate;
+        this.enrollmentEndDate = enrollmentEndDate;
+        this.examinationDate = examinationDate;
+        this.room = room;
+        this.appello = appello;
+        this.session = session;
+        this.subjectCourse = subjectCourse;
+        this.gradable = gradable;
+        this.verbalizable = verbalizable;
+        this.verbaleDate = verbaleDate;
+        this.verbaleNumber = verbaleNumber;
+        this.enrollments = enrollments;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public LocalDate getEnrollmentStartDate(){

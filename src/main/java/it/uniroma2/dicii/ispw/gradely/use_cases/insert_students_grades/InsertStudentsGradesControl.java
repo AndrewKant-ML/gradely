@@ -1,6 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades;
 
 import it.uniroma2.dicii.ispw.gradely.beans_general.*;
+import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.ExamResultConfirmationEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum;
@@ -33,12 +34,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class InsertStudentsGradesControl implements TimerObserver {
+public class InsertStudentsGradesControl extends TimerObserver {
 
     private static final Logger logger = Logger.getLogger(InsertStudentsGradesControl.class.getName());
 
     InsertStudentsGradesControl() {
-
+        super();
     }
 
     /**
@@ -167,7 +168,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
      * @param list
      * @throws MissingAuthorizationException
      */
-    void saveExamResults(String tokenKey, StudentGradeListBean list) throws MissingAuthorizationException, DAOException, UserNotFoundException, PropertyException, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException {
+    void saveExamResults(String tokenKey, StudentGradeListBean list) throws MissingAuthorizationException, DAOException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException, WrongTimerTypeException, PropertyException, ResourceNotFoundException {
         Professor professor = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getProfessorRole();
         ExamBean examBean = list.getExam();
         Exam exam = ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(
@@ -195,7 +196,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
      *
      * @param bean
      */
-    private void saveExamResult(StudentGradeBean bean) throws DAOException {
+    private void saveExamResult(StudentGradeBean bean) throws DAOException, MissingAuthorizationException {
         ExamEnrollmentLazyFactory.getInstance().saveExamResult(ExamEnrollmentLazyFactory.getInstance().getExamEnrollmentByExamAndStudent(bean.getEnrollmentBean().getExam(), bean.getEnrollmentBean().getStudent()), new ExamResult(bean.getExamResultBean().getGrade(),bean.getExamResultBean().getResult(), ExamResultConfirmationEnum.NULL));
     }
 
@@ -273,7 +274,7 @@ public class InsertStudentsGradesControl implements TimerObserver {
      *
      * @param exam
      */
-    private void notifyExamProtocolization(Exam exam) throws DAOException, MissingAuthorizationException {
+    private void notifyExamProtocolization(Exam exam) throws DAOException, MissingAuthorizationException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException {
         for (ExamEnrollment e : exam.getEnrollments()){
             PendingEventLazyFactory.getInstance().createNewPendingEvent(List.of(e.getStudent().getCodiceFiscale()),PendingEventTypeEnum.EXAM_VERBALIZED, exam);
         }

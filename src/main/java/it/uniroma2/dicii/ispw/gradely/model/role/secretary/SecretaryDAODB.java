@@ -62,7 +62,8 @@ public class SecretaryDAODB  extends DAODBAbstract<Secretary> implements Abstrac
                 List.of("dipartimento"),
                 List.of(dipartimento.value),
                 excludedList,
-                null
+                null,
+                false
         );
     }
 

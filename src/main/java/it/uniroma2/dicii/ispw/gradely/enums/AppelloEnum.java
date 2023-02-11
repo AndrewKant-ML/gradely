@@ -14,4 +14,11 @@ public enum AppelloEnum {
     AppelloEnum(Integer value) {
         this.value = value;
     }
+
+    public static AppelloEnum getAppelloByValue(int value) {
+        for (AppelloEnum a : values())
+            if (a.value == value)
+                return a;
+        return null;
+    }
 }

@@ -1,22 +1,23 @@
 package it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment;
 
 import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
-import it.uniroma2.dicii.ispw.gradely.exceptions.MissingAuthorizationException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ExamEnrollmentDAODB extends DAODBAbstract<ExamEnrollment> implements AbstractExamEnrollmentDAO {
-    protected static AbstractExamEnrollmentDAO instance;
+public class ExamEnrollmentDAODB extends DAODBAbstract<ExamEnrollment> implements ExamEnrollmentDAOInterface {
+    protected static ExamEnrollmentDAOInterface instance;
 
     private ExamEnrollmentDAODB(){
 
     }
 
-    public static synchronized AbstractExamEnrollmentDAO getInstance(){
+    public static synchronized ExamEnrollmentDAOInterface getInstance(){
         if (instance == null){
             instance = new ExamEnrollmentDAODB();
         }
@@ -49,24 +50,17 @@ public class ExamEnrollmentDAODB extends DAODBAbstract<ExamEnrollment> implement
     }
 
     @Override
-    public void update(ExamEnrollment enrollment){
+    public void update(ExamEnrollment examEnrollment){
         System.out.println("Updated");
     }
 
     @Override
-    protected void setInsertQueryParametersValue(PreparedStatement stmt, ExamEnrollment examEnrollment) throws SQLException {
-
+    protected ExamEnrollment queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, ObjectNotFoundException {
+        return null;
     }
 
     @Override
-    protected void setUpdateQueryParametersValue(PreparedStatement stmt, ExamEnrollment examEnrollment) throws SQLException, MissingAuthorizationException {
-
+    protected String setGetListQueryIdentifiersValue(ExamEnrollment examEnrollment, int valueNumber) throws DAOException, WrongListQueryIdentifierValue {
+        return null;
     }
-
-    @Override
-    protected void setQueryIdentifiers(PreparedStatement stmt, List<String> identifiers, List<Object> identifiersValues) throws SQLException {
-
-    }
-
-
 }

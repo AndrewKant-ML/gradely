@@ -75,26 +75,26 @@ public abstract class DAODBAbstract<T>{
     /**
      * Queries the DB for a list of objects, excluding all the entries
      * correlated to a given list, to avoid redundant reads from the DB
-     *
+     * <p>
      * Helper methods: getListQueryExclusions, setQueryIdentifiers, getListQueryObjectBuilder
      *
-     * @param what columns name to be selected, generally is a *
-     * @param table the table where to find the information
-     * @param identifiers the name of the columns needed to find the entry in the table
+     * @param columns          columns name to be selected, generally is a *
+     * @param table            the table where to find the information
+     * @param identifiers      the name of the columns needed to find the entry in the table
      * @param identifiersValue the value of such identifiers
-     * @param exclusions the list of objects to be excluded from the query
+     * @param exclusions       the list of objects to be excluded from the query
      * @return a list of objects of the requested type
      * @throws UserNotFoundException
-     * @throws DAOException thrown if errors occur while retrieving data from persistence layer
-     * @throws PropertyException thrown if errors occur while loading properties from .properties file
+     * @throws DAOException              thrown if errors occur while retrieving data from persistence layer
+     * @throws PropertyException         thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
-    protected List<T> getListQuery(String what,String table, List<String> identifiers, List<Object> identifiersValue, List<T> exclusions, List<Object> objects, Boolean wantAll) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, UnrecognizedRoleException, WrongListQueryIdentifierValue, WrongDegreeCourseCodeException, ObjectNotFoundException {
+    protected List<T> getListQuery(String table, List<String> identifiers, List<Object> identifiersValue, List<T> exclusions, List<Object> objects, Boolean wantAll) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, UnrecognizedRoleException, WrongListQueryIdentifierValue, WrongDegreeCourseCodeException, ObjectNotFoundException {
         String query;
         if(wantAll.equals(Boolean.FALSE))
-            query = String.format("select %s from %s where %s",what,table, andStringBuilder(identifiers, identifiersValue));
+            query = String.format("select * from %s where %s",table, andStringBuilder(identifiers, identifiersValue));
         else
-            query = String.format("select %s from %s",what,table);
+            query = String.format("select * from %s",table);
 
         String finalQuery;
         if (exclusions.isEmpty()) {
