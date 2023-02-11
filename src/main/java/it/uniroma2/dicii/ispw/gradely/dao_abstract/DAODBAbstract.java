@@ -94,25 +94,28 @@ public abstract class DAODBAbstract<T>{
         if(wantAll.equals(Boolean.FALSE))
             query = String.format("select * from %s where %s",table, andStringBuilder(identifiers, identifiersValue));
         else
-            query = String.format("select * from %s",table);
+            query = String.format("select * from %s", table);
 
         String finalQuery;
         if (exclusions.isEmpty()) {
             finalQuery = query;
         } else {
-            finalQuery = getListQueryExclusions(query,identifiers,exclusions);
+            finalQuery = getListQueryExclusions(query, identifiers, exclusions);
         }
         List<T> list = new ArrayList<>();
-        try (Connection connection = DBConnection.getInstance().getConnection();
-             PreparedStatement stmt = connection.prepareStatement(finalQuery, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)){
-            if (wantAll.equals(Boolean.FALSE))
-            setQueryQuestionMarksValue(stmt, identifiersValue,1);
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    list.add(queryObjectBuilder(rs, objects));
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            try (
+                    PreparedStatement stmt = connection.prepareStatement(finalQuery, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
+                if (wantAll.equals(Boolean.FALSE))
+                    setQueryQuestionMarksValue(stmt, identifiersValue, 1);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    while (rs.next()) {
+                        list.add(queryObjectBuilder(rs, objects));
+                    }
+                } catch (PropertyException | ResourceNotFoundException e) {
+                    throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
                 }
-            } catch (PropertyException | ResourceNotFoundException e) {
-                throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
             }
         } catch (SQLException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
@@ -159,17 +162,20 @@ public abstract class DAODBAbstract<T>{
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
     protected T getQuery(String table, List<String> identifiers, List<Object> identifiersValues, List<Object> objects) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, ObjectNotFoundException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
-        String query = String.format("select * from %s where %s", table, andStringBuilder(identifiers,identifiersValues));
-        try (Connection connection = DBConnection.getInstance().getConnection();
-             PreparedStatement stmt = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)){
-            setQueryQuestionMarksValue(stmt, identifiersValues,1);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.first()) {
-                    return queryObjectBuilder(rs, objects);
-                } else
-                    throw new ObjectNotFoundException(ExceptionMessagesEnum.OBJ_NOT_FOUND.message);
-            } catch (PropertyException | ResourceNotFoundException e) {
-                throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        String query = String.format("select * from %s where %s", table, andStringBuilder(identifiers, identifiersValues));
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            try (
+                    PreparedStatement stmt = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
+                setQueryQuestionMarksValue(stmt, identifiersValues, 1);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (rs.first()) {
+                        return queryObjectBuilder(rs, objects);
+                    } else
+                        throw new ObjectNotFoundException(ExceptionMessagesEnum.OBJ_NOT_FOUND.message);
+                } catch (PropertyException | ResourceNotFoundException e) {
+                    throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+                }
             }
         } catch (SQLException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
