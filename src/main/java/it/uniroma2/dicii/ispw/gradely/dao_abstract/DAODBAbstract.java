@@ -163,19 +163,21 @@ public abstract class DAODBAbstract<T>{
      */
     protected T getQuery(String table, List<String> identifiers, List<Object> identifiersValues, List<Object> objects) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, ObjectNotFoundException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         String query = String.format("select * from %s where %s", table, andStringBuilder(identifiers, identifiersValues));
+        Connection connection;
         try {
-            Connection connection = DBConnection.getInstance().getConnection();
-            try (
-                    PreparedStatement stmt = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
-                setQueryQuestionMarksValue(stmt, identifiersValues, 1);
-                try (ResultSet rs = stmt.executeQuery()) {
-                    if (rs.first()) {
-                        return queryObjectBuilder(rs, objects);
-                    } else
-                        throw new ObjectNotFoundException(ExceptionMessagesEnum.OBJ_NOT_FOUND.message);
-                } catch (PropertyException | ResourceNotFoundException e) {
-                    throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-                }
+            connection = DBConnection.getInstance().getConnection();
+        } catch (SQLException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
+        try (PreparedStatement stmt = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
+            setQueryQuestionMarksValue(stmt, identifiersValues, 1);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.first()) {
+                    return queryObjectBuilder(rs, objects);
+                } else
+                    throw new ObjectNotFoundException(ExceptionMessagesEnum.OBJ_NOT_FOUND.message);
+            } catch (PropertyException | ResourceNotFoundException | SQLException e) {
+                throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
             }
         } catch (SQLException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
