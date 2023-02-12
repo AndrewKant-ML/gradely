@@ -36,12 +36,12 @@ public class ExamDAODB extends DAODBAbstract<Exam> implements ExamDAOInterface {
 
     @Override
     public void insert(Exam exam){
-
+//tbi
     }
 
     @Override
     public void delete(Exam exam){
-
+//tbi
     }
 
     @Override

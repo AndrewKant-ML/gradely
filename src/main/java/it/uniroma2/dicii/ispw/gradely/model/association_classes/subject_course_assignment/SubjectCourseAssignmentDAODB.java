@@ -16,7 +16,14 @@ import java.util.List;
 
 
 public class SubjectCourseAssignmentDAODB extends DAODBAbstract<SubjectCourseAssignment> implements SubjectCourseAssignmentDAOInterface {
-protected static SubjectCourseAssignmentDAOInterface instance;
+    private static final String SUBJECT_COURSE_ASSIGNMENT ="SUBJECT_COURSE_ASSIGNMENT";
+    private static final String SC_NAME ="sc_name";
+    private static final String SC_CODE ="sc_code";
+    private static final String SC_AA ="sc_aa";
+    private static final String SC_CFU ="sc_cfu";
+    private static final String PROFESSOR ="professor";
+
+    protected static SubjectCourseAssignmentDAOInterface instance;
 
     private SubjectCourseAssignmentDAODB() {
 
@@ -29,35 +36,11 @@ protected static SubjectCourseAssignmentDAOInterface instance;
         return instance;
     }
 
-/*    private List<SubjectCourseAssignment> queryMultipleSubjectCourseAssignmentData(String query) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
-        try {
-            Connection connection = DBConnection.getInstance().getConnection();
-            try (PreparedStatement stmt = connection.prepareStatement(query);
-                 ResultSet rs = stmt.executeQuery()) {
-                List<SubjectCourseAssignment> assignments = new ArrayList<>();
-                while (rs.next()) {
-                    assignments.add(new SubjectCourseAssignment(
-                            SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(
-                                    SubjectCourseCodeEnum.getSubjectCourseCodeByValue(rs.getInt("sc_code")),
-                                    rs.getString("sc_name"),
-                                    rs.getInt("sc_cfu"),
-                                    Year.of(rs.getDate("sc_aa").toLocalDate().getYear())
-                            ),
-                            ProfessorLazyFactory.getInstance().getProfessorByUser(UserLazyFactory.getInstance().getUserByCodiceFiscale(rs.getString("professor")))
-                    ));
-                }
-                return assignments;
-            }
-        } catch (SQLException e) {
-            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }
-    }*/
-
     @Override
     public List<SubjectCourseAssignment> getCourseAssignmentsBySubjectCourse(SubjectCourse course, List<SubjectCourseAssignment> exclusions) throws DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue, UserNotFoundException {
         return getListQuery(
-                "SUBJECT_COURSE_ASSIGNMENT",
-                List.of("sc_code","sc_name","sc_cfu","sc_aa"),
+                SUBJECT_COURSE_ASSIGNMENT,
+                List.of(SC_CODE,SC_NAME,SC_CFU,SC_AA),
                 List.of(course.getCode().value,course.getName(),course.getCfu(), Date.valueOf(course.getAcademicYear().atDay(0))),
                 exclusions,
                 null,
@@ -68,8 +51,8 @@ protected static SubjectCourseAssignmentDAOInterface instance;
     @Override
     public List<SubjectCourseAssignment> getCourseAssignmentsByProfessor(Professor professor, List<SubjectCourseAssignment> exclusions) throws DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue, UserNotFoundException {
         return getListQuery(
-                "SUBJECT_COURSE_ASSIGNMENT",
-                List.of("professor"),
+                SUBJECT_COURSE_ASSIGNMENT,
+                List.of(PROFESSOR),
                 List.of(professor.getCodiceFiscale()),
                 exclusions,
                 List.of(professor),
@@ -80,7 +63,7 @@ protected static SubjectCourseAssignmentDAOInterface instance;
     @Override
     public void insert(SubjectCourseAssignment subjectCourseAssignment) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
         insertQuery(
-                "SUBJECT_COURSE_ASSIGNMENT",
+                SUBJECT_COURSE_ASSIGNMENT,
                 List.of(subjectCourseAssignment.getProfessor().getCodiceFiscale(),subjectCourseAssignment.getSubjectCourse().getCode().value,subjectCourseAssignment.getSubjectCourse().getName(),subjectCourseAssignment.getSubjectCourse().getCfu(),Date.valueOf(subjectCourseAssignment.getSubjectCourse().getAcademicYear().atDay(0)))
         );
     }
@@ -88,8 +71,8 @@ protected static SubjectCourseAssignmentDAOInterface instance;
     @Override
     public void delete(SubjectCourseAssignment subjectCourseAssignment) throws DAOException, PropertyException, ResourceNotFoundException {
         deleteQuery(
-                "SUBJECT_COURSE_ASSIGNMENT",
-                List.of("professor","sc_code","sc_name","sc_cfu","sc_aa"),
+                SUBJECT_COURSE_ASSIGNMENT,
+                List.of(PROFESSOR,SC_CODE,SC_NAME,SC_CFU,SC_AA),
                 List.of(subjectCourseAssignment.getProfessor().getCodiceFiscale(),subjectCourseAssignment.getSubjectCourse().getCode().value,subjectCourseAssignment.getSubjectCourse().getName(),subjectCourseAssignment.getSubjectCourse().getCfu(),Date.valueOf(subjectCourseAssignment.getSubjectCourse().getAcademicYear().atDay(0)))
 
         );
@@ -98,13 +81,13 @@ protected static SubjectCourseAssignmentDAOInterface instance;
 
     @Override
     public void update(SubjectCourseAssignment subjectCourseAssignment){
-
+        //tbi
     }
 
     @Override
     protected SubjectCourseAssignment queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, ObjectNotFoundException, WrongListQueryIdentifierValue {
         return new SubjectCourseAssignment(
-                SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(SubjectCourseCodeEnum.getSubjectCourseCodeByValue(rs.getInt("sc_code")),rs.getString("sc_name"),rs.getInt("cfu"),Year.of(rs.getDate("aa").toLocalDate().getYear())),
+                SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(SubjectCourseCodeEnum.getSubjectCourseCodeByValue(rs.getInt(SC_CODE)),rs.getString(SC_NAME),rs.getInt("cfu"),Year.of(rs.getDate("aa").toLocalDate().getYear())),
                 (Professor) objects.get(0)
         );
     }

@@ -216,7 +216,7 @@ public abstract class DAODBAbstract<T>{
      */
     protected void deleteQuery(String table, List<String> identifiers, List<Object> identifiersValue) throws PropertyException, ResourceNotFoundException, DAOException {
         if (identifiers.size()!=identifiersValue.size())
-            throw new DAOException("id and values number don't match "); //TODO implementare exception
+            throw new DAOException(ExceptionMessagesEnum.NUMBERS_DONT_MATCH.message); //TODO implementare exception
         String query = String.format("delete from %s where %s",table, andStringBuilder(identifiers, identifiersValue));
         setQuestionMarksAndExecuteQuery(identifiersValue, query);
     }
@@ -260,7 +260,7 @@ public abstract class DAODBAbstract<T>{
      */
     protected void updateQuery(String table, List<String> parameters, List<Object> parametersValue, List<String> identifiers, List<Object> identifiersValue) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
         if (identifiers.size() != identifiersValue.size())
-            throw new DAOException("id and values number don't match "); //TODO implementare exception
+            throw new DAOException(ExceptionMessagesEnum.NUMBERS_DONT_MATCH.message); //TODO implementare exception
         StringBuilder columnBuilder = commaStringBuilder(parameters, parametersValue);
         StringBuilder identifierBuilder = andStringBuilder(identifiers, identifiersValue);
         String query = String.format("update %s set %s where %s", table, columnBuilder, identifierBuilder);
@@ -289,7 +289,7 @@ public abstract class DAODBAbstract<T>{
     private StringBuilder commaStringBuilder(List<String> names, List<Object> values) throws DAOException {
         StringBuilder builder = new StringBuilder();
         if (names.size()!=values.size())
-            throw new DAOException("id and values number don't match "); //TODO implementare exception
+            throw new DAOException(ExceptionMessagesEnum.NUMBERS_DONT_MATCH.message); //TODO implementare exception
         for (String s : names)
             builder.append(s).append(" = ? ,");
         builder.deleteCharAt(builder.length()-1);
@@ -305,11 +305,23 @@ public abstract class DAODBAbstract<T>{
      */
     private StringBuilder andStringBuilder(List<String> names, List<Object> values) throws DAOException {
         if (names.size()!=values.size())
-            throw new DAOException("id and values number don't match "); //TODO implementare exception
+            throw new DAOException(ExceptionMessagesEnum.NUMBERS_DONT_MATCH.message); //TODO implementare exception
         StringBuilder builder = new StringBuilder();
         for (String s : names)
             builder.append(s).append(" = ? and ");
         builder.delete(builder.length() - 5, builder.length());
         return builder;
+    }
+
+    protected void queryAndAddToList(String query, List<String> list) throws DAOException, PropertyException, ResourceNotFoundException {
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+             ResultSet rs = stmt.executeQuery()){
+            while (rs.next()) {
+                list.add(rs.getString("recipient"));
+            }
+        } catch (SQLException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
     }
 }

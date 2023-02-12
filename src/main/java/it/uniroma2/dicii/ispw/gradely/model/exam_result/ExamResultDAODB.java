@@ -40,17 +40,17 @@ public class ExamResultDAODB extends DAODBAbstract<ExamResult> implements ExamRe
 
     @Override
     public void insert(ExamResult examResult) throws DAOException {
-
+//tbi
     }
 
     @Override
     public void delete(ExamResult examResult) throws DAOException {
-
+//tbi
     }
 
     @Override
     public void update(ExamResult examResult) throws DAOException {
-
+//tbi
     }
 
     @Override

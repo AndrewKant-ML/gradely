@@ -12,6 +12,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class ProfessorDAODB extends DAODBAbstract<Professor> implements AbstractProfessorDAO {
+    private static final String PROFESSOR ="PROFESSOR";
+    private static final String CODICE_FISCALE ="codice_fiscale";
+
     protected static AbstractProfessorDAO instance;
 
     private ProfessorDAODB(){
@@ -28,8 +31,8 @@ public class ProfessorDAODB extends DAODBAbstract<Professor> implements Abstract
     @Override
     public Professor getProfessorByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         return getQuery(
-                "PROFESSOR",
-                List.of("codice_fiscale"),
+                PROFESSOR,
+                List.of(CODICE_FISCALE),
                 List.of(user.getCodiceFiscale()),
                 List.of(user)
         );
@@ -37,7 +40,7 @@ public class ProfessorDAODB extends DAODBAbstract<Professor> implements Abstract
     @Override
     public void insert(Professor professor) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
         insertQuery(
-                "PROFESSOR",
+                PROFESSOR,
                 List.of(professor.getCodiceFiscale(),professor.getMatricola(), professor.getDipartimento().value)
         );
     }
@@ -45,8 +48,8 @@ public class ProfessorDAODB extends DAODBAbstract<Professor> implements Abstract
     @Override
     public void delete(Professor professor) throws DAOException, PropertyException, ResourceNotFoundException {
         deleteQuery(
-                "PROFESSOR",
-                List.of("codice_fiscale"),
+                PROFESSOR,
+                List.of(CODICE_FISCALE),
                 List.of(professor.getCodiceFiscale())
         );
     }
@@ -54,10 +57,10 @@ public class ProfessorDAODB extends DAODBAbstract<Professor> implements Abstract
     @Override
     public void update(Professor professor) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
         updateQuery(
-                "PROFESSOR",
+                PROFESSOR,
                 List.of("matricola", "dipartimento"),
                 List.of(professor.getMatricola(),professor.getDipartimento().value),
-                List.of("codice_fiscale"),
+                List.of(CODICE_FISCALE),
                 List.of(professor.getCodiceFiscale())
         );
     }

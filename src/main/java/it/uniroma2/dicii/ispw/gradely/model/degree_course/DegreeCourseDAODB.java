@@ -15,6 +15,8 @@ import java.util.List;
 
 
 public class DegreeCourseDAODB extends DAODBAbstract<DegreeCourse> implements DegreeCourseDAOInterface {
+    private static final String DEGREE_COURSE = "DEGREE_COURSE";
+    
     protected static DegreeCourseDAOInterface instance;
     private DegreeCourseDAODB() {
 
@@ -160,17 +162,17 @@ public class DegreeCourseDAODB extends DAODBAbstract<DegreeCourse> implements De
 
     @Override
     public void insert(DegreeCourse degreeCourse) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
-        insertQuery("DEGREE_COURSE", List.of(degreeCourse));
+        insertQuery(DEGREE_COURSE, List.of(degreeCourse));
     }
 
     @Override
     public void delete(DegreeCourse degreeCourse) throws DAOException, PropertyException, ResourceNotFoundException {
-        deleteQuery("DEGREE_COURSE",List.of("code","name"),List.of(degreeCourse.getCode(),degreeCourse.getName()));
+        deleteQuery(DEGREE_COURSE,List.of("code","name"),List.of(degreeCourse.getCode(),degreeCourse.getName()));
     }
 
     @Override
     public void update(DegreeCourse degreeCourse) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
-        updateQuery("DEGREE_COURSE",List.of("code","name","coordinatore","test_type","dipartimento","facolta"),List.of("code","name"),List.of(String.valueOf(degreeCourse.getCode().value),degreeCourse.getName()),List.of(degreeCourse));
+        updateQuery(DEGREE_COURSE,List.of("code","name","coordinatore","test_type","dipartimento","facolta"),List.of("code","name"),List.of(String.valueOf(degreeCourse.getCode().value),degreeCourse.getName()),List.of(degreeCourse));
     }
 
     @Override

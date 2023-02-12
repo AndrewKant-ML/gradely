@@ -12,6 +12,9 @@ import java.util.List;
 
 
 public class SubjectCourseDAODB extends DAODBAbstract<SubjectCourse> implements SubjectCourseDAOInterface {
+    private static final String SUBJECT_COURSE ="SUBJECT_COURSE";
+
+
     protected static SubjectCourseDAOInterface instance;
 
     public SubjectCourseDAODB() {
@@ -41,7 +44,7 @@ public class SubjectCourseDAODB extends DAODBAbstract<SubjectCourse> implements 
     @Override
     public SubjectCourse getSubjectCourseByNameCodeCfuAndAcademicYear(String name, SubjectCourseCodeEnum code, Integer cfu, Year academicYear) throws ObjectNotFoundException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         return getQuery(
-                "SUBJECT_COURSE",
+                SUBJECT_COURSE,
                 List.of("code","name","cfu","aa"),
                 List.of(code.value,name,cfu,Date.valueOf(academicYear.atDay(1))),
                 null
@@ -52,7 +55,7 @@ public class SubjectCourseDAODB extends DAODBAbstract<SubjectCourse> implements 
     @Override
     public void insert(SubjectCourse subjectCourse) throws PropertyException, ResourceNotFoundException, DAOException, MissingAuthorizationException {
         insertQuery(
-                "SUBJECT_COURSE",
+                SUBJECT_COURSE,
                 List.of(subjectCourse.getCode().value,subjectCourse.getName(),subjectCourse.getCfu(),Date.valueOf(subjectCourse.getAcademicYear().atDay(0)))
         );
 
@@ -61,7 +64,7 @@ public class SubjectCourseDAODB extends DAODBAbstract<SubjectCourse> implements 
     @Override
     public void delete(SubjectCourse subjectCourse) throws PropertyException, ResourceNotFoundException, DAOException {
         deleteQuery(
-                "SUBJECT_COURSE",
+                SUBJECT_COURSE,
                 List.of("code", "name", "cfu", "aa"),
                 List.of(subjectCourse.getCode().value,subjectCourse.getName(),subjectCourse.getCfu(),Date.valueOf(subjectCourse.getAcademicYear().atDay(0)))
         );

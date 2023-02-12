@@ -95,17 +95,17 @@ public class TestDAODB extends DAODBAbstract<Test> implements TestDAOAbstract {
 
     @Override
     public void insert(Test test) {
-
+//tbi
     }
 
     @Override
     public void delete(Test test) {
-
+//tbi
     }
 
     @Override
     public void update(Test test) {
-
+//tbi
     }
 
     @Override

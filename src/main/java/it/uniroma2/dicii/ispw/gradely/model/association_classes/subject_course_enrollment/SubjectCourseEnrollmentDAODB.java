@@ -31,22 +31,22 @@ public class SubjectCourseEnrollmentDAODB extends DAODBAbstract<SubjectCourseEnr
 
     @Override
     public List<SubjectCourseEnrollment> getSubjectCourseEnrollmentsByStudent(Student student){
-        return new ArrayList<>(); // TODO implement
+        return new ArrayList<>(); //tbi
     }
 
     @Override
     public void insert(SubjectCourseEnrollment subjectCourseEnrollment){
-
+//tbi
     }
 
     @Override
     public void delete(SubjectCourseEnrollment subjectCourseEnrollment){
-
+//tbi
     }
 
     @Override
     public void update(SubjectCourseEnrollment subjectCourseEnrollment){
-
+//tbi
     }
 
     @Override

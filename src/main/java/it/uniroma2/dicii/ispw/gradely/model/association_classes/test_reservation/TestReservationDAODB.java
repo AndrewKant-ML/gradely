@@ -50,17 +50,17 @@ public class TestReservationDAODB extends DAODBAbstract<Test> implements TestRes
 
     @Override
     public void insert(Test test) {
-
+//tbi
     }
 
     @Override
     public void delete(Test test) {
-
+//tbi
     }
 
     @Override
     public void update(Test test) {
-
+//tbi
     }
 
     @Override
