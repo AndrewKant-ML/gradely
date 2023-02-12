@@ -9,7 +9,7 @@ public enum AppelloEnum {
     A6(6)
     ;
 
-    public Integer value;
+    public final Integer value;
 
     AppelloEnum(Integer value) {
         this.value = value;

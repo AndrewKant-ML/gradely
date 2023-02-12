@@ -1,7 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment;
 
-import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
+import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 
@@ -31,22 +31,22 @@ public class SubjectCourseEnrollmentDAODB extends DAODBAbstract<SubjectCourseEnr
 
     @Override
     public List<SubjectCourseEnrollment> getSubjectCourseEnrollmentsByStudent(Student student){
-        return new ArrayList<>(); //tbi
+        return new ArrayList<>(); //TBI
     }
 
     @Override
     public void insert(SubjectCourseEnrollment subjectCourseEnrollment){
-//tbi
+//TBI
     }
 
     @Override
     public void delete(SubjectCourseEnrollment subjectCourseEnrollment){
-//tbi
+//TBI
     }
 
     @Override
     public void update(SubjectCourseEnrollment subjectCourseEnrollment){
-//tbi
+//TBI
     }
 
     @Override

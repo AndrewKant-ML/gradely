@@ -93,7 +93,7 @@
 
         <ImageView preserveRatio="true" fitWidth="190" fitHeight="135"
                    AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0">
-            <Image url="@images/exams.png"/> <!--TODO find reception image-->
+            <Image url="@images/exams.png"/> <!--TBI find reception image-->
         </ImageView>
 
         <AnchorPane prefWidth="190" prefHeight="65" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"

@@ -27,11 +27,11 @@ public class PendingEventGradeAcceptanceGraphicController implements Initializab
 
     @FXML
     private void rejectGrade() {
-        // TODO implement grade rejection
+        // TBI implement grade rejection
     }
 
     @FXML
     private void acceptGrade() {
-        // TODO implement grade acceptance
+        // TBI implement grade acceptance
     }
 }

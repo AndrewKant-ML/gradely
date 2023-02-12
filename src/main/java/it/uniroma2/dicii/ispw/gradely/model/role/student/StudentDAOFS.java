@@ -16,7 +16,7 @@ public class StudentDAOFS implements StudentDAOInterface {
 
     private static StudentDAOFS instance;
 
-    private final String filename = "student";
+    private static final String filename = "student";
 
     private StudentDAOFS() {
 

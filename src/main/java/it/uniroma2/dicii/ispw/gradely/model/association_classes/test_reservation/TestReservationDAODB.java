@@ -1,9 +1,9 @@
 package it.uniroma2.dicii.ispw.gradely.model.association_classes.test_reservation;
 
-import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
+import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.test.Test;
 
 import java.sql.Connection;
@@ -50,17 +50,17 @@ public class TestReservationDAODB extends DAODBAbstract<Test> implements TestRes
 
     @Override
     public void insert(Test test) {
-//tbi
+//TBI
     }
 
     @Override
     public void delete(Test test) {
-//tbi
+//TBI
     }
 
     @Override
     public void update(Test test) {
-//tbi
+//TBI
     }
 
     @Override

@@ -14,8 +14,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class UserDAODB extends DAODBAbstract<User> implements UserDAOInterface  {
-    private final static  String EMAIL = "email";
-    private final static String CODICE_FISCALE = "codice_fiscale";
+    private static final   String EMAIL = "email";
+    private static final  String CODICE_FISCALE = "codice_fiscale";
     protected static UserDAOInterface instance;
 
     private UserDAODB() {

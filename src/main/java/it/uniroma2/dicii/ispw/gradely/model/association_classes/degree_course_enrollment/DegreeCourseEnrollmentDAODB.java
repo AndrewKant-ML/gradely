@@ -1,8 +1,8 @@
 package it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment;
 
-import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
+import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;

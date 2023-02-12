@@ -1,7 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.user;
 
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
-import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 
 import java.time.LocalDate;

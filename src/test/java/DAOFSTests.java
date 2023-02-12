@@ -5,7 +5,7 @@ import it.uniroma2.dicii.ispw.gradely.model.user.UserLazyFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class DAOFSTests {
+class DAOFSTests {
 
     @Test
     void testProfessorDAO() throws Exception {

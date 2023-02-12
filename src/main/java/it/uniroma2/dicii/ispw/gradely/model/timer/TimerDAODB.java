@@ -1,9 +1,9 @@
 package it.uniroma2.dicii.ispw.gradely.model.timer;
 
-import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
+import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.exam.ExamLazyFactory;
 
 import java.sql.*;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class TimerDAODB extends DAODBAbstract<AbstractTimer> implements TimerDAOInterface {
-    private final static String TIMER = "TIMER";
+    private static final String TIMER = "TIMER";
     
     protected static TimerDAOInterface instance;
 
@@ -39,7 +39,7 @@ public class TimerDAODB extends DAODBAbstract<AbstractTimer> implements TimerDAO
         auxiliaryGetBuilder(newList);
         return newList;
     }
-    private void auxiliaryGetBuilder(List<AbstractTimer> timers) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, UserNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException {
+    private void auxiliaryGetBuilder(List<AbstractTimer> timers) throws DAOException, PropertyException, ResourceNotFoundException {
         for(AbstractTimer t : timers){
 
             String query2 = String.format("select id from TIMER_OBJECT where timer_id = '%s'", t.id);

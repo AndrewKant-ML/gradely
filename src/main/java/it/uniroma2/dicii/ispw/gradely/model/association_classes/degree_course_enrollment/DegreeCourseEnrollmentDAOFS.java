@@ -16,7 +16,7 @@ import java.util.List;
 public class DegreeCourseEnrollmentDAOFS implements DegreeCourseEnrollmentDAOInterface {
 
     private static DegreeCourseEnrollmentDAOFS instance;
-    private final String fileName = "degree_course_enrollment";
+    private static final String fileName = "degree_course_enrollment";
 
     private DegreeCourseEnrollmentDAOFS() {
 

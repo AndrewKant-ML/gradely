@@ -1,9 +1,9 @@
 package it.uniroma2.dicii.ispw.gradely.model.degree_course;
 
-import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
 import it.uniroma2.dicii.ispw.gradely.enums.*;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
+import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.Professor;
 
 import java.sql.Connection;
@@ -132,7 +132,7 @@ public class DegreeCourseDAODB extends DAODBAbstract<DegreeCourse> implements De
      * @throws DAOException thrown if error occurs while executing DB operations
      */
     private List<DegreeCourseCodeEnum> getPrerequisitesCodesByDegreeCourseCode(int code) throws DAOException, PropertyException, ResourceNotFoundException, WrongDegreeCourseCodeException {
-        String query = "select abstract_degree_course as code from DEGREE_COURSE_PREREQUISITE where degree_course_code=%d;"; //TODO fix degree_course_code column name
+        String query = "select abstract_degree_course as code from DEGREE_COURSE_PREREQUISITE where degree_course_code=%d;"; //TBI fix degree_course_code column name
         query = String.format(query, code);
         try {
             Connection connection = DBConnection.getInstance().getConnection();

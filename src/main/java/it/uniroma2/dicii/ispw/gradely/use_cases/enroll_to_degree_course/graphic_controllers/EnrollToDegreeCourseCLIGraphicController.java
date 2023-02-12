@@ -19,7 +19,8 @@ public class EnrollToDegreeCourseCLIGraphicController {
     private final Logger logger = Logger.getLogger(EnrollToDegreeCourseCLIGraphicController.class.getName());
     private final Scanner scanner = new Scanner(System.in);
     private EnrollToDegreeCourseStudentFacade facade;
-    private String tokenKey; // TODO ?
+    private String tokenKey; // TBI ?
+
     private DegreeCourseBean selectedCourse;
 
     public EnrollToDegreeCourseCLIGraphicController(String tokenKey) {
@@ -58,7 +59,7 @@ public class EnrollToDegreeCourseCLIGraphicController {
     }
 
     private int confirmAnagraphicalData() throws MissingAuthorizationException {
-        // TODO use UserData bean
+        // TBI use UserData bean
         Student student = SessionManager.getInstance().getSessionUserByTokenKey(this.tokenKey).getRole().getStudentRole();
         logger.log(Level.FINEST, String.format("Name and surname: %s %s%n", student.getUser().getName(), student.getUser().getSurname()));
         logger.log(Level.FINEST, String.format("Matricola: %s%n", student.getMatricola()));

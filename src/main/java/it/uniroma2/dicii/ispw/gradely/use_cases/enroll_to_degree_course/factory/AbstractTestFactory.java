@@ -10,8 +10,8 @@ public abstract class AbstractTestFactory {
     private static AbstractTestFactory instance = null;
 
     public static synchronized AbstractTestFactory getInstance(TestTypeEnum testTypeEnum){
-        // TODO change to session factory
-        // TODO not singleton
+        // TBI change to session factory
+        // TBI not singleton
         if (instance == null){
             switch (testTypeEnum){
                 case ONLINE -> instance = new MoodleTestFactory();
@@ -26,5 +26,5 @@ public abstract class AbstractTestFactory {
     public abstract AbstractTestBoundary createTestBoundary();
 
     public abstract AbstractTestResult createTestResult(Test test, Boolean testResult, Integer grade, String message);
-    //TODO rivedere forse ci vuole un bean e non un test result model object
+    //TBI rivedere forse ci vuole un bean e non un test result model object
 }

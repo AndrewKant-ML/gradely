@@ -36,16 +36,6 @@ public class SubjectCourse extends AbstractSubjectCourse {
         this.subjectCourseAssignments = subjectCourseAssignments;
     }
 
-    @Override
-    public SubjectCourseCodeEnum getCode(){
-        return super.getCode();
-    }
-
-    @Override
-    public void setCode(SubjectCourseCodeEnum code){
-        super.setCode(code);
-    }
-
     public String getName(){
         return name;
     }

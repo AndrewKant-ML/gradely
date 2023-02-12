@@ -1,10 +1,10 @@
 package it.uniroma2.dicii.ispw.gradely.model.pending_events;
 
-import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
+import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.exam.ExamLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.test_result.TestResutlLazyFactory;
@@ -50,7 +50,7 @@ public class PendingEventDAODB extends DAODBAbstract<PendingEvent> implements Pe
         return newList;
     }
 
-    private void auxiliaryGetBuilder(List<PendingEvent> pendingEvents) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, UserNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException {
+    private void auxiliaryGetBuilder(List<PendingEvent> pendingEvents) throws DAOException, PropertyException, ResourceNotFoundException {
         for(PendingEvent p : pendingEvents){
             List<String> recipients = new ArrayList<>();
             String query = String.format("select recipient from PENDING_EVENT_RECIPIENT where pending_event = '%s'", p.id);

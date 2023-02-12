@@ -14,7 +14,7 @@ import java.util.List;
 public class UserDAOFS implements UserDAOInterface {
 
     private static UserDAOFS instance;
-    private final String fileName = "user";
+    private static final String fileName = "user";
 
     private UserDAOFS() {
         super();

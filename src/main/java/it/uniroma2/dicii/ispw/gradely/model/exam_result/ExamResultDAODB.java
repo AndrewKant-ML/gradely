@@ -34,23 +34,23 @@ public class ExamResultDAODB extends DAODBAbstract<ExamResult> implements ExamRe
                     List.of(exam, student)
             );
         } catch (UserNotFoundException e) {
-            return null; // TODO manage UserNotFoundException
+            return null; // TBI manage UserNotFoundException
         }
     }
 
     @Override
     public void insert(ExamResult examResult) throws DAOException {
-//tbi
+//TBI
     }
 
     @Override
     public void delete(ExamResult examResult) throws DAOException {
-//tbi
+//TBI
     }
 
     @Override
     public void update(ExamResult examResult) throws DAOException {
-//tbi
+//TBI
     }
 
     @Override

@@ -15,8 +15,8 @@ import java.util.List;
 public class SubjectCourseDAOFS implements SubjectCourseDAOInterface {
 
     private static SubjectCourseDAOFS instance;
-    private final String subjectCourseFileName = "subject_course";
-    private final String prerequisiteFileName = "subject_course_prerequisite";
+    private static final String subjectCourseFileName = "subject_course";
+    private static final String prerequisiteFileName = "subject_course_prerequisite";
 
     private SubjectCourseDAOFS() {
         super();

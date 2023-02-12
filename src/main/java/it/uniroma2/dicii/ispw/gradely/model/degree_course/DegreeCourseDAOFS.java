@@ -15,8 +15,8 @@ import java.util.List;
 
 public class DegreeCourseDAOFS implements DegreeCourseDAOInterface {
 
-    private final String degreeCourseFileName = "degree_course";
-    private final String prerequisiteFileName = "degree_course_prerequisite";
+    private static final String degreeCourseFileName = "degree_course";
+    private static final String prerequisiteFileName = "degree_course_prerequisite";
 
     private static DegreeCourseDAOFS instance;
 
