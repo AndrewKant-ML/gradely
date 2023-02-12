@@ -31,7 +31,7 @@ public class ExamEnrollmentDAODB extends DAODBAbstract<ExamEnrollment> implement
         return getListQuery(
                 EXAM_ENROLLMENT,
                 List.of("exam_session","exam_appello","exam_sc_code","exam_sc_name","exam_sc_cfu","exam_sc_aa"),
-                List.of(exam.getSession().value,exam.getAppello().value,exam.getSubjectCourse().getCode().value,exam.getSubjectCourse().getName(),exam.getSubjectCourse().getCfu(), Date.valueOf(exam.getSubjectCourse().getAcademicYear().atDay(0))),
+                List.of(exam.getSession().value,exam.getAppello().value,exam.getSubjectCourse().getCode().value,exam.getSubjectCourse().getName(),exam.getSubjectCourse().getCfu(), Date.valueOf(exam.getSubjectCourse().getAcademicYear().atDay(1))),
                 exclusions,
                 null,
                 false
@@ -55,7 +55,7 @@ public class ExamEnrollmentDAODB extends DAODBAbstract<ExamEnrollment> implement
         return getQuery(
                 EXAM_ENROLLMENT,
                 List.of("student","exam_session","exam_appello","exam_sc_code","exam_sc_name","exam_sc_cfu","exam_sc_aa"),
-                List.of(exam.getSession().value,exam.getAppello().value,exam.getSubjectCourse().getCode().value,exam.getSubjectCourse().getName(),exam.getSubjectCourse().getCfu(), Date.valueOf(exam.getSubjectCourse().getAcademicYear().atDay(0))),
+                List.of(exam.getSession().value,exam.getAppello().value,exam.getSubjectCourse().getCode().value,exam.getSubjectCourse().getName(),exam.getSubjectCourse().getCfu(), Date.valueOf(exam.getSubjectCourse().getAcademicYear().atDay(1))),
                 null
         );
     }

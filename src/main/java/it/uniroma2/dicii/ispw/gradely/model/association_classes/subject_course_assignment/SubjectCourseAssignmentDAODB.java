@@ -41,7 +41,7 @@ public class SubjectCourseAssignmentDAODB extends DAODBAbstract<SubjectCourseAss
         return getListQuery(
                 SUBJECT_COURSE_ASSIGNMENT,
                 List.of(SC_CODE,SC_NAME,SC_CFU,SC_AA),
-                List.of(course.getCode().value,course.getName(),course.getCfu(), Date.valueOf(course.getAcademicYear().atDay(0))),
+                List.of(course.getCode().value,course.getName(),course.getCfu(), Date.valueOf(course.getAcademicYear().atDay(1))),
                 exclusions,
                 null,
                 false
@@ -64,7 +64,7 @@ public class SubjectCourseAssignmentDAODB extends DAODBAbstract<SubjectCourseAss
     public void insert(SubjectCourseAssignment subjectCourseAssignment) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
         insertQuery(
                 SUBJECT_COURSE_ASSIGNMENT,
-                List.of(subjectCourseAssignment.getProfessor().getCodiceFiscale(),subjectCourseAssignment.getSubjectCourse().getCode().value,subjectCourseAssignment.getSubjectCourse().getName(),subjectCourseAssignment.getSubjectCourse().getCfu(),Date.valueOf(subjectCourseAssignment.getSubjectCourse().getAcademicYear().atDay(0)))
+                List.of(subjectCourseAssignment.getProfessor().getCodiceFiscale(),subjectCourseAssignment.getSubjectCourse().getCode().value,subjectCourseAssignment.getSubjectCourse().getName(),subjectCourseAssignment.getSubjectCourse().getCfu(),Date.valueOf(subjectCourseAssignment.getSubjectCourse().getAcademicYear().atDay(1)))
         );
     }
 
@@ -73,7 +73,7 @@ public class SubjectCourseAssignmentDAODB extends DAODBAbstract<SubjectCourseAss
         deleteQuery(
                 SUBJECT_COURSE_ASSIGNMENT,
                 List.of(PROFESSOR,SC_CODE,SC_NAME,SC_CFU,SC_AA),
-                List.of(subjectCourseAssignment.getProfessor().getCodiceFiscale(),subjectCourseAssignment.getSubjectCourse().getCode().value,subjectCourseAssignment.getSubjectCourse().getName(),subjectCourseAssignment.getSubjectCourse().getCfu(),Date.valueOf(subjectCourseAssignment.getSubjectCourse().getAcademicYear().atDay(0)))
+                List.of(subjectCourseAssignment.getProfessor().getCodiceFiscale(),subjectCourseAssignment.getSubjectCourse().getCode().value,subjectCourseAssignment.getSubjectCourse().getName(),subjectCourseAssignment.getSubjectCourse().getCfu(),Date.valueOf(subjectCourseAssignment.getSubjectCourse().getAcademicYear().atDay(1)))
 
         );
         
@@ -99,7 +99,7 @@ public class SubjectCourseAssignmentDAODB extends DAODBAbstract<SubjectCourseAss
             case 1 -> {return String.valueOf(subjectCourseAssignment.getSubjectCourse().getCode().value);}
             case 2 -> {return subjectCourseAssignment.getSubjectCourse().getName();}
             case 3 -> {return String.valueOf(subjectCourseAssignment.getSubjectCourse().getCfu());}
-            case 4 -> {return Date.valueOf(subjectCourseAssignment.getSubjectCourse().getAcademicYear().atDay(0)).toString();}
+            case 4 -> {return Date.valueOf(subjectCourseAssignment.getSubjectCourse().getAcademicYear().atDay(1)).toString();}
             default -> throw new WrongListQueryIdentifierValue(ExceptionMessagesEnum.WRONG_LIST_QUERY_IDENTIFIER_VALUE.message);
         }
     }

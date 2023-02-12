@@ -3,6 +3,7 @@ package it.uniroma2.dicii.ispw.gradely.model.subject_course;
 import it.uniroma2.dicii.ispw.gradely.enums.SubjectCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
+import it.uniroma2.dicii.ispw.gradely.model.exam.ExamLazyFactory;
 
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -56,7 +57,7 @@ public class SubjectCourseDAODB extends DAODBAbstract<SubjectCourse> implements 
     public void insert(SubjectCourse subjectCourse) throws PropertyException, ResourceNotFoundException, DAOException, MissingAuthorizationException {
         insertQuery(
                 SUBJECT_COURSE,
-                List.of(subjectCourse.getCode().value,subjectCourse.getName(),subjectCourse.getCfu(),Date.valueOf(subjectCourse.getAcademicYear().atDay(0)))
+                List.of(subjectCourse.getCode().value,subjectCourse.getName(),subjectCourse.getCfu(),Date.valueOf(subjectCourse.getAcademicYear().atDay(1)))
         );
 
     }
@@ -66,7 +67,7 @@ public class SubjectCourseDAODB extends DAODBAbstract<SubjectCourse> implements 
         deleteQuery(
                 SUBJECT_COURSE,
                 List.of("code", "name", "cfu", "aa"),
-                List.of(subjectCourse.getCode().value,subjectCourse.getName(),subjectCourse.getCfu(),Date.valueOf(subjectCourse.getAcademicYear().atDay(0)))
+                List.of(subjectCourse.getCode().value,subjectCourse.getName(),subjectCourse.getCfu(),Date.valueOf(subjectCourse.getAcademicYear().atDay(1)))
         );
     }
 
@@ -76,12 +77,14 @@ public class SubjectCourseDAODB extends DAODBAbstract<SubjectCourse> implements 
     }
 
     @Override
-    protected SubjectCourse queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, UnrecognizedRoleException {
-        return new SubjectCourse(SubjectCourseCodeEnum.getSubjectCourseCodeByValue(rs.getInt("code")),
+    protected SubjectCourse queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, UnrecognizedRoleException, WrongListQueryIdentifierValue, ObjectNotFoundException, WrongDegreeCourseCodeException {
+        SubjectCourse s = new SubjectCourse(SubjectCourseCodeEnum.getSubjectCourseCodeByValue(rs.getInt("code")),
                 rs.getString("name"),
                 Year.of(rs.getDate("aa").toLocalDate().getYear()),
                 rs.getInt("cfu")
                 );
+        s.setExams(ExamLazyFactory.getInstance().getExamsBySubjectCourse(s));
+        return s;
     }
 
     @Override

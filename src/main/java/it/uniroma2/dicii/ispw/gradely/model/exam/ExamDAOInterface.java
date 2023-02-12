@@ -2,18 +2,17 @@ package it.uniroma2.dicii.ispw.gradely.model.exam;
 
 import it.uniroma2.dicii.ispw.gradely.enums.AppelloEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.SessionEnum;
-import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.MissingAuthorizationException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface ExamDAOInterface {
 
     Exam getExamByAppelloAndSubjectCourseAndSession(AppelloEnum appello, SubjectCourse course, SessionEnum session) throws DAOException;
 
+    List<Exam> getExamsBySubjectCourse(SubjectCourse subjectCourse, List<Exam> exclusions) throws UserNotFoundException, DAOException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException;
     Exam getExamById(UUID id);
 
     /**

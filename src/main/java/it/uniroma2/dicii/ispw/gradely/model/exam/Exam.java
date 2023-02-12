@@ -25,8 +25,6 @@ public class Exam {
     private Integer verbaleNumber;
     private List<ExamEnrollment> enrollments;
 
-    public Exam(){
-    }
     public Exam(LocalDate enrollmentStartDate, LocalDate enrollmentEndDate, LocalDate examinationDate, RoomEnum room, AppelloEnum appello, SessionEnum session, SubjectCourse subjectCourse){
         this.enrollmentStartDate = enrollmentStartDate;
         this.enrollmentEndDate = enrollmentEndDate;
@@ -35,8 +33,21 @@ public class Exam {
         this.appello = appello;
         this.session = session;
         this.subjectCourse = subjectCourse;
+        this.verbalizable = true;
     }
-    public Exam(LocalDate enrollmentStartDate, LocalDate enrollmentEndDate, LocalDate examinationDate, RoomEnum room, AppelloEnum appello, SessionEnum session, SubjectCourse subjectCourse, Boolean gradable, Boolean verbalizable, LocalDate verbaleDate, Integer verbaleNumber, List<ExamEnrollment> enrollments){
+
+    public Exam(UUID id, LocalDate enrollmentStartDate, LocalDate enrollmentEndDate, LocalDate examinationDate, RoomEnum room, AppelloEnum appello, SessionEnum session, SubjectCourse subjectCourse){
+        this.id = id;
+        this.enrollmentStartDate = enrollmentStartDate;
+        this.enrollmentEndDate = enrollmentEndDate;
+        this.examinationDate = examinationDate;
+        this.room = room;
+        this.appello = appello;
+        this.session = session;
+        this.subjectCourse = subjectCourse;
+    }
+    public Exam(UUID id, LocalDate enrollmentStartDate, LocalDate enrollmentEndDate, LocalDate examinationDate, RoomEnum room, AppelloEnum appello, SessionEnum session, SubjectCourse subjectCourse, Boolean gradable, Boolean verbalizable, LocalDate verbaleDate, Integer verbaleNumber){
+        this.id = id;
         this.enrollmentStartDate = enrollmentStartDate;
         this.enrollmentEndDate = enrollmentEndDate;
         this.examinationDate = examinationDate;
@@ -48,17 +59,6 @@ public class Exam {
         this.verbalizable = verbalizable;
         this.verbaleDate = verbaleDate;
         this.verbaleNumber = verbaleNumber;
-        this.enrollments = enrollments;
-    }
-    public Exam(UUID id, LocalDate enrollmentStartDate, LocalDate enrollmentEndDate, LocalDate examinationDate, RoomEnum room, AppelloEnum appello, SessionEnum session, SubjectCourse subjectCourse){
-        this.id = id;
-        this.enrollmentStartDate = enrollmentStartDate;
-        this.enrollmentEndDate = enrollmentEndDate;
-        this.examinationDate = examinationDate;
-        this.room = room;
-        this.appello = appello;
-        this.session = session;
-        this.subjectCourse = subjectCourse;
     }
     public Exam(UUID id, LocalDate enrollmentStartDate, LocalDate enrollmentEndDate, LocalDate examinationDate, RoomEnum room, AppelloEnum appello, SessionEnum session, SubjectCourse subjectCourse, Boolean gradable, Boolean verbalizable, LocalDate verbaleDate, Integer verbaleNumber, List<ExamEnrollment> enrollments){
         this.id = id;
