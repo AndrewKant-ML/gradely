@@ -22,14 +22,10 @@ public class ProfessorLazyFactory {
         return instance;
     }
 
-    public Professor getProfessorByUser(User user) throws DAOException, UserNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
+    public Professor getProfessorByUser(User user) throws DAOException, UserNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue, PropertyException, ResourceNotFoundException {
         for (Professor p : this.professors)
             if (p.getUser().equals(user))
                 return p;
-        try {
-            return DAOFactoryAbstract.getInstance().getProfessorDAO().getProfessorByUser(user);
-        } catch (PropertyException | ResourceNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        return DAOFactoryAbstract.getInstance().getProfessorDAO().getProfessorByUser(user);
     }
 }

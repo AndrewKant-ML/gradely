@@ -19,7 +19,8 @@ public enum ExceptionMessagesEnum {
     RESOURCE_NOT_FOUND("The requested resource has not been found"),
     UNRECOGNIZED_ROLE("Unrecognized user role value"),
     WRONG_DEGREE_COURSE_CODE("Wrong degree course code"),
-    WRONG_LIST_QUERY_IDENTIFIER_VALUE("Wrong list query id value")
+    WRONG_LIST_QUERY_IDENTIFIER_VALUE("Wrong list query id value"),
+    NOT_INSTANTIABLE("Cannot instantiate this utility class")
     ;
 
     public final String message;

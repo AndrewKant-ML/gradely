@@ -7,7 +7,7 @@ import java.util.UUID;
 public abstract class TimerObserver {
     private UUID id;
 
-    public TimerObserver() {
+    protected TimerObserver() {
         this.id = UUID.randomUUID();
     }
 

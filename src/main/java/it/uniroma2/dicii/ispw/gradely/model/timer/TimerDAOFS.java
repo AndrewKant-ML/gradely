@@ -2,6 +2,7 @@ package it.uniroma2.dicii.ispw.gradely.model.timer;
 
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TimerDAOFS implements TimerDAOInterface {
@@ -33,6 +34,6 @@ public class TimerDAOFS implements TimerDAOInterface {
 
     @Override
     public List<AbstractTimer> getAllTimers(List<AbstractTimer> list) throws UserNotFoundException, DAOException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
-        return null;
+        return new ArrayList<>();
     }
 }

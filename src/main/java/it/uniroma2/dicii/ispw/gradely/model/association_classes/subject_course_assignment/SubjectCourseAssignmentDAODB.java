@@ -29,30 +29,6 @@ protected static SubjectCourseAssignmentDAOInterface instance;
         return instance;
     }
 
-/*    private List<SubjectCourseAssignment> queryMultipleSubjectCourseAssignmentData(String query) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
-        try {
-            Connection connection = DBConnection.getInstance().getConnection();
-            try (PreparedStatement stmt = connection.prepareStatement(query);
-                 ResultSet rs = stmt.executeQuery()) {
-                List<SubjectCourseAssignment> assignments = new ArrayList<>();
-                while (rs.next()) {
-                    assignments.add(new SubjectCourseAssignment(
-                            SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(
-                                    SubjectCourseCodeEnum.getSubjectCourseCodeByValue(rs.getInt("sc_code")),
-                                    rs.getString("sc_name"),
-                                    rs.getInt("sc_cfu"),
-                                    Year.of(rs.getDate("sc_aa").toLocalDate().getYear())
-                            ),
-                            ProfessorLazyFactory.getInstance().getProfessorByUser(UserLazyFactory.getInstance().getUserByCodiceFiscale(rs.getString("professor")))
-                    ));
-                }
-                return assignments;
-            }
-        } catch (SQLException e) {
-            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }
-    }*/
-
     @Override
     public List<SubjectCourseAssignment> getCourseAssignmentsBySubjectCourse(SubjectCourse course, List<SubjectCourseAssignment> exclusions) throws DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue, UserNotFoundException {
         return getListQuery(

@@ -46,31 +46,29 @@ public class DegreeCourseDAOFS implements DegreeCourseDAOInterface {
 
     @Override
     public DegreeCourse getDegreeCourseByName(String name) throws DAOException, ResourceNotFoundException, ObjectNotFoundException {
-        /*try {
+        try {
             List<List<String>> lines = new CSVParser().readAllLines(degreeCourseFileName);
             for (List<String> line : lines)
                 if (line.get(1).equals(name))
                     return (parseLine(line));
             throw new ObjectNotFoundException(ExceptionMessagesEnum.OBJ_NOT_FOUND.message);
-        } catch (CsvException e) {
+        } catch (CsvException | WrongDegreeCourseCodeException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }*/
-        return null;
+        }
     }
 
     @Override
     public List<DegreeCourse> getAllDegreeCourses(List<DegreeCourse> degreeCourses) throws DAOException, ResourceNotFoundException {
-        /*try {
+        try {
             List<List<String>> lines = new CSVParser().readAllLines(degreeCourseFileName);
             List<DegreeCourse> newDegreeCourses = new ArrayList<>();
             for (List<String> line : lines)
                 if (checkListPresenceByCode(Integer.parseInt(line.get(0)), degreeCourses))
                     newDegreeCourses.add(parseLine(line));
             return newDegreeCourses;
-        } catch (CsvException e) {
+        } catch (CsvException | WrongDegreeCourseCodeException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }*/
-        return null;
+        }
     }
 
     /**
@@ -89,31 +87,29 @@ public class DegreeCourseDAOFS implements DegreeCourseDAOInterface {
 
     @Override
     public DegreeCourse getDegreeCourseByCoordinatore(Professor professor) throws DAOException, ObjectNotFoundException {
-        /*try {
+        try {
             List<List<String>> lines = new CSVParser().readAllLines(degreeCourseFileName);
             for (List<String> line : lines)
                 if (line.get(3).equals(professor.getCodiceFiscale()))
                     return (parseLine(line));
             throw new ObjectNotFoundException(ExceptionMessagesEnum.OBJ_NOT_FOUND.message);
-        } catch (CsvException | ResourceNotFoundException | DAOException e) {
+        } catch (CsvException | ResourceNotFoundException | DAOException | WrongDegreeCourseCodeException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }*/
-        return null;
+        }
     }
 
     @Override
     public List<AbstractDegreeCourse> getDegreeCoursesByDegreeCourseCodeList(List<DegreeCourseCodeEnum> codes) throws DAOException, ResourceNotFoundException {
-        /*try {
+        try {
             List<List<String>> lines = new CSVParser().readAllLines(degreeCourseFileName);
             List<AbstractDegreeCourse> newDegreeCourses = new ArrayList<>();
             for (List<String> line : lines)
                 if (codes.contains(DegreeCourseCodeEnum.getDegreeCourseCodeByValue(Integer.parseInt(line.get(0)))))
                     newDegreeCourses.add(parseLine(line));
             return newDegreeCourses;
-        } catch (CsvException e) {
+        } catch (CsvException | WrongDegreeCourseCodeException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }*/
-        return null;
+        }
     }
 
     private List<DegreeCourseCodeEnum> getPrerequisitesCodesByDegreeCourseCode(String code) throws DAOException, ResourceNotFoundException, WrongDegreeCourseCodeException {
@@ -128,21 +124,4 @@ public class DegreeCourseDAOFS implements DegreeCourseDAOInterface {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }
-
-    // TODO implement
-    /*@Override
-    public void insert(DegreeCourse degreeCourse) {
-
-    }
-
-    @Override
-    public void delete(DegreeCourse degreeCourse) {
-
-    }
-
-    @Override
-    public void update(DegreeCourse degreeCourse){
-
-    }*/
-
 }

@@ -21,7 +21,6 @@ public class ExamResultLazyFactory {
         return instance;
     }
 
-
     public void update (ExamResult examResult) throws DAOException {
         /*try {
             DAOFactoryAbstract.getInstance().getExamResultDAO().update(examResult);
