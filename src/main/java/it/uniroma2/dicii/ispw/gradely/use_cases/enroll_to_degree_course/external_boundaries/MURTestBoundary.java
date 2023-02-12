@@ -9,13 +9,14 @@ import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.beans.Te
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class MURTestBoundary extends AbstractTestBoundary {
     @Override
     public TestInfoBean getTestInfo() throws TestRetrivialException {
         try {
             return new TestInfoBean(
-                    "MUR-test",
+                    UUID.fromString("6e1422f6-f707-48a0-8a02-0fc0235667cc"),
                     LocalDate.of(2023, 7, 4),
                     new URL("https://www.mur.gov.it/it"),
                     LocalDate.of(2023, 8, 4),
@@ -28,7 +29,7 @@ public class MURTestBoundary extends AbstractTestBoundary {
     }
 
     @Override
-    public TestReservationBean reserveTest(String testId){
+    public TestReservationBean reserveTest(UUID testId){
         return new TestReservationBean(testId);
     }
 

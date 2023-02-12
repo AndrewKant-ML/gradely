@@ -26,19 +26,19 @@ public class TestLazyFactory {
         return instance;
     }
 
-    public Test saveTestData(DegreeCourse degreeCourse, String id, LocalDate testDate, URL testReservationLink, LocalDate resultsDate, URL infoLink, String place) throws PropertyException, ResourceNotFoundException, DAOException {
+    public Test saveTestData(DegreeCourse degreeCourse, UUID id, LocalDate testDate, URL testReservationLink, LocalDate resultsDate, URL infoLink, String place) throws PropertyException, ResourceNotFoundException, DAOException {
         Test newTest = new Test(
-                degreeCourse, UUID.fromString(id), testDate, testReservationLink, resultsDate, infoLink, place
+                degreeCourse, id, testDate, testReservationLink, resultsDate, infoLink, place
         );
         DAOFactoryAbstract.getInstance().getTestDAO().saveTestInfo(newTest);
         tests.add(newTest);
         return newTest;
     }
 
-    public Test getTestById(String id) throws PropertyException, ResourceNotFoundException, ObjectNotFoundException, DAOException, WrongDegreeCourseCodeException {
+    public Test getTestById(UUID id) throws PropertyException, ResourceNotFoundException, ObjectNotFoundException, DAOException, WrongDegreeCourseCodeException {
         for (Test test : tests)
             if (test.getId().equals(id))
                 return test;
-        return DAOFactoryAbstract.getInstance().getTestDAO().getTestById(id);
+        return DAOFactoryAbstract.getInstance().getTestDAO().getTestById(id.toString());
     }
 }
