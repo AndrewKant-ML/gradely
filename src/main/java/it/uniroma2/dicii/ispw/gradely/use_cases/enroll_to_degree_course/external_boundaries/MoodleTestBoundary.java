@@ -9,13 +9,14 @@ import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.beans.Te
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class MoodleTestBoundary extends AbstractTestBoundary {
     @Override
     public TestInfoBean getTestInfo() throws TestRetrivialException {
         try {
             return new TestInfoBean(
-                    "MOODLE-test",
+                    UUID.fromString("0701eac7-cdab-4e63-ac21-bc87a7ddd2f6"),
                     LocalDate.of(2023, 7, 4),
                     new URL("https://moodle.org/?lang=it"),
                     LocalDate.of(2023, 8, 4),
@@ -28,7 +29,7 @@ public class MoodleTestBoundary extends AbstractTestBoundary {
     }
 
     @Override
-    public TestReservationBean reserveTest(String testId){
+    public TestReservationBean reserveTest(UUID testId){
         return new TestReservationBean(testId);
     }
 

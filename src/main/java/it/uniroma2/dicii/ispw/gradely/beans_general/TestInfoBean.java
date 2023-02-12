@@ -2,10 +2,11 @@ package it.uniroma2.dicii.ispw.gradely.beans_general;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class TestInfoBean {
 
-    private String id;
+    private UUID id;
     private LocalDate testDate;
     private URL testReservationLink;
     private LocalDate resultsDate;
@@ -13,7 +14,7 @@ public class TestInfoBean {
     private String place;
     private int testType;
 
-    public TestInfoBean(String id, LocalDate testDate, URL testReservationLink, LocalDate resultsDate, URL infoLink, String place) {
+    public TestInfoBean(UUID id, LocalDate testDate, URL testReservationLink, LocalDate resultsDate, URL infoLink, String place) {
         this.id = id;
         this.testDate = testDate;
         this.testReservationLink = testReservationLink;
@@ -22,7 +23,7 @@ public class TestInfoBean {
         this.place = place;
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
