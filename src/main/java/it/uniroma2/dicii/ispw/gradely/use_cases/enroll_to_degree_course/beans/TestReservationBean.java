@@ -5,9 +5,9 @@ import java.util.UUID;
 public class TestReservationBean {
 
     private final UUID reservationCode;
-    private final UUID testId;
+    private final String testId;
 
-    public TestReservationBean(UUID testId){
+    public TestReservationBean(String testId){
         this.testId = testId;
         reservationCode = UUID.randomUUID();
     }

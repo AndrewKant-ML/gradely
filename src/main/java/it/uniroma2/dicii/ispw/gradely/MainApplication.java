@@ -17,7 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MainApplication extends Application {
-
+//test ci analysis
     private static final Logger LOGGER = Logger.getLogger(MainApplication.class.getName());
 
     @Override
