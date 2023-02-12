@@ -28,7 +28,7 @@ public class TestInfoGraphicController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
-
+        // Automatically called after FXMLLoader::load() method for initialization
     }
 
     public void setData(TestInfoBean testInfo, DegreeCourseBean degreeCourse){

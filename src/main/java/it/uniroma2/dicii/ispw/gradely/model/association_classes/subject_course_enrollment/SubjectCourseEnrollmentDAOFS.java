@@ -3,6 +3,7 @@ package it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SubjectCourseEnrollmentDAOFS implements AbstractSubjectCourseEnrollmentDAO {
@@ -21,23 +22,23 @@ public class SubjectCourseEnrollmentDAOFS implements AbstractSubjectCourseEnroll
 
     @Override
     public List<SubjectCourseEnrollment> getSubjectCourseEnrollmentsBySubjectCourse(SubjectCourse course){
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
     public List<SubjectCourseEnrollment> getSubjectCourseEnrollmentsByStudent(Student student){
-        return null;
+        return new ArrayList<>();
     }
 
     public void insert(SubjectCourseEnrollment subjectCourseEnrollment){
-
+        // To be implemented
     }
 
-    public void cancel(SubjectCourseEnrollment subjectCourseEnrollment){
-
+    public void delete(SubjectCourseEnrollment subjectCourseEnrollment){
+        // To be implemented
     }
 
     public void update(SubjectCourseEnrollment subjectCourseEnrollment){
-
+        // To be implemented
     }
 }

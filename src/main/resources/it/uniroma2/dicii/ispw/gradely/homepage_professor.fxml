@@ -6,7 +6,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <GridPane alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea"
-          hgap="40" vgap="30" prefWidth="650" prefHeight="430" stylesheets="@styles/home-card-style.css"
+          hgap="40" vgap="30" prefWidth="650" prefHeight="453" stylesheets="@styles/home-card-style.css"
           fx:controller="it.uniroma2.dicii.ispw.gradely.graphic_controllers_general.homepages.ProfessorHomepageGraphicController">
 
     <!-- Exams card -->
@@ -70,7 +70,8 @@
                           AnchorPane.bottomAnchor="0"
                           styleClass="card-description"/>
                 </VBox>
-                <Button HBox.hgrow="NEVER" maxWidth="Infinity" styleClass="card-button" onAction="#openCoursesPage">
+                <Button HBox.hgrow="NEVER" maxWidth="Infinity" styleClass="card-button"
+                        onAction="#underConstructionPageProfessor">
                     <shape>
                         <Circle radius="15"/>
                     </shape>
@@ -109,7 +110,8 @@
                           AnchorPane.bottomAnchor="0"
                           styleClass="card-description"/>
                 </VBox>
-                <Button HBox.hgrow="NEVER" maxWidth="Infinity" styleClass="card-button" onAction="#openReceptionsPage">
+                <Button HBox.hgrow="NEVER" maxWidth="Infinity" styleClass="card-button"
+                        onAction="#underConstructionPageProfessor">
                     <shape>
                         <Circle radius="15"/>
                     </shape>
@@ -147,7 +149,8 @@
                           AnchorPane.bottomAnchor="0"
                           styleClass="card-description"/>
                 </VBox>
-                <Button HBox.hgrow="NEVER" maxWidth="Infinity" styleClass="card-button" onAction="#openCareerPage">
+                <Button HBox.hgrow="NEVER" maxWidth="Infinity" styleClass="card-button"
+                        onAction="#underConstructionPageProfessor">
                     <shape>
                         <Circle radius="15"/>
                     </shape>
@@ -185,7 +188,8 @@
                           AnchorPane.bottomAnchor="0"
                           styleClass="card-description"/>
                 </VBox>
-                <Button HBox.hgrow="NEVER" maxWidth="Infinity" styleClass="card-button" onAction="#openServicesPage">
+                <Button HBox.hgrow="NEVER" maxWidth="Infinity" styleClass="card-button"
+                        onAction="#underConstructionPageProfessor">
                     <shape>
                         <Circle radius="15"/>
                     </shape>
@@ -200,6 +204,7 @@
 
     </AnchorPane>
 
+    <!-- Personal data card -->
     <AnchorPane prefHeight="200" prefWidth="190"
                 styleClass="card"
                 GridPane.columnIndex="2" GridPane.rowIndex="1">
@@ -224,7 +229,7 @@
                           styleClass="card-description"/>
                 </VBox>
                 <Button HBox.hgrow="NEVER" maxWidth="Infinity" styleClass="card-button"
-                        onAction="#openPersonalDataPage">
+                        onAction="#underConstructionPageProfessor">
                     <shape>
                         <Circle radius="15"/>
                     </shape>

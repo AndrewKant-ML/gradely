@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.exam;
 
-import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
+import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.AppelloEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.SessionEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
@@ -36,12 +36,12 @@ public class ExamDAODB extends DAODBAbstract<Exam> implements ExamDAOInterface {
 
     @Override
     public void insert(Exam exam){
-
+//tbi
     }
 
     @Override
-    public void cancel(Exam exam){
-
+    public void delete(Exam exam){
+//tbi
     }
 
     @Override

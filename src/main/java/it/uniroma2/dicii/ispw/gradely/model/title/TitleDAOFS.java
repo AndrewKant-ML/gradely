@@ -2,7 +2,7 @@ package it.uniroma2.dicii.ispw.gradely.model.title;
 
 import com.opencsv.exceptions.CsvException;
 import it.uniroma2.dicii.ispw.gradely.CSVParser;
-import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
+import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.DegreeCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
@@ -64,17 +64,17 @@ public class TitleDAOFS extends DAODBAbstract<Title> implements TitleDAOInterfac
 
     @Override
     public void insert(Title title) throws DAOException {
-
+        // To be implemented
     }
 
     @Override
-    public void cancel(Title title) throws DAOException {
-
+    public void delete(Title title) throws DAOException {
+        // To be implemented
     }
 
     @Override
     public void update(Title title) throws DAOException {
-
+        // To be implemented
     }
 
     @Override

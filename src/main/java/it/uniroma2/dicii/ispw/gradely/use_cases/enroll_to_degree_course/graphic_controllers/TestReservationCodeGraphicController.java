@@ -15,11 +15,7 @@ public class TestReservationCodeGraphicController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
-
-    }
-
-    public void returnToMainPage(){
-        PageNavigationController.getInstance().returnToMainPage();
+        // Automatically called after FXMLLoader::load() method for initialization
     }
 
     public void setTestReservationCode(String code){

@@ -14,7 +14,7 @@ public class PendingEventSimpleGraphicController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        // Automatically called after FXMLLoader::load() method for initialization
     }
 
     public void setMessage(String message) {

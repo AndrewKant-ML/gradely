@@ -2,18 +2,17 @@ package it.uniroma2.dicii.ispw.gradely;
 
 import it.uniroma2.dicii.ispw.gradely.beans_general.UserBean;
 import it.uniroma2.dicii.ispw.gradely.enums.UserErrorMessagesEnum;
+import it.uniroma2.dicii.ispw.gradely.loggers_general.GeneralLogger;
 import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.beans.UserData;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 
 import java.io.IOException;
 import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public final class PageNavigationController {
 
-    private static final Logger LOGGER = Logger.getLogger(PageNavigationController.class.getName());
+    private static final String FILE_EXTENSION = ".fxml";
     private static PageNavigationController instance;
     private BaseGraphicControl baseGraphicController;
     private UserData userData;
@@ -38,7 +37,7 @@ public final class PageNavigationController {
             default ->
                     showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.ROLE_ERROR_TITLE.message, UserErrorMessagesEnum.ROLE_ERROR_MSG.message);
         }
-        viewName = viewName.concat(".fxml");
+        viewName = viewName.concat(FILE_EXTENSION);
         try {
             baseGraphicController.openMainPage(
                     FXMLLoader.load(Objects.requireNonNull(PageNavigationController.class.getResource(viewName))),
@@ -54,13 +53,21 @@ public final class PageNavigationController {
      * @param pageName the name of the view (without the '.fxml' suffix) to be displayed
      */
     public void navigateTo(String pageName) {
-        pageName = pageName.concat(".fxml");
+        if (!pageName.endsWith(FILE_EXTENSION))
+            pageName = pageName.concat(FILE_EXTENSION);
         try {
             baseGraphicController.switchTo(
                     FXMLLoader.load(Objects.requireNonNull(PageNavigationController.class.getResource(pageName))));
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.RESOURCE_LOADING_TITLE.message, UserErrorMessagesEnum.RESOURCE_LOADING_MSG.message, e);
         }
+    }
+
+    /**
+     * Navigates to under construction page
+     */
+    public void navigateToUnderConstructionPage() {
+        navigateTo("under_construction");
     }
 
     public void setBaseGraphicController(BaseGraphicControl baseGraphicController) {
@@ -129,7 +136,7 @@ public final class PageNavigationController {
      * @param e         the Exception which caused the Alert to be shown
      */
     public void showAlert(Alert.AlertType alertType, String title, String message, Exception e) {
-        LOGGER.log(Level.SEVERE, e.toString(), e);
+        GeneralLogger.logSevere(e.getMessage());
         showAlert(alertType, title, message);
     }
 }

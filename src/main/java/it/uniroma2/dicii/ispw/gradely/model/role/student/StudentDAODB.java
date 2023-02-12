@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.role.student;
 
-import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
+import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.DegreeCourseEnrollmentLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.ExamEnrollmentLazyFactory;
@@ -13,6 +13,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class StudentDAODB extends DAODBAbstract<Student> implements StudentDAOInterface {
+    private static final String STUDENT ="STUDENT";
+    private static final String CODICE_FISCALE ="codice_fiscale";
+    
     protected static StudentDAOInterface instance;
 
     private StudentDAODB() {
@@ -36,8 +39,8 @@ public class StudentDAODB extends DAODBAbstract<Student> implements StudentDAOIn
     @Override
     public Student getStudentByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         return getQuery(
-                "STUDENT",
-                List.of("codice_fiscale"),
+                STUDENT,
+                List.of(CODICE_FISCALE),
                 List.of(user.getCodiceFiscale()),
                 List.of(user)
         );
@@ -46,16 +49,16 @@ public class StudentDAODB extends DAODBAbstract<Student> implements StudentDAOIn
     @Override
     public void insert(Student student) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
         insertQuery(
-                "STUDENT",
+                STUDENT,
                 List.of(student.getCodiceFiscale(),student.getMatricola())
         );
     }
 
     @Override
-    public void cancel(Student student) throws DAOException, PropertyException, ResourceNotFoundException {
-        cancelQuery(
-                "STUDENT",
-                List.of("codice_fiscale"),
+    public void delete(Student student) throws DAOException, PropertyException, ResourceNotFoundException {
+        deleteQuery(
+                STUDENT,
+                List.of(CODICE_FISCALE),
                 List.of(student.getCodiceFiscale())
         );
     }
@@ -63,10 +66,10 @@ public class StudentDAODB extends DAODBAbstract<Student> implements StudentDAOIn
     @Override
     public void update(Student student) throws PropertyException, ResourceNotFoundException, DAOException, MissingAuthorizationException {
         updateQuery(
-                "STUDENT",
+                STUDENT,
                 List.of("matricola"),
                 List.of(student.getMatricola()),
-                List.of("codice_fiscale"),
+                List.of(CODICE_FISCALE),
                 List.of(student.getCodiceFiscale())
         );
     }

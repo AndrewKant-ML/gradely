@@ -7,6 +7,7 @@ import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
+import it.uniroma2.dicii.ispw.gradely.model.user.UserLazyFactory;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -29,8 +30,8 @@ public class DegreeCourseEnrollmentDAOFS implements DegreeCourseEnrollmentDAOInt
     }
 
     @Override
-    public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByDegreeCourse(DegreeCourse course) throws DAOException, ResourceNotFoundException, PropertyException {
-        /*try {
+    public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByDegreeCourse(DegreeCourse course, List<DegreeCourseEnrollment> excluded) throws DAOException, PropertyException, ResourceNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException {
+        try {
             List<List<String>> lines = new CSVParser().readAllLines(fileName);
             List<DegreeCourseEnrollment> enrollments = new ArrayList<>();
             for (List<String> line : lines) {
@@ -44,12 +45,11 @@ public class DegreeCourseEnrollmentDAOFS implements DegreeCourseEnrollmentDAOInt
             return enrollments;
         } catch (CsvException | UserNotFoundException | MissingAuthorizationException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }*/
-        return null;
+        }
     }
 
     @Override
-    public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByStudent(Student student) throws DAOException, ResourceNotFoundException, WrongDegreeCourseCodeException {
+    public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByStudent(Student student, List<DegreeCourseEnrollment> exclusions) throws DAOException, ResourceNotFoundException, WrongDegreeCourseCodeException {
         try {
             List<List<String>> lines = new CSVParser().readAllLines(fileName);
             List<DegreeCourseEnrollment> enrollments = new ArrayList<>();
@@ -68,14 +68,14 @@ public class DegreeCourseEnrollmentDAOFS implements DegreeCourseEnrollmentDAOInt
     }
 
     public void insert(DegreeCourseEnrollment degreeCourseEnrollment){
-
+        // To be implemented
     }
 
-    public void cancel(DegreeCourseEnrollment degreeCourseEnrollment){
-
+    public void delete(DegreeCourseEnrollment degreeCourseEnrollment){
+        // To be implemented
     }
 
     public void update(DegreeCourseEnrollment degreeCourseEnrollment){
-
+        // To be implemented
     }
 }

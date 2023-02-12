@@ -50,10 +50,8 @@ public class EnrollToDegreeCourseGraphicController implements Initializable {
             currentStage = 1;
         } catch (MissingAuthorizationException e) {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.AUTHORIZATION_TITLE.message, UserErrorMessagesEnum.MISSING_AUTHORIZATION_MSG.message, e);
-        } catch (DAOException e) {
+        } catch (DAOException | WrongDegreeCourseCodeException e) {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.DATA_RETRIEVAL_TITLE.message, UserErrorMessagesEnum.DATA_RETRIEVAL_MSG.message, e);
-        } catch (WrongDegreeCourseCodeException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -66,6 +64,7 @@ public class EnrollToDegreeCourseGraphicController implements Initializable {
             case 2 -> goToStageThree();
             case 3 -> goToStageFour();
             case 4 -> PageNavigationController.getInstance().returnToMainPage();
+            default -> PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.OUT_OF_BOUND_TITLE.message, UserErrorMessagesEnum.OUT_OF_BOUND_MSG.message);
         }
         currentStage += currentStage >= 4 ? 0 : 1;
     }
@@ -85,6 +84,7 @@ public class EnrollToDegreeCourseGraphicController implements Initializable {
                 nextButton.setText("Next");
                 fourthStage.setVisible(false);
             }
+            default -> PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.OUT_OF_BOUND_TITLE.message, UserErrorMessagesEnum.OUT_OF_BOUND_MSG.message);
         }
         currentStage -= currentStage <= 1 ? 0 : 1;
     }
@@ -116,14 +116,12 @@ public class EnrollToDegreeCourseGraphicController implements Initializable {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.EXTERNAL_ERROR_TITLE.message, msg, e);
         } catch (MissingAuthorizationException e) {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.AUTHORIZATION_TITLE.message, UserErrorMessagesEnum.MISSING_AUTHORIZATION_MSG.message, e);
-        } catch (DAOException e) {
+        } catch (DAOException | WrongDegreeCourseCodeException e) {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.DATA_RETRIEVAL_TITLE.message, UserErrorMessagesEnum.DATA_RETRIEVAL_MSG.message, e);
         } catch (PropertyException e) {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.PROPERTY_VALUE_TITLE.message, UserErrorMessagesEnum.PROPERTY_VALUE_MSG.message, e);
         } catch (ResourceNotFoundException e) {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.RESOURCE_LOADING_TITLE.message, UserErrorMessagesEnum.RESOURCE_LOADING_MSG.message);
-        } catch (WrongDegreeCourseCodeException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -134,15 +132,13 @@ public class EnrollToDegreeCourseGraphicController implements Initializable {
             nextButton.setText("Close");
             fourthStage.setVisible(true);
         } catch (MissingAuthorizationException e) {
-            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.AUTHORIZATION_TITLE.message, UserErrorMessagesEnum.MISSING_AUTHORIZATION_MSG.message);
-        } catch (DAOException e) {
-            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.DATA_RETRIEVAL_TITLE.message, UserErrorMessagesEnum.DATA_RETRIEVAL_MSG.message);
+            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.AUTHORIZATION_TITLE.message, UserErrorMessagesEnum.MISSING_AUTHORIZATION_MSG.message, e);
+        } catch (DAOException | WrongDegreeCourseCodeException e) {
+            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.DATA_RETRIEVAL_TITLE.message, UserErrorMessagesEnum.DATA_RETRIEVAL_MSG.message, e);
         } catch (PropertyException e) {
-            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.PROPERTY_VALUE_TITLE.message, UserErrorMessagesEnum.PROPERTY_VALUE_MSG.message);
+            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.PROPERTY_VALUE_TITLE.message, UserErrorMessagesEnum.PROPERTY_VALUE_MSG.message, e);
         } catch (ResourceNotFoundException e) {
-            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.RESOURCE_LOADING_TITLE.message, UserErrorMessagesEnum.RESOURCE_LOADING_MSG.message);
-        } catch (WrongDegreeCourseCodeException e) {
-            throw new RuntimeException(e);
+            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.RESOURCE_LOADING_TITLE.message, UserErrorMessagesEnum.RESOURCE_LOADING_MSG.message, e);
         }
     }
 }

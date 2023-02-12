@@ -4,7 +4,7 @@ import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_en
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.DegreeCourseEnrollmentDAOFS;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.ExamEnrollmentDAOFS;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.ExamEnrollmentDAOInterface;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.AbstractSubjectCourseAssignmentDAO;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.SubjectCourseAssignmentDAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.SubjectCourseAssignmentDAOFS;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.AbstractSubjectCourseEnrollmentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.SubjectCourseEnrollmentDAOFS;
@@ -37,7 +37,7 @@ import it.uniroma2.dicii.ispw.gradely.model.user.UserDAOInterface;
 
 public class DAOFactoryFS extends DAOFactoryAbstract {
     @Override
-    public AbstractSubjectCourseAssignmentDAO getCourseAssignmentDAO(){
+    public SubjectCourseAssignmentDAOInterface getCourseAssignmentDAO(){
         return SubjectCourseAssignmentDAOFS.getInstance();
     }
     @Override

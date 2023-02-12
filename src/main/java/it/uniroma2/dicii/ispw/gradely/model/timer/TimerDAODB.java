@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.timer;
 
-import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
+import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.UUID;
 
 public class TimerDAODB extends DAODBAbstract<AbstractTimer> implements TimerDAOInterface {
+    private final static String TIMER = "TIMER";
+    
     protected static TimerDAOInterface instance;
 
     private TimerDAODB(){
@@ -27,7 +29,7 @@ public class TimerDAODB extends DAODBAbstract<AbstractTimer> implements TimerDAO
 
     public List<AbstractTimer> getAllTimers(List<AbstractTimer> list) throws UserNotFoundException, DAOException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         List<AbstractTimer> newList = getListQuery(
-                "TIMER",
+                TIMER,
                 List.of("id"),
                 null,
                 list,
@@ -39,18 +41,7 @@ public class TimerDAODB extends DAODBAbstract<AbstractTimer> implements TimerDAO
     }
     private void auxiliaryGetBuilder(List<AbstractTimer> timers) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, UserNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException {
         for(AbstractTimer t : timers){
-            List<String> observers = new ArrayList<>();
-            String query = String.format("select id from TIMER_OBSERVER where timer_id = '%s'", t.id);
-            try (Connection connection = DBConnection.getInstance().getConnection();
-                 PreparedStatement stmt = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                 ResultSet rs = stmt.executeQuery()){
-                while (rs.next()) {
-                    observers.add(rs.getString("recipient"));
-                }
-            } catch (SQLException e) {
-                throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-            }
-            t.setObservers(observers);
+
             String query2 = String.format("select id from TIMER_OBJECT where timer_id = '%s'", t.id);
             try (Connection connection = DBConnection.getInstance().getConnection();
                  PreparedStatement stmt = connection.prepareStatement(query2, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -75,20 +66,26 @@ public class TimerDAODB extends DAODBAbstract<AbstractTimer> implements TimerDAO
         }
 
     }
-
-    @Override
-    public void insert(AbstractTimer timer) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
-        insertQuery("TIMER",List.of(timer.getId(), Date.valueOf(timer.getExpiration())));
+    private void setTimerObservers(AbstractTimer t) throws PropertyException, ResourceNotFoundException, DAOException {
+        List<String> observers = new ArrayList<>();
+        String query = String.format("select id from TIMER_OBSERVER where timer_id = '%s'", t.id);
+        queryAndAddToList(query,observers);
+        t.setObservers(observers);
     }
 
     @Override
-    public void cancel(AbstractTimer timer) throws DAOException, PropertyException, ResourceNotFoundException {
-        cancelQuery("TIMER", List.of("id"),List.of(timer.getId().toString()));
+    public void insert(AbstractTimer timer) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
+        insertQuery(TIMER,List.of(timer.getId(), Date.valueOf(timer.getExpiration())));
+    }
+
+    @Override
+    public void delete(AbstractTimer timer) throws DAOException, PropertyException, ResourceNotFoundException {
+        deleteQuery(TIMER, List.of("id"),List.of(timer.getId().toString()));
     }
 
     @Override
     public void update(AbstractTimer timer) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
-        updateQuery("TIMER",List.of("expiration_date"),List.of(Date.valueOf(timer.getExpiration())),List.of("id"),List.of(timer.getId().toString()));
+        updateQuery(TIMER,List.of("expiration_date"),List.of(Date.valueOf(timer.getExpiration())),List.of("id"),List.of(timer.getId().toString()));
     }
 
     @Override

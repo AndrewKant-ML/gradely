@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.title;
 
-import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
+import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.DegreeCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
@@ -15,6 +15,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class TitleDAODB extends DAODBAbstract<Title> implements TitleDAOInterface {
+    private static final String TITLE = "TITLE";
+    private static final String CODICE_FISCALE ="codice_fiscale";
     protected static TitleDAOInterface instance;
 
     private TitleDAODB() {
@@ -32,7 +34,7 @@ public class TitleDAODB extends DAODBAbstract<Title> implements TitleDAOInterfac
     @Override
     public List<Title> getTitlesByStudent(Student student, List<Title> exclusions) throws DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, UnrecognizedRoleException, WrongListQueryIdentifierValue, WrongDegreeCourseCodeException, ObjectNotFoundException {
         return getListQuery(
-                "TITLE",
+                TITLE,
                 List.of("student"),
                 List.of(student.getCodiceFiscale()),
                 exclusions,
@@ -44,15 +46,15 @@ public class TitleDAODB extends DAODBAbstract<Title> implements TitleDAOInterfac
     @Override
     public void insert(Title title) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
         insertQuery(
-                "TITLE",
+                TITLE,
                 List.of(title.getStudent().getCodiceFiscale(), title.getDegreeCourse().getCode().value, Date.valueOf(title.getAchievementDate()))
         );
     }
 
     @Override
-    public void cancel(Title title) throws DAOException, PropertyException, ResourceNotFoundException {
-        cancelQuery("TITLE",
-                List.of("codice_fiscale", "abstract_degree_course"),
+    public void delete(Title title) throws DAOException, PropertyException, ResourceNotFoundException {
+        deleteQuery(TITLE,
+                List.of(CODICE_FISCALE, "abstract_degree_course"),
                 List.of(title.getStudent().getCodiceFiscale(), title.getDegreeCourse().getCode().value)
         );
     }
@@ -60,10 +62,10 @@ public class TitleDAODB extends DAODBAbstract<Title> implements TitleDAOInterfac
     @Override
     public void update(Title title) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
         updateQuery(
-                "TITLE",
+                TITLE,
                 List.of("achievement_date"),
                 List.of(Date.valueOf(title.getAchievementDate())),
-                List.of("codice_fiscale", "abstract_degree_course"),
+                List.of(CODICE_FISCALE, "abstract_degree_course"),
                 List.of(title.getStudent().getCodiceFiscale(),title.getDegreeCourse().getCode().value)
         );
     }
@@ -72,7 +74,7 @@ public class TitleDAODB extends DAODBAbstract<Title> implements TitleDAOInterfac
     protected Title queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException, WrongDegreeCourseCodeException, ObjectNotFoundException, MissingAuthorizationException, WrongListQueryIdentifierValue {
         return new Title(
                 DegreeCourseLazyFactory.getInstance().getDegreeCourseByDegreeCourseCodeList(List.of(DegreeCourseCodeEnum.getDegreeCourseCodeByValue(rs.getInt("absract_degree_course")))).get(0),
-                StudentLazyFactory.getInstance().getStudentByUser(UserLazyFactory.getInstance().getUserByCodiceFiscale(rs.getString("codice_fiscale"))),
+                StudentLazyFactory.getInstance().getStudentByUser(UserLazyFactory.getInstance().getUserByCodiceFiscale(rs.getString(CODICE_FISCALE))),
                 rs.getDate("achievement_date").toLocalDate()
         );
     }

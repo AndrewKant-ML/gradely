@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.role.secretary;
 
-import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
+import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
@@ -12,6 +12,10 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class SecretaryDAODB  extends DAODBAbstract<Secretary> implements AbstractSecretaryDAO {
+    private static final String SECRETARY ="SECRETARY";
+    private static final String DIPARTIMENTO ="dipartimento";
+    private static final String CODICE_FISCALE ="codice_fiscale";
+
     protected static AbstractSecretaryDAO instance;
 
     private SecretaryDAODB() {
@@ -36,7 +40,7 @@ public class SecretaryDAODB  extends DAODBAbstract<Secretary> implements Abstrac
     @Override
     public Secretary getSecretaryByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         return getQuery(
-                "SECRETARY",
+                SECRETARY,
                 List.of("codice_fiiscale"),
                 List.of(user.getCodiceFiscale()),
                 List.of(user)
@@ -55,8 +59,8 @@ public class SecretaryDAODB  extends DAODBAbstract<Secretary> implements Abstrac
     @Override
     public List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento, List<Secretary> excludedList) throws DAOException, UserNotFoundException, MissingAuthorizationException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, WrongListQueryIdentifierValue, WrongDegreeCourseCodeException {
         return getListQuery(
-                "SECRETARY",
-                List.of("dipartimento"),
+                SECRETARY,
+                List.of(DIPARTIMENTO),
                 List.of(dipartimento.value),
                 excludedList,
                 null,
@@ -66,23 +70,23 @@ public class SecretaryDAODB  extends DAODBAbstract<Secretary> implements Abstrac
 
     @Override
     public void insert(Secretary secretary) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
-        insertQuery("SECRETARY",List.of(secretary.getCodiceFiscale(),secretary.getDipartimento().value));
+        insertQuery(SECRETARY,List.of(secretary.getCodiceFiscale(),secretary.getDipartimento().value));
     }
 
     @Override
-    public void cancel(Secretary secretary) throws DAOException, PropertyException, ResourceNotFoundException {
-        cancelQuery("SECRETARY",List.of("codice_fiscale","dipartimento"), List.of(secretary.getCodiceFiscale(), secretary.getDipartimento().value));
+    public void delete(Secretary secretary) throws DAOException, PropertyException, ResourceNotFoundException {
+        deleteQuery(SECRETARY,List.of(CODICE_FISCALE,DIPARTIMENTO), List.of(secretary.getCodiceFiscale(), secretary.getDipartimento().value));
     }
 
     @Override
     public void update(Secretary secretary) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
-        updateQuery("SECRETARY",List.of("dipartimento"),List.of(secretary.getDipartimento().value),List.of("codice_fiscale"),List.of(secretary.getCodiceFiscale()));
+        updateQuery(SECRETARY,List.of(DIPARTIMENTO),List.of(secretary.getDipartimento().value),List.of(CODICE_FISCALE),List.of(secretary.getCodiceFiscale()));
     }
     @Override
     protected Secretary queryObjectBuilder(ResultSet rs, List<Object> users) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, UnrecognizedRoleException, WrongListQueryIdentifierValue, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         return new Secretary(
-                (users != null) ? (User)users.get(0) : UserLazyFactory.getInstance().getUserByCodiceFiscale(rs.getString("codice_fiscale")),
-                DipartimentoEnum.getDipartimentoByValue(rs.getInt("dipartimento"))
+                (users != null) ? (User)users.get(0) : UserLazyFactory.getInstance().getUserByCodiceFiscale(rs.getString(CODICE_FISCALE)),
+                DipartimentoEnum.getDipartimentoByValue(rs.getInt(DIPARTIMENTO))
         );
     }
     @Override

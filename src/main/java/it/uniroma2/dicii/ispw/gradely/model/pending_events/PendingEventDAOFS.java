@@ -2,6 +2,7 @@ package it.uniroma2.dicii.ispw.gradely.model.pending_events;
 
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,22 +28,22 @@ public class PendingEventDAOFS implements PendingEventDAOInterface {
 
     @Override
     public List<PendingEvent> getAllPendingEvents(List<PendingEvent> list) {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
     public void insert(PendingEvent pendingEvent){
-
+        // To be implemented
     }
 
     @Override
-    public void cancel(PendingEvent pendingEvent){
-
+    public void delete(PendingEvent pendingEvent){
+        // To be implemented
     }
 
     @Override
     public void update(PendingEvent pendingEvent){
-        System.out.println("Updated");
+        // To be implemented
     }
 
 }

@@ -195,7 +195,7 @@ public class InsertStudentsGradesControl extends TimerObserver {
      *
      * @param bean
      */
-    private void saveExamResult(StudentGradeBean bean) throws DAOException, MissingAuthorizationException {
+    private void saveExamResult(StudentGradeBean bean) throws DAOException, MissingAuthorizationException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException {
         ExamEnrollmentLazyFactory.getInstance().saveExamResult(ExamEnrollmentLazyFactory.getInstance().getExamEnrollmentByExamAndStudent(bean.getEnrollmentBean().getExam(), bean.getEnrollmentBean().getStudent()), new ExamResult(bean.getExamResultBean().getGrade(),bean.getExamResultBean().getResult(), ExamResultConfirmationEnum.NULL));
     }
 
@@ -293,7 +293,7 @@ public class InsertStudentsGradesControl extends TimerObserver {
      * @throws WrongTimerTypeException
      */
     @Override
-    public void timeIsUp(AbstractTimer timer) throws WrongTimerTypeException, DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, MissingAuthorizationException, ObjectNotFoundException, UnrecognizedRoleException, WrongListQueryIdentifierValue, WrongDegreeCourseCodeException {
+    public void timeIsUp(AbstractTimer timer) throws WrongTimerTypeException, DAOException, UserNotFoundException, MissingAuthorizationException, ObjectNotFoundException, UnrecognizedRoleException, WrongListQueryIdentifierValue, WrongDegreeCourseCodeException {
         ExamConfirmationTimer concreteTimer = timer.castToExamConfirmationTimer();
         for (ExamEnrollment e : concreteTimer.getObject().getEnrollments()) {
             if (e.getExamResult().getConfirmed() == ExamResultConfirmationEnum.NULL) {

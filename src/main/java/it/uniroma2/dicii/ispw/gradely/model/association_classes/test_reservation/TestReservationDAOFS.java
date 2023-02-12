@@ -21,19 +21,19 @@ public class TestReservationDAOFS implements TestReservationDAOAbstract {
     }
 
     @Override
-    public void addTestReservation(TestReservation testReservation) throws DAOException, PropertyException, ResourceNotFoundException {
-
+    public void addTestReservation(TestReservation testReservation) {
+        // To be implemented
     }
 
     public void insert(Test test){
-
+        // To be implemented
     }
 
-    public void cancel(Test test){
-
+    public void delete(Test test){
+        // To be implemented
     }
 
     public void update(Test test){
-
+        // To be implemented
     }
 }

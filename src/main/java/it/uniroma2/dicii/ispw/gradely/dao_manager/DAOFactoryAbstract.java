@@ -7,7 +7,7 @@ import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment.DegreeCourseEnrollmentDAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.ExamEnrollmentDAOInterface;
-import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.AbstractSubjectCourseAssignmentDAO;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.SubjectCourseAssignmentDAOInterface;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment.AbstractSubjectCourseEnrollmentDAO;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.test_reservation.TestReservationDAOAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseDAOInterface;
@@ -46,7 +46,7 @@ public abstract class DAOFactoryAbstract {
         return me;
     }
 
-    public abstract AbstractSubjectCourseAssignmentDAO getCourseAssignmentDAO();
+    public abstract SubjectCourseAssignmentDAOInterface getCourseAssignmentDAO();
 
     public abstract DegreeCourseEnrollmentDAOInterface getDegreeCourseEnrollmentDAO();
 

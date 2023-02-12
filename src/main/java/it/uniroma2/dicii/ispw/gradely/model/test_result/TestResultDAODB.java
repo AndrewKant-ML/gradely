@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.test_result;
 
-import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
+import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 
 import java.sql.ResultSet;
@@ -22,17 +22,17 @@ public class TestResultDAODB extends DAODBAbstract<AbstractTestResult> implement
 
     @Override
     public void insert(AbstractTestResult abstractTestResult){
-
+//tbi
     }
 
     @Override
-    public void cancel(AbstractTestResult abstractTestResult){
-
+    public void delete(AbstractTestResult abstractTestResult){
+//tbi
     }
 
     @Override
     public void update(AbstractTestResult abstractTestResult){
-
+//tbi
     }
 
     @Override

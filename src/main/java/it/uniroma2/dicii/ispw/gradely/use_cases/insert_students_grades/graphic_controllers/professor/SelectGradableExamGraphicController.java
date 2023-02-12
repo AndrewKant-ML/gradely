@@ -30,7 +30,7 @@ public class SelectGradableExamGraphicController implements Initializable {
     public TableColumn<ExamBeanTableModel, String> session;
     @FXML
     private TableView<ExamBeanTableModel> gradableExamsTable;
-    private List<ExamBean> examBeans;
+    private List<ExamBean> examBeans = new ArrayList<>();
     private ExamBean selectedExam;
 
     @Override

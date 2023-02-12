@@ -11,10 +11,10 @@ import java.util.List;
 
 public class DegreeCourseEnrollmentLazyFactory {
     private static DegreeCourseEnrollmentLazyFactory instance;
-    private final List<DegreeCourseEnrollment> degreeCourseEnrollments;
+    private final List<DegreeCourseEnrollment> factoryObjects;
 
     private DegreeCourseEnrollmentLazyFactory(){
-        degreeCourseEnrollments = new ArrayList<>();
+        factoryObjects = new ArrayList<>();
     }
 
     public static synchronized DegreeCourseEnrollmentLazyFactory getInstance(){
@@ -26,7 +26,7 @@ public class DegreeCourseEnrollmentLazyFactory {
 
     public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByDegreeCourse(DegreeCourse course) throws DAOException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         List<DegreeCourseEnrollment> list = new ArrayList<>();
-        for (DegreeCourseEnrollment e : degreeCourseEnrollments) {
+        for (DegreeCourseEnrollment e : factoryObjects) {
             if (e.getDegreeCourse().equals(course)) {
                 list.add(e);
             }
@@ -49,7 +49,7 @@ public class DegreeCourseEnrollmentLazyFactory {
      */
     public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByStudent(Student student) throws DAOException, WrongDegreeCourseCodeException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, PropertyException, ResourceNotFoundException {
         List<DegreeCourseEnrollment> list = new ArrayList<>();
-        for (DegreeCourseEnrollment e : degreeCourseEnrollments) {
+        for (DegreeCourseEnrollment e : factoryObjects) {
             if (e.getStudent().equals(student)) {
                 list.add(e);
             }

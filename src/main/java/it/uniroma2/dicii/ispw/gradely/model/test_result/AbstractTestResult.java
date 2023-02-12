@@ -9,7 +9,7 @@ public abstract class AbstractTestResult {
     private Integer grade;
     private String message;
 
-    public AbstractTestResult(Test test, Boolean testResult, Integer grade, String message) {
+    protected AbstractTestResult(Test test, Boolean testResult, Integer grade, String message) {
         this.test = test;
         this.testResult = testResult;
         this.grade = grade;

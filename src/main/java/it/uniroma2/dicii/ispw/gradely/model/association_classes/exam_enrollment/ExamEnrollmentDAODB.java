@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment;
 
-import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
+import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
@@ -8,10 +8,11 @@ import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ExamEnrollmentDAODB extends DAODBAbstract<ExamEnrollment> implements ExamEnrollmentDAOInterface {
+    private static final String EXAM_ENROLLMENT ="EXAM_ENROLLMENT";
+
     protected static ExamEnrollmentDAOInterface instance;
 
     private ExamEnrollmentDAODB(){
@@ -28,7 +29,7 @@ public class ExamEnrollmentDAODB extends DAODBAbstract<ExamEnrollment> implement
     @Override
     public List<ExamEnrollment> getExamEnrollmentsByExam(Exam exam, List<ExamEnrollment> exclusions) throws UserNotFoundException, DAOException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         return getListQuery(
-                "EXAM_ENROLLMENT",
+                EXAM_ENROLLMENT,
                 List.of("exam_session","exam_appello","exam_sc_code","exam_sc_name","exam_sc_cfu","exam_sc_aa"),
                 List.of(exam.getSession().value,exam.getAppello().value,exam.getSubjectCourse().getCode().value,exam.getSubjectCourse().getName(),exam.getSubjectCourse().getCfu(), Date.valueOf(exam.getSubjectCourse().getAcademicYear().atDay(0))),
                 exclusions,
@@ -40,7 +41,7 @@ public class ExamEnrollmentDAODB extends DAODBAbstract<ExamEnrollment> implement
     @Override
     public List<ExamEnrollment> getExamEnrollmentsByStudent(Student student, List<ExamEnrollment> exclusions) throws UserNotFoundException, DAOException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         return getListQuery(
-                "EXAM_ENROLLMENT",
+                EXAM_ENROLLMENT,
                 List.of("student"),
                 List.of(student.getCodiceFiscale()),
                 exclusions,
@@ -52,7 +53,7 @@ public class ExamEnrollmentDAODB extends DAODBAbstract<ExamEnrollment> implement
     @Override
     public ExamEnrollment getExamEnrollmentByExamAndStudent(Exam exam, Student student) throws UserNotFoundException, DAOException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         return getQuery(
-                "EXAM_ENROLLMENT",
+                EXAM_ENROLLMENT,
                 List.of("student","exam_session","exam_appello","exam_sc_code","exam_sc_name","exam_sc_cfu","exam_sc_aa"),
                 List.of(exam.getSession().value,exam.getAppello().value,exam.getSubjectCourse().getCode().value,exam.getSubjectCourse().getName(),exam.getSubjectCourse().getCfu(), Date.valueOf(exam.getSubjectCourse().getAcademicYear().atDay(0))),
                 null
@@ -61,12 +62,12 @@ public class ExamEnrollmentDAODB extends DAODBAbstract<ExamEnrollment> implement
 
     @Override
     public void insert(ExamEnrollment examEnrollment){
-
+        //tbi
     }
 
     @Override
-    public void cancel(ExamEnrollment examEnrollment){
-
+    public void delete(ExamEnrollment examEnrollment){
+        //tbi
     }
 
     @Override

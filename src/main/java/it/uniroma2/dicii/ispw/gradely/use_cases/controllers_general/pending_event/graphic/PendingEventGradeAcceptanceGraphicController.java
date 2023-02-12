@@ -17,7 +17,7 @@ public class PendingEventGradeAcceptanceGraphicController implements Initializab
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        // Automatically called after FXMLLoader::load() method for initialization
     }
 
     public void setPendingEvent(PendingEventBean pendingEvent) {

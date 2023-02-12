@@ -1,6 +1,6 @@
 package it.uniroma2.dicii.ispw.gradely.model.pending_events;
 
-import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
+import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DBConnection;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.PendingEventTypeEnum;
@@ -19,6 +19,9 @@ import java.util.UUID;
 
 
 public class PendingEventDAODB extends DAODBAbstract<PendingEvent> implements PendingEventDAOInterface {
+    private static final String TABLE = "PENDING_EVENT";
+    private static final String PENDING_EVENT = "pending_event";
+    
     protected static PendingEventDAOInterface instance;
 
     private PendingEventDAODB(){ 
@@ -35,7 +38,7 @@ public class PendingEventDAODB extends DAODBAbstract<PendingEvent> implements Pe
     @Override
     public List<PendingEvent> getAllPendingEvents(List<PendingEvent> list) throws UserNotFoundException, DAOException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         List<PendingEvent> newList = getListQuery(
-                "PENDING_EVENT",
+                TABLE,
                 List.of("id"),
                 null,
                 list,
@@ -51,15 +54,7 @@ public class PendingEventDAODB extends DAODBAbstract<PendingEvent> implements Pe
         for(PendingEvent p : pendingEvents){
             List<String> recipients = new ArrayList<>();
             String query = String.format("select recipient from PENDING_EVENT_RECIPIENT where pending_event = '%s'", p.id);
-            try (Connection connection = DBConnection.getInstance().getConnection();
-                 PreparedStatement stmt = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                 ResultSet rs = stmt.executeQuery()){
-                while (rs.next()) {
-                    recipients.add(rs.getString("recipient"));
-                }
-            } catch (SQLException e) {
-                throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-            }
+            queryAndAddToList(query,recipients);
             p.setRecipients(recipients);
             String query2 = String.format("select * from PENDING_EVENT_OBJECT where id = %s", p.id);
             try (Connection connection = DBConnection.getInstance().getConnection();
@@ -93,7 +88,7 @@ public class PendingEventDAODB extends DAODBAbstract<PendingEvent> implements Pe
     @Override
     public void insert(PendingEvent pendingEvent) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
         insertQuery(
-                "PENDING_EVENT",
+                TABLE,
                 List.of(pendingEvent.id,pendingEvent.notified,pendingEvent.type.name())
         );
         auxiliaryInsertBuilder(pendingEvent);
@@ -122,10 +117,10 @@ public class PendingEventDAODB extends DAODBAbstract<PendingEvent> implements Pe
     }
 
     @Override
-    public void cancel(PendingEvent pendingEvent) throws DAOException, PropertyException, ResourceNotFoundException {
-        cancelQuery("PENDING_EVENT_OBJECT",List.of("pending_event"),List.of(pendingEvent.id));
-        cancelQuery("PENDING_EVENT_RECIPIENT",List.of("pending_event"),List.of(pendingEvent.id));
-        cancelQuery("PENDING_EVENT",List.of("pending_event"),List.of(pendingEvent.id));
+    public void delete(PendingEvent pendingEvent) throws DAOException, PropertyException, ResourceNotFoundException {
+        deleteQuery("PENDING_EVENT_OBJECT",List.of(PENDING_EVENT),List.of(pendingEvent.id));
+        deleteQuery("PENDING_EVENT_RECIPIENT",List.of(PENDING_EVENT),List.of(pendingEvent.id));
+        deleteQuery(TABLE,List.of(PENDING_EVENT),List.of(pendingEvent.id));
     }
 
     @Override

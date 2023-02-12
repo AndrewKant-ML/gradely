@@ -1,7 +1,14 @@
 package it.uniroma2.dicii.ispw.gradely.model.user;
 
-import it.uniroma2.dicii.ispw.gradely.exceptions.*;
+import com.opencsv.exceptions.CsvException;
+import it.uniroma2.dicii.ispw.gradely.CSVParser;
+import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
+import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.UnrecognizedRoleException;
+import it.uniroma2.dicii.ispw.gradely.exceptions.UserNotFoundException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class UserDAOFS implements UserDAOInterface {
@@ -27,7 +34,8 @@ public class UserDAOFS implements UserDAOInterface {
      * @return a User instance
      */
     private User getUserByLine(List<String> line) throws UnrecognizedRoleException, DAOException, UserNotFoundException {
-        /*User user = new User(
+        // Set user role by RoleEnum
+        return new User(
                 line.get(1),
                 line.get(2),
                 line.get(0),
@@ -35,13 +43,10 @@ public class UserDAOFS implements UserDAOInterface {
                 line.get(4),
                 LocalDate.parse(line.get(5))
         );
-        setUserRoleByRoleEnum(user, UserRoleEnum.getUserRoleByType(Integer.parseInt(line.get(6))));
-        return user;*/
-        return null;
     }
 
     public User getUserByEmail(String email) throws UserNotFoundException, DAOException, ResourceNotFoundException {
-        /*try {
+        try {
             List<List<String>> lines = new CSVParser().readAllLines(fileName);
             for (List<String> line : lines) {
                 if (line.get(3).equals(email))
@@ -50,13 +55,12 @@ public class UserDAOFS implements UserDAOInterface {
             throw new UserNotFoundException(ExceptionMessagesEnum.USER_NOT_FOUND.message);
         } catch (CsvException | UnrecognizedRoleException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }*/
-        return null;
+        }
     }
 
     @Override
     public User getUserByCodiceFiscale(String codiceFiscale) throws UserNotFoundException, DAOException, ResourceNotFoundException {
-        /*try {
+        try {
             List<List<String>> lines = new CSVParser().readAllLines(fileName);
             for (List<String> line : lines) {
                 if (line.get(0).equals(codiceFiscale))
@@ -65,28 +69,22 @@ public class UserDAOFS implements UserDAOInterface {
             throw new UserNotFoundException(ExceptionMessagesEnum.USER_NOT_FOUND.message);
         } catch (CsvException | UnrecognizedRoleException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }*/
-        return null;
-    }
-
-    @Override
-    public List<User> getAll(List<User> registeredUsers) throws UserNotFoundException, DAOException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
-        return null;
+        }
     }
 
     @Override
     public void insert(User user) throws DAOException {
-        //TODO implementare query
+        // To be implemented
     }
 
     @Override
-    public void cancel(User user) throws DAOException {
-
+    public void delete(User user) throws DAOException {
+        // To be implemented
     }
 
     @Override
     public void update(User user) throws DAOException {
-        //TODO implementare query
+        // To be implemented
     }
 
 }

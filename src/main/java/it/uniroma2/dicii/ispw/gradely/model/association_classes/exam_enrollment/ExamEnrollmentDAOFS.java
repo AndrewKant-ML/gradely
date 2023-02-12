@@ -1,8 +1,10 @@
 package it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment;
 
+import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExamEnrollmentDAOFS implements ExamEnrollmentDAOInterface {
@@ -20,13 +22,13 @@ public class ExamEnrollmentDAOFS implements ExamEnrollmentDAOInterface {
     }
 
     @Override
-    public List<ExamEnrollment> getExamEnrollmentsByExam(Exam exam){
-        return null;
+    public List<ExamEnrollment> getExamEnrollmentsByExam(Exam exam, List<ExamEnrollment> exclusions) throws UserNotFoundException, DAOException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
+        return new ArrayList<>();
     }
 
     @Override
-    public List<ExamEnrollment> getExamEnrollmentsByStudent(Student student){
-        return null;
+    public List<ExamEnrollment> getExamEnrollmentsByStudent(Student student, List<ExamEnrollment> exclusions) throws UserNotFoundException, DAOException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
+        return new ArrayList<>();
     }
 
     @Override
@@ -36,17 +38,17 @@ public class ExamEnrollmentDAOFS implements ExamEnrollmentDAOInterface {
 
     @Override
     public void insert(ExamEnrollment examEnrollment){
-
+        // To be implemented
     }
 
     @Override
-    public void cancel(ExamEnrollment examEnrollment){
-
+    public void delete(ExamEnrollment examEnrollment){
+        // To be implemented
     }
 
     @Override
     public void update(ExamEnrollment examEnrollment){
-        System.out.println("Updated");
+        // To be implemented
     }
 
 

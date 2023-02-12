@@ -37,7 +37,7 @@ public class BaseGraphicControl implements Initializable {
     private Button notificationButton;
     @FXML
     private VBox pendingEventList;
-    private List<PendingEventBean> pendingEvents;
+    private final List<PendingEventBean> pendingEvents;
 
     public BaseGraphicControl() {
         this.facade = new UserFacade();
@@ -114,28 +114,13 @@ public class BaseGraphicControl implements Initializable {
                             throw new WrongPendingEventTypeException(ExceptionMessagesEnum.UNEXPECTED_PROPERTY_NAME.message);
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        /*catch (DAOException e) {
+        } catch (DAOException | UserNotFoundException | WrongListQueryIdentifierValue | ObjectNotFoundException |
+                 UnrecognizedRoleException | MissingAuthorizationException | WrongDegreeCourseCodeException |
+                 WrongPendingEventTypeException e) {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.DATA_RETRIEVAL_TITLE.message, UserErrorMessagesEnum.DATA_RETRIEVAL_MSG.message);
-        } catch (WrongPendingEventTypeException e) {
-            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.PROPERTY_VALUE_TITLE.message, UserErrorMessagesEnum.PROPERTY_VALUE_MSG.message);
         } catch (IOException e) {
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.RESOURCE_LOADING_TITLE.message, UserErrorMessagesEnum.RESOURCE_LOADING_MSG.message);
-        } catch (UserNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (WrongListQueryIdentifierValue e) {
-            throw new RuntimeException(e);
-        } catch (ObjectNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (UnrecognizedRoleException e) {
-            throw new RuntimeException(e);
-        } catch (MissingAuthorizationException e) {
-            throw new RuntimeException(e);
-        } catch (WrongDegreeCourseCodeException e) {
-            throw new RuntimeException(e);
-        }*/
+        }
     }
 
     /**

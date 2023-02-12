@@ -1,9 +1,9 @@
 package it.uniroma2.dicii.ispw.gradely.model.user;
 
-import it.uniroma2.dicii.ispw.gradely.dao_abstract.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.UserRoleEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
+import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.ProfessorLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.secretary.SecretaryLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.StudentLazyFactory;
@@ -14,6 +14,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class UserDAODB extends DAODBAbstract<User> implements UserDAOInterface  {
+    private final static  String EMAIL = "email";
+    private final static String CODICE_FISCALE = "codice_fiscale";
     protected static UserDAOInterface instance;
 
     private UserDAODB() {
@@ -31,7 +33,7 @@ public class UserDAODB extends DAODBAbstract<User> implements UserDAOInterface  
     public User getUserByEmail(String email) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         return getQuery(
                 "USER",
-                List.of("email"),
+                List.of(EMAIL),
                 List.of(email),
                 null
         );
@@ -41,7 +43,7 @@ public class UserDAODB extends DAODBAbstract<User> implements UserDAOInterface  
     public User getUserByCodiceFiscale(String codiceFiscale) throws UserNotFoundException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         return getQuery(
                 "USER",
-                List.of("codice_fiscale"),
+                List.of(CODICE_FISCALE),
                 List.of(codiceFiscale),
                 null
         );
@@ -55,8 +57,8 @@ public class UserDAODB extends DAODBAbstract<User> implements UserDAOInterface  
         User user = new User(
                 rs.getString("name"),
                 rs.getString("surname"),
-                rs.getString("codice_fiscale"),
-                rs.getString("email"),
+                rs.getString(CODICE_FISCALE),
+                rs.getString(EMAIL),
                 rs.getString("password"),
                 rs.getDate("registration_date").toLocalDate()
         );
@@ -78,10 +80,10 @@ public class UserDAODB extends DAODBAbstract<User> implements UserDAOInterface  
     }
 
     @Override
-    public void cancel(User user) throws DAOException, PropertyException, ResourceNotFoundException {
-        cancelQuery(
+    public void delete(User user) throws DAOException, PropertyException, ResourceNotFoundException {
+        deleteQuery(
                 "USER",
-                List.of("codice_fiscale"),
+                List.of(CODICE_FISCALE),
                 List.of(user.getCodiceFiscale())
         );
     }
@@ -90,9 +92,9 @@ public class UserDAODB extends DAODBAbstract<User> implements UserDAOInterface  
     public void update(User user) throws PropertyException, ResourceNotFoundException, DAOException, MissingAuthorizationException {
         updateQuery(
                 "USER",
-                List.of( "name", "surname", "password", "registration_date", "email", "role"),
+                List.of( "name", "surname", "password", "registration_date", EMAIL, "role"),
                 List.of(user.getName(),user.getSurname(),user.getPassword(),Date.valueOf(user.getRegistrationDate()),user.getEmail(),user.getRole().getRoleEnumType().type),
-                List.of("codice_fiscale"),
+                List.of(CODICE_FISCALE),
                 List.of(user.getCodiceFiscale()));
     }
 
@@ -105,7 +107,7 @@ public class UserDAODB extends DAODBAbstract<User> implements UserDAOInterface  
      * @throws DAOException              thrown if errors occur while retrieving data from persistence layer
      * @throws UserNotFoundException     thrown if the given User cannot be found
      */
-    protected void setUserRoleByRoleEnum(User user, UserRoleEnum role) throws UnrecognizedRoleException, DAOException, UserNotFoundException, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
+    protected void setUserRoleByRoleEnum(User user, UserRoleEnum role) throws UnrecognizedRoleException, DAOException, UserNotFoundException, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue, PropertyException, ResourceNotFoundException {
         switch (role) {
             case STUDENT -> user.setRole(StudentLazyFactory.getInstance().getStudentByUser(user));
             case PROFESSOR -> user.setRole(ProfessorLazyFactory.getInstance().getProfessorByUser(user));
