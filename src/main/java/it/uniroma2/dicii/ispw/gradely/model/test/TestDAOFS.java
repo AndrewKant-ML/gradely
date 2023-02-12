@@ -20,7 +20,7 @@ public class TestDAOFS implements TestDAOAbstract {
 
     protected final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     protected static TestDAOAbstract instance;
-    private final String fileName = "test";
+    private static final String fileName = "test";
 
     private TestDAOFS() {
         super();

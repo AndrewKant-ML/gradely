@@ -5,7 +5,7 @@ import java.util.UUID;
 public class TestReservationBean {
 
     private final UUID reservationCode;
-    private final String testId;
+    private static final String testId;
 
     public TestReservationBean(String testId){
         this.testId = testId;

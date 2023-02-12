@@ -14,7 +14,7 @@ public class PendingEventLazyFactory {
     private static PendingEventLazyFactory instance;
     private final List<PendingEvent> pendingEvents;
 
-    private PendingEventLazyFactory() throws DAOException{
+    private PendingEventLazyFactory() {
         pendingEvents = new ArrayList<>();
     }
 

@@ -16,7 +16,7 @@ SecretaryDAOFS implements AbstractSecretaryDAO {
 
     private static SecretaryDAOFS instance;
 
-    private final String filename = "secretary";
+    private static final String filename = "secretary";
 
     private SecretaryDAOFS() {
 

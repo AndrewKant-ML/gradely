@@ -18,7 +18,7 @@ import java.util.List;
 public class TitleDAOFS extends DAODBAbstract<Title> implements TitleDAOInterface {
     protected static TitleDAOInterface instance;
 
-    private final String fileName = "title";
+    private static final String fileName = "title";
 
     private TitleDAOFS() {
         super();
