@@ -11,6 +11,8 @@
 
 
     <properties>
+        <sonar.organization>AndrewKant-ML</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mainClass>it.uniroma2.dicii.ispw.gradely/it.uniroma2.dicii.ispw.gradely.MainApplication</mainClass>
         <junit.version>5.9.2</junit.version>
