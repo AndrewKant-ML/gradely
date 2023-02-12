@@ -33,7 +33,7 @@ public class TestInfoGraphicController implements Initializable {
 
     public void setData(TestInfoBean testInfo, DegreeCourseBean degreeCourse){
         this.degreeCourseName.setText(degreeCourse.toString());
-        this.testID.setText(testInfo.getId());
+        this.testID.setText(testInfo.getId().toString());
         this.testDate.setText(testInfo.getTestDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         this.testPlace.setText(testInfo.getPlace());
         this.testInfoUrl.setText(testInfo.getInfoLink().toString());
