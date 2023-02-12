@@ -11,12 +11,12 @@
 
     <properties>
         <property>
-            <sonar.organization>gvcutv</sonar.organization>
-            <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        </property>
-        <property>
             <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
             <junit.version>5.9.2</junit.version>
+        </property>
+        <property>
+            <sonar.organization>gvcutv</sonar.organization>
+            <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         </property>
     </properties>
 
