@@ -11,11 +11,13 @@ import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.EnrollTo
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class EnrollToDegreeCourseCLIGraphicController {
 
-    private Scanner scanner = new Scanner(System.in);
-
+    private final Logger logger = Logger.getLogger(EnrollToDegreeCourseCLIGraphicController.class.getName());
+    private final Scanner scanner = new Scanner(System.in);
     private EnrollToDegreeCourseStudentFacade facade;
     private String tokenKey; // TBI ?
 
@@ -35,27 +37,18 @@ public class EnrollToDegreeCourseCLIGraphicController {
             selectDegreeCourses();
             confirmAnagraphicalData();
             showTestInfo();
-        } catch (DAOException e) {
-            throw new RuntimeException(e);
-        } catch (MissingAuthorizationException e) {
-            throw new RuntimeException(e);
-        } catch (TestRetrivialException e) {
-            throw new RuntimeException(e);
-        } catch (PropertyException e) {
-            throw new RuntimeException(e);
-        } catch (ResourceNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (WrongDegreeCourseCodeException e) {
-            throw new RuntimeException(e);
+        } catch (DAOException | MissingAuthorizationException | TestRetrivialException | PropertyException |
+                 ResourceNotFoundException | WrongDegreeCourseCodeException e) {
+            GeneralLogger.logSevere(e.getMessage());
         }
     }
 
     private int selectDegreeCourses() throws DAOException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         List<DegreeCourseBean> degreeCourseBeans = facade.getDegreeCourses(tokenKey);
-        System.out.println("Select the degree course you want to enroll to:");
+        logger.log(Level.FINEST, "Select the degree course you want to enroll to:");
         for (int i = 0; i < degreeCourseBeans.size(); i++)
-            System.out.printf("%d) %s\n", i + 1, degreeCourseBeans.get(i).getName());
-        System.out.printf("%d) Back\n", degreeCourseBeans.size());
+            logger.log(Level.FINEST, String.format("%d) %s%n", i + 1, degreeCourseBeans.get(i).getName()));
+        logger.log(Level.FINEST, String.format("%d) Back%n", degreeCourseBeans.size()));
         while (!scanner.hasNextInt())
             GeneralLogger.logWarning(UserErrorMessagesEnum.SELECT_A_DEGREE_COURSE_MSG.message);
         int choice = scanner.nextInt();
@@ -68,11 +61,11 @@ public class EnrollToDegreeCourseCLIGraphicController {
     private int confirmAnagraphicalData() throws MissingAuthorizationException {
         // TBI use UserData bean
         Student student = SessionManager.getInstance().getSessionUserByTokenKey(this.tokenKey).getRole().getStudentRole();
-        System.out.printf("Name and surname: %s %s\n", student.getUser().getName(), student.getUser().getSurname());
-        System.out.printf("Matricola: %s\n", student.getMatricola());
-        System.out.printf("Codice fiscale: %s\n", student.getUser().getCodiceFiscale());
-        System.out.printf("Email: %s\n", student.getUser().getEmail());
-        System.out.println("1) Confirm\n2)Change data (Under construction)\n3) Back");
+        logger.log(Level.FINEST, String.format("Name and surname: %s %s%n", student.getUser().getName(), student.getUser().getSurname()));
+        logger.log(Level.FINEST, String.format("Matricola: %s%n", student.getMatricola()));
+        logger.log(Level.FINEST, String.format("Codice fiscale: %s%n", student.getUser().getCodiceFiscale()));
+        logger.log(Level.FINEST, String.format("Email: %s%n", student.getUser().getEmail()));
+        logger.log(Level.FINEST, "1) Confirm%n2)Change data (Under construction)%n3) Back");
         int choice;
         do {
             while (!scanner.hasNextInt())
@@ -86,12 +79,12 @@ public class EnrollToDegreeCourseCLIGraphicController {
 
     private void showTestInfo() throws DAOException, TestRetrivialException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         TestInfoBean testInfo = facade.getTestInfo(tokenKey, selectedCourse);
-        System.out.printf("Degree course: %s\n", selectedCourse.getName());
-        System.out.printf("Test ID: %s\n", testInfo.getId());
-        System.out.printf("Test date: %s\n", testInfo.getTestDate().toString());
-        System.out.printf("Test reservation link: %s\n", testInfo.getTestReservationLink().toString());
-        System.out.printf("Place: %s\n", testInfo.getPlace());
-        System.out.printf("Results date: %s\n", testInfo.getResultsDate().toString());
-        System.out.printf("Info link: %s\n", testInfo.getInfoLink().toString());
+        logger.log(Level.FINEST, String.format("Degree course: %s%n", selectedCourse.getName()));
+        logger.log(Level.FINEST, String.format("Test ID: %s%n", testInfo.getId()));
+        logger.log(Level.FINEST, String.format("Test date: %s%n", testInfo.getTestDate().toString()));
+        logger.log(Level.FINEST, String.format("Test reservation link: %s%n", testInfo.getTestReservationLink().toString()));
+        logger.log(Level.FINEST, String.format("Place: %s%n", testInfo.getPlace()));
+        logger.log(Level.FINEST, String.format("Results date: %s%n", testInfo.getResultsDate().toString()));
+        logger.log(Level.FINEST, String.format("Info link: %s%n", testInfo.getInfoLink().toString()));
     }
 }

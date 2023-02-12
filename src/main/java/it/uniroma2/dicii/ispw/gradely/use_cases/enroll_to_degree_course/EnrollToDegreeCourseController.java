@@ -102,7 +102,6 @@ public class EnrollToDegreeCourseController extends TimerObserver {
                     testInfo.getInfoLink(),
                     testInfo.getPlace()
             );
-            //TimerLazyFactory.getInstance().newTestResultTimer(testInfo.getResultsDate(), savedTest);
         } catch (ObjectNotFoundException e) {
             // This can only happen if DB is corrupted, so the application must stop
             logger.log(Level.SEVERE, String.format("Error: degree course with name %s does not exists", degreeCourseBean.getName()));
