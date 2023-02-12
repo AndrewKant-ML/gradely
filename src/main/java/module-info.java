@@ -41,6 +41,11 @@ module it.uniroma2.dicii.ispw.gradely {
     exports it.uniroma2.dicii.ispw.gradely.model.exam_result;
     exports it.uniroma2.dicii.ispw.gradely.model.title;
     exports it.uniroma2.dicii.ispw.gradely.model.pending_events;
+    exports it.uniroma2.dicii.ispw.gradely.model.association_classes.degree_course_enrollment;
+    exports it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment;
+    exports it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment;
+    exports it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_enrollment;
+    exports it.uniroma2.dicii.ispw.gradely.model.association_classes.test_reservation;
     exports it.uniroma2.dicii.ispw.gradely.graphic_controllers_general.homepages;
     opens it.uniroma2.dicii.ispw.gradely.graphic_controllers_general.homepages to javafx.fxml;
 

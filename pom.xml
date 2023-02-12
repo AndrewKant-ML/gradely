@@ -9,15 +9,12 @@
     <version>1.0-SNAPSHOT</version>
     <name>gradely</name>
 
-
     <properties>
         <sonar.organization>andrewkant-ml</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mainClass>it.uniroma2.dicii.ispw.gradely/it.uniroma2.dicii.ispw.gradely.MainApplication</mainClass>
         <junit.version>5.9.2</junit.version>
-        <sonar.organization>gvcutv</sonar.organization>
-        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencies>
@@ -75,7 +72,8 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>it.uniroma2.dicii.ispw.gradely/it.uniroma2.dicii.ispw.gradely.MainApplication</mainClass>
+                            <mainClass>it.uniroma2.dicii.ispw.gradely/it.uniroma2.dicii.ispw.gradely.MainApplication
+                            </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
@@ -89,4 +87,3 @@
         </plugins>
     </build>
 </project>
-

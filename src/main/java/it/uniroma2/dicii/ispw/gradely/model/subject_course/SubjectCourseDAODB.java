@@ -3,6 +3,7 @@ package it.uniroma2.dicii.ispw.gradely.model.subject_course;
 import it.uniroma2.dicii.ispw.gradely.enums.SubjectCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
+import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.exam.ExamLazyFactory;
 
 import java.sql.Date;
@@ -82,7 +83,7 @@ public class SubjectCourseDAODB extends DAODBAbstract<SubjectCourse> implements 
                 rs.getString("name"),
                 Year.of(rs.getDate("aa").toLocalDate().getYear()),
                 rs.getInt("cfu")
-                );
+        );
         s.setExams(ExamLazyFactory.getInstance().getExamsBySubjectCourse(s));
         return s;
     }

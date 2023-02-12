@@ -107,4 +107,9 @@ public class DAOFactoryDB extends DAOFactoryAbstract {
     public TestReservationDAOAbstract getTestReservationDAO() {
         return TestReservationDAODB.getInstance();
     }
+
+    @Override
+    public SubjectCourseAssignmentDAOInterface getSubjectCourseAssignmentDAO() {
+        return SubjectCourseAssignmentDAODB.getInstance();
+    }
 }

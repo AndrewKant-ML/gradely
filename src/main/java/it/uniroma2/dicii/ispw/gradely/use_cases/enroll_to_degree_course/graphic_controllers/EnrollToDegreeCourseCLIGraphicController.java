@@ -38,7 +38,8 @@ public class EnrollToDegreeCourseCLIGraphicController {
             confirmAnagraphicalData();
             showTestInfo();
         } catch (DAOException | MissingAuthorizationException | TestRetrivialException | PropertyException |
-                 ResourceNotFoundException | WrongDegreeCourseCodeException e) {
+                 ResourceNotFoundException | WrongDegreeCourseCodeException | UserNotFoundException |
+                 WrongTimerTypeException | WrongListQueryIdentifierValue | UnrecognizedRoleException e) {
             GeneralLogger.logSevere(e.getMessage());
         }
     }
@@ -77,7 +78,7 @@ public class EnrollToDegreeCourseCLIGraphicController {
         return -1;
     }
 
-    private void showTestInfo() throws DAOException, TestRetrivialException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException {
+    private void showTestInfo() throws DAOException, TestRetrivialException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, UserNotFoundException, WrongTimerTypeException, WrongListQueryIdentifierValue, UnrecognizedRoleException {
         TestInfoBean testInfo = facade.getTestInfo(tokenKey, selectedCourse);
         logger.log(Level.FINEST, String.format("Degree course: %s%n", selectedCourse.getName()));
         logger.log(Level.FINEST, String.format("Test ID: %s%n", testInfo.getId()));

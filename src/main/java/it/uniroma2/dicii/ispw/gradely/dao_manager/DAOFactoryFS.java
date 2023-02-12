@@ -108,4 +108,9 @@ public class DAOFactoryFS extends DAOFactoryAbstract {
     public TestReservationDAOAbstract getTestReservationDAO() {
         return TestReservationDAOFS.getInstance();
     }
+
+    @Override
+    public SubjectCourseAssignmentDAOInterface getSubjectCourseAssignmentDAO() {
+        return SubjectCourseAssignmentDAOFS.getInstance();
+    }
 }
