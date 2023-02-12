@@ -12,18 +12,22 @@ import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.exam.ExamLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.exam_result.ExamResult;
+import it.uniroma2.dicii.ispw.gradely.model.exam_result.ExamResultLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEventLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.Professor;
 import it.uniroma2.dicii.ispw.gradely.model.role.secretary.Secretary;
 import it.uniroma2.dicii.ispw.gradely.model.role.secretary.SecretaryLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
+import it.uniroma2.dicii.ispw.gradely.model.role.student.StudentLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourseLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.timer.AbstractTimer;
 import it.uniroma2.dicii.ispw.gradely.model.timer.ExamConfirmationTimer;
 import it.uniroma2.dicii.ispw.gradely.model.timer.TimerLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.timer.TimerObserver;
+import it.uniroma2.dicii.ispw.gradely.model.user.UserLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
+import it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.beans.ExamResultConfirmationBean;
 import it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.beans.StudentGradeBean;
 import it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.beans.StudentGradeListBean;
 
@@ -101,7 +105,7 @@ public class InsertStudentsGradesControl extends TimerObserver {
         checkExamProfessor(exam, professor);
         List<ExamEnrollmentBean> list = new ArrayList<>();
         for (ExamEnrollment e : ExamEnrollmentLazyFactory.getInstance().getExamEnrollmentsByExam(exam)) {
-            list.add(new ExamEnrollmentBean(e.getStudent(), e.getExam()));
+            list.add(new ExamEnrollmentBean(new StudentBean(e.getStudent().getCodiceFiscale()), new ExamBean(new SubjectCourseBean(e.getExam().getSubjectCourse().getCode(),e.getExam().getSubjectCourse().getName(),e.getExam().getSubjectCourse().getAcademicYear()),e.getExam().getAppello(),e.getExam().getSession(),e.getExam().getExaminationDate())));
         }
         return new ExamEnrollmentListBean(list);
     }
@@ -196,8 +200,19 @@ public class InsertStudentsGradesControl extends TimerObserver {
      *
      * @param bean
      */
-    private void saveExamResult(StudentGradeBean bean) throws DAOException, MissingAuthorizationException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException {
-        ExamEnrollmentLazyFactory.getInstance().saveExamResult(ExamEnrollmentLazyFactory.getInstance().getExamEnrollmentByExamAndStudent(bean.getEnrollmentBean().getExam(), bean.getEnrollmentBean().getStudent()), new ExamResult(bean.getExamResultBean().getGrade(),bean.getExamResultBean().getResult(), ExamResultConfirmationEnum.NULL));
+    private void saveExamResult(StudentGradeBean bean) throws DAOException, MissingAuthorizationException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException, PropertyException, ResourceNotFoundException {
+        ExamEnrollmentLazyFactory.getInstance().saveExamResult(
+                ExamEnrollmentLazyFactory.getInstance().getExamEnrollmentByExamAndStudent(
+                                ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(
+                                        bean.getEnrollmentBean().getExam().getAppello(),
+                                        SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(
+                                                bean.getEnrollmentBean().getExam().getCourse().getCode(),
+                                                bean.getEnrollmentBean().getExam().getCourse().getName(),
+                                                bean.getEnrollmentBean().getExam().getCourse().getCfu(),
+                                                bean.getEnrollmentBean().getExam().getCourse().getAcademicYear()),
+                                        bean.getEnrollmentBean().getExam().getSession()),
+                        StudentLazyFactory.getInstance().getStudentByUser(UserLazyFactory.getInstance().getUserByCodiceFiscale(bean.getEnrollmentBean().getStudent().getCodiceFiscale()))),
+                ExamResultLazyFactory.getInstance().newExamResult(bean.getExamResultBean().getGrade(), bean.getExamResultBean().getResult(), ExamResultConfirmationEnum.NULL));
     }
 
     /**
@@ -214,10 +229,19 @@ public class InsertStudentsGradesControl extends TimerObserver {
      * @param decision
      * @throws MissingAuthorizationException
      */
-    void acceptOrRejectExamGrade(String tokenKey, ExamEnrollment enrollment, ExamResultConfirmationEnum decision) throws MissingAuthorizationException {
+    void acceptOrRejectExamGrade(String tokenKey, ExamEnrollmentBean enrollment, ExamResultConfirmationBean decision) throws MissingAuthorizationException, DAOException, UserNotFoundException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException {
         Student student = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getStudentRole();
-        if (enrollment.getStudent().equals(student)) {
-            enrollment.getExamResult().setConfirmed(decision);
+        if (enrollment.getStudent().getCodiceFiscale().equals(student.getCodiceFiscale())) {
+            ExamEnrollmentLazyFactory.getInstance().getExamEnrollmentByExamAndStudent(
+                    ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(
+                            enrollment.getExam().getAppello(),
+                            SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(enrollment.getExam().getCourse().getCode(),enrollment.getExam().getCourse().getName(),enrollment.getExam().getCourse().getCfu(),enrollment.getExam().getCourse().getAcademicYear()),
+                            enrollment.getExam().getSession()
+                    ),
+                    StudentLazyFactory.getInstance().getStudentByUser(
+                            UserLazyFactory.getInstance().getUserByCodiceFiscale(student.getCodiceFiscale())
+                    )
+            ).getExamResult().setConfirmed(decision.getDecision());
         } else throw new MissingAuthorizationException(ExceptionMessagesEnum.MISSING_AUTH.message);
     }
 

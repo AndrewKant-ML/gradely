@@ -2,17 +2,17 @@ package it.uniroma2.dicii.ispw.gradely.beans_general;
 
 public class StudentBean {
 
-    private String matricola;
+    private String codiceFiscale;
 
-    public StudentBean(String matricola) {
-        this.matricola = matricola;
+    public StudentBean(String codiceFiscale) {
+        this.codiceFiscale = codiceFiscale;
     }
 
-    public String getMatricola() {
-        return matricola;
+    public String getCodiceFiscale() {
+        return codiceFiscale;
     }
 
-    public void setMatricola(String matricola) {
-        this.matricola = matricola;
+    public void setCodiceFiscale(String codiceFiscale) {
+        this.codiceFiscale = codiceFiscale;
     }
 }
