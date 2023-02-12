@@ -35,7 +35,7 @@ public class LoginControl {
     }
 
     public void emailMatches(String email) throws EmailFormatException {
-        final Pattern emailPattern = Pattern.compile("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})");
+        final Pattern emailPattern = Pattern.compile("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+){0,63}@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+){0,63}(\\.[A-Za-z]{2,})");
         final Matcher emailMatcher = emailPattern.matcher(email);
         if (!emailMatcher.matches())
             throw new EmailFormatException(ExceptionMessagesEnum.EMAIL_FORMAT.message);
