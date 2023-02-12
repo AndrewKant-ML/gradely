@@ -4,6 +4,7 @@ import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.Professor;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -24,12 +25,12 @@ public class SubjectCourseAssignmentDAOFS implements SubjectCourseAssignmentDAOI
 
     @Override
     public List<SubjectCourseAssignment> getCourseAssignmentsBySubjectCourse(SubjectCourse course, List<SubjectCourseAssignment> exclusions) throws DAOException {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
     public List<SubjectCourseAssignment> getCourseAssignmentsByProfessor(Professor professor, List<SubjectCourseAssignment> exclusions) throws DAOException {
-        return null; 
+        return new ArrayList<>();
     }
 
     public void insert(SubjectCourseAssignment subjectCourseAssignment){

@@ -22,6 +22,7 @@ public class ProfessorLazyFactory {
         return instance;
     }
 
+<<<<<<< HEAD
     public Professor getProfessorByUser(User user) throws DAOException, UserNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         for (Professor p : this.factoryObjects)
             if (p.getUser().equals(user))
@@ -33,5 +34,12 @@ public class ProfessorLazyFactory {
         } catch (PropertyException | ResourceNotFoundException e) {
             throw new RuntimeException(e);
         }
+=======
+    public Professor getProfessorByUser(User user) throws DAOException, UserNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue, PropertyException, ResourceNotFoundException {
+        for (Professor p : this.professors)
+            if (p.getUser().equals(user))
+                return p;
+        return DAOFactoryAbstract.getInstance().getProfessorDAO().getProfessorByUser(user);
+>>>>>>> db31041 (  (dom 12 feb 2023, 12:39:59, CET))
     }
 }

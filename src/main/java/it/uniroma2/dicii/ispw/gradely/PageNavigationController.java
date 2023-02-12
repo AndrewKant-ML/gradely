@@ -2,18 +2,16 @@ package it.uniroma2.dicii.ispw.gradely;
 
 import it.uniroma2.dicii.ispw.gradely.beans_general.UserBean;
 import it.uniroma2.dicii.ispw.gradely.enums.UserErrorMessagesEnum;
+import it.uniroma2.dicii.ispw.gradely.loggers_general.GeneralLogger;
 import it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.beans.UserData;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 
 import java.io.IOException;
 import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public final class PageNavigationController {
 
-    private static final Logger LOGGER = Logger.getLogger(PageNavigationController.class.getName());
     private static final String FILE_EXTENSION = ".fxml";
     private static PageNavigationController instance;
     private BaseGraphicControl baseGraphicController;
@@ -138,7 +136,7 @@ public final class PageNavigationController {
      * @param e         the Exception which caused the Alert to be shown
      */
     public void showAlert(Alert.AlertType alertType, String title, String message, Exception e) {
-        LOGGER.log(Level.SEVERE, e.toString(), e);
+        GeneralLogger.logSevere(e.getMessage());
         showAlert(alertType, title, message);
     }
 }

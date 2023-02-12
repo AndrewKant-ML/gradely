@@ -1,11 +1,15 @@
 package it.uniroma2.dicii.ispw.gradely.model.subject_course;
 
+import com.opencsv.exceptions.CsvException;
+import it.uniroma2.dicii.ispw.gradely.CSVParser;
+import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.SubjectCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ObjectNotFoundException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
 
 import java.time.Year;
+import java.util.List;
 
 
 public class SubjectCourseDAOFS implements SubjectCourseDAOInterface {
@@ -27,7 +31,7 @@ public class SubjectCourseDAOFS implements SubjectCourseDAOInterface {
 
     @Override
     public SubjectCourse getSubjectCourseByNameCodeCfuAndAcademicYear(String name, SubjectCourseCodeEnum code, Integer cfu, Year academicYear) throws DAOException, ObjectNotFoundException, ResourceNotFoundException {
-        /*try {
+        try {
             List<List<String>> lines = new CSVParser().readAllLines(subjectCourseFileName);
             SubjectCourseCodeEnum scCode;
             String scName;
@@ -46,8 +50,7 @@ public class SubjectCourseDAOFS implements SubjectCourseDAOInterface {
             throw new ObjectNotFoundException(ExceptionMessagesEnum.OBJ_NOT_FOUND.message);
         } catch (CsvException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }*/
-        return null;
+        }
     }
 
     public void insert(SubjectCourse subjectCourse){

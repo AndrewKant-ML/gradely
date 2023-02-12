@@ -26,9 +26,14 @@ public class ExamResultLazyFactory {
         return instance;
     }
 
+<<<<<<< HEAD
 
     public void update (ExamResult examResult) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
         try {
+=======
+    public void update (ExamResult examResult) throws DAOException {
+        /*try {
+>>>>>>> db31041 (  (dom 12 feb 2023, 12:39:59, CET))
             DAOFactoryAbstract.getInstance().getExamResultDAO().update(examResult);
         } catch (PropertyException | ResourceNotFoundException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
