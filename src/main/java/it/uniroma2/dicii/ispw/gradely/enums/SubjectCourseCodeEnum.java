@@ -1,7 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.enums;
 
 public enum SubjectCourseCodeEnum {
-    C01(0),
+    C01(10),
     C02(1),
     C03(2),
     C04(3),

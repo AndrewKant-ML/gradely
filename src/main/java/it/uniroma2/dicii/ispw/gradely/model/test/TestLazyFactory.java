@@ -27,6 +27,9 @@ public class TestLazyFactory {
     }
 
     public Test saveTestData(DegreeCourse degreeCourse, UUID id, LocalDate testDate, URL testReservationLink, LocalDate resultsDate, URL infoLink, String place) throws PropertyException, ResourceNotFoundException, DAOException {
+        for (Test test : tests)
+            if (test.getId().equals(id))
+                return test;
         Test newTest = new Test(
                 degreeCourse, id, testDate, testReservationLink, resultsDate, infoLink, place
         );

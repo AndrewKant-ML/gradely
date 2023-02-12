@@ -66,4 +66,5 @@ public abstract class DAOFactoryAbstract {
     public abstract UserDAOInterface getUserDAO();
     public abstract TestDAOAbstract getTestDAO();
     public abstract TestReservationDAOAbstract getTestReservationDAO();
+    public abstract SubjectCourseAssignmentDAOInterface getSubjectCourseAssignmentDAO();
 }

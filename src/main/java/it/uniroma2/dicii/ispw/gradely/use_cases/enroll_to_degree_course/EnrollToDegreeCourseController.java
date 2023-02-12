@@ -12,6 +12,7 @@ import it.uniroma2.dicii.ispw.gradely.model.test.Test;
 import it.uniroma2.dicii.ispw.gradely.model.test.TestLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.timer.AbstractTimer;
 import it.uniroma2.dicii.ispw.gradely.model.timer.TestResultTimer;
+import it.uniroma2.dicii.ispw.gradely.model.timer.TimerLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.timer.TimerObserver;
 import it.uniroma2.dicii.ispw.gradely.model.title.Title;
 import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
@@ -86,7 +87,7 @@ public class EnrollToDegreeCourseController extends TimerObserver {
      * @param degreeCourseBean the degree course referred from the test
      * @return the test info
      */
-    public TestInfoBean getTestInfo(String tokenKey, DegreeCourseBean degreeCourseBean) throws TestRetrivialException, MissingAuthorizationException, PropertyException, ResourceNotFoundException, DAOException, WrongDegreeCourseCodeException {
+    public TestInfoBean getTestInfo(String tokenKey, DegreeCourseBean degreeCourseBean) throws TestRetrivialException, MissingAuthorizationException, PropertyException, ResourceNotFoundException, DAOException, WrongDegreeCourseCodeException, UserNotFoundException, WrongTimerTypeException, WrongListQueryIdentifierValue, UnrecognizedRoleException {
         SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getStudentRole();
         AbstractTestBoundary testBoundary = AbstractTestFactory.getInstance(degreeCourseBean.getTestType()).createTestBoundary();
         TestInfoBean testInfo = testBoundary.getTestInfo();
@@ -101,6 +102,7 @@ public class EnrollToDegreeCourseController extends TimerObserver {
                     testInfo.getInfoLink(),
                     testInfo.getPlace()
             );
+            TimerLazyFactory.getInstance().newTestResultTimer(savedTest.getResultsDate(), savedTest);
         } catch (ObjectNotFoundException e) {
             // This can only happen if DB is corrupted, so the application must stop
             logger.log(Level.SEVERE, String.format("Error: degree course with name %s does not exists", degreeCourseBean.getName()));

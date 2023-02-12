@@ -13,6 +13,7 @@ import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourseLazyFact
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.Year;
 import java.util.List;
 import java.util.UUID;
@@ -45,7 +46,7 @@ public class ExamDAODB extends DAODBAbstract<Exam> implements ExamDAOInterface {
                 List.of(SC_CODE,SC_NAME,SC_CFU,SC_AA),
                 List.of(subjectCourse.getCode().value,subjectCourse.getName(),subjectCourse.getCfu(), Date.valueOf(subjectCourse.getAcademicYear().atDay(1))),
                 exclusions,
-                null,
+                List.of(subjectCourse),
                 false
         );
     }
@@ -77,6 +78,7 @@ public class ExamDAODB extends DAODBAbstract<Exam> implements ExamDAOInterface {
 
     @Override
     protected Exam queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, ObjectNotFoundException, WrongListQueryIdentifierValue {
+        LocalDate verbaleDate = rs.getDate("verbale_date") == null ? null : rs.getDate("verbale_date").toLocalDate();
         Exam exam = new Exam(
                 UUID.fromString(rs.getString("id")),
                 rs.getDate("enrollment_start_date").toLocalDate(),
@@ -85,10 +87,10 @@ public class ExamDAODB extends DAODBAbstract<Exam> implements ExamDAOInterface {
                 RoomEnum.getRoomByValue(rs.getInt("room")),
                 AppelloEnum.getAppelloByValue(rs.getInt(APPELLO)),
                 SessionEnum.getSessionByValue(rs.getInt(EX_SESSION)),
-                SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(SubjectCourseCodeEnum.getSubjectCourseCodeByValue(rs.getInt(SC_CODE)),rs.getString(SC_NAME),rs.getInt(SC_CFU),Year.of(rs.getDate(SC_AA).toLocalDate().getYear())),
+                (SubjectCourse) objects.get(0),
                 rs.getBoolean("gradable"),
                 rs.getBoolean("verbalizable"),
-                rs.getDate("verbale_date").toLocalDate(),
+                verbaleDate,
                 rs.getInt("verbale_number")
                 );
         exam.setEnrollments(ExamEnrollmentLazyFactory.getInstance().getExamEnrollmentsByExam(exam));
