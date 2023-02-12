@@ -11,7 +11,7 @@ public class StudentGradeListBean {
     public StudentGradeListBean(List<StudentGradeBean> grades, ExamBean exam){
         this.grades = grades;
         this.exam = exam;
-        // TODO implement exam check on list
+        // TBI implement exam check on list
     }
 
     public List<StudentGradeBean> getGrades(){

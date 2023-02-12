@@ -26,6 +26,6 @@ public class PendingEventExamVerbalizationGraphicController implements Initializ
 
     @FXML
     private void verbalizeExam() {
-        // TODO implement exam verbalization
+        // TBI implement exam verbalization
     }
 }

@@ -48,7 +48,7 @@ public class TimerLazyFactory {
         activeTimers.add(newTimer);
         return newTimer;
     }
-    private void checkTimers() throws WrongTimerTypeException, DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, ObjectNotFoundException, WrongListQueryIdentifierValue, UnrecognizedRoleException, WrongDegreeCourseCodeException { //TODO timered trigger
+    private void checkTimers() throws WrongTimerTypeException, DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, ObjectNotFoundException, WrongListQueryIdentifierValue, UnrecognizedRoleException, WrongDegreeCourseCodeException { //TBI timered trigger
         refreshTimers();
         for (AbstractTimer t : activeTimers){
             if (t.getExpiration().isAfter(LocalDate.now())){

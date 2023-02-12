@@ -40,7 +40,7 @@ public class MainApplication extends Application {
                 switch (frontEndType) {
                     case JAVAFX -> launch(args);
                     case CLI -> {
-                    } // TODO Launch CLI
+                    } // TBI Launch CLI
                     default -> throw new PropertyException(ExceptionMessagesEnum.UNEXPECTED_PROPERTY_NAME.message);
                 }
             else

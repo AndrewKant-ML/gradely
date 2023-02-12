@@ -62,12 +62,12 @@ public class ExamEnrollmentDAODB extends DAODBAbstract<ExamEnrollment> implement
 
     @Override
     public void insert(ExamEnrollment examEnrollment){
-        //tbi
+        //TBI
     }
 
     @Override
     public void delete(ExamEnrollment examEnrollment){
-        //tbi
+        //TBI
     }
 
     @Override

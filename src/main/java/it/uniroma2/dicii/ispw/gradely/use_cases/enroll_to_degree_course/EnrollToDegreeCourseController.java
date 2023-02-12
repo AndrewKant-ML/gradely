@@ -66,7 +66,7 @@ public class EnrollToDegreeCourseController extends TimerObserver {
                     return false;
                 }
         );
-        // TODO check prerequisites
+        // TBI check prerequisites
         List<DegreeCourseBean> beans = new ArrayList<>();
         for (DegreeCourse degreeCourse : degreeCourses) {
             beans.add(

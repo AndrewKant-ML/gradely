@@ -22,17 +22,17 @@ public class TestResultDAODB extends DAODBAbstract<AbstractTestResult> implement
 
     @Override
     public void insert(AbstractTestResult abstractTestResult){
-//tbi
+//TBI
     }
 
     @Override
     public void delete(AbstractTestResult abstractTestResult){
-//tbi
+//TBI
     }
 
     @Override
     public void update(AbstractTestResult abstractTestResult){
-//tbi
+//TBI
     }
 
     @Override

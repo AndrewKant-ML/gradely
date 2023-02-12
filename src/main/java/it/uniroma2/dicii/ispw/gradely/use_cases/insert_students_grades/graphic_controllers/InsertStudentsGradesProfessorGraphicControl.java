@@ -88,7 +88,7 @@ public class InsertStudentsGradesProfessorGraphicControl implements Initializabl
         else {
             try {
                 ExamEnrollmentListBean enrollments = facade.getExamEnrollments(PageNavigationController.getInstance().getSessionTokenKey(), selectedExam);
-                if (enrollments.getExamEnrollmentBeans().isEmpty()) // TODO send notification to segreteria if there are no enrollments
+                if (enrollments.getExamEnrollmentBeans().isEmpty()) // TBI send notification to segreteria if there are no enrollments
                     PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.MISSING_VALUE_TITLE.message, UserErrorMessagesEnum.NO_ENROLLMENTS_MSG.message);
                 else {
                     secondStageController.setEnrollments(enrollments);
