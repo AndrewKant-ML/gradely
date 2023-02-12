@@ -10,6 +10,8 @@
     <name>gradely</name>
 
     <properties>
+        <sonar.organization>AndrewKant-ML</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.9.2</junit.version>
     </properties>
