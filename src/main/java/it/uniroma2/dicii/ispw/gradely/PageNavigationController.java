@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 public final class PageNavigationController {
 
     private static final Logger LOGGER = Logger.getLogger(PageNavigationController.class.getName());
+    private static final String FILE_EXTENSION = ".fxml";
     private static PageNavigationController instance;
     private BaseGraphicControl baseGraphicController;
     private UserData userData;
@@ -38,7 +39,7 @@ public final class PageNavigationController {
             default ->
                     showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.ROLE_ERROR_TITLE.message, UserErrorMessagesEnum.ROLE_ERROR_MSG.message);
         }
-        viewName = viewName.concat(".fxml");
+        viewName = viewName.concat(FILE_EXTENSION);
         try {
             baseGraphicController.openMainPage(
                     FXMLLoader.load(Objects.requireNonNull(PageNavigationController.class.getResource(viewName))),
@@ -54,8 +55,8 @@ public final class PageNavigationController {
      * @param pageName the name of the view (without the '.fxml' suffix) to be displayed
      */
     public void navigateTo(String pageName) {
-        if (!pageName.endsWith(".fxml"))
-            pageName = pageName.concat(".fxml");
+        if (!pageName.endsWith(FILE_EXTENSION))
+            pageName = pageName.concat(FILE_EXTENSION);
         try {
             baseGraphicController.switchTo(
                     FXMLLoader.load(Objects.requireNonNull(PageNavigationController.class.getResource(pageName))));

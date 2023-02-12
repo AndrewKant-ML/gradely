@@ -64,17 +64,17 @@ public class TitleDAOFS extends DAODBAbstract<Title> implements TitleDAOInterfac
 
     @Override
     public void insert(Title title) throws DAOException {
-
+        // To be implemented
     }
 
     @Override
     public void delete(Title title) throws DAOException {
-
+        // To be implemented
     }
 
     @Override
     public void update(Title title) throws DAOException {
-
+        // To be implemented
     }
 
     @Override

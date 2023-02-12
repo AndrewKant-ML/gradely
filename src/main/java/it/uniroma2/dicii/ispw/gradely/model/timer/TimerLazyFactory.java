@@ -59,9 +59,6 @@ public class TimerLazyFactory {
     }
 
     private void refreshTimers(){
-
+        // To be implemented
     }
-
-
-
 }

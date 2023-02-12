@@ -71,17 +71,17 @@ public class UserDAOFS implements UserDAOInterface {
 
     @Override
     public void insert(User user) throws DAOException {
-        //TODO implementare query
+        // To be implemented
     }
 
     @Override
     public void delete(User user) throws DAOException {
-
+        // To be implemented
     }
 
     @Override
     public void update(User user) throws DAOException {
-        //TODO implementare query
+        // To be implemented
     }
 
 }

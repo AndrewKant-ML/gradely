@@ -88,9 +88,10 @@ public class EnrollToDegreeCourseCLIGraphicController {
         TestInfoBean testInfo = facade.getTestInfo(tokenKey, selectedCourse);
         System.out.printf("Degree course: %s\n", selectedCourse.getName());
         System.out.printf("Test ID: %s\n", testInfo.getId());
-        //System.out.printf("Test date: %s\n", testInfo.getTestDate().);
-        System.out.printf("Degree course: %s\n", selectedCourse.getName());
-        System.out.printf("Degree course: %s\n", selectedCourse.getName());
-        System.out.printf("Degree course: %s\n", selectedCourse.getName());
+        System.out.printf("Test date: %s\n", testInfo.getTestDate().toString());
+        System.out.printf("Test reservation link: %s\n", testInfo.getTestReservationLink().toString());
+        System.out.printf("Place: %s\n", testInfo.getPlace());
+        System.out.printf("Results date: %s\n", testInfo.getResultsDate().toString());
+        System.out.printf("Info link: %s\n", testInfo.getInfoLink().toString());
     }
 }
