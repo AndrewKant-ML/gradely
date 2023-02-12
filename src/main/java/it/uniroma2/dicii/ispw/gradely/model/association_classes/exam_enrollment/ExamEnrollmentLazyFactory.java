@@ -12,10 +12,10 @@ import java.util.List;
 
 public class ExamEnrollmentLazyFactory {
     private static ExamEnrollmentLazyFactory instance;
-    private final List<ExamEnrollment> examEnrollments;
+    private final List<ExamEnrollment> factoryObjects;
 
     private ExamEnrollmentLazyFactory(){
-        examEnrollments = new ArrayList<ExamEnrollment>();
+        factoryObjects = new ArrayList<ExamEnrollment>();
     }
 
     public static synchronized ExamEnrollmentLazyFactory getInstance(){
@@ -27,13 +27,15 @@ public class ExamEnrollmentLazyFactory {
 
     public List<ExamEnrollment> getExamEnrollmentsByExam(Exam exam) throws DAOException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         List<ExamEnrollment> list = new ArrayList<>();
-        for(ExamEnrollment e : examEnrollments){
+        for(ExamEnrollment e : factoryObjects){
             if(e.getExam().equals(exam)){
                 list.add(e);
             }
         }
         try {
-            list.addAll(DAOFactoryAbstract.getInstance().getExamEnrollmentDAO().getExamEnrollmentsByExam(exam,list));
+            List<ExamEnrollment> daoList = DAOFactoryAbstract.getInstance().getExamEnrollmentDAO().getExamEnrollmentsByExam(exam,list);
+            factoryObjects.addAll(daoList);
+            list.addAll(daoList);
         } catch (PropertyException | ResourceNotFoundException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
@@ -42,7 +44,7 @@ public class ExamEnrollmentLazyFactory {
 
     public List<ExamEnrollment> getExamEnrollmentsByStudent(Student student) throws DAOException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         List<ExamEnrollment> list = new ArrayList<>();
-        for(ExamEnrollment e : examEnrollments){
+        for(ExamEnrollment e : factoryObjects){
             if(e.getStudent().equals(student)){
                 list.add(e);
             }
@@ -56,7 +58,7 @@ public class ExamEnrollmentLazyFactory {
     }
 
     public ExamEnrollment getExamEnrollmentByExamAndStudent(Exam exam, Student student) throws DAOException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
-        for(ExamEnrollment e : examEnrollments){
+        for(ExamEnrollment e : factoryObjects){
             if(e.getExam().equals(exam) && e.getStudent().equals(student)){
                 return e;
             }

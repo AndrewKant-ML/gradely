@@ -12,8 +12,6 @@ public class ExamEnrollment {
     private Exam exam;
     private ExamResult examResult;
 
-    public ExamEnrollment(){
-    }
     public ExamEnrollment(LocalDate enrollmentDate, Student student, Exam exam){
         this.enrollmentDate = enrollmentDate;
         this.student = student;

@@ -47,7 +47,9 @@ public class SubjectCourseAssignmentLazyFactory {
             }
         }
         try {
-            list.addAll(DAOFactoryAbstract.getInstance().getCourseAssignmentDAO().getCourseAssignmentsByProfessor(professor,list));
+            List<SubjectCourseAssignment> daoList = DAOFactoryAbstract.getInstance().getCourseAssignmentDAO().getCourseAssignmentsByProfessor(professor,list);
+            subjectCourseAssignments.addAll(daoList);
+            list.addAll(daoList);
         } catch (PropertyException | ResourceNotFoundException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }

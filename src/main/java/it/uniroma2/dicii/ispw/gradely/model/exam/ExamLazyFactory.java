@@ -15,10 +15,10 @@ import java.util.UUID;
 
 public class ExamLazyFactory {
     private static ExamLazyFactory instance;
-    private final List<Exam> exams;
+    private final List<Exam> factoryObjects;
 
     private ExamLazyFactory(){
-        exams = new ArrayList<>();
+        factoryObjects = new ArrayList<>();
     }
 
     public static synchronized ExamLazyFactory getInstance(){
@@ -28,27 +28,47 @@ public class ExamLazyFactory {
         return instance;
     }
 
+    public List<Exam> getExamsBySubjectCourse(SubjectCourse subjectCourse) throws UserNotFoundException, DAOException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
+        List<Exam> list = new ArrayList<>();
+        for(Exam e : factoryObjects){
+            if (e.getSubjectCourse().equals(subjectCourse))
+               list.add(e);
+        }
+        try{
+            List<Exam> daoList = DAOFactoryAbstract.getInstance().getExamDAO().getExamsBySubjectCourse(subjectCourse,factoryObjects);
+            factoryObjects.addAll(daoList);
+            list.addAll(daoList);
+            return list;
+        } catch (ResourceNotFoundException | PropertyException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
+    }
+
     public Exam getExamByAppelloCourseAndSession(AppelloEnum appello, SubjectCourse course, SessionEnum session) throws DAOException {
-        for(Exam e : exams){
+        for(Exam e : factoryObjects){
             if(e.getAppello().equals(appello) && e.getSubjectCourse().equals(course) && e.getSession().equals(session)){
                 return e;
             }
         }
         try {
-            return DAOFactoryAbstract.getInstance().getExamDAO().getExamByAppelloAndSubjectCourseAndSession(appello, course, session);
+            Exam e = DAOFactoryAbstract.getInstance().getExamDAO().getExamByAppelloAndSubjectCourseAndSession(appello, course, session);
+            factoryObjects.add(e);
+            return e;
         } catch (ResourceNotFoundException | PropertyException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }
 
     public Exam getExamById(UUID id) throws DAOException {
-        for(Exam e : exams){
+        for(Exam e : factoryObjects){
             if(e.getId().equals(id)){
                 return e;
             }
         }
         try {
-            return DAOFactoryAbstract.getInstance().getExamDAO().getExamById(id);
+            Exam e = DAOFactoryAbstract.getInstance().getExamDAO().getExamById(id);
+            factoryObjects.add(e);
+            return e;
         } catch (ResourceNotFoundException | PropertyException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }

@@ -1,17 +1,31 @@
 package it.uniroma2.dicii.ispw.gradely.model.exam;
 
 import it.uniroma2.dicii.ispw.gradely.enums.AppelloEnum;
+import it.uniroma2.dicii.ispw.gradely.enums.RoomEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.SessionEnum;
+import it.uniroma2.dicii.ispw.gradely.enums.SubjectCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.ExamEnrollmentLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
+import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourseLazyFactory;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Year;
 import java.util.List;
 import java.util.UUID;
 
 public class ExamDAODB extends DAODBAbstract<Exam> implements ExamDAOInterface {
+    private static final String TABLE = "EXAM";
+    private static final String SC_CODE = "sc_code";
+    private static final String SC_NAME = "sc_name";
+    private static final String SC_CFU = "sc_cfu";
+    private static final String SC_AA = "sc_aa";
+    private static final String EX_SESSION = "ex_session";
+    private static final String APPELLO = "appello";
+
     protected static ExamDAOInterface instance;
 
     private ExamDAODB(){
@@ -22,6 +36,18 @@ public class ExamDAODB extends DAODBAbstract<Exam> implements ExamDAOInterface {
             instance = new ExamDAODB();
         }
         return instance;
+    }
+
+    @Override
+    public List<Exam> getExamsBySubjectCourse(SubjectCourse subjectCourse, List<Exam> exclusions) throws UserNotFoundException, DAOException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
+        return getListQuery(
+                TABLE,
+                List.of(SC_CODE,SC_NAME,SC_CFU,SC_AA),
+                List.of(subjectCourse.getCode().value,subjectCourse.getName(),subjectCourse.getCfu(), Date.valueOf(subjectCourse.getAcademicYear().atDay(1))),
+                exclusions,
+                null,
+                false
+        );
     }
 
     @Override
@@ -50,8 +76,23 @@ public class ExamDAODB extends DAODBAbstract<Exam> implements ExamDAOInterface {
     }
 
     @Override
-    protected Exam queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, ObjectNotFoundException {
-        return null;
+    protected Exam queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, ObjectNotFoundException, WrongListQueryIdentifierValue {
+        Exam exam = new Exam(
+                UUID.fromString(rs.getString("id")),
+                rs.getDate("enrollment_start_date").toLocalDate(),
+                rs.getDate("enrollment_end_date").toLocalDate(),
+                rs.getDate("examination_date").toLocalDate(),
+                RoomEnum.getRoomByValue(rs.getInt("room")),
+                AppelloEnum.getAppelloByValue(rs.getInt(APPELLO)),
+                SessionEnum.getSessionByValue(rs.getInt(EX_SESSION)),
+                SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(SubjectCourseCodeEnum.getSubjectCourseCodeByValue(rs.getInt(SC_CODE)),rs.getString(SC_NAME),rs.getInt(SC_CFU),Year.of(rs.getDate(SC_AA).toLocalDate().getYear())),
+                rs.getBoolean("gradable"),
+                rs.getBoolean("verbalizable"),
+                rs.getDate("verbale_date").toLocalDate(),
+                rs.getInt("verbale_number")
+                );
+        exam.setEnrollments(ExamEnrollmentLazyFactory.getInstance().getExamEnrollmentsByExam(exam));
+        return exam;
     }
 
     @Override
