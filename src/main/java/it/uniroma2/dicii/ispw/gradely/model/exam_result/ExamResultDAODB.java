@@ -5,6 +5,7 @@ import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstra
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -30,7 +31,7 @@ public class ExamResultDAODB extends DAODBAbstract<ExamResult> implements ExamRe
             return getQuery(
                     "EXAM_RESULT",
                     List.of("exam_sc_code", "exam_sc_name", "exam_sc_cfu", "exam_sc_aa", "exam_session", "exam_appello", "student"),
-                    List.of(exam.getSubjectCourse().getCode().value, exam.getSubjectCourse().getName(), exam.getSubjectCourse().getCfu(), exam.getSubjectCourse().getAcademicYear(), exam.getSession().value, exam.getAppello().value, student),
+                    List.of(exam.getSubjectCourse().getCode().value, exam.getSubjectCourse().getName(), exam.getSubjectCourse().getCfu(), Date.valueOf(exam.getSubjectCourse().getAcademicYear().atDay(1)), exam.getSession().value, exam.getAppello().value, student),
                     List.of(exam, student)
             );
         } catch (UserNotFoundException e) {
