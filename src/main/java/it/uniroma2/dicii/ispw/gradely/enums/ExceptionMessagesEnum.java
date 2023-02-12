@@ -20,11 +20,8 @@ public enum ExceptionMessagesEnum {
     UNRECOGNIZED_ROLE("Unrecognized user role value"),
     WRONG_DEGREE_COURSE_CODE("Wrong degree course code"),
     WRONG_LIST_QUERY_IDENTIFIER_VALUE("Wrong list query id value"),
-<<<<<<< HEAD
-    NUMBERS_DONT_MATCH("id and values number don't match")
-=======
+    NUMBERS_DONT_MATCH("id and values number don't match"),
     NOT_INSTANTIABLE("Cannot instantiate this utility class")
->>>>>>> db31041 (  (dom 12 feb 2023, 12:39:59, CET))
     ;
 
     public final String message;
