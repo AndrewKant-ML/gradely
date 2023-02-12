@@ -6,7 +6,8 @@ import it.uniroma2.dicii.ispw.gradely.model.user.User;
 
 import java.util.List;
 
-public class SecretaryDAOFS implements AbstractSecretaryDAO {
+public class
+SecretaryDAOFS implements AbstractSecretaryDAO {
 
     private static SecretaryDAOFS instance;
 
@@ -73,14 +74,14 @@ public class SecretaryDAOFS implements AbstractSecretaryDAO {
     }
 
     public void insert(Secretary secretary) {
-
+        // To be implemented
     }
 
     public void delete(Secretary secretary) {
-
+        // To be implemented
     }
 
     public void update(Secretary secretary){
-
+        // To be implemented
     }
 }

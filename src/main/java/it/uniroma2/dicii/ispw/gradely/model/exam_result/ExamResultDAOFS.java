@@ -25,15 +25,15 @@ public class ExamResultDAOFS implements ExamResultDAOInterface {
     }
 
     public void insert(ExamResult examResult) throws DAOException {
-
+        // To be implemented
     }
 
     public void delete(ExamResult examResult) throws DAOException {
-
+        // To be implemented
     }
 
     public void update(ExamResult examResult) throws DAOException {
-
+        // To be implemented
     }
 
 }

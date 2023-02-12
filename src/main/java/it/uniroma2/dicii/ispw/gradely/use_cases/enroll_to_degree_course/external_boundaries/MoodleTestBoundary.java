@@ -34,7 +34,7 @@ public class MoodleTestBoundary extends AbstractTestBoundary {
 
     @Override
     public Boolean checkResultsPresence(TestInfoBean testInfo){
-        return null;
+        return false;
     }
 
     @Override

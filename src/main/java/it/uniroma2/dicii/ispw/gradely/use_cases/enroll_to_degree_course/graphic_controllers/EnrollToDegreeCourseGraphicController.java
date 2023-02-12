@@ -66,6 +66,7 @@ public class EnrollToDegreeCourseGraphicController implements Initializable {
             case 2 -> goToStageThree();
             case 3 -> goToStageFour();
             case 4 -> PageNavigationController.getInstance().returnToMainPage();
+            default -> PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.OUT_OF_BOUND_TITLE.message, UserErrorMessagesEnum.OUT_OF_BOUND_MSG.message);
         }
         currentStage += currentStage >= 4 ? 0 : 1;
     }
@@ -85,6 +86,7 @@ public class EnrollToDegreeCourseGraphicController implements Initializable {
                 nextButton.setText("Next");
                 fourthStage.setVisible(false);
             }
+            default -> PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.OUT_OF_BOUND_TITLE.message, UserErrorMessagesEnum.OUT_OF_BOUND_MSG.message);
         }
         currentStage -= currentStage <= 1 ? 0 : 1;
     }

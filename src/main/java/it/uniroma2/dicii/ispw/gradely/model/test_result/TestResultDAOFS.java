@@ -15,15 +15,14 @@ public class TestResultDAOFS implements TestResultDAOInterface {
     }
 
     public void insert(AbstractTestResult abstractTestResult){
-
+        // To be implemented
     }
 
     public void delete(AbstractTestResult abstractTestResult){
-
+        // To be implemented
     }
 
     public void update(AbstractTestResult abstractTestResult){
-
+        // To be implemented
     }
-
 }
