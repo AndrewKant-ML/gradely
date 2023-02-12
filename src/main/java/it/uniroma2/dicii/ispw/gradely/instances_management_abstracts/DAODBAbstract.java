@@ -192,10 +192,11 @@ public abstract class DAODBAbstract<T>{
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
-    protected void insertQuery(String table, List<Object> parametersValue) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
+    protected void insertQuery(String table, List<Object> parametersValue) throws DAOException, PropertyException, ResourceNotFoundException {
         StringBuilder questionBuilder = new StringBuilder();
-        for (Object ignored : parametersValue){
-            questionBuilder.append("?,");
+        for (Object o : parametersValue){
+            if(o!=null)
+                questionBuilder.append("?,");
         }
         questionBuilder.deleteCharAt(questionBuilder.length() - 1);
 

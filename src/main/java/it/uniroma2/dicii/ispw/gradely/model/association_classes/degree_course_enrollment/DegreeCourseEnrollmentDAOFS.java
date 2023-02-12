@@ -9,7 +9,7 @@ import java.util.List;
 public class DegreeCourseEnrollmentDAOFS implements DegreeCourseEnrollmentDAOInterface {
 
     private static DegreeCourseEnrollmentDAOFS instance;
-    private final String fileName = "degree_course_enrollment";
+    private static final String fileName = "degree_course_enrollment";
 
     private DegreeCourseEnrollmentDAOFS() {
 
@@ -24,7 +24,7 @@ public class DegreeCourseEnrollmentDAOFS implements DegreeCourseEnrollmentDAOInt
 
     @Override
     public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByDegreeCourse(DegreeCourse course, List<DegreeCourseEnrollment> excluded) throws DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
-        /*try {
+        try {
             List<List<String>> lines = new CSVParser().readAllLines(fileName);
             List<DegreeCourseEnrollment> enrollments = new ArrayList<>();
             for (List<String> line : lines) {
@@ -38,7 +38,7 @@ public class DegreeCourseEnrollmentDAOFS implements DegreeCourseEnrollmentDAOInt
             return enrollments;
         } catch (CsvException | UserNotFoundException | MissingAuthorizationException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }*/
+        }
         return null;
     }
 

@@ -1,9 +1,9 @@
 package it.uniroma2.dicii.ispw.gradely.model.role.secretary;
 
-import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
+import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
 import it.uniroma2.dicii.ispw.gradely.model.user.UserLazyFactory;
 

@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class DAODBTests {
+class DAODBTests {
 
     private static final Logger LOGGER = Logger.getLogger(DAODBTests.class.getName());
 

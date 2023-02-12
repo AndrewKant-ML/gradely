@@ -1,16 +1,16 @@
 package it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment;
 
-import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.SubjectCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
+import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.Professor;
-import it.uniroma2.dicii.ispw.gradely.model.role.professor.ProfessorLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourseLazyFactory;
-import it.uniroma2.dicii.ispw.gradely.model.user.UserLazyFactory;
 
-import java.sql.*;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.Year;
 import java.util.List;
 

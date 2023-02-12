@@ -12,7 +12,6 @@ import it.uniroma2.dicii.ispw.gradely.model.test.Test;
 import it.uniroma2.dicii.ispw.gradely.model.test.TestLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.timer.AbstractTimer;
 import it.uniroma2.dicii.ispw.gradely.model.timer.TestResultTimer;
-import it.uniroma2.dicii.ispw.gradely.model.timer.TimerLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.timer.TimerObserver;
 import it.uniroma2.dicii.ispw.gradely.model.title.Title;
 import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
