@@ -39,7 +39,7 @@ public class SecretaryLazyFactory {
 
 
 
-    public List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento) throws DAOException, MissingAuthorizationException, ObjectNotFoundException, UnrecognizedRoleException, WrongListQueryIdentifierValue, WrongDegreeCourseCodeException {
+    public List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento) throws DAOException, MissingAuthorizationException, ObjectNotFoundException, UnrecognizedRoleException, WrongListQueryIdentifierValue, WrongDegreeCourseCodeException, UserNotFoundException {
         List<Secretary> list = new ArrayList<>();
         for(Secretary s : secretaries){
             if(s.getDipartimento().equals(dipartimento)){
@@ -55,8 +55,6 @@ public class SecretaryLazyFactory {
             }
         } catch (PropertyException | ResourceNotFoundException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        } catch (UserNotFoundException e) {
-            throw new RuntimeException(e);
         }
         return list;
     }

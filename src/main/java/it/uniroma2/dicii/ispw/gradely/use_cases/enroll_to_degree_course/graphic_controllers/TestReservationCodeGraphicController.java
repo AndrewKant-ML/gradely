@@ -18,10 +18,6 @@ public class TestReservationCodeGraphicController implements Initializable {
         // Automatically called after FXMLLoader::load() method for initialization
     }
 
-    public void returnToMainPage(){
-        PageNavigationController.getInstance().returnToMainPage();
-    }
-
     public void setTestReservationCode(String code){
         testReservationCodeLabel.setText(code);
     }

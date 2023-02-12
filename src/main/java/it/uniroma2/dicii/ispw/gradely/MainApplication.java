@@ -2,13 +2,12 @@ package it.uniroma2.dicii.ispw.gradely;
 
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.FrontEndTypeEnum;
-import it.uniroma2.dicii.ispw.gradely.enums.UserErrorMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.loggers_general.GeneralLogger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -40,7 +39,8 @@ public class MainApplication extends Application {
                 switch (frontEndType) {
                     case JAVAFX -> launch(args);
                     case CLI -> {
-                    } // TBI Launch CLI
+                        launchCLI();
+                    }
                     default -> throw new PropertyException(ExceptionMessagesEnum.UNEXPECTED_PROPERTY_NAME.message);
                 }
             else
@@ -48,6 +48,11 @@ public class MainApplication extends Application {
         } catch (ResourceNotFoundException | PropertyException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
+    }
+
+    private static void launchCLI() {
+        BaseCLIGraphicController baseCLIGraphicController = new BaseCLIGraphicController();
+        // To be implemented
     }
 
     private Pane loadLoginPane() {
@@ -58,7 +63,7 @@ public class MainApplication extends Application {
             PageNavigationController.getInstance().navigateTo("login");
             return baseView;
         } catch (IOException e) {
-            PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.RESOURCE_LOADING_TITLE.message, UserErrorMessagesEnum.ROLE_ERROR_MSG.message, e);
+            GeneralLogger.logSevere(e.getMessage());
             return null;
         }
     }

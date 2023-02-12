@@ -4,6 +4,7 @@ import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExamEnrollmentDAOFS implements ExamEnrollmentDAOInterface {
@@ -22,12 +23,12 @@ public class ExamEnrollmentDAOFS implements ExamEnrollmentDAOInterface {
 
     @Override
     public List<ExamEnrollment> getExamEnrollmentsByExam(Exam exam, List<ExamEnrollment> exclusions) throws UserNotFoundException, DAOException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
     public List<ExamEnrollment> getExamEnrollmentsByStudent(Student student, List<ExamEnrollment> exclusions) throws UserNotFoundException, DAOException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
