@@ -74,6 +74,7 @@ public class ExamEnrollmentLazyFactory {
         enrollment.setExamResult(result);
         try {
             DAOFactoryAbstract.getInstance().getExamEnrollmentDAO().update(enrollment);
+            DAOFactoryAbstract.getInstance().getExamResultDAO().insert(result);
         } catch (ResourceNotFoundException | PropertyException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }

@@ -9,12 +9,10 @@ import it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.beans.Stu
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.Callback;
 import javafx.util.converter.IntegerStringConverter;
 
 import java.net.URL;
@@ -42,6 +40,8 @@ public class InsertResultsAndGradesGraphicController implements Initializable {
         this.result.setCellValueFactory(new PropertyValueFactory<>("result"));
         this.grade.setCellValueFactory(new PropertyValueFactory<>("grade"));
         this.grade.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        this.grade.setOnEditCommit(t -> (t.getTableView().getItems().get(
+                t.getTablePosition().getRow())).setGrade(t.getNewValue()));
         this.grade.setEditable(true);
         this.enrollmentsTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         this.enrollmentsTable.setEditable(true);
@@ -96,34 +96,5 @@ public class InsertResultsAndGradesGraphicController implements Initializable {
                             )
                     ));
         return gradeBeans;
-    }
-
-    private static class CustomCell extends TextFieldTableCell<ExamResultBeanTableModel, Integer> {
-
-        @Override
-        public void updateItem(Integer item, boolean empty) {
-
-            super.updateItem(item, empty);
-
-            if (item == null || empty) {
-                setText(null);
-                return;
-            }else {
-                if (isEditing()) {
-                    if (textField != null) {
-                        textField.setText(getString());
-                    }
-                    setGraphic(textField);
-                    setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-                } else {
-                    setText(getString());
-                    setContentDisplay(ContentDisplay.TEXT_ONLY);
-                }
-            }
-        }
-
-        private String getString() {
-            return getItem() == null ? "" : String.valueOf(getItem());
-        }
     }
 }

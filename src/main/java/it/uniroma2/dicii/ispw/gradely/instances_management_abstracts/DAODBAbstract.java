@@ -194,12 +194,8 @@ public abstract class DAODBAbstract<T>{
      */
     protected void insertQuery(String table, List<Object> parametersValue) throws DAOException, PropertyException, ResourceNotFoundException {
         StringBuilder questionBuilder = new StringBuilder();
-        for (Object o : parametersValue){
-            if(o!=null)
-                questionBuilder.append("?,");
-        }
+        questionBuilder.append("?,".repeat(parametersValue.size()));
         questionBuilder.deleteCharAt(questionBuilder.length() - 1);
-
         String query = String.format("insert into %s values (%s)",table,questionBuilder);
         setQuestionMarksAndExecuteQuery(parametersValue, query);
     }

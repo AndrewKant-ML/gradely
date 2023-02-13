@@ -6,6 +6,7 @@ import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.MissingAuthorizationException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.PropertyException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.ExamEnrollment;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 
 import java.util.ArrayList;
@@ -26,17 +27,13 @@ public class ExamResultLazyFactory {
         return instance;
     }
 
-    public ExamResult newExamResult(Integer grade, ResultEnum result, ExamResultConfirmationEnum confirmed){
-        ExamResult e = new ExamResult(grade, result, confirmed);
+    public ExamResult newExamResult(Integer grade, ResultEnum result, ExamResultConfirmationEnum confirmed, ExamEnrollment enrollment){
+        ExamResult e = new ExamResult(grade, result, confirmed, enrollment);
         factoryObjects.add(e);
         return e;
     }
 
     public void update (ExamResult examResult) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
-        /* try {
-            DAOFactoryAbstract.getInstance().getExamResultDAO().update(examResult);
-        } catch (PropertyException | ResourceNotFoundException e) {
-            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
-        }*/
+        // TBI
     }
 }

@@ -187,9 +187,9 @@ public class InsertStudentsGradesControl extends TimerObserver {
         checkExamProfessor(exam, professor);
         for (StudentGradeBean g : list.getGrades()) {
             saveExamResult(g);
-            PendingEventLazyFactory.getInstance().createNewPendingEvent(List.of(g.getEnrollmentBean().getStudent().getCodiceFiscale()), PendingEventTypeEnum.GRADE_CONFIRMATION_PENDING, g.getEnrollmentBean().getExam());
+            //PendingEventLazyFactory.getInstance().createNewPendingEvent(List.of(g.getEnrollmentBean().getStudent().getCodiceFiscale()), PendingEventTypeEnum.GRADE_CONFIRMATION_PENDING, g.getEnrollmentBean().getExam());
         }
-        TimerLazyFactory.getInstance().newExamConfirmationTimer(LocalDate.now().plusDays(7L), exam);
+        //TimerLazyFactory.getInstance().newExamConfirmationTimer(LocalDate.now().plusDays(7L), exam);
     }
 
     /**
@@ -200,18 +200,19 @@ public class InsertStudentsGradesControl extends TimerObserver {
      * @param bean
      */
     private void saveExamResult(StudentGradeBean bean) throws DAOException, MissingAuthorizationException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException, PropertyException, ResourceNotFoundException {
+        ExamEnrollment enrollment = ExamEnrollmentLazyFactory.getInstance().getExamEnrollmentByExamAndStudent(
+                ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(
+                        bean.getEnrollmentBean().getExam().getAppello(),
+                        SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(
+                                bean.getEnrollmentBean().getExam().getCourse().getCode(),
+                                bean.getEnrollmentBean().getExam().getCourse().getName(),
+                                bean.getEnrollmentBean().getExam().getCourse().getCfu(),
+                                bean.getEnrollmentBean().getExam().getCourse().getAcademicYear()),
+                        bean.getEnrollmentBean().getExam().getSession()),
+                StudentLazyFactory.getInstance().getStudentByUser(UserLazyFactory.getInstance().getUserByCodiceFiscale(bean.getEnrollmentBean().getStudent().getCodiceFiscale())));
         ExamEnrollmentLazyFactory.getInstance().saveExamResult(
-                ExamEnrollmentLazyFactory.getInstance().getExamEnrollmentByExamAndStudent(
-                                ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(
-                                        bean.getEnrollmentBean().getExam().getAppello(),
-                                        SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(
-                                                bean.getEnrollmentBean().getExam().getCourse().getCode(),
-                                                bean.getEnrollmentBean().getExam().getCourse().getName(),
-                                                bean.getEnrollmentBean().getExam().getCourse().getCfu(),
-                                                bean.getEnrollmentBean().getExam().getCourse().getAcademicYear()),
-                                        bean.getEnrollmentBean().getExam().getSession()),
-                        StudentLazyFactory.getInstance().getStudentByUser(UserLazyFactory.getInstance().getUserByCodiceFiscale(bean.getEnrollmentBean().getStudent().getCodiceFiscale()))),
-                ExamResultLazyFactory.getInstance().newExamResult(bean.getExamResultBean().getGrade(), bean.getExamResultBean().getResult(), ExamResultConfirmationEnum.NULL));
+                enrollment,
+                ExamResultLazyFactory.getInstance().newExamResult(bean.getExamResultBean().getGrade(), bean.getExamResultBean().getResult(), ExamResultConfirmationEnum.NULL, enrollment));
     }
 
     /**
