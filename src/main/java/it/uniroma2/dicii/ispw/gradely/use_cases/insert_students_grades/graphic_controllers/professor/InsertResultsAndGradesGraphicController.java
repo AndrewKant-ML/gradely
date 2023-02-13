@@ -30,7 +30,7 @@ public class InsertResultsAndGradesGraphicController implements Initializable {
     public TableColumn<ExamResultBeanTableModel, ChoiceBox<ResultEnum>> result;
     @FXML
     public TableColumn<ExamResultBeanTableModel, String> grade;
-    private List<ExamEnrollmentBean> enrollmentBeans;
+    private List<ExamEnrollmentBean> enrollmentBeans = new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -53,7 +53,7 @@ public class InsertResultsAndGradesGraphicController implements Initializable {
     }
 
     public void setEnrollments(ExamEnrollmentListBean listBean) {
-        this.enrollmentBeans = listBean.getExamEnrollmentBeans();
+        this.enrollmentBeans.addAll(listBean.getExamEnrollmentBeans());
         List<ExamResultBeanTableModel> resultBeanTableModels = new ArrayList<>();
         for (ExamEnrollmentBean enrollmentBean : enrollmentBeans) {
             resultBeanTableModels.add(new ExamResultBeanTableModel(

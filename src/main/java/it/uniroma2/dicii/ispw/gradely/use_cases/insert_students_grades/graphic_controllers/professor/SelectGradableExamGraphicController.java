@@ -37,7 +37,7 @@ public class SelectGradableExamGraphicController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         subjectCourse.setCellValueFactory(new PropertyValueFactory<>("subjectCourseName"));
         date.setCellValueFactory(new PropertyValueFactory<>("date"));
-        date.setCellValueFactory(new PropertyValueFactory<>("appello"));
+        appello.setCellValueFactory(new PropertyValueFactory<>("appello"));
         session.setCellValueFactory(new PropertyValueFactory<>("session"));
         gradableExamsTable.getColumns().addAll(List.of(subjectCourse, date, appello, session));
         gradableExamsTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -52,13 +52,13 @@ public class SelectGradableExamGraphicController implements Initializable {
         int modelAppello;
         String modelSession;
         for (ExamBean examBean : examBeans) {
-            modelName = model.getSubjectCourseNameProperty();
-            modelDate = LocalDate.parse(model.getDateProperty());
-            modelAppello = model.getAppelloProperty();
-            modelSession = model.getSessionProperty();
+            modelName = model.getSubjectCourseName();
+            modelDate = LocalDate.parse(model.getDate());
+            modelAppello = model.getAppello();
+            modelSession = model.getSession();
             if (examBean.getCourse().getName().equals(modelName) &&
                     examBean.getSession().toString().equals(modelSession) &&
-                    Objects.equals(examBean.getAppello().value, modelAppello) &&
+                    examBean.getAppello().value == modelAppello &&
                     examBean.getDate().isEqual(modelDate))
                 return examBean;
         }
@@ -66,11 +66,12 @@ public class SelectGradableExamGraphicController implements Initializable {
     }
 
     public void setExamsData(ExamListBean exams) {
+        examBeans.addAll(exams.getExams());
         List<ExamBeanTableModel> models = new ArrayList<>();
-        for (ExamBean examBean : exams.getExams())
+        for (ExamBean examBean : examBeans)
             models.add(new ExamBeanTableModel(
                     examBean.getCourse().getName(),
-                    LocalDate.now(),
+                    examBean.getDate(),
                     examBean.getAppello(),
                     examBean.getSession()
             ));

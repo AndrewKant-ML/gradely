@@ -10,6 +10,7 @@
     <StackPane AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" prefWidth="650"
                prefHeight="453">
         <fx:include source="select_gradable_exam.fxml" fx:id="firstStage" visible="true"/>
+        <fx:include source="insert_results_and_grades.fxml" fx:id="secondStage" visible="false"/>
     </StackPane>
 
     <HBox AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0" prefWidth="650"

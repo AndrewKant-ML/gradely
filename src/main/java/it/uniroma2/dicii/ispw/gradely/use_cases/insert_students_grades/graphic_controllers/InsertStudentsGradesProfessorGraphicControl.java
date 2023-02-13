@@ -62,7 +62,6 @@ public class InsertStudentsGradesProfessorGraphicControl implements Initializabl
             goToInsertResultsAndGradesPage();
         else if (currentStage == 2)
             saveExamResults();
-        currentStage += currentStage >= 2 ? 0 : 1;
     }
 
     /**
@@ -76,11 +75,16 @@ public class InsertStudentsGradesProfessorGraphicControl implements Initializabl
         currentStage -= currentStage <= 1 ? 0 : 1;
     }
 
+    private void updateCurrentStage() {
+        currentStage += currentStage >= 2 ? 0 : 1;
+    }
+
     private void goToInsertResultsAndGradesPage() {
         selectedExam = firstStageController.getSelectedExam();
         if (selectedExam == null)
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.MISSING_VALUE_TITLE.message, UserErrorMessagesEnum.SELECT_AN_EXAM_MSG.message);
         else {
+            updateCurrentStage();
             try {
                 ExamEnrollmentListBean enrollments = facade.getExamEnrollments(PageNavigationController.getInstance().getSessionTokenKey(), selectedExam);
                 if (enrollments.getExamEnrollmentBeans().isEmpty()) // TBI send notification to segreteria if there are no enrollments
