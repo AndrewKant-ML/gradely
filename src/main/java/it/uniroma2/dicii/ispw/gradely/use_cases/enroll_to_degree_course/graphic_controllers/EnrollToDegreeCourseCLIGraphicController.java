@@ -47,9 +47,12 @@ public class EnrollToDegreeCourseCLIGraphicController {
     private int selectDegreeCourses() throws DAOException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         List<DegreeCourseBean> degreeCourseBeans = facade.getDegreeCourses(tokenKey);
         logger.log(Level.FINEST, "Select the degree course you want to enroll to:");
-        for (int i = 0; i < degreeCourseBeans.size(); i++)
-            logger.log(Level.FINEST, String.format("%d) %s%n", i + 1, degreeCourseBeans.get(i).getName()));
-        logger.log(Level.FINEST, String.format("%d) Back%n", degreeCourseBeans.size()));
+        for (int i = 0; i < degreeCourseBeans.size(); i++) {
+            String option = String.format("%d) %s%n", i + 1, degreeCourseBeans.get(i).getName());
+            logger.log(Level.FINEST, option);
+        }
+        String option = String.format("%d) Back%n", degreeCourseBeans.size());
+        logger.log(Level.FINEST, option);
         while (!scanner.hasNextInt())
             GeneralLogger.logWarning(UserErrorMessagesEnum.SELECT_A_DEGREE_COURSE_MSG.message);
         int choice = scanner.nextInt();
@@ -62,10 +65,14 @@ public class EnrollToDegreeCourseCLIGraphicController {
     private int confirmAnagraphicalData() throws MissingAuthorizationException {
         // TBI use UserData bean
         Student student = SessionManager.getInstance().getSessionUserByTokenKey(this.tokenKey).getRole().getStudentRole();
-        logger.log(Level.FINEST, String.format("Name and surname: %s %s%n", student.getUser().getName(), student.getUser().getSurname()));
-        logger.log(Level.FINEST, String.format("Matricola: %s%n", student.getMatricola()));
-        logger.log(Level.FINEST, String.format("Codice fiscale: %s%n", student.getUser().getCodiceFiscale()));
-        logger.log(Level.FINEST, String.format("Email: %s%n", student.getUser().getEmail()));
+        String studentName = String.format("Name and surname: %s %s%n", student.getUser().getName(), student.getUser().getSurname());
+        String matricola = String.format("Matricola: %s%n", student.getMatricola());
+        String codiceFiscale = String.format("Codice fiscale: %s%n", student.getUser().getCodiceFiscale());
+        String email = String.format("Email: %s%n", student.getUser().getEmail());
+        logger.log(Level.FINEST, studentName);
+        logger.log(Level.FINEST, matricola);
+        logger.log(Level.FINEST, codiceFiscale);
+        logger.log(Level.FINEST, email);
         logger.log(Level.FINEST, "1) Confirm%n2)Change data (Under construction)%n3) Back");
         int choice;
         do {
@@ -80,12 +87,19 @@ public class EnrollToDegreeCourseCLIGraphicController {
 
     private void showTestInfo() throws DAOException, TestRetrivialException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, UserNotFoundException, WrongTimerTypeException, WrongListQueryIdentifierValue, UnrecognizedRoleException {
         TestInfoBean testInfo = facade.getTestInfo(tokenKey, selectedCourse);
-        logger.log(Level.FINEST, String.format("Degree course: %s%n", selectedCourse.getName()));
-        logger.log(Level.FINEST, String.format("Test ID: %s%n", testInfo.getId()));
-        logger.log(Level.FINEST, String.format("Test date: %s%n", testInfo.getTestDate().toString()));
-        logger.log(Level.FINEST, String.format("Test reservation link: %s%n", testInfo.getTestReservationLink().toString()));
-        logger.log(Level.FINEST, String.format("Place: %s%n", testInfo.getPlace()));
-        logger.log(Level.FINEST, String.format("Results date: %s%n", testInfo.getResultsDate().toString()));
-        logger.log(Level.FINEST, String.format("Info link: %s%n", testInfo.getInfoLink().toString()));
+        String courseName = String.format("Degree course: %s%n", selectedCourse.getName());
+        String testId = String.format("Test ID: %s%n", testInfo.getId());
+        String testDate = String.format("Test date: %s%n", testInfo.getTestDate().toString());
+        String testReservationLink = String.format("Test reservation link: %s%n", testInfo.getTestReservationLink().toString());
+        String place = String.format("Place: %s%n", testInfo.getPlace());
+        String resultsDate = String.format("Results date: %s%n", testInfo.getResultsDate().toString());
+        String infoLink = String.format("Info link: %s%n", testInfo.getInfoLink().toString());
+        logger.log(Level.FINEST, courseName);
+        logger.log(Level.FINEST, testId);
+        logger.log(Level.FINEST, testDate);
+        logger.log(Level.FINEST, testReservationLink);
+        logger.log(Level.FINEST, place);
+        logger.log(Level.FINEST, resultsDate);
+        logger.log(Level.FINEST, infoLink);
     }
 }

@@ -22,7 +22,6 @@ import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourseLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.timer.AbstractTimer;
 import it.uniroma2.dicii.ispw.gradely.model.timer.ExamConfirmationTimer;
-import it.uniroma2.dicii.ispw.gradely.model.timer.TimerLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.timer.TimerObserver;
 import it.uniroma2.dicii.ispw.gradely.model.user.UserLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.session_manager.SessionManager;
@@ -30,7 +29,6 @@ import it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.beans.Exa
 import it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.beans.StudentGradeBean;
 import it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.beans.StudentGradeListBean;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -77,10 +75,10 @@ public class InsertStudentsGradesControl extends TimerObserver {
      * @param inList
      * @return
      */
-    private List<ExamBean> createExamBeanList(List<Exam> inList){
+    private List<ExamBean> createExamBeanList(List<Exam> inList) {
         List<ExamBean> outList = new ArrayList<>();
-        for (Exam e : inList){
-            outList.add(new ExamBean(new SubjectCourseBean(e.getSubjectCourse().getCode(),e.getSubjectCourse().getName(),e.getSubjectCourse().getCfu(),e.getSubjectCourse().getAcademicYear()),e.getAppello(),e.getSession(),e.getExaminationDate()));
+        for (Exam e : inList) {
+            outList.add(new ExamBean(new SubjectCourseBean(e.getSubjectCourse().getCode(), e.getSubjectCourse().getName(), e.getSubjectCourse().getCfu(), e.getSubjectCourse().getAcademicYear()), e.getAppello(), e.getSession(), e.getExaminationDate()));
         }
         return outList;
     }
@@ -103,7 +101,7 @@ public class InsertStudentsGradesControl extends TimerObserver {
         checkExamProfessor(exam, professor);
         List<ExamEnrollmentBean> list = new ArrayList<>();
         for (ExamEnrollment e : ExamEnrollmentLazyFactory.getInstance().getExamEnrollmentsByExam(exam)) {
-            list.add(new ExamEnrollmentBean(new StudentBean(e.getStudent().getCodiceFiscale(),e.getStudent().getMatricola(),new UserBean(e.getStudent().getUser().getName(),e.getStudent().getUser().getSurname(), e.getStudent().getUser().getCodiceFiscale(),e.getStudent().getUser().getEmail(),e.getStudent().getUser().getRole().getRoleEnumType(),e.getStudent().getMatricola())), new ExamBean(new SubjectCourseBean(e.getExam().getSubjectCourse().getCode(),e.getExam().getSubjectCourse().getName(),e.getExam().getSubjectCourse().getCfu(),e.getExam().getSubjectCourse().getAcademicYear()),e.getExam().getAppello(),e.getExam().getSession(),e.getExam().getExaminationDate())));
+            list.add(new ExamEnrollmentBean(new StudentBean(e.getStudent().getCodiceFiscale(), e.getStudent().getMatricola(), new UserBean(e.getStudent().getUser().getName(), e.getStudent().getUser().getSurname(), e.getStudent().getUser().getCodiceFiscale(), e.getStudent().getUser().getEmail(), e.getStudent().getUser().getRole().getRoleEnumType(), e.getStudent().getMatricola())), new ExamBean(new SubjectCourseBean(e.getExam().getSubjectCourse().getCode(), e.getExam().getSubjectCourse().getName(), e.getExam().getSubjectCourse().getCfu(), e.getExam().getSubjectCourse().getAcademicYear()), e.getExam().getAppello(), e.getExam().getSession(), e.getExam().getExaminationDate())));
         }
         return new ExamEnrollmentListBean(list);
     }
@@ -113,20 +111,21 @@ public class InsertStudentsGradesControl extends TimerObserver {
      * and throws MissingAuthorizationException otherwise,
      * visibility is private because it should only be usable by another
      * method in this class
-     * 
+     *
      * @param exam
      * @param professor
      * @throws MissingAuthorizationException
      */
-    private void checkExamProfessor(Exam exam, Professor professor) throws MissingAuthorizationException{
+    private void checkExamProfessor(Exam exam, Professor professor) throws MissingAuthorizationException {
         Boolean check = false;
-        for (SubjectCourseAssignment c : exam.getSubjectCourse().getSubjeectCourseAssignments()){
-            if (c.getProfessor().equals(professor)){
+        for (SubjectCourseAssignment c : exam.getSubjectCourse().getSubjeectCourseAssignments()) {
+            if (c.getProfessor().equals(professor)) {
                 check = true;
                 break;
             }
         }
-        if (Boolean.FALSE.equals(check)) throw new MissingAuthorizationException(ExceptionMessagesEnum.MISSING_AUTH.message);
+        if (Boolean.FALSE.equals(check))
+            throw new MissingAuthorizationException(ExceptionMessagesEnum.MISSING_AUTH.message);
     }
 
     /**
@@ -170,7 +169,7 @@ public class InsertStudentsGradesControl extends TimerObserver {
      * @param list
      * @throws MissingAuthorizationException
      */
-    void saveExamResults(String tokenKey, StudentGradeListBean list) throws MissingAuthorizationException, DAOException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException, WrongTimerTypeException, PropertyException, ResourceNotFoundException {
+    void saveExamResults(String tokenKey, StudentGradeListBean list) throws MissingAuthorizationException, DAOException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException, PropertyException, ResourceNotFoundException {
         Professor professor = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getProfessorRole();
         ExamBean examBean = list.getExam();
         Exam exam = ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(
@@ -186,9 +185,7 @@ public class InsertStudentsGradesControl extends TimerObserver {
         checkExamProfessor(exam, professor);
         for (StudentGradeBean g : list.getGrades()) {
             saveExamResult(g);
-            //PendingEventLazyFactory.getInstance().createNewPendingEvent(List.of(g.getEnrollmentBean().getStudent().getCodiceFiscale()), PendingEventTypeEnum.GRADE_CONFIRMATION_PENDING, g.getEnrollmentBean().getExam());
         }
-        //TimerLazyFactory.getInstance().newExamConfirmationTimer(LocalDate.now().plusDays(7L), exam);
     }
 
     /**
@@ -234,7 +231,7 @@ public class InsertStudentsGradesControl extends TimerObserver {
             ExamEnrollmentLazyFactory.getInstance().getExamEnrollmentByExamAndStudent(
                     ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(
                             enrollment.getExam().getAppello(),
-                            SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(enrollment.getExam().getCourse().getCode(),enrollment.getExam().getCourse().getName(),enrollment.getExam().getCourse().getCfu(),enrollment.getExam().getCourse().getAcademicYear()),
+                            SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(enrollment.getExam().getCourse().getCode(), enrollment.getExam().getCourse().getName(), enrollment.getExam().getCourse().getCfu(), enrollment.getExam().getCourse().getAcademicYear()),
                             enrollment.getExam().getSession()
                     ),
                     StudentLazyFactory.getInstance().getStudentByUser(
@@ -278,15 +275,16 @@ public class InsertStudentsGradesControl extends TimerObserver {
      * @param secretary
      * @throws MissingAuthorizationException
      */
-    private void checkExamSecretary(Exam exam, Secretary secretary) throws MissingAuthorizationException{
+    private void checkExamSecretary(Exam exam, Secretary secretary) throws MissingAuthorizationException {
         Boolean check = false;
-        for (DegreeCourse d : exam.getSubjectCourse().getDegreeCourses()){
-            if (d.getDipartimento().equals(secretary.getDipartimento())){
+        for (DegreeCourse d : exam.getSubjectCourse().getDegreeCourses()) {
+            if (d.getDipartimento().equals(secretary.getDipartimento())) {
                 check = true;
                 break;
             }
         }
-        if (Boolean.FALSE.equals(check)) throw new MissingAuthorizationException(ExceptionMessagesEnum.MISSING_AUTH.message);
+        if (Boolean.FALSE.equals(check))
+            throw new MissingAuthorizationException(ExceptionMessagesEnum.MISSING_AUTH.message);
     }
 
     /**
@@ -298,11 +296,11 @@ public class InsertStudentsGradesControl extends TimerObserver {
      * @param exam
      */
     private void notifyExamProtocolization(Exam exam) throws DAOException, MissingAuthorizationException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException {
-        for (ExamEnrollment e : exam.getEnrollments()){
-            PendingEventLazyFactory.getInstance().createNewPendingEvent(List.of(e.getStudent().getCodiceFiscale()),PendingEventTypeEnum.EXAM_VERBALIZED, exam);
+        for (ExamEnrollment e : exam.getEnrollments()) {
+            PendingEventLazyFactory.getInstance().createNewPendingEvent(List.of(e.getStudent().getCodiceFiscale()), PendingEventTypeEnum.EXAM_VERBALIZED, exam);
         }
-        for (SubjectCourseAssignment c : exam.getSubjectCourse().getSubjeectCourseAssignments()){
-            PendingEventLazyFactory.getInstance().createNewPendingEvent(List.of(c.getProfessor().getCodiceFiscale()),PendingEventTypeEnum.EXAM_VERBALIZED, exam);
+        for (SubjectCourseAssignment c : exam.getSubjectCourse().getSubjeectCourseAssignments()) {
+            PendingEventLazyFactory.getInstance().createNewPendingEvent(List.of(c.getProfessor().getCodiceFiscale()), PendingEventTypeEnum.EXAM_VERBALIZED, exam);
         }
     }
 
