@@ -16,20 +16,24 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class PendingEventDAODB extends DAODBAbstract<PendingEvent> implements PendingEventDAOInterface {
     private static final String TABLE = "PENDING_EVENT";
     private static final String PENDING_EVENT = "pending_event";
-    
+
+    private static final Logger LOGGER = Logger.getLogger(PendingEventDAODB.class.getName());
+
     protected static PendingEventDAOInterface instance;
 
-    private PendingEventDAODB(){ 
+    private PendingEventDAODB() {
 
     }
 
-    public static synchronized PendingEventDAOInterface getInstance(){
-        if (instance == null){
+    public static synchronized PendingEventDAOInterface getInstance() {
+        if (instance == null) {
             instance = new PendingEventDAODB();
         }
         return instance;
@@ -108,8 +112,8 @@ public class PendingEventDAODB extends DAODBAbstract<PendingEvent> implements Pe
             case GRADE_AUTO_ACCEPTED:
                 insertQuery("PENDING_EVENT_OBJECT", List.of(((Exam)pendingEvent.getObject())));
                 break;
-            case TEST_RESULT_READY:
-                System.out.println("");
+            case TEST_RESULT_READY: // TBI
+                LOGGER.log(Level.INFO, "Test results are ready");
                 break;
             default:
 

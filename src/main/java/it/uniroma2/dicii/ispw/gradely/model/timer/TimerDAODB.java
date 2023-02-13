@@ -45,20 +45,12 @@ public class TimerDAODB extends DAODBAbstract<AbstractTimer> implements TimerDAO
             String query2 = String.format("select id from TIMER_OBJECT where timer_id = '%s'", t.id);
             try (Connection connection = DBConnection.getInstance().getConnection();
                  PreparedStatement stmt = connection.prepareStatement(query2, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                 ResultSet rs = stmt.executeQuery()){
+                 ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    try{
-                        t.castToExamConfirmationTimer();
-                        t.setObject(ExamLazyFactory.getInstance().getExamById(UUID.fromString(rs.getString("id"))));
-                    } catch (WrongTimerTypeException e) {
-                    }
-                    try {
-                        t.castToTestResultTimer();
-                    } catch (WrongTimerTypeException ex) {
-                    }
-
+                    t.setObject(ExamLazyFactory.getInstance().getExamById(UUID.fromString(rs.getString("id"))));
+                    t.castToTestResultTimer();
                 }
-            } catch (SQLException e) {
+            } catch (SQLException | WrongTimerTypeException e) {
                 throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
             }
         }

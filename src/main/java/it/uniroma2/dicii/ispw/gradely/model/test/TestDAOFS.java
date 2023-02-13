@@ -20,7 +20,7 @@ public class TestDAOFS implements TestDAOAbstract {
 
     protected final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     protected static TestDAOAbstract instance;
-    private static final String fileName = "test";
+    private static final String FILE_NAME = "test";
 
     private TestDAOFS() {
         super();
@@ -41,7 +41,7 @@ public class TestDAOFS implements TestDAOAbstract {
     @Override
     public Test getTestById(String id) throws ResourceNotFoundException, DAOException, ObjectNotFoundException, WrongDegreeCourseCodeException {
         try {
-            List<List<String>> lines = new CSVParser().readAllLines(fileName);
+            List<List<String>> lines = new CSVParser().readAllLines(FILE_NAME);
             for (List<String> line : lines)
                 if (line.get(0).equals(id))
                     return new Test(

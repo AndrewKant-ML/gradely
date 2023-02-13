@@ -16,7 +16,7 @@ import java.util.List;
 public class DegreeCourseEnrollmentDAOFS implements DegreeCourseEnrollmentDAOInterface {
 
     private static DegreeCourseEnrollmentDAOFS instance;
-    private static final String fileName = "degree_course_enrollment";
+    private static final String FILE_NAME = "degree_course_enrollment";
 
     private DegreeCourseEnrollmentDAOFS() {
 
@@ -32,7 +32,7 @@ public class DegreeCourseEnrollmentDAOFS implements DegreeCourseEnrollmentDAOInt
     @Override
     public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByDegreeCourse(DegreeCourse course, List<DegreeCourseEnrollment> excluded) throws DAOException, PropertyException, ResourceNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException {
         try {
-            List<List<String>> lines = new CSVParser().readAllLines(fileName);
+            List<List<String>> lines = new CSVParser().readAllLines(FILE_NAME);
             List<DegreeCourseEnrollment> enrollments = new ArrayList<>();
             for (List<String> line : lines) {
                 if (Integer.parseInt(line.get(0)) == course.getCode().value && line.get(1).equals(course.getName()))
@@ -51,7 +51,7 @@ public class DegreeCourseEnrollmentDAOFS implements DegreeCourseEnrollmentDAOInt
     @Override
     public List<DegreeCourseEnrollment> getDegreeCourseEnrollmentsByStudent(Student student, List<DegreeCourseEnrollment> exclusions) throws DAOException, ResourceNotFoundException, WrongDegreeCourseCodeException {
         try {
-            List<List<String>> lines = new CSVParser().readAllLines(fileName);
+            List<List<String>> lines = new CSVParser().readAllLines(FILE_NAME);
             List<DegreeCourseEnrollment> enrollments = new ArrayList<>();
             for (List<String> line : lines) {
                 if (line.get(2).equals(student.getCodiceFiscale()))

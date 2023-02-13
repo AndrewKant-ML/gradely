@@ -15,8 +15,8 @@ import java.util.List;
 public class SubjectCourseDAOFS implements SubjectCourseDAOInterface {
 
     private static SubjectCourseDAOFS instance;
-    private static final String subjectCourseFileName = "subject_course";
-    private static final String prerequisiteFileName = "subject_course_prerequisite";
+    private static final String SUBJECT_COURSE_FILE_NAME = "subject_course";
+    private static final String PREREQUISITE_FILE_NAME = "subject_course_prerequisite";
 
     private SubjectCourseDAOFS() {
         super();
@@ -32,7 +32,7 @@ public class SubjectCourseDAOFS implements SubjectCourseDAOInterface {
     @Override
     public SubjectCourse getSubjectCourseByNameCodeCfuAndAcademicYear(String name, SubjectCourseCodeEnum code, Integer cfu, Year academicYear) throws DAOException, ObjectNotFoundException, ResourceNotFoundException {
         try {
-            List<List<String>> lines = new CSVParser().readAllLines(subjectCourseFileName);
+            List<List<String>> lines = new CSVParser().readAllLines(SUBJECT_COURSE_FILE_NAME);
             SubjectCourseCodeEnum scCode;
             String scName;
             Integer scCfu;
