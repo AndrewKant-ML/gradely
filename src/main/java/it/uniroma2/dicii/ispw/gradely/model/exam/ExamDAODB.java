@@ -59,7 +59,7 @@ public class ExamDAODB extends DAODBAbstract<Exam> implements ExamDAOInterface {
     @Override
     public Exam getExamById(UUID id) throws UserNotFoundException, DAOException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         return getQuery(
-                "EXAM",
+                TABLE,
                 List.of("id"),
                 List.of(id.toString()),
                 null
@@ -92,7 +92,7 @@ public class ExamDAODB extends DAODBAbstract<Exam> implements ExamDAOInterface {
                 RoomEnum.getRoomByValue(rs.getInt("room")),
                 AppelloEnum.getAppelloByValue(rs.getInt(APPELLO)),
                 SessionEnum.getSessionByValue(rs.getInt(EX_SESSION)),
-                objects != null ? (SubjectCourse) objects.get(0) : SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(SubjectCourseCodeEnum.getSubjectCourseCodeByValue(rs.getInt("sc_code")), rs.getString("sc_name"), rs.getInt("sc_cfu"), Year.of(rs.getDate("sc_aa").toLocalDate().getYear())),
+                objects != null ? (SubjectCourse) objects.get(0) : SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(SubjectCourseCodeEnum.getSubjectCourseCodeByValue(rs.getInt(SC_CODE)), rs.getString(SC_NAME), rs.getInt(SC_CFU), Year.of(rs.getDate(SC_AA).toLocalDate().getYear())),
                 rs.getBoolean("gradable"),
                 rs.getBoolean("verbalizable"),
                 verbaleDate,
