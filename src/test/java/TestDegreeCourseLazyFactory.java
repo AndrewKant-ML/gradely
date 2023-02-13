@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * @author Andrea Cantarini
  */
-public class TestDegreeCourseLazyFactory {
+class TestDegreeCourseLazyFactory {
 
     @Test
     void testDegreeCourseEnrollmentDAO() throws DAOException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, PropertyException, ResourceNotFoundException {

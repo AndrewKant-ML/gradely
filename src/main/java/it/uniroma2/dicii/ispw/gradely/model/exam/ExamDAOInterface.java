@@ -13,7 +13,7 @@ public interface ExamDAOInterface {
     Exam getExamByAppelloAndSubjectCourseAndSession(AppelloEnum appello, SubjectCourse course, SessionEnum session) throws DAOException;
 
     List<Exam> getExamsBySubjectCourse(SubjectCourse subjectCourse, List<Exam> exclusions) throws UserNotFoundException, DAOException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException;
-    Exam getExamById(UUID id);
+    Exam getExamById(UUID id) throws UserNotFoundException, DAOException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException;
 
     /**
      * Inserts an object into the DB
