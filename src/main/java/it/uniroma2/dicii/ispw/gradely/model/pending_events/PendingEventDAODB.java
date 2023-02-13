@@ -94,7 +94,7 @@ public class PendingEventDAODB extends DAODBAbstract<PendingEvent> implements Pe
         auxiliaryInsertBuilder(pendingEvent);
     }
 
-    private void auxiliaryInsertBuilder(PendingEvent pendingEvent) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
+    private void auxiliaryInsertBuilder(PendingEvent pendingEvent) throws DAOException, PropertyException, ResourceNotFoundException {
         for(String s : pendingEvent.getRecipients()){
             insertQuery(
                     "PENDING_EVENT_RECIPIENT",

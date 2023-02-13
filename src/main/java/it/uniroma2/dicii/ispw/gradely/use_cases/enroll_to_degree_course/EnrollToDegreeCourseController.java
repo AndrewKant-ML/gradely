@@ -136,7 +136,6 @@ public class EnrollToDegreeCourseController extends TimerObserver {
 
     @Override
     public void timeIsUp(AbstractTimer timer) throws WrongTimerTypeException {
-        TestResultTimer concreteTimer = timer.castToTestResultTimer();
-
+        //tbi
     }
 }

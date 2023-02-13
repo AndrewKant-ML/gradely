@@ -3,7 +3,6 @@ package it.uniroma2.dicii.ispw.gradely.model.subject_course;
 import it.uniroma2.dicii.ispw.gradely.enums.SubjectCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
-import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.exam.ExamLazyFactory;
 
 import java.sql.Date;

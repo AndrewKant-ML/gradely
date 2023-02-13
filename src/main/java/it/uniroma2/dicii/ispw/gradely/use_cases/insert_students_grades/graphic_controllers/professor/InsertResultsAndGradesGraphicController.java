@@ -107,7 +107,6 @@ public class InsertResultsAndGradesGraphicController implements Initializable {
 
             if (item == null || empty) {
                 setText(null);
-                return;
             }else {
                 if (isEditing()) {
                     if (textField != null) {
@@ -120,6 +119,7 @@ public class InsertResultsAndGradesGraphicController implements Initializable {
                     setContentDisplay(ContentDisplay.TEXT_ONLY);
                 }
             }
+
         }
 
         private String getString() {

@@ -1,6 +1,5 @@
 package it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.graphic_controllers;
 
-import it.uniroma2.dicii.ispw.gradely.PageNavigationController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
