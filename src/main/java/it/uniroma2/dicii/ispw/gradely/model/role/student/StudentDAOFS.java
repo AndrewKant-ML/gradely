@@ -16,7 +16,7 @@ public class StudentDAOFS implements StudentDAOInterface {
 
     private static StudentDAOFS instance;
 
-    private static final String filename = "student";
+    private static final String FILENAME = "student";
 
     private StudentDAOFS() {
 
@@ -32,7 +32,7 @@ public class StudentDAOFS implements StudentDAOInterface {
     @Override
     public Student getStudentByUser(User user) throws DAOException, UserNotFoundException, ResourceNotFoundException, PropertyException, WrongListQueryIdentifierValue, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         try {
-            List<List<String>> lines = new CSVParser().readAllLines(filename);
+            List<List<String>> lines = new CSVParser().readAllLines(FILENAME);
             for (List<String> line : lines) {
                 if (line.get(0).equals(user.getCodiceFiscale())) {
                     Student student = new Student(

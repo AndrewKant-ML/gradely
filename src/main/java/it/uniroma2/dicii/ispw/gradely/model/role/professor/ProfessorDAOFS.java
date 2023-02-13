@@ -7,7 +7,7 @@ public class ProfessorDAOFS implements AbstractProfessorDAO {
 
     private static ProfessorDAOFS instance;
 
-    private static final String fileName = "professor";
+    private static final String FILE_NAME = "professor";
 
     private ProfessorDAOFS() {
     }

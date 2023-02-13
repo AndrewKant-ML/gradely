@@ -16,7 +16,7 @@ SecretaryDAOFS implements AbstractSecretaryDAO {
 
     private static SecretaryDAOFS instance;
 
-    private static final String filename = "secretary";
+    private static final String FILENAME = "secretary";
 
     private SecretaryDAOFS() {
 
@@ -32,7 +32,7 @@ SecretaryDAOFS implements AbstractSecretaryDAO {
     @Override
     public Secretary getSecretaryByUser(User user) throws DAOException, ResourceNotFoundException, UserNotFoundException, PropertyException {
         try {
-            List<List<String>> lines = new CSVParser().readAllLines(filename);
+            List<List<String>> lines = new CSVParser().readAllLines(FILENAME);
             for (List<String> line : lines) {
                 if (line.get(0).equals(user.getCodiceFiscale()))
                     return new Secretary(
@@ -50,7 +50,7 @@ SecretaryDAOFS implements AbstractSecretaryDAO {
     public List<Secretary> getSecretariesByDipartimento(DipartimentoEnum dipartimento, List<Secretary> secretaryList) throws DAOException, UserNotFoundException, ResourceNotFoundException, PropertyException, MissingAuthorizationException {
         try {
             List<Secretary> secretaries = new ArrayList<>();
-            List<List<String>> lines = new CSVParser().readAllLines(filename);
+            List<List<String>> lines = new CSVParser().readAllLines(FILENAME);
             for (List<String> line : lines) {
                 if (line.get(1).equals(String.valueOf(dipartimento.value))
                         && checkListPresenceByCodiceFiscale(line.get(0), secretaryList))

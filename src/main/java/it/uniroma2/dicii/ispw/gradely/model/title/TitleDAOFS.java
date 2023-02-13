@@ -18,7 +18,7 @@ import java.util.List;
 public class TitleDAOFS extends DAODBAbstract<Title> implements TitleDAOInterface {
     protected static TitleDAOInterface instance;
 
-    private static final String fileName = "title";
+    private static final String FILE_NAME = "title";
 
     private TitleDAOFS() {
         super();
@@ -36,7 +36,7 @@ public class TitleDAOFS extends DAODBAbstract<Title> implements TitleDAOInterfac
     public List<Title> getTitlesByStudent(Student student, List<Title> list) throws ResourceNotFoundException, DAOException {
         try {
             List<Title> titles = new ArrayList<>();
-            List<List<String>> lines = new CSVParser().readAllLines(fileName);
+            List<List<String>> lines = new CSVParser().readAllLines(FILE_NAME);
             for (List<String> line : lines) {
                 if (line.get(1).equals(student.getCodiceFiscale()) &&
                         !checkPresenceByDegreeCourseAndStudent(line.get(0), line.get(1), list)) {

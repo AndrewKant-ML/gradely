@@ -83,7 +83,7 @@ public class InsertStudentsGradesProfessorGraphicControl implements Initializabl
         selectedExam = firstStageController.getSelectedExam();
         if (selectedExam == null)
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.MISSING_VALUE_TITLE.message, UserErrorMessagesEnum.SELECT_AN_EXAM_MSG.message);
-        else {
+        else
             try {
                 ExamEnrollmentListBean enrollments = facade.getExamEnrollments(PageNavigationController.getInstance().getSessionTokenKey(), selectedExam);
                 if (enrollments.getExamEnrollmentBeans().isEmpty()) // TBI send notification to segreteria if there are no enrollments
@@ -97,20 +97,11 @@ public class InsertStudentsGradesProfessorGraphicControl implements Initializabl
                 }
             } catch (MissingAuthorizationException e) {
                 PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.AUTHORIZATION_TITLE.message, UserErrorMessagesEnum.MISSING_AUTHORIZATION_MSG.message, e);
-            } catch (DAOException | WrongListQueryIdentifierValue e) {
+            } catch (DAOException | WrongListQueryIdentifierValue | PropertyException | ResourceNotFoundException |
+                     UnrecognizedRoleException | ObjectNotFoundException | WrongDegreeCourseCodeException |
+                     UserNotFoundException e) {
                 PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.DATA_RETRIEVAL_TITLE.message, UserErrorMessagesEnum.DATA_RETRIEVAL_MSG.message, e);
-            } catch (PropertyException e) {
-                PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.PROPERTY_VALUE_TITLE.message, UserErrorMessagesEnum.PROPERTY_VALUE_MSG.message, e);
-            } catch (ResourceNotFoundException e) {
-                PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.RESOURCE_LOADING_TITLE.message, UserErrorMessagesEnum.RESOURCE_LOADING_MSG.message, e);
-            } catch (UserNotFoundException e) {
-                PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.DATA_RETRIEVAL_TITLE.message, UserErrorMessagesEnum.USER_NOT_FOUND_MSG.message, e);
-            } catch (UnrecognizedRoleException e) {
-                PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.ROLE_ERROR_TITLE.message, UserErrorMessagesEnum.ROLE_ERROR_MSG.message, e);
-            } catch (ObjectNotFoundException | WrongDegreeCourseCodeException e) {
-                PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.OBJ_NOT_FOUND_TITLE.message, UserErrorMessagesEnum.OBJ_NOT_FOUND_MSG.message, e);
             }
-        }
     }
 
     private void saveExamResults() {

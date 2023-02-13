@@ -15,8 +15,8 @@ import java.util.List;
 
 public class DegreeCourseDAOFS implements DegreeCourseDAOInterface {
 
-    private static final String degreeCourseFileName = "degree_course";
-    private static final String prerequisiteFileName = "degree_course_prerequisite";
+    private static final String DEGREE_COURSE_FILE_NAME = "degree_course";
+    private static final String PREREQUISITE_FILE_NAME = "degree_course_prerequisite";
 
     private static DegreeCourseDAOFS instance;
 
@@ -47,7 +47,7 @@ public class DegreeCourseDAOFS implements DegreeCourseDAOInterface {
     @Override
     public DegreeCourse getDegreeCourseByName(String name) throws DAOException, ResourceNotFoundException, ObjectNotFoundException {
         try {
-            List<List<String>> lines = new CSVParser().readAllLines(degreeCourseFileName);
+            List<List<String>> lines = new CSVParser().readAllLines(DEGREE_COURSE_FILE_NAME);
             for (List<String> line : lines)
                 if (line.get(1).equals(name))
                     return (parseLine(line));
@@ -60,7 +60,7 @@ public class DegreeCourseDAOFS implements DegreeCourseDAOInterface {
     @Override
     public List<DegreeCourse> getAllDegreeCourses(List<DegreeCourse> degreeCourses) throws DAOException, ResourceNotFoundException {
         try {
-            List<List<String>> lines = new CSVParser().readAllLines(degreeCourseFileName);
+            List<List<String>> lines = new CSVParser().readAllLines(DEGREE_COURSE_FILE_NAME);
             List<DegreeCourse> newDegreeCourses = new ArrayList<>();
             for (List<String> line : lines)
                 if (checkListPresenceByCode(Integer.parseInt(line.get(0)), degreeCourses))
@@ -88,7 +88,7 @@ public class DegreeCourseDAOFS implements DegreeCourseDAOInterface {
     @Override
     public DegreeCourse getDegreeCourseByCoordinatore(Professor professor) throws DAOException, ObjectNotFoundException {
         try {
-            List<List<String>> lines = new CSVParser().readAllLines(degreeCourseFileName);
+            List<List<String>> lines = new CSVParser().readAllLines(DEGREE_COURSE_FILE_NAME);
             for (List<String> line : lines)
                 if (line.get(3).equals(professor.getCodiceFiscale()))
                     return (parseLine(line));
@@ -101,7 +101,7 @@ public class DegreeCourseDAOFS implements DegreeCourseDAOInterface {
     @Override
     public List<AbstractDegreeCourse> getDegreeCoursesByDegreeCourseCodeList(List<DegreeCourseCodeEnum> codes) throws DAOException, ResourceNotFoundException {
         try {
-            List<List<String>> lines = new CSVParser().readAllLines(degreeCourseFileName);
+            List<List<String>> lines = new CSVParser().readAllLines(DEGREE_COURSE_FILE_NAME);
             List<AbstractDegreeCourse> newDegreeCourses = new ArrayList<>();
             for (List<String> line : lines)
                 if (codes.contains(DegreeCourseCodeEnum.getDegreeCourseCodeByValue(Integer.parseInt(line.get(0)))))
@@ -114,7 +114,7 @@ public class DegreeCourseDAOFS implements DegreeCourseDAOInterface {
 
     private List<DegreeCourseCodeEnum> getPrerequisitesCodesByDegreeCourseCode(String code) throws DAOException, ResourceNotFoundException, WrongDegreeCourseCodeException {
         try {
-            List<List<String>> lines = new CSVParser().readAllLines(prerequisiteFileName);
+            List<List<String>> lines = new CSVParser().readAllLines(PREREQUISITE_FILE_NAME);
             List<DegreeCourseCodeEnum> codes = new ArrayList<>();
             for (List<String> line : lines)
                 if (line.get(0).equals(code))

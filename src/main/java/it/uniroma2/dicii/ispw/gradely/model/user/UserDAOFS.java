@@ -14,7 +14,7 @@ import java.util.List;
 public class UserDAOFS implements UserDAOInterface {
 
     private static UserDAOFS instance;
-    private static final String fileName = "user";
+    private static final String FILE_NAME = "user";
 
     private UserDAOFS() {
         super();
@@ -47,7 +47,7 @@ public class UserDAOFS implements UserDAOInterface {
 
     public User getUserByEmail(String email) throws UserNotFoundException, DAOException, ResourceNotFoundException {
         try {
-            List<List<String>> lines = new CSVParser().readAllLines(fileName);
+            List<List<String>> lines = new CSVParser().readAllLines(FILE_NAME);
             for (List<String> line : lines) {
                 if (line.get(3).equals(email))
                     return getUserByLine(line);
@@ -61,7 +61,7 @@ public class UserDAOFS implements UserDAOInterface {
     @Override
     public User getUserByCodiceFiscale(String codiceFiscale) throws UserNotFoundException, DAOException, ResourceNotFoundException {
         try {
-            List<List<String>> lines = new CSVParser().readAllLines(fileName);
+            List<List<String>> lines = new CSVParser().readAllLines(FILE_NAME);
             for (List<String> line : lines) {
                 if (line.get(0).equals(codiceFiscale))
                     return getUserByLine(line);
