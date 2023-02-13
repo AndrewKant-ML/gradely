@@ -51,7 +51,6 @@ public class MainApplication extends Application {
     }
 
     private static void launchCLI() {
-        BaseCLIGraphicController baseCLIGraphicController = new BaseCLIGraphicController();
         // To be implemented
     }
 

@@ -13,9 +13,10 @@ public abstract class AbstractTestFactory {
         // TBI change to session factory
         // TBI not singleton
         if (instance == null){
-            switch (testTypeEnum){
-                case ONLINE -> instance = new MoodleTestFactory();
-                case MUR -> instance = new MURTestFactory();
+            if (testTypeEnum.equals(TestTypeEnum.ONLINE)){
+                instance = new MoodleTestFactory();
+            } else {
+                instance = new MURTestFactory();
             }
         }
         return instance;

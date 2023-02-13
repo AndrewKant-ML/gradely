@@ -107,7 +107,7 @@ public class UserDAODB extends DAODBAbstract<User> implements UserDAOInterface  
      * @throws DAOException              thrown if errors occur while retrieving data from persistence layer
      * @throws UserNotFoundException     thrown if the given User cannot be found
      */
-    protected void setUserRoleByRoleEnum(User user, UserRoleEnum role) throws UnrecognizedRoleException, DAOException, UserNotFoundException, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue, PropertyException, ResourceNotFoundException {
+    protected void setUserRoleByRoleEnum(User user, UserRoleEnum role) throws UnrecognizedRoleException, DAOException, UserNotFoundException, ObjectNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         switch (role) {
             case STUDENT -> user.setRole(StudentLazyFactory.getInstance().getStudentByUser(user));
             case PROFESSOR -> user.setRole(ProfessorLazyFactory.getInstance().getProfessorByUser(user));

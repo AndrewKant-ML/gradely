@@ -259,7 +259,7 @@ public abstract class DAODBAbstract<T>{
      * @throws PropertyException thrown if errors occur while loading properties from .properties file
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
-    protected void updateQuery(String table, List<String> parameters, List<Object> parametersValue, List<String> identifiers, List<Object> identifiersValue) throws DAOException, PropertyException, ResourceNotFoundException, MissingAuthorizationException {
+    protected void updateQuery(String table, List<String> parameters, List<Object> parametersValue, List<String> identifiers, List<Object> identifiersValue) throws DAOException, PropertyException, ResourceNotFoundException {
         if (identifiers.size() != identifiersValue.size())
             throw new DAOException(ExceptionMessagesEnum.NUMBERS_DONT_MATCH.message); //TBI implementare exception
         StringBuilder columnBuilder = commaStringBuilder(parameters, parametersValue);

@@ -15,7 +15,7 @@ public class UserLazyFactory {
         registeredUsers = new ArrayList<>();
     }
 
-    public static synchronized UserLazyFactory getInstance() throws DAOException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
+    public static synchronized UserLazyFactory getInstance(){
         if (instance == null) {
             instance = new UserLazyFactory();
         }

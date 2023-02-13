@@ -108,18 +108,12 @@ public class InsertResultsAndGradesGraphicController implements Initializable {
     }
 
     private static class CustomCell extends TextFieldTableCell<ExamResultBeanTableModel, Integer> {
-
         @Override
         public void updateItem(Integer item, boolean empty) {
-
             super.updateItem(item, empty);
-
             if (item == null || empty) {
                 setText(null);
-                return;
             }
-
         }
-
     }
 }

@@ -59,7 +59,6 @@ public class InsertStudentsGradesControl extends TimerObserver {
     ExamListBean getGradableExams(String tokenKey) throws MissingAuthorizationException, DAOException, UserNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         Professor professor = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getProfessorRole();
         try {
-            List<Exam> exams = new ArrayList<>();
             return new ExamListBean(createExamBeanList(ExamLazyFactory.getInstance().getGradableExams(professor)));
         } catch (ObjectNotFoundException e) {
             // This can only happen if DB is corrupted, so the application must stop
