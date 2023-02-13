@@ -15,7 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.util.StringConverter;
+import javafx.util.converter.IntegerStringConverter;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -41,17 +41,7 @@ public class InsertResultsAndGradesGraphicController implements Initializable {
         this.studentMatricola.setCellValueFactory(new PropertyValueFactory<>("studentMatricola"));
         this.result.setCellValueFactory(new PropertyValueFactory<>("result"));
         this.grade.setCellValueFactory(new PropertyValueFactory<>("grade"));
-        this.grade.setCellFactory(CustomCell.forTableColumn(new StringConverter<Integer>() {
-            @Override
-            public String toString(Integer integer) {
-                return String.valueOf(integer);
-            }
-
-            @Override
-            public Integer fromString(String s) {
-                return Integer.parseInt(s);
-            }
-        }));
+        this.grade.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         this.grade.setEditable(true);
         this.enrollmentsTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         this.enrollmentsTable.setEditable(true);
@@ -76,7 +66,8 @@ public class InsertResultsAndGradesGraphicController implements Initializable {
             resultBeanTableModels.add(new ExamResultBeanTableModel(
                     String.format("%s %s", enrollmentBean.getStudent().getUser().getName(), enrollmentBean.getStudent().getUser().getSurname()),
                     enrollmentBean.getStudent().getMatricola(),
-                    buildChoiceBox()
+                    buildChoiceBox(),
+                    0
             ));
         }
         enrollmentsTable.getColumns().clear();
@@ -117,9 +108,22 @@ public class InsertResultsAndGradesGraphicController implements Initializable {
             if (item == null || empty) {
                 setText(null);
                 return;
+            }else {
+                if (isEditing()) {
+                    if (textField != null) {
+                        textField.setText(getString());
+                    }
+                    setGraphic(textField);
+                    setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+                } else {
+                    setText(getString());
+                    setContentDisplay(ContentDisplay.TEXT_ONLY);
+                }
             }
-
         }
 
+        private String getString() {
+            return getItem() == null ? "" : String.valueOf(getItem());
+        }
     }
 }

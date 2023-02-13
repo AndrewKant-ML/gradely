@@ -13,11 +13,11 @@ public class ExamResultBeanTableModel {
     private final SimpleObjectProperty<ChoiceBox<ResultEnum>> result;
     private final SimpleIntegerProperty grade;
 
-    public ExamResultBeanTableModel(String studentName, String studentMatricola, ChoiceBox<ResultEnum> result) {
+    public ExamResultBeanTableModel(String studentName, String studentMatricola, ChoiceBox<ResultEnum> result, Integer grade) {
         this.studentName = new SimpleStringProperty(studentName);
         this.studentMatricola = new SimpleStringProperty(studentMatricola);
         this.result = new SimpleObjectProperty<>(result);
-        this.grade = new SimpleIntegerProperty(0);
+        this.grade = new SimpleIntegerProperty(grade);
     }
 
     public String getStudentName() {
@@ -34,5 +34,9 @@ public class ExamResultBeanTableModel {
 
     public Integer getGrade() {
         return this.grade.get();
+    }
+
+    public void setGrade(Integer grade) {
+        this.grade.set(grade);
     }
 }
