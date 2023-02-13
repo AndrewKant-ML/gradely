@@ -5,7 +5,6 @@ import it.uniroma2.dicii.ispw.gradely.CSVParser;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.ResourceNotFoundException;
-import it.uniroma2.dicii.ispw.gradely.exceptions.UnrecognizedRoleException;
 import it.uniroma2.dicii.ispw.gradely.exceptions.UserNotFoundException;
 
 import java.time.LocalDate;
