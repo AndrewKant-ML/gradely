@@ -4,12 +4,12 @@
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.graphic_controllers.InsertStudentsGradesProfessorGraphicControl"
+            fx:controller="it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.graphic_controllers.professor.InsertStudentsGradesProfessorGraphicControl"
             prefHeight="453.0" prefWidth="650.0">
 
     <StackPane AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" prefWidth="650"
                prefHeight="453">
-        <fx:include source="select_gradable_exam.fxml" fx:id="firstStage" visible="true"/>
+        <fx:include source="exams_table.fxml" fx:id="firstStage" visible="true"/>
         <fx:include source="insert_results_and_grades.fxml" fx:id="secondStage" visible="false"/>
     </StackPane>
 

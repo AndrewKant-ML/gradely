@@ -41,7 +41,7 @@ public class SecretaryDAODB  extends DAODBAbstract<Secretary> implements Abstrac
     public Secretary getSecretaryByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         return getQuery(
                 SECRETARY,
-                List.of("codice_fiiscale"),
+                List.of("codice_fiscale"),
                 List.of(user.getCodiceFiscale()),
                 List.of(user)
         );

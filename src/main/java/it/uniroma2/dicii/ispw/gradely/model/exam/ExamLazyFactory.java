@@ -2,11 +2,14 @@ package it.uniroma2.dicii.ispw.gradely.model.exam;
 
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
 import it.uniroma2.dicii.ispw.gradely.enums.AppelloEnum;
+import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.SessionEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
+import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.SubjectCourseAssignment;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_assignment.SubjectCourseAssignmentLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.Professor;
+import it.uniroma2.dicii.ispw.gradely.model.role.professor.ProfessorLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
 
 import java.util.ArrayList;
@@ -76,17 +79,31 @@ public class ExamLazyFactory {
 
     public List<Exam> getGradableExams(Professor professor) throws DAOException, UserNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         List<Exam> list = new ArrayList<>();
-        for(SubjectCourse c : SubjectCourseAssignmentLazyFactory.getInstance().getAssignedSubjectCoursesByProfessor(professor)){
-            for (Exam e : c.getExams()){
-                if (Boolean.TRUE.equals(e.getGradable())){
+        for (SubjectCourse c : SubjectCourseAssignmentLazyFactory.getInstance().getAssignedSubjectCoursesByProfessor(professor)) {
+            for (Exam e : c.getExams()) {
+                if (Boolean.TRUE.equals(e.getGradable())) {
                     list.add(e);
                 }
             }
         }
+        factoryObjects.addAll(list);
         return list;
     }
 
-    public void update (Exam exam) throws DAOException, MissingAuthorizationException {
+    public List<Exam> getVerbalizableExams(DipartimentoEnum dipartimento) throws DAOException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
+        List<Exam> list = new ArrayList<>();
+        for (Professor p : ProfessorLazyFactory.getInstance().getProfessorsByDipartimento(dipartimento))
+            for (SubjectCourseAssignment sca : p.getCourseAssignments()) {
+                SubjectCourse subjectCourse = sca.getSubjectCourse();
+                for (Exam exam : subjectCourse.getExams()) {
+                    if (exam.getVerbalizable())
+                        list.add(exam);
+                }
+            }
+        return list;
+    }
+
+    public void update(Exam exam) throws DAOException, MissingAuthorizationException {
         try {
             DAOFactoryAbstract.getInstance().getExamDAO().update(exam);
         } catch (ResourceNotFoundException | PropertyException e) {

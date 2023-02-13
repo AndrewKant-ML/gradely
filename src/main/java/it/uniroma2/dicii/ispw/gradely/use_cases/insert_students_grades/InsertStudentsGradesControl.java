@@ -66,6 +66,19 @@ public class InsertStudentsGradesControl extends TimerObserver {
         return null;
     }
 
+    ExamListBean getVerbalizableExams(String tokenKey) throws MissingAuthorizationException {
+        Secretary secretary = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getSecretaryRole();
+        try {
+            return new ExamListBean(createExamBeanList(ExamLazyFactory.getInstance().getVerbalizableExams(secretary.getDipartimento())));
+        } catch (ObjectNotFoundException | DAOException | UserNotFoundException | WrongListQueryIdentifierValue |
+                 UnrecognizedRoleException | WrongDegreeCourseCodeException e) {
+            // This can only happen if DB is corrupted, so the application must stop
+            logger.log(Level.SEVERE, String.format("Error: secretary with codice_fiscale %s does not exists", secretary.getUser().getCodiceFiscale()));
+            System.exit(1);
+        }
+        return null;
+    }
+
     /**
      * Creates an ExamBeanList and populates it with the values
      * of the exams in the input list,
@@ -255,14 +268,13 @@ public class InsertStudentsGradesControl extends TimerObserver {
      * @throws MissingAuthorizationException
      */
     void confirmExamVerbaleProtocolization(String tokenKey, ProtocolBean bean) throws MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UserNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
-        Secretary secretary = SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getSecretaryRole();
+        SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getSecretaryRole();
         Exam e = ExamLazyFactory.getInstance().getExamByAppelloCourseAndSession(bean.getExamBean().getAppello(), SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(bean.getExamBean().getCourse().getCode(), bean.getExamBean().getCourse().getName(), bean.getExamBean().getCourse().getCfu(), bean.getExamBean().getCourse().getAcademicYear()), bean.getExamBean().getSession());
-        checkExamSecretary(e, secretary);
         e.setVerbalizable(false);
         e.setVerbaleDate(bean.getVerbaleDate());
         e.setVerbaleNumber(bean.getVerbaleNumber());
         ExamLazyFactory.getInstance().update(e);
-        notifyExamProtocolization(e);
+        // TBI notification
     }
 
     /**

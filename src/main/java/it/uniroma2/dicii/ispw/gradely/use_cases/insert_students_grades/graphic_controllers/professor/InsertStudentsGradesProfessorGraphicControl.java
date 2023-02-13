@@ -1,15 +1,14 @@
-package it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.graphic_controllers;
+package it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.graphic_controllers.professor;
 
 import it.uniroma2.dicii.ispw.gradely.PageNavigationController;
 import it.uniroma2.dicii.ispw.gradely.beans_general.ExamBean;
 import it.uniroma2.dicii.ispw.gradely.beans_general.ExamEnrollmentListBean;
 import it.uniroma2.dicii.ispw.gradely.enums.UserErrorMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
+import it.uniroma2.dicii.ispw.gradely.graphic_controllers_general.homepages.ExamsTableController;
 import it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.InsertStudentsGradesProfessorFacade;
 import it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.beans.StudentGradeBean;
 import it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.beans.StudentGradeListBean;
-import it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.graphic_controllers.professor.InsertResultsAndGradesGraphicController;
-import it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.graphic_controllers.professor.SelectGradableExamGraphicController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -31,7 +30,7 @@ public class InsertStudentsGradesProfessorGraphicControl implements Initializabl
     @FXML
     private Parent secondStage;
     @FXML
-    private SelectGradableExamGraphicController firstStageController;
+    private ExamsTableController firstStageController;
     @FXML
     private InsertResultsAndGradesGraphicController secondStageController;
     private InsertStudentsGradesProfessorFacade facade;

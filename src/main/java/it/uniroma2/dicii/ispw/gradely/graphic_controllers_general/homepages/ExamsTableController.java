@@ -1,4 +1,4 @@
-package it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.graphic_controllers.professor;
+package it.uniroma2.dicii.ispw.gradely.graphic_controllers_general.homepages;
 
 import it.uniroma2.dicii.ispw.gradely.beans_general.ExamBean;
 import it.uniroma2.dicii.ispw.gradely.beans_general.ExamListBean;
@@ -17,19 +17,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class SelectGradableExamGraphicController implements Initializable {
+public class ExamsTableController implements Initializable {
 
+    private final List<ExamBean> examBeans = new ArrayList<>();
     @FXML
-    public TableColumn<ExamBeanTableModel, String> subjectCourse;
+    private TableView<ExamBeanTableModel> examsTable;
     @FXML
-    public TableColumn<ExamBeanTableModel, LocalDate> date;
+    private TableColumn<ExamBeanTableModel, String> subjectCourse;
     @FXML
-    public TableColumn<ExamBeanTableModel, Integer> appello;
+    private TableColumn<ExamBeanTableModel, LocalDate> date;
     @FXML
-    public TableColumn<ExamBeanTableModel, String> session;
+    private TableColumn<ExamBeanTableModel, String> session;
     @FXML
-    private TableView<ExamBeanTableModel> gradableExamsTable;
-    private List<ExamBean> examBeans = new ArrayList<>();
+    private TableColumn<ExamBeanTableModel, Integer> appello;
     private ExamBean selectedExam;
 
     @Override
@@ -38,11 +38,11 @@ public class SelectGradableExamGraphicController implements Initializable {
         date.setCellValueFactory(new PropertyValueFactory<>("date"));
         appello.setCellValueFactory(new PropertyValueFactory<>("appello"));
         session.setCellValueFactory(new PropertyValueFactory<>("session"));
-        gradableExamsTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        gradableExamsTable.getColumns().addAll(List.of(subjectCourse, date, appello, session));
-        gradableExamsTable.setOnMouseClicked(
+        examsTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        examsTable.getColumns().addAll(List.of(subjectCourse, date, appello, session));
+        examsTable.setOnMouseClicked(
                 mouseEvent -> {
-                    ExamBeanTableModel model = gradableExamsTable.getSelectionModel().getSelectedItem();
+                    ExamBeanTableModel model = examsTable.getSelectionModel().getSelectedItem();
                     selectedExam = getBeanFromModel(model);
                 }
         );
@@ -77,7 +77,8 @@ public class SelectGradableExamGraphicController implements Initializable {
                     examBean.getAppello(),
                     examBean.getSession()
             ));
-        gradableExamsTable.setItems(FXCollections.observableArrayList(models));
+        examsTable.getItems().clear();
+        examsTable.setItems(FXCollections.observableArrayList(models));
     }
 
     public ExamBean getSelectedExam() {

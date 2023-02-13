@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.TextField?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="it.uniroma2.dicii.ispw.gradely.use_cases.enroll_to_degree_course.graphic_controllers.TestReservationCodeGraphicController"
@@ -13,7 +14,7 @@
         <Region HBox.hgrow="ALWAYS"/>
         <VBox spacing="30" HBox.hgrow="NEVER" alignment="CENTER">
             <Label text="Your reservation code:" textAlignment="CENTER"/>
-            <Label fx:id="testReservationCodeLabel" styleClass="reservation-code"/>
+            <TextField fx:id="testReservationCodeLabel" styleClass="reservation-code"/>
         </VBox>
         <Region HBox.hgrow="ALWAYS"/>
     </HBox>

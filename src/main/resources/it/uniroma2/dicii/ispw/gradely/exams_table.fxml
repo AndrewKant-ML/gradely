@@ -5,10 +5,10 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             prefHeight="453.0" prefWidth="650.0"
-            fx:controller="it.uniroma2.dicii.ispw.gradely.use_cases.insert_students_grades.graphic_controllers.professor.SelectGradableExamGraphicController"
+            fx:controller="it.uniroma2.dicii.ispw.gradely.graphic_controllers_general.homepages.ExamsTableController"
             stylesheets="@styles/default.css, @styles/list-style.css" styleClass="background">
 
-    <TableView fx:id="gradableExamsTable" styleClass="list" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
+    <TableView fx:id="examsTable" styleClass="list" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
                AnchorPane.rightAnchor="0"
                AnchorPane.bottomAnchor="0">
         <TableColumn fx:id="subjectCourse" text="Subject course"/>

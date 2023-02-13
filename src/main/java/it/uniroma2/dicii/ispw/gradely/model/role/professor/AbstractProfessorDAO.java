@@ -1,7 +1,10 @@
 package it.uniroma2.dicii.ispw.gradely.model.role.professor;
 
+import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
+
+import java.util.List;
 
 public interface AbstractProfessorDAO {
 
@@ -17,4 +20,6 @@ public interface AbstractProfessorDAO {
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
     Professor getProfessorByUser(User user) throws DAOException, UserNotFoundException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue;
+
+    List<Professor> getProfessorsByDipartimento(DipartimentoEnum dipartimento, List<Professor> professors) throws UserNotFoundException, DAOException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException;
 }

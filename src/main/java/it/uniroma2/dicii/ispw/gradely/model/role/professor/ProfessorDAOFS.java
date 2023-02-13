@@ -1,7 +1,11 @@
 package it.uniroma2.dicii.ispw.gradely.model.role.professor;
 
+import it.uniroma2.dicii.ispw.gradely.enums.DipartimentoEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.DAOException;
 import it.uniroma2.dicii.ispw.gradely.model.user.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProfessorDAOFS implements AbstractProfessorDAO {
 
@@ -22,6 +26,11 @@ public class ProfessorDAOFS implements AbstractProfessorDAO {
     @Override
     public Professor getProfessorByUser(User user) {
         return null;
+    }
+
+    @Override
+    public List<Professor> getProfessorsByDipartimento(DipartimentoEnum dipartimento, List<Professor> professors) {
+        return new ArrayList<>();
     }
 
     public void insert(Professor professor) throws DAOException {

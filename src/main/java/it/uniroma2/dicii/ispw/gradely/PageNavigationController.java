@@ -59,6 +59,7 @@ public final class PageNavigationController {
             baseGraphicController.switchTo(
                     FXMLLoader.load(Objects.requireNonNull(PageNavigationController.class.getResource(pageName))));
         } catch (IOException e) {
+            e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.RESOURCE_LOADING_TITLE.message, UserErrorMessagesEnum.RESOURCE_LOADING_MSG.message, e);
         }
     }
