@@ -37,11 +37,6 @@ build/
 ### Mac OS ###
 .DS_Store
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 .github
 **/src/main/resources/.properties
-=======
->>>>>>> AC
-=======
->>>>>>> cd9940b (Modified gitignore)
+

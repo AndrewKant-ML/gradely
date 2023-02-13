@@ -59,7 +59,7 @@ public class ExamLazyFactory {
         }
     }
 
-    public Exam getExamById(UUID id) throws DAOException {
+    public Exam getExamById(UUID id) throws DAOException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         for(Exam e : factoryObjects){
             if(e.getId().equals(id)){
                 return e;

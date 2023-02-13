@@ -3,15 +3,18 @@ package it.uniroma2.dicii.ispw.gradely.model.exam;
 import it.uniroma2.dicii.ispw.gradely.enums.AppelloEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.RoomEnum;
 import it.uniroma2.dicii.ispw.gradely.enums.SessionEnum;
+import it.uniroma2.dicii.ispw.gradely.enums.SubjectCourseCodeEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.instances_management_abstracts.DAODBAbstract;
 import it.uniroma2.dicii.ispw.gradely.model.association_classes.exam_enrollment.ExamEnrollmentLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourse;
+import it.uniroma2.dicii.ispw.gradely.model.subject_course.SubjectCourseLazyFactory;
 
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.Year;
 import java.util.List;
 import java.util.UUID;
 
@@ -54,8 +57,13 @@ public class ExamDAODB extends DAODBAbstract<Exam> implements ExamDAOInterface {
     }
 
     @Override
-    public Exam getExamById(UUID id) {
-        return null;
+    public Exam getExamById(UUID id) throws UserNotFoundException, DAOException, PropertyException, WrongListQueryIdentifierValue, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
+        return getQuery(
+                "EXAM",
+                List.of("id"),
+                List.of(id.toString()),
+                null
+        );
     }
 
     @Override
@@ -84,7 +92,7 @@ public class ExamDAODB extends DAODBAbstract<Exam> implements ExamDAOInterface {
                 RoomEnum.getRoomByValue(rs.getInt("room")),
                 AppelloEnum.getAppelloByValue(rs.getInt(APPELLO)),
                 SessionEnum.getSessionByValue(rs.getInt(EX_SESSION)),
-                (SubjectCourse) objects.get(0),
+                objects != null ? (SubjectCourse) objects.get(0) : SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(SubjectCourseCodeEnum.getSubjectCourseCodeByValue(rs.getInt("sc_code")), rs.getString("sc_name"), rs.getInt("sc_cfu"), Year.of(rs.getDate("sc_aa").toLocalDate().getYear())),
                 rs.getBoolean("gradable"),
                 rs.getBoolean("verbalizable"),
                 verbaleDate,

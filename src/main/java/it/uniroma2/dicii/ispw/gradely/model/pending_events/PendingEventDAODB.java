@@ -54,7 +54,7 @@ public class PendingEventDAODB extends DAODBAbstract<PendingEvent> implements Pe
         return newList;
     }
 
-    private void auxiliaryGetBuilder(List<PendingEvent> pendingEvents) throws DAOException, PropertyException, ResourceNotFoundException {
+    private void auxiliaryGetBuilder(List<PendingEvent> pendingEvents) throws DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         for(PendingEvent p : pendingEvents){
             List<String> recipients = new ArrayList<>();
             String query = String.format("select recipient from PENDING_EVENT_RECIPIENT where pending_event = '%s'", p.id);

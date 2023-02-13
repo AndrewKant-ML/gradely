@@ -53,7 +53,7 @@ public class UserDAOFS implements UserDAOInterface {
                     return getUserByLine(line);
             }
             throw new UserNotFoundException(ExceptionMessagesEnum.USER_NOT_FOUND.message);
-        } catch (CsvException | UnrecognizedRoleException e) {
+        } catch (CsvException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }
@@ -67,7 +67,7 @@ public class UserDAOFS implements UserDAOInterface {
                     return getUserByLine(line);
             }
             throw new UserNotFoundException(ExceptionMessagesEnum.USER_NOT_FOUND.message);
-        } catch (CsvException | UnrecognizedRoleException e) {
+        } catch (CsvException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }

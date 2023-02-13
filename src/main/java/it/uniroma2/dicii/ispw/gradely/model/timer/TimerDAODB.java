@@ -39,7 +39,7 @@ public class TimerDAODB extends DAODBAbstract<AbstractTimer> implements TimerDAO
         auxiliaryGetBuilder(newList);
         return newList;
     }
-    private void auxiliaryGetBuilder(List<AbstractTimer> timers) throws DAOException, PropertyException, ResourceNotFoundException {
+    private void auxiliaryGetBuilder(List<AbstractTimer> timers) throws DAOException, PropertyException, ResourceNotFoundException, UserNotFoundException, WrongListQueryIdentifierValue, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         for(AbstractTimer t : timers){
 
             String query2 = String.format("select id from TIMER_OBJECT where timer_id = '%s'", t.id);
