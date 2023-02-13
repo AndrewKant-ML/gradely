@@ -31,9 +31,9 @@ public final class PageNavigationController {
         setUserData(userBean, sessionTokenKey);
         String viewName = "";
         switch (userBean.getRole()) {
-            case 0 -> viewName = "homepage_student";
-            case 1 -> viewName = "homepage_professor";
-            case 2 -> viewName = "homepage_secretary";
+            case 1 -> viewName = "homepage_student";
+            case 2 -> viewName = "homepage_professor";
+            case 3 -> viewName = "homepage_secretary";
             default ->
                     showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.ROLE_ERROR_TITLE.message, UserErrorMessagesEnum.ROLE_ERROR_MSG.message);
         }

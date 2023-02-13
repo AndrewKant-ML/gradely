@@ -1,16 +1,16 @@
 package it.uniroma2.dicii.ispw.gradely.enums;
 
 public enum SubjectCourseCodeEnum {
-    C01(10),
-    C02(1),
-    C03(2),
-    C04(3),
-    C05(4),
-    C06(5),
-    C07(6),
-    C08(7),
-    C09(8),
-    C10(9);
+    C01(1),
+    C02(2),
+    C03(3),
+    C04(4),
+    C05(5),
+    C06(6),
+    C07(7),
+    C08(8),
+    C09(9),
+    C10(10);
 
     public final int value;
 

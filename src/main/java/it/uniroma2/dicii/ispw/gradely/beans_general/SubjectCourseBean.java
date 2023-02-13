@@ -10,9 +10,10 @@ public class SubjectCourseBean {
     private Integer cfu;
     private Year academicYear;
 
-    public SubjectCourseBean(SubjectCourseCodeEnum code, String name, Year academicYear){
+    public SubjectCourseBean(SubjectCourseCodeEnum code, String name, Integer cfu, Year academicYear){
         this.code = code;
         this.name = name;
+        this.cfu = cfu;
         this.academicYear = academicYear;
     }
 

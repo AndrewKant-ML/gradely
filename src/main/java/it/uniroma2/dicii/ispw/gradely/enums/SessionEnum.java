@@ -1,9 +1,9 @@
 package it.uniroma2.dicii.ispw.gradely.enums;
 
 public enum SessionEnum {
-    INVERNALE(0),
-    ESTIVA(1),
-    AUTUNNALE(2);
+    INVERNALE(1),
+    ESTIVA(2),
+    AUTUNNALE(3);
 
     public final int value;
 

@@ -84,7 +84,6 @@ public class InsertStudentsGradesProfessorGraphicControl implements Initializabl
         if (selectedExam == null)
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.MISSING_VALUE_TITLE.message, UserErrorMessagesEnum.SELECT_AN_EXAM_MSG.message);
         else {
-            updateCurrentStage();
             try {
                 ExamEnrollmentListBean enrollments = facade.getExamEnrollments(PageNavigationController.getInstance().getSessionTokenKey(), selectedExam);
                 if (enrollments.getExamEnrollmentBeans().isEmpty()) // TBI send notification to segreteria if there are no enrollments
@@ -93,6 +92,8 @@ public class InsertStudentsGradesProfessorGraphicControl implements Initializabl
                     secondStageController.setEnrollments(enrollments);
                     backButton.setVisible(true);
                     nextButton.setText("Save");
+                    updateCurrentStage();
+                    secondStage.setVisible(true);
                 }
             } catch (MissingAuthorizationException e) {
                 PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.AUTHORIZATION_TITLE.message, UserErrorMessagesEnum.MISSING_AUTHORIZATION_MSG.message, e);

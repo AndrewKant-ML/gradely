@@ -68,8 +68,8 @@ public abstract class DAODBAbstract<T>{
      * @throws SQLException thrown if an error occurs with the DB
      */
     protected void setQueryQuestionMarksValue(PreparedStatement stmt, List<Object> values, Integer start) throws SQLException{
-        for(Object o : values)
-            stmt.setObject(values.indexOf(o)+start,o);
+        for(int i=0; i<values.size(); i++)
+            stmt.setObject(i+start,values.get(i));
     }
 
     /**

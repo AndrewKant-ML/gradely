@@ -1,10 +1,10 @@
 package it.uniroma2.dicii.ispw.gradely.enums;
 
 public enum DegreeCourseTypeEnum {
-    TRIENNALE(0),
-    MAGISTRALE(1),
-    MASTER(2),
-    DOTTORATO(3);
+    TRIENNALE(1),
+    MAGISTRALE(2),
+    MASTER(3),
+    DOTTORATO(4);
 
     public final int value;
 

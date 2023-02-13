@@ -11,7 +11,6 @@ import it.uniroma2.dicii.ispw.gradely.model.association_classes.subject_course_a
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.exam.Exam;
 import it.uniroma2.dicii.ispw.gradely.model.exam.ExamLazyFactory;
-import it.uniroma2.dicii.ispw.gradely.model.exam_result.ExamResult;
 import it.uniroma2.dicii.ispw.gradely.model.exam_result.ExamResultLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.pending_events.PendingEventLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.professor.Professor;
@@ -82,7 +81,7 @@ public class InsertStudentsGradesControl extends TimerObserver {
     private List<ExamBean> createExamBeanList(List<Exam> inList){
         List<ExamBean> outList = new ArrayList<>();
         for (Exam e : inList){
-            outList.add(new ExamBean(new SubjectCourseBean(e.getSubjectCourse().getCode(),e.getSubjectCourse().getName(),e.getSubjectCourse().getAcademicYear()),e.getAppello(),e.getSession(),e.getExaminationDate()));
+            outList.add(new ExamBean(new SubjectCourseBean(e.getSubjectCourse().getCode(),e.getSubjectCourse().getName(),e.getSubjectCourse().getCfu(),e.getSubjectCourse().getAcademicYear()),e.getAppello(),e.getSession(),e.getExaminationDate()));
         }
         return outList;
     }
@@ -105,7 +104,7 @@ public class InsertStudentsGradesControl extends TimerObserver {
         checkExamProfessor(exam, professor);
         List<ExamEnrollmentBean> list = new ArrayList<>();
         for (ExamEnrollment e : ExamEnrollmentLazyFactory.getInstance().getExamEnrollmentsByExam(exam)) {
-            list.add(new ExamEnrollmentBean(new StudentBean(e.getStudent().getCodiceFiscale()), new ExamBean(new SubjectCourseBean(e.getExam().getSubjectCourse().getCode(),e.getExam().getSubjectCourse().getName(),e.getExam().getSubjectCourse().getAcademicYear()),e.getExam().getAppello(),e.getExam().getSession(),e.getExam().getExaminationDate())));
+            list.add(new ExamEnrollmentBean(new StudentBean(e.getStudent().getCodiceFiscale(),e.getStudent().getMatricola(),new UserBean(e.getStudent().getUser().getName(),e.getStudent().getUser().getSurname(), e.getStudent().getUser().getCodiceFiscale(),e.getStudent().getUser().getEmail(),e.getStudent().getUser().getRole().getRoleEnumType(),e.getStudent().getMatricola())), new ExamBean(new SubjectCourseBean(e.getExam().getSubjectCourse().getCode(),e.getExam().getSubjectCourse().getName(),e.getExam().getSubjectCourse().getCfu(),e.getExam().getSubjectCourse().getAcademicYear()),e.getExam().getAppello(),e.getExam().getSession(),e.getExam().getExaminationDate())));
         }
         return new ExamEnrollmentListBean(list);
     }
@@ -122,7 +121,7 @@ public class InsertStudentsGradesControl extends TimerObserver {
      */
     private void checkExamProfessor(Exam exam, Professor professor) throws MissingAuthorizationException{
         Boolean check = false;
-        for (SubjectCourseAssignment c : exam.getSubjectCourse().getCourseAssignments()){
+        for (SubjectCourseAssignment c : exam.getSubjectCourse().getSubjeectCourseAssignments()){
             if (c.getProfessor().equals(professor)){
                 check = true;
                 break;
@@ -302,7 +301,7 @@ public class InsertStudentsGradesControl extends TimerObserver {
         for (ExamEnrollment e : exam.getEnrollments()){
             PendingEventLazyFactory.getInstance().createNewPendingEvent(List.of(e.getStudent().getCodiceFiscale()),PendingEventTypeEnum.EXAM_VERBALIZED, exam);
         }
-        for (SubjectCourseAssignment c : exam.getSubjectCourse().getCourseAssignments()){
+        for (SubjectCourseAssignment c : exam.getSubjectCourse().getSubjeectCourseAssignments()){
             PendingEventLazyFactory.getInstance().createNewPendingEvent(List.of(c.getProfessor().getCodiceFiscale()),PendingEventTypeEnum.EXAM_VERBALIZED, exam);
         }
     }

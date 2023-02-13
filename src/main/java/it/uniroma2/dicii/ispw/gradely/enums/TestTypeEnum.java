@@ -2,9 +2,9 @@ package it.uniroma2.dicii.ispw.gradely.enums;
 
 public enum TestTypeEnum {
 
-    ONLINE(0),
+    ONLINE(1),
 
-    MUR(1);
+    MUR(2);
 
     public final int value;
 

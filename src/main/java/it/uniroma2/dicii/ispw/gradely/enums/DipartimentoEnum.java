@@ -1,10 +1,10 @@
 package it.uniroma2.dicii.ispw.gradely.enums;
 
 public enum DipartimentoEnum {
-    DICII(0),
-    DIE(1),
-    DII(2),
-    DIIND(3);
+    DICII(1),
+    DIE(2),
+    DII(3),
+    DIIND(4);
 
     public final int value;
 

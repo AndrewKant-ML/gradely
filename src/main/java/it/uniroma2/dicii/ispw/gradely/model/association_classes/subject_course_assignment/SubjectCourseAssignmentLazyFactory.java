@@ -11,10 +11,10 @@ import java.util.List;
 
 public class SubjectCourseAssignmentLazyFactory {
     private static SubjectCourseAssignmentLazyFactory instance;
-    private final List<SubjectCourseAssignment> subjectCourseAssignments;
+    private final List<SubjectCourseAssignment> factoryObjects;
 
     private SubjectCourseAssignmentLazyFactory() {
-        subjectCourseAssignments = new ArrayList<SubjectCourseAssignment>();
+        factoryObjects = new ArrayList<SubjectCourseAssignment>();
     }
 
     public static synchronized SubjectCourseAssignmentLazyFactory getInstance() {
@@ -26,13 +26,15 @@ public class SubjectCourseAssignmentLazyFactory {
 
     public List<SubjectCourseAssignment> getCourseAssignmentsBySubjectCourse(SubjectCourse course) throws DAOException, UserNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         List<SubjectCourseAssignment> list = new ArrayList<>();
-        for (SubjectCourseAssignment c : subjectCourseAssignments) {
+        for (SubjectCourseAssignment c : factoryObjects) {
             if (c.getSubjectCourse().equals(course)) {
                 list.add(c);
             }
         }
         try {
-            list.addAll(DAOFactoryAbstract.getInstance().getCourseAssignmentDAO().getCourseAssignmentsBySubjectCourse(course,list));
+            List<SubjectCourseAssignment> daoList = DAOFactoryAbstract.getInstance().getCourseAssignmentDAO().getCourseAssignmentsBySubjectCourse(course,list);
+            factoryObjects.addAll(daoList);
+            list.addAll(daoList);
             return list;
         } catch (ResourceNotFoundException | PropertyException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
@@ -41,14 +43,14 @@ public class SubjectCourseAssignmentLazyFactory {
 
     public List<SubjectCourseAssignment> getCourseAssignmentsByProfessor(Professor professor) throws DAOException, UserNotFoundException, ObjectNotFoundException, UnrecognizedRoleException, MissingAuthorizationException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         List<SubjectCourseAssignment> list = new ArrayList<>();
-        for (SubjectCourseAssignment c : subjectCourseAssignments) {
+        for (SubjectCourseAssignment c : factoryObjects) {
             if (c.getProfessor().equals(professor)) {
                 list.add(c);
             }
         }
         try {
             List<SubjectCourseAssignment> daoList = DAOFactoryAbstract.getInstance().getCourseAssignmentDAO().getCourseAssignmentsByProfessor(professor,list);
-            subjectCourseAssignments.addAll(daoList);
+            factoryObjects.addAll(daoList);
             list.addAll(daoList);
         } catch (PropertyException | ResourceNotFoundException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);

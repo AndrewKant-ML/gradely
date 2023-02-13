@@ -8,31 +8,31 @@ import javafx.scene.control.ChoiceBox;
 
 public class ExamResultBeanTableModel {
 
-    private final SimpleStringProperty studentNameProperty;
-    private final SimpleStringProperty studentMatricolaProperty;
-    private final SimpleObjectProperty<ChoiceBox<ResultEnum>> resultProperty;
-    private final SimpleIntegerProperty gradeProperty;
+    private final SimpleStringProperty studentName;
+    private final SimpleStringProperty studentMatricola;
+    private final SimpleObjectProperty<ChoiceBox<ResultEnum>> result;
+    private final SimpleIntegerProperty grade;
 
-    public ExamResultBeanTableModel(String studentNameProperty, String studentMatricolaProperty, ChoiceBox<ResultEnum> resultProperty) {
-        this.studentNameProperty = new SimpleStringProperty(studentNameProperty);
-        this.studentMatricolaProperty = new SimpleStringProperty(studentMatricolaProperty);
-        this.resultProperty = new SimpleObjectProperty<>(resultProperty);
-        this.gradeProperty = new SimpleIntegerProperty(0);
+    public ExamResultBeanTableModel(String studentName, String studentMatricola, ChoiceBox<ResultEnum> result) {
+        this.studentName = new SimpleStringProperty(studentName);
+        this.studentMatricola = new SimpleStringProperty(studentMatricola);
+        this.result = new SimpleObjectProperty<>(result);
+        this.grade = new SimpleIntegerProperty(0);
     }
 
-    public String getStudentNameProperty() {
-        return this.studentNameProperty.get();
+    public String getStudentName() {
+        return this.studentName.get();
     }
 
-    public String getStudentMatricolaProperty() {
-        return this.studentMatricolaProperty.get();
+    public String getStudentMatricola() {
+        return this.studentMatricola.get();
     }
 
-    public ChoiceBox<ResultEnum> getResultProperty() {
-        return this.resultProperty.get();
+    public ChoiceBox<ResultEnum> getResult() {
+        return this.result.get();
     }
 
-    public Integer getGradeProperty() {
-        return this.gradeProperty.get();
+    public Integer getGrade() {
+        return this.grade.get();
     }
 }

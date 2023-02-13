@@ -4,11 +4,11 @@ import it.uniroma2.dicii.ispw.gradely.exceptions.UnrecognizedRoleException;
 
 public enum UserRoleEnum {
 
-    STUDENT(0),
+    STUDENT(1),
 
-    PROFESSOR(1),
+    PROFESSOR(2),
 
-    SECRETARY(2);
+    SECRETARY(3);
 
     public final int type;
 

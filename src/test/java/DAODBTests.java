@@ -36,7 +36,7 @@ class DAODBTests {
         assertEquals(subjectCourse.getName(), name);
         assertEquals(subjectCourse.getCode(), code);
         assertEquals(subjectCourse.getCfu(), cfu);
-            assertEquals(subjectCourse.getAcademicYear(), academicYear);
+        assertEquals(subjectCourse.getAcademicYear(), academicYear);
     }
 
     @Test

@@ -86,10 +86,13 @@ public class SubjectCourseAssignmentDAODB extends DAODBAbstract<SubjectCourseAss
 
     @Override
     protected SubjectCourseAssignment queryObjectBuilder(ResultSet rs, List<Object> objects) throws SQLException, DAOException, PropertyException, ResourceNotFoundException, UnrecognizedRoleException, UserNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, ObjectNotFoundException, WrongListQueryIdentifierValue {
-        return new SubjectCourseAssignment(
-                SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(SubjectCourseCodeEnum.getSubjectCourseCodeByValue(rs.getInt(SC_CODE)),rs.getString(SC_NAME),rs.getInt(SC_CFU),Year.of(rs.getDate(SC_AA).toLocalDate().getYear())),
+        SubjectCourse subjectCourse = SubjectCourseLazyFactory.getInstance().getSubjectCourseByCodeNameCfuAndAcademicYear(SubjectCourseCodeEnum.getSubjectCourseCodeByValue(rs.getInt(SC_CODE)),rs.getString(SC_NAME),rs.getInt(SC_CFU),Year.of(rs.getDate(SC_AA).toLocalDate().getYear()));
+        SubjectCourseAssignment subjectCourseAssignment = new SubjectCourseAssignment(
+                 subjectCourse,
                 (Professor) objects.get(0)
         );
+        subjectCourse.addSubjectCourseAssignment(List.of(subjectCourseAssignment));
+        return subjectCourseAssignment;
     }
 
     @Override

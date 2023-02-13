@@ -29,7 +29,7 @@ public class InsertResultsAndGradesGraphicController implements Initializable {
     @FXML
     public TableColumn<ExamResultBeanTableModel, ChoiceBox<ResultEnum>> result;
     @FXML
-    public TableColumn<ExamResultBeanTableModel, String> grade;
+    public TableColumn<ExamResultBeanTableModel, Integer> grade;
     private List<ExamEnrollmentBean> enrollmentBeans = new ArrayList<>();
 
     @Override
@@ -38,6 +38,7 @@ public class InsertResultsAndGradesGraphicController implements Initializable {
         this.studentMatricola.setCellValueFactory(new PropertyValueFactory<>("studentMatricola"));
         this.result.setCellValueFactory(new PropertyValueFactory<>("result"));
         this.grade.setCellValueFactory(new PropertyValueFactory<>("grade"));
+        this.enrollmentsTable.getColumns().addAll(studentName,studentMatricola,result,grade);
     }
 
     private ChoiceBox<ResultEnum> buildChoiceBox() {
@@ -75,12 +76,12 @@ public class InsertResultsAndGradesGraphicController implements Initializable {
         List<StudentGradeBean> gradeBeans = new ArrayList<>();
         for (ExamEnrollmentBean enrollmentBean : this.enrollmentBeans)
             for (ExamResultBeanTableModel item : enrollmentsTable.getItems())
-                if (enrollmentBean.getStudentMatricola().equals(item.getStudentMatricolaProperty()))
+                if (enrollmentBean.getStudentMatricola().equals(item.getStudentMatricola()))
                     gradeBeans.add(new StudentGradeBean(
                             enrollmentBean,
                             new ExamResultBean(
-                                    item.getGradeProperty(),
-                                    item.getResultProperty().getValue(),
+                                    item.getGrade(),
+                                    item.getResult().getValue(),
                                     false
                             )
                     ));

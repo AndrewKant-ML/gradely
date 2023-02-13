@@ -108,16 +108,29 @@ public class ExamEnrollmentDAODB extends DAODBAbstract<ExamEnrollment> implement
                             SessionEnum.getSessionByValue(rs.getInt(EXAM_SESSION))
                     )
             );
-        else
-            return new ExamEnrollment(
+        else{
+            ExamEnrollment e = new ExamEnrollment(
                     rs.getDate(ENROLLMENT_DATE).toLocalDate(),
                     StudentLazyFactory.getInstance().getStudentByUser(UserLazyFactory.getInstance().getUserByCodiceFiscale(rs.getString(STUDENT))),
                     (Exam) objects.get(0)
             );
+            e.getStudent().getExamEnrollments().add(e);
+            return e;
+        }
+
     }
 
     @Override
     protected String setGetListQueryIdentifiersValue(ExamEnrollment examEnrollment, int valueNumber) throws DAOException, WrongListQueryIdentifierValue {
-        return null;
+        switch (valueNumber){
+            case 0 -> {return String.valueOf(examEnrollment.getExam().getSession().value);}
+            case 1 -> {return String.valueOf(examEnrollment.getExam().getAppello().value);}
+            case 2 -> {return String.valueOf(examEnrollment.getExam().getSubjectCourse().getCode().value);}
+            case 3 -> {return examEnrollment.getExam().getSubjectCourse().getName();}
+            case 4 -> {return String.valueOf(examEnrollment.getExam().getSubjectCourse().getCfu());}
+            case 5 -> {return examEnrollment.getExam().getSubjectCourse().getAcademicYear().atDay(1).toString();}
+            default -> {return "";}
+        }
     }
+
 }
