@@ -41,7 +41,10 @@ public class SelectGradableExamGraphicController implements Initializable {
         gradableExamsTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         gradableExamsTable.getColumns().addAll(List.of(subjectCourse, date, appello, session));
         gradableExamsTable.setOnMouseClicked(
-                mouseEvent -> selectedExam = getBeanFromModel(gradableExamsTable.getSelectionModel().getSelectedItem())
+                mouseEvent -> {
+                    ExamBeanTableModel model = gradableExamsTable.getSelectionModel().getSelectedItem();
+                    selectedExam = getBeanFromModel(model);
+                }
         );
     }
 

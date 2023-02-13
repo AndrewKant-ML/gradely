@@ -1,6 +1,7 @@
 package it.uniroma2.dicii.ispw.gradely.model.test;
 
 import it.uniroma2.dicii.ispw.gradely.dao_manager.DAOFactoryAbstract;
+import it.uniroma2.dicii.ispw.gradely.enums.ExceptionMessagesEnum;
 import it.uniroma2.dicii.ispw.gradely.exceptions.*;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 
@@ -27,9 +28,19 @@ public class TestLazyFactory {
     }
 
     public Test saveTestData(DegreeCourse degreeCourse, UUID id, LocalDate testDate, URL testReservationLink, LocalDate resultsDate, URL infoLink, String place) throws PropertyException, ResourceNotFoundException, DAOException {
+        // Checks if the test is already loaded
         for (Test test : tests)
             if (test.getId().equals(id))
                 return test;
+        // Check if the test is already saved into the persistence layer
+        Test test;
+        try {
+            test = DAOFactoryAbstract.getInstance().getTestDAO().getTestById(id.toString());
+        } catch (ObjectNotFoundException | WrongDegreeCourseCodeException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
+        if (test != null)
+            return test;
         Test newTest = new Test(
                 degreeCourse, id, testDate, testReservationLink, resultsDate, infoLink, place
         );

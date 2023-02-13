@@ -42,23 +42,26 @@ public class TestDAODB extends DAODBAbstract<Test> implements TestDAOAbstract {
      * @throws ResourceNotFoundException thrown if the properties resource file cannot be found
      */
     private Test querySingleTestData(String query) throws DAOException, PropertyException, ResourceNotFoundException, ObjectNotFoundException, WrongDegreeCourseCodeException {
+        Connection connection;
         try {
-            Connection connection = DBConnection.getInstance().getConnection();
-            try (PreparedStatement stmt = connection.prepareStatement(query);
-                 ResultSet rs = stmt.executeQuery()) {
-                if (rs.first()) {
-                    return new Test(
-                            DegreeCourseLazyFactory.getInstance().getDegreeCourseByName(rs.getString("degree_course_name")),
-                            UUID.fromString(rs.getString("id")),
-                            rs.getDate("test_date").toLocalDate(),
-                            new URL(rs.getString("reservation_link")),
-                            rs.getDate("result_date").toLocalDate(),
-                            new URL(rs.getString("info_link")),
-                            rs.getString("place")
-                    );
-                } else
-                    throw new ObjectNotFoundException(ExceptionMessagesEnum.OBJ_NOT_FOUND.message);
-            }
+            connection = DBConnection.getInstance().getConnection();
+        } catch (SQLException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
+        try (PreparedStatement stmt = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+             ResultSet rs = stmt.executeQuery()) {
+            if (rs.first()) {
+                return new Test(
+                        DegreeCourseLazyFactory.getInstance().getDegreeCourseByName(rs.getString("degree_course_name")),
+                        UUID.fromString(rs.getString("id")),
+                        rs.getDate("test_date").toLocalDate(),
+                        new URL(rs.getString("reservation_link")),
+                        rs.getDate("result_date").toLocalDate(),
+                        new URL(rs.getString("info_link")),
+                        rs.getString("place")
+                );
+            } else
+                throw new ObjectNotFoundException(ExceptionMessagesEnum.OBJ_NOT_FOUND.message);
         } catch (SQLException | IOException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
@@ -88,9 +91,8 @@ public class TestDAODB extends DAODBAbstract<Test> implements TestDAOAbstract {
 
     @Override
     public Test getTestById(String id) throws PropertyException, ResourceNotFoundException, DAOException, ObjectNotFoundException, WrongDegreeCourseCodeException {
-        String query = "select id, test_date, result_date, reservation_link, info_link, place, degree_course_name from TEST T where T.id='%s';";
-        query = String.format(query, id);
-        return querySingleTestData(query);
+        String query = "select * from TEST T where T.id='%s';";
+        return querySingleTestData(String.format(query, id));
     }
 
     @Override
