@@ -24,7 +24,7 @@ public class InsertStudentsGradesProfessorFacade {
         return controller.getExamEnrollments(tokenKey, bean);
     }
 
-    public void saveExamResults(String tokenKey, StudentGradeListBean list) throws MissingAuthorizationException, DAOException, UserNotFoundException, PropertyException, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue, WrongTimerTypeException {
+    public void saveExamResults(String tokenKey, StudentGradeListBean list) throws MissingAuthorizationException, DAOException, UserNotFoundException, PropertyException, ObjectNotFoundException, ResourceNotFoundException, UnrecognizedRoleException, WrongDegreeCourseCodeException, WrongListQueryIdentifierValue {
         controller.saveExamResults(tokenKey, list);
     }
 

@@ -8,7 +8,6 @@ import it.uniroma2.dicii.ispw.gradely.model.association_classes.test_reservation
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourse;
 import it.uniroma2.dicii.ispw.gradely.model.degree_course.DegreeCourseLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.role.student.Student;
-import it.uniroma2.dicii.ispw.gradely.model.test.Test;
 import it.uniroma2.dicii.ispw.gradely.model.test.TestLazyFactory;
 import it.uniroma2.dicii.ispw.gradely.model.timer.AbstractTimer;
 import it.uniroma2.dicii.ispw.gradely.model.timer.TimerObserver;

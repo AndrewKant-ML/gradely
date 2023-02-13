@@ -21,7 +21,7 @@ public class EnrollToDegreeCourseStudentFacade {
         return controller.getJoinableDegreeCourses(tokenKey);
     }
 
-    public TestInfoBean getTestInfo(String tokenKey, DegreeCourseBean degreeCourseBean) throws TestRetrivialException, MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException, WrongDegreeCourseCodeException, UserNotFoundException, WrongTimerTypeException, WrongListQueryIdentifierValue, UnrecognizedRoleException {
+    public TestInfoBean getTestInfo(String tokenKey, DegreeCourseBean degreeCourseBean) throws TestRetrivialException, MissingAuthorizationException, DAOException, PropertyException, ResourceNotFoundException, WrongDegreeCourseCodeException {
         SessionManager.getInstance().getSessionUserByTokenKey(tokenKey).getRole().getStudentRole();
         return controller.getTestInfo(tokenKey, degreeCourseBean);
     }
