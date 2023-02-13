@@ -137,7 +137,7 @@ public final class PageNavigationController {
      */
     public void showAlert(Alert.AlertType alertType, String title, String message, Exception e) {
         GeneralLogger.logSevere(e.getMessage());
-        e.printStackTrace();
+        //e.printStackTrace();
         showAlert(alertType, title, message);
     }
 }
