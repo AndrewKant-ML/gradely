@@ -13,6 +13,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
+import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -40,9 +41,10 @@ public class VerbalizeExamGraphicController implements Initializable {
         if (selectedExam == null)
             PageNavigationController.getInstance().showAlert(Alert.AlertType.ERROR, UserErrorMessagesEnum.MISSING_VALUE_TITLE.message, UserErrorMessagesEnum.SELECT_AN_EXAM_MSG.message);
         else {
+            SecureRandom random = new SecureRandom();
             ProtocolBean protocolBean = new ProtocolBean(
                     selectedExam,
-                    (int) (Math.random() * 10000000),
+                    random.nextInt(),
                     LocalDate.now()
             );
             try {
