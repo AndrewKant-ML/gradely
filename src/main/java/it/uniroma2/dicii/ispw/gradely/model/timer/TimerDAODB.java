@@ -51,12 +51,10 @@ public class TimerDAODB extends DAODBAbstract<AbstractTimer> implements TimerDAO
                         t.castToExamConfirmationTimer();
                         t.setObject(ExamLazyFactory.getInstance().getExamById(UUID.fromString(rs.getString("id"))));
                     } catch (WrongTimerTypeException e) {
-                        try {
-                            t.castToTestResultTimer();
-                        } catch (WrongTimerTypeException ex) {
-                            throw new RuntimeException(ex);
-                        }
-
+                    }
+                    try {
+                        t.castToTestResultTimer();
+                    } catch (WrongTimerTypeException ex) {
                     }
 
                 }
