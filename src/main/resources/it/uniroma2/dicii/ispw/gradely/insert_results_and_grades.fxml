@@ -10,8 +10,8 @@
     <TableView fx:id="enrollmentsTable" styleClass="list" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
                AnchorPane.rightAnchor="0"
                AnchorPane.bottomAnchor="0">
-        <TableColumn fx:id="studentName" text="Student"/>
-        <TableColumn fx:id="studentMatricola" text="Matricola"/>
+        <TableColumn fx:id="studentName" text="Student" editable="false"/>
+        <TableColumn fx:id="studentMatricola" text="Matricola" editable="false"/>
         <TableColumn fx:id="result" text="result"/>
         <TableColumn fx:id="grade" text="grade"/>
     </TableView>

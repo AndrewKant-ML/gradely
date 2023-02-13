@@ -39,8 +39,8 @@ public class SelectGradableExamGraphicController implements Initializable {
         date.setCellValueFactory(new PropertyValueFactory<>("date"));
         appello.setCellValueFactory(new PropertyValueFactory<>("appello"));
         session.setCellValueFactory(new PropertyValueFactory<>("session"));
-        gradableExamsTable.getColumns().addAll(List.of(subjectCourse, date, appello, session));
         gradableExamsTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        gradableExamsTable.getColumns().addAll(List.of(subjectCourse, date, appello, session));
         gradableExamsTable.setOnMouseClicked(
                 mouseEvent -> selectedExam = getBeanFromModel(gradableExamsTable.getSelectionModel().getSelectedItem())
         );

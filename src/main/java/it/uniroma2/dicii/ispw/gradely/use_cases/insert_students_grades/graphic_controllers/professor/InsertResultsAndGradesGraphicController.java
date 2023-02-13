@@ -10,9 +10,12 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.StringConverter;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -38,7 +41,20 @@ public class InsertResultsAndGradesGraphicController implements Initializable {
         this.studentMatricola.setCellValueFactory(new PropertyValueFactory<>("studentMatricola"));
         this.result.setCellValueFactory(new PropertyValueFactory<>("result"));
         this.grade.setCellValueFactory(new PropertyValueFactory<>("grade"));
-        this.enrollmentsTable.getColumns().addAll(studentName,studentMatricola,result,grade);
+        this.grade.setCellFactory(CustomCell.forTableColumn(new StringConverter<Integer>() {
+            @Override
+            public String toString(Integer integer) {
+                return String.valueOf(integer);
+            }
+
+            @Override
+            public Integer fromString(String s) {
+                return Integer.parseInt(s);
+            }
+        }));
+        this.grade.setEditable(true);
+        this.enrollmentsTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        this.enrollmentsTable.setEditable(true);
     }
 
     private ChoiceBox<ResultEnum> buildChoiceBox() {
@@ -63,6 +79,9 @@ public class InsertResultsAndGradesGraphicController implements Initializable {
                     buildChoiceBox()
             ));
         }
+        enrollmentsTable.getColumns().clear();
+        enrollmentsTable.getColumns().addAll(List.of(studentName, studentMatricola, result, grade));
+        enrollmentsTable.getItems().clear();
         enrollmentsTable.setItems(FXCollections.observableArrayList(resultBeanTableModels));
     }
 
@@ -86,5 +105,21 @@ public class InsertResultsAndGradesGraphicController implements Initializable {
                             )
                     ));
         return gradeBeans;
+    }
+
+    private static class CustomCell extends TextFieldTableCell<ExamResultBeanTableModel, Integer> {
+
+        @Override
+        public void updateItem(Integer item, boolean empty) {
+
+            super.updateItem(item, empty);
+
+            if (item == null || empty) {
+                setText(null);
+                return;
+            }
+
+        }
+
     }
 }
