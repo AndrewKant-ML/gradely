@@ -125,7 +125,7 @@ public class PendingEventDAODB extends DAODBAbstract<PendingEvent> implements Pe
 
     @Override
     public void update(PendingEvent pendingEvent){
-        System.out.println("Updated");
+        //tbi
     }
 
     @Override

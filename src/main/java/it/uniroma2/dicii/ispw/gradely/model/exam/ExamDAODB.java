@@ -70,7 +70,7 @@ public class ExamDAODB extends DAODBAbstract<Exam> implements ExamDAOInterface {
 
     @Override
     public void update(Exam exam){
-        System.out.println("Updated");
+        //tbi
     }
 
     @Override

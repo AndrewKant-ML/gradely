@@ -26,7 +26,7 @@ public class SubjectCourseEnrollmentDAODB extends DAODBAbstract<SubjectCourseEnr
 
     @Override
     public List<SubjectCourseEnrollment> getSubjectCourseEnrollmentsBySubjectCourse(SubjectCourse course){
-        return null;
+        return new ArrayList<>();
     }
 
     @Override

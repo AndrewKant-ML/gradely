@@ -33,7 +33,7 @@ public class UserDAOFS implements UserDAOInterface {
      * @param line the csv file line
      * @return a User instance
      */
-    private User getUserByLine(List<String> line) throws UnrecognizedRoleException {
+    private User getUserByLine(List<String> line) {
         // Set user role by RoleEnum
         return new User(
                 line.get(1),

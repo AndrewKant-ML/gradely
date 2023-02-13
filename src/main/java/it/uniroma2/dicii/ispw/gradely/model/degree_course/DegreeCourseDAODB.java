@@ -68,15 +68,19 @@ public class DegreeCourseDAODB extends DAODBAbstract<DegreeCourse> implements De
         List<DegreeCourse> degreeCourses = new ArrayList<>();
         try {
             Connection connection = DBConnection.getInstance().getConnection();
-            try (PreparedStatement stmt = connection.prepareStatement(query);
-                 ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    degreeCourses.add(parseResultSet(rs));
-                }
-                return degreeCourses;
-            } catch (SQLException e) {
-                throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+            return subQuery(connection,query,degreeCourses);
+        } catch (SQLException e) {
+            throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
+        }
+    }
+
+    private List<DegreeCourse> subQuery(Connection connection, String query, List<DegreeCourse> degreeCourses) throws DAOException, PropertyException, ResourceNotFoundException, WrongDegreeCourseCodeException {
+        try (PreparedStatement stmt = connection.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                degreeCourses.add(parseResultSet(rs));
             }
+            return degreeCourses;
         } catch (SQLException e) {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
