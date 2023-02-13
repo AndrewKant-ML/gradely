@@ -19,7 +19,7 @@ public class EnrollToDegreeCourseCLIGraphicController {
     private final Logger logger = Logger.getLogger(EnrollToDegreeCourseCLIGraphicController.class.getName());
     private final Scanner scanner = new Scanner(System.in);
     private EnrollToDegreeCourseStudentFacade facade;
-    private String tokenKey; // TBI ?
+    private String tokenKey; // TBI
 
     private DegreeCourseBean selectedCourse;
 
@@ -38,8 +38,7 @@ public class EnrollToDegreeCourseCLIGraphicController {
             confirmAnagraphicalData();
             showTestInfo();
         } catch (DAOException | MissingAuthorizationException | TestRetrivialException | PropertyException |
-                 ResourceNotFoundException | WrongDegreeCourseCodeException | UserNotFoundException |
-                 WrongTimerTypeException | WrongListQueryIdentifierValue | UnrecognizedRoleException e) {
+                 ResourceNotFoundException | WrongDegreeCourseCodeException e) {
             GeneralLogger.logSevere(e.getMessage());
         }
     }
@@ -85,7 +84,7 @@ public class EnrollToDegreeCourseCLIGraphicController {
         return -1;
     }
 
-    private void showTestInfo() throws DAOException, TestRetrivialException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException, UserNotFoundException, WrongTimerTypeException, WrongListQueryIdentifierValue, UnrecognizedRoleException {
+    private void showTestInfo() throws DAOException, TestRetrivialException, PropertyException, ResourceNotFoundException, MissingAuthorizationException, WrongDegreeCourseCodeException {
         TestInfoBean testInfo = facade.getTestInfo(tokenKey, selectedCourse);
         String courseName = String.format("Degree course: %s%n", selectedCourse.getName());
         String testId = String.format("Test ID: %s%n", testInfo.getId());
