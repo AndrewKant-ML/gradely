@@ -31,8 +31,8 @@ class TestExamLazyFactory {
         List<Exam> list = TestGetExamsBySubjectCourse.getExamsBySubjectCourse(course);
         assertNotNull(list.get(0));
         assertEquals(list.get(0).getSubjectCourse().getCode().value,SubjectCourseCodeEnum.C01.value);
-        assertEquals(list.get(0).getSubjectCourse().getName(),"ISPW");
-        assertEquals(list.get(0).getSubjectCourse().getCfu(),12);
+        assertEquals("ISPW",list.get(0).getSubjectCourse().getName());
+        assertEquals(12,list.get(0).getSubjectCourse().getCfu());
         assertEquals(list.get(0).getSubjectCourse().getAcademicYear(),Year.of(2022));
     }
 
@@ -53,7 +53,7 @@ class TestExamLazyFactory {
         assertNotNull(exam);
         assertEquals(exam.getAppello().value,AppelloEnum.A2.value);
         assertEquals(exam.getSubjectCourse(),course);
-        assertEquals(exam.getSession(),SessionEnum.INVERNALE);
+        assertEquals(SessionEnum.INVERNALE,exam.getSession());
     }
 
     @Test
@@ -63,6 +63,5 @@ class TestExamLazyFactory {
         Exam exam = TestGetExamById.getExamById(id);
         assertNotNull(exam);
         assertEquals(exam.getId().toString(),id.toString());
-        System.out.println();
     }
 }
