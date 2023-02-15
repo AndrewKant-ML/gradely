@@ -26,6 +26,7 @@ public class EnrollToDegreeCourseController extends TimerObserver {
 
     private final Logger logger = Logger.getLogger(EnrollToDegreeCourseController.class.getName());
 
+    int a;
     public EnrollToDegreeCourseController() {
         super();
     }
