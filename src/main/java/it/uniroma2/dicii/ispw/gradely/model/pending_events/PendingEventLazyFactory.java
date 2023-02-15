@@ -63,4 +63,5 @@ public class PendingEventLazyFactory {
             throw new DAOException(ExceptionMessagesEnum.DAO.message, e);
         }
     }
+
 }

@@ -114,6 +114,7 @@ public class InsertStudentsGradesControl extends TimerObserver {
         checkExamProfessor(exam, professor);
         List<ExamEnrollmentBean> list = new ArrayList<>();
         for (ExamEnrollment e : ExamEnrollmentLazyFactory.getInstance().getExamEnrollmentsByExam(exam)) {
+            if(e.getExamResult()==null)
             list.add(new ExamEnrollmentBean(new StudentBean(e.getStudent().getCodiceFiscale(), e.getStudent().getMatricola(), new UserBean(e.getStudent().getUser().getName(), e.getStudent().getUser().getSurname(), e.getStudent().getUser().getCodiceFiscale(), e.getStudent().getUser().getEmail(), e.getStudent().getUser().getRole().getRoleEnumType(), e.getStudent().getMatricola())), new ExamBean(new SubjectCourseBean(e.getExam().getSubjectCourse().getCode(), e.getExam().getSubjectCourse().getName(), e.getExam().getSubjectCourse().getCfu(), e.getExam().getSubjectCourse().getAcademicYear()), e.getExam().getAppello(), e.getExam().getSession(), e.getExam().getExaminationDate())));
         }
         return new ExamEnrollmentListBean(list);
@@ -198,8 +199,8 @@ public class InsertStudentsGradesControl extends TimerObserver {
         checkExamProfessor(exam, professor);
         for (StudentGradeBean g : list.getGrades()) {
             saveExamResult(g);
-            PendingEventLazyFactory.getInstance().createNewPendingEvent(List.of(g.getEnrollmentBean().getStudent().getCodiceFiscale()),PendingEventTypeEnum.GRADE_CONFIRMATION_PENDING,g.getEnrollmentBean().getExam());
         }
+        exam.setGradable(false);
     }
 
     /**
