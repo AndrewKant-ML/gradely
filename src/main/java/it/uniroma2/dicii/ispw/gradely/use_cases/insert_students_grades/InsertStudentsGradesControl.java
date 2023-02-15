@@ -198,6 +198,7 @@ public class InsertStudentsGradesControl extends TimerObserver {
         checkExamProfessor(exam, professor);
         for (StudentGradeBean g : list.getGrades()) {
             saveExamResult(g);
+            PendingEventLazyFactory.getInstance().createNewPendingEvent(List.of(g.getEnrollmentBean().getStudent().getCodiceFiscale()),PendingEventTypeEnum.GRADE_CONFIRMATION_PENDING,g.getEnrollmentBean().getExam());
         }
     }
 
